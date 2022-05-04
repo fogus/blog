@@ -1,6 +1,6 @@
 Great things and people that I discovered, learned, read, met, etc. in 2021.  No particular ordering is implied.  Not everything is new.
 
-*also: see the lists from [2020](http://blog.fogus.me/2020/12/31/the-best-things-and-stuff-of-2020.md), [2019](/2019/12/30/the-best-things-and-stuff-of-2019.md), [2018](2019/01/02/the-best-things-and-stuff-of-2018.md), [2017](/2018/01/02/the-best-things-and-stuff-of-2017.md), [2016](/2016/12/29/the-best-things-and-stuff-of-2016.md), [2015](/2015/12/29/the-best-things-and-stuff-of-2015.md), [2014](/2014/12/29/the-best-things-and-stuff-of-2014.md), [2013](/2013/12/27/the-best-things-and-stuff-of-2013.md), [2012](/2012/12/26/the-best-things-and-stuff-of-2012.md), [2011](/2011/12/31/the-best-things-and-stuff-of-2011.md) and [2010](/2010/12/30/the-best-things-in-2010.md)*
+*also: see the lists from [2020](/2020/12/31/the-best-things-and-stuff-of-2020.md), [2019](/2019/12/30/the-best-things-and-stuff-of-2019.md), [2018](2019/01/02/the-best-things-and-stuff-of-2018.md), [2017](/2018/01/02/the-best-things-and-stuff-of-2017.md), [2016](/2016/12/29/the-best-things-and-stuff-of-2016.md), [2015](/2015/12/29/the-best-things-and-stuff-of-2015.md), [2014](/2014/12/29/the-best-things-and-stuff-of-2014.md), [2013](/2013/12/27/the-best-things-and-stuff-of-2013.md), [2012](/2012/12/26/the-best-things-and-stuff-of-2012.md), [2011](/2011/12/31/the-best-things-and-stuff-of-2011.md) and [2010](/2010/12/30/the-best-things-in-2010.md)*
 
 ## Great posts | articles | talks read/watched
 
