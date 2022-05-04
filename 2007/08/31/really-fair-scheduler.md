@@ -1,0 +1,3 @@
+<em>The basic idea of this scheduler is somewhat different than CFS. Where the old scheduler maintains fixed time slices, CFS still maintains a dynamic per task time slice. This model does away with it completely, instead it puts the task on a virtual (normalized) time line, where only the relative distance between any two task is relevant.</em><br/>
+<a href="http://kerneltrap.org/Linux/The_Really_Fair_Scheduler">Clickey</a><br/>
+-m

@@ -1,0 +1,5 @@
+<a href="http://www.anandtech.com/mac/showdoc.aspx?i=2328&amp;p=1">AnandTech: Apple's Mac mini - Tempting PC Users Everywhere</a>: "Look at any of the successful PC manufacturers, Dell, HP, Gateway and none of them have attempted to make the entry level PC an enticing item for the intended market.  What draws users to these ultra cheap PCs is their price point and the idea that they need a computer.  With the Mac mini, Apple took a much different approach - attract users because of style (and size) and the idea that they need a computer, and remain competitive with price. 
+<br />
+<br />Priced at $499, there's no question that the Mac mini is price competitive with entry-level PCs.  Barely larger than a DVD drive, the Mac mini is basically a repackaged Apple notebook - minus the display and input devices."
+<br />-m
+<br />

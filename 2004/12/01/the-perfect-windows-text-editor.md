@@ -1,0 +1,3 @@
+There was a time when I truly considered writing my own text editor for use on Windows (I actually hacked a simple Java-based editor together in the past, but it was weak).  Both Emacs and Vim are nice, but the Win versions left much to be desired.  Likewise, Wordpad and Notepad just plain blew.  While talking with a coworker about my dismay, he pointed me to a nice little Windows-only editor named <a href="http://www.textpad.com/">Textpad </a>that I think is quite awesome.  There is a free version on the website that it fully capable forever (nag-screen at startup), but I think that this may turn out to be the <a href="http://blog.fogus.me/2004/11/19/331/">2nd piece of shareware that I have ever purchased</a>.
+<br />-m
+<br />

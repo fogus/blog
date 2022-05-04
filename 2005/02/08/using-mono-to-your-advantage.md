@@ -1,0 +1,5 @@
+<a href="http://www.codeproject.com/cpnet/introtomono1.asp">When Microsoft unleashed .NET onto the world they were nice enough to hand the Common Language Infrastructure (CLI), along with the C# language, to the people at the European Computer Manufactures Association, better known to most as the ECMA. This allowed for an ECMA standards for the CLI and C# to be developed and, eventually, these ECMA standards also became ISO standards. At this stage you might be thinking "So, what has this got to do with what Mono is?" Relax, slow down, I'm getting to it. This standardization meant that details about how a CLI implementation should work, and also details about the C# programming language, where publicly available and anybody with the time and desire could implement their own CLI, essentially making their own version of .NET. Mono was born.</a>
+<br />
+<br /><font class="comment">For Yuki!</font>
+<br />-m
+<br />

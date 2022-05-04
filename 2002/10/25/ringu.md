@@ -1,0 +1,2 @@
+I recently sat in the theater for a couple of hours and change to watch the remake of Ringu.  I'd like to flash my elitism and proclaim that it could not stand up to the original foreign production, but then I'd only be fooling myself.  I'm sure that the original was a great film -- if I were only able to understand the abortion of a translation attached to it.  I'm not interesting enough to have Kanji characters espousing courage and/or turtle tattooed on me, so the precise plot eluded me.<br/>
+-m

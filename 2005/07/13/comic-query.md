@@ -1,0 +1,2 @@
+Has anyone in the ether had a chance to read either <strong>Knights of the Dinner Table</strong> or <strong>Dork Tower</strong>?  I am looking for something new to read and I have yet to check out either.
+-m

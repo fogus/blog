@@ -1,0 +1,4 @@
+<center><a href="http://www.zonbu.com"><img src="http://www.earthvssoup.com/sp3w/uploaded_images/zonbox-796636.jpg" border="0" alt="Zonbox" /></a></center>
+<quote>The Zonbox comes with the excellent Firefox internet browser (which has been pounding IE in the market) and Skype built in, so you can enjoy the web. The current generation of Firefox has parental controls, multiple search tools, a built in RSS reader, and security (anti-phishing) features. Skype is the most commonly used Internet Phone (VoIP) technology.</quote><br/>
+<a href="http://news.digitaltrends.com/talkback202.html">Link</a><br/>
+-m

@@ -1,0 +1,14 @@
+Now that Raphael Palmeiro has left Baltimore in disgrace, the Orioles are left with a gaping hole at 1B for the upcoming 2006 season.  While Palmeiro's performance was acceptable prior to his embarrassment, afterward he was quite futile.  Palmeiro's 2005 VORP of 18.2 could easily be replaced, or even improved upon via the free-agent or trade route in the following ways:
+
+<strong>Erubiel Durazo</strong>
+There is little dispute that Durazo had a rough 2005 campaign, and it seems that his 2006 will probably be even worse with a serious elbow injury.  However, given that his VORP numbers from 2003 and 2004 were 35.9 and 57.2 respectively, he might be worth signing for pennies on the dollar now and hope that he gets better before the end of the season, and/or 2007.  This of course, might be too great a risk for an organization gunshy about player injuries and spotty medical reports.
+
+<strong>Hee Seop Choi</strong>
+Now that the Dodgers have made their yearly bone-headed move by signing Nomar Garciapara to play firstbase, the undervalued Choi is most likely available.  He can probably be had for very little via trade at this point.  What Choi does provide however is a player with some pop and a nice eye.  The strangest aspect of Choi's 2005 season is that he managed to hit much better at Dodger Stadium than in away parks.  What Choi gives you is at least the same production that Palmeiro did at a younger age and a much smaller contract, with his prime years ahead of him.
+
+<strong>Jay Gibbons/Eli Marrero Platoon</strong>
+As it turns out, one of the best options for 2006 at firstbase turns out to be one of their best options in 2005 that was never put into place.  Apparently, the Orioles did not believe in platooning players at all last year and instead chose to play guys regardless of their hitting ability (or lack thereof) in certain situations.  Jay Gibbons it seems has trouble hitting left handed pitchers as his .720 OPS (.299 OBP!) over the past 3 seasons would indicate.  Likewise, Marrero appears to have difficulties hitting righties as his .602 OPS over the past 3 years would indicate.  However, as a platoon, Marrero and Gibbons make a lot of sense given the former's .802 OPS and the latter's .973 OPS versus opposite handed pitchers over the same 3 year span.  Marrero was paid about $3.2M last season, but could probably be signed for much less nowadays.  This tandem might be a good stopgap for a Durazo resurgence (see item #1) or even a potential big signing at firstbase for 2007 (Lee?).
+
+<em>Note: Marrero could probably be replaced with Kevin Millar, but that would probably be more costly for no appreciable increase in returns.</em>
+
+-m

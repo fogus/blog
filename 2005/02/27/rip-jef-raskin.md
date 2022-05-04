@@ -1,0 +1,1 @@
+<center><a href="http://en.wikipedia.org/wiki/Jef_Raskin"><img src="http://braeburn.ath.cx/sites/articles/braeburn/raskin/jef.jpg"></a><br />"[Undo]! [Undo]!"</center><br />-m

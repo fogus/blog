@@ -1,0 +1,3 @@
+<object width="425" height="355"><param name="movie" value="http://www.youtube.com/v/cOE8ukQoz6E&rel=1&border=0"></param><param name="wmode" value="transparent"></param><embed src="http://www.youtube.com/v/cOE8ukQoz6E&rel=1&border=0" type="application/x-shockwave-flash" wmode="transparent" width="425" height="355"></embed></object><br/>
+<em>(BTW: I pronounce: clue-dj, two-pull, daytabase, cash)</em><br/>
+-m

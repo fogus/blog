@@ -1,0 +1,3 @@
+<center><a href="http://aog.2y.net/forums/index.php?s=fee320644c735fc047629b720297fd2a&amp;showtopic=1550"><img src="http://aog.2y.net/korea/art/bombing.jpg" />
+Click for super-happy drawings</a></center>Ah yes, the never-ending debate over bamboo island has spilled into the elementary schools.  This is surreal.  When I was a child the great evil was of course the USSR, but I'm pretty sure that I would have been suspended from school if I drew pictures like these.
+-m

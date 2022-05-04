@@ -1,0 +1,5 @@
+<a href="http://www.linuxbusinessweek.com/story/47771.htm">Linux Business Week Exclusive: Linux Kernel To Be Re-Written To Counter Microsoft FUD (Linux Business Week)</a>: "BM, Intel, the Open Source Development Labs, and other industry lights are supposedly planning to announce that a consortium has been created that will rewrite the components in the Linux kernel that, it has been alleged, tread on other people's IP - or at least the 27 Microsoft patents that Linux supposedly infringes. The aim? To rob Microsoft of the ability to scare customers off of Linux by saying that the operating system is a patent infringer, informed sources say."
+<br />
+<br /><font class="comment">How pathetic that such a drastic action has to be taken, but there seems to be few alternatives.  Who's moving to Beaverton?</font>
+<br />-m
+<br />

@@ -1,0 +1,3 @@
+<b>TRANSITIVITY</b>
+Not to be confused with in-transithood (see above).  Refers to the perceived value of a player X due to his relationship to another (or group) player.  A transitive relationship between two players might range from statistical similarities at a certain age, to handedness, to body build types; all of which are perceived equally valid methods of evaluating future success or failure.    Example: Larry Bigbie and Ed Goodson both bat leftie and had similar numbers at the age of 26.  Ed Goodson and Paul O'Neil both bat leftie and had similar numbers at the age of 25.  Therefore, Larry Bigbie is the next Paul O'Neil.<br/>
+-m

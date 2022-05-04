@@ -1,0 +1,5 @@
+<a href="http://www.nytimes.com/2005/02/19/arts/music/19samu.html?ei=5090&amp;en=0b0e3d692926ad7d&amp;ex=1266555600&amp;partner=rssuserland&amp;pagewanted=all&amp;position=--">The New York Times > Arts > Music > A Samurai And Japan Get Samba Night Fever</a>: "In the real world, as the generation of gray-suited corporate warriors has given way to young Japanese men who put great care in their dress, use cosmetics and are generally considered feminine, it was perhaps not surprising that 'Matsuken Samba' has become wildly popular now even though Mr. Matsudaira had been performing this show for a decade."
+<br />
+<br /><font class="comment">Next to Yon-Sama, the "MatsuKen Samba" was the craziest pop-culture fixture during my trip to Japan.  It was a social phenomenon.  The song rang throughout the streets day and night.  Every available advertising space not filled by Yon-Sama was instead occupied by Matsudaira-san.  </font>
+<br />-m
+<br />

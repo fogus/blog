@@ -1,0 +1,3 @@
+<b>YOUNGSTER MENTOROCITY</b>
+A quality gained by all major league players (although other sports besides baseball apply) once they have achieved even trace levels of veteranicity.  It is a fact that on the 5th anniversary of a given player's inception into the majors, a long dormant leadership gene, present in all athletes, is essentially switched on thus compelling said player to seek a mentoring relationship with all available young players.  Youngster mentorocity is often accompanied by a level of spunkitude and absolutely cannot exist without some level of veteranicity.<br/>
+-m

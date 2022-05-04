@@ -1,0 +1,5 @@
+<a href="http://www.dailyherald.com/news/kanestory.asp?id=80646">Daily Herald | Kane County</a>: "Elgin police said they are taking the reports of monkey sightings seriously and according to one theory, someone might have abandoned their pet chimpanzee."<a href="http://reuters.myway.com/article/20050804/2005-08-04T171414Z_01_N0475285_RTRIDST_0_NEWS-SPACE-SHUTTLE-DC.html">My Way News</a>: "Sometimes you can see how there is erosion, and you can see how there is deforestation. It's very widespread in some parts of the world"
+
+<a href="http://www.newscientist.com/article.ns?id=dn7790">New Scientist Breaking News - Robot catcher grabs high speed projectiles</a>: "An approaching ball triggers the robot's three fingers into action. Actuators embedded in each joint use a burst of high current to move through 180 degrees in less than one tenth of a second. This enables the machine to snatch the ball in the split second it takes to arrive."
+
+-m

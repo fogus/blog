@@ -1,0 +1,3 @@
+<a href="http://www.flickr.com/photos/fogus/2114378105/" title="IMG_0079 by fogus, on Flickr"><img src="http://farm3.static.flickr.com/2363/2114378105_6ec7b0d9a3.jpg" width="500" height="375" alt="IMG_0079" /></a><br/>
+<a href="http://www.flickr.com/photos/fogus/2115156724/" title="IMG_0080 by fogus, on Flickr"><img src="http://farm3.static.flickr.com/2166/2115156724_12c54266f4.jpg" width="500" height="375" alt="IMG_0080" /></a>
+-m

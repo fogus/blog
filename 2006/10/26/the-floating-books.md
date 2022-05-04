@@ -1,0 +1,44 @@
+The year is 1994. I was a listless young man of 18 who had graduated from high school only one year prior and summer was fast approaching. I had recently lost/quit my job at Sam Goody (more to come on this later) and was working as a cashier at a drive-thru car wash (more on this later). I had just spent the previous year living in the basement of my parents' home, playing in bands, blowing my money on CDs, MtG, and concerts, and riding my skateboard 24 hours a day. Essentially, I was doing what I had done all through high school except that at 18 I would be considered a bum. The only productive activities that I engaged in between graduation day and the first day of summer 1994 were to write assembly programs on my Compaq (more to come later) and read a hell of a lot of books. The latter however, mostly consisted of fantasy novels and space opera. However, one day a friend handed me a book that would change the shape of my summer and perhaps my life. This book was Walden by Henry David Thoreau and it would mark the beginning of my fascination with literature and be the first entry in what I like to call "The Floating Books". Before I begin, I should define the meaning of what a floating book is. For the summer of 1994 I spent nearly every day floating in the family pool in the morning while reading a book or two before I was expected at work.
+The books that I read during that summer naturally constitute the floating books.
+
+Walden by Henry David Thoreau
+
+Looking back on my reading of this iconic book, I have to say that I didn't really care for it. However, it did motivate me to continue along the path of literature for the rest of the summer. Additionally, the basic premise later motivated me to stay in the dilapidated camper in my parents' yard the following summer in order to expunge myself from the distractions that an eternally feuding family clan bring. Finally, I later wrote a very comprehensive essay about Walden in an attempt to win some scholarship money, but was ultimately unsuccessful in my entry — partially (completely) because I took a position in opposition to the contest theme of "How the US government can help the needy".
+
+1984 by George Orwell
+
+1984 was probably the most influential book that I had read up to that point in the summer of 1994, although it would not be difficult to believe considering that the bulk of my reading consisted of Dungeons and Dragons manuals. I may be tempted to say that my Commodore 64 Programmers Manual was equally influential, but that is mostly in retrospect and its influence was not felt until at least 1 year later. After reading 1984 (3 times) I felt as if I had woken from a dream. I can't properly explain the feeling that washed over me after finally reading the fate of Winston Smith.
+
+A Clockwork Orange by Anthony Burgess
+
+While I had seen the movie prior to reading the book, I never truly appreciated the dialogue of the gang until I saw it in print. It amazed me how one could read a book and not truly understand the dialogue until half way through. Despite this fact, I was unable to stop reading and devoured it four times in the span of a week; each reading providing a more detailed understanding of the story.
+
+The Divine Comedy by Dante Alighieri
+
+When I first considered reading the Divine Comedy I was a bit skeptical of its size and poetical nature. I had never attempted to read such a large book in my life previously (unless you consider reading the AD&D DM Guide 7 or 8 times) and was frankly imtimidated. However, I eventually took the chance and loved it. Although I have not since attempted to re-read The Divine Comedy since that summer, there are many lasting images from it:
+
+"Abandon all hope, ye who enter here."
+
+Blood and tears drinking maggots
+
+Satan bound
+
+The river of boiling blood
+
+Siddhartha by Hermann Hesse
+
+After read the epic by Dante, I decided to take a break and read the relatively sparse Siddhartha (160 pages). However, I quickly found that there was more to the book than I could imagine. At the time I imagined myself as Siddhartha by the river, except my Ohm came from a pool filter — go figure.
+
+The Communist Manifesto by Karl Marx
+
+At the time of my first reading, I can honestly say that I hated this book. The summer was winding down and I felt that I was wasting my remaining time. However, it did indirectly motivate me to sign up for my first college courses. That is, prior to reading the Communist Manifesto, I imagined that I could never understand the Communist Manifesto. You see, as a child of the 80s, I was taught that communism was pure evil that wished nothing but death to all Americans. The actual root text for communism was diametric to those ideals, and I was quite pleased to have discovered that. As it turns out, since I was able to understand this fact I gained me some confidence that I might not be too blown away by college-level classes. I was only half right about that.
+
+She Stoops to Conquer by Oliver Goldsmith
+
+In the final week before classes started, I was no longer floating in the pool. However, I do consider Goldsmith's masterpiece part of the floating books. When one grows up with science fiction and fantasy as their only input, it becomes immediately apparent, especially after reading She Stoops to Conquer, that one has never really read a story containing believable female characters. While the ending is sugar-sweet, the body of the play was eye-opening for me.
+
+I can't do justice by explaining how the Floating Books changed my life. I can only say that prior to the summer of 1994, I didn't truly understand what literature and contemplation were, but had a slightly better idea by the time autumn came. The books mentioned above worked to motivate me to strive for more information and thusly enroll in college courses. There were many other factors which led to this change in my life's course, but the books are what will remain when my memory fades and I lose most of my marbles. I'm sure that we all have our own version of "The Floating Books"... the preceding were mine.
+
+Currently listening to: Concrete Blonde:Joey, Twelve Girls Band, Joy Division
+
+-m

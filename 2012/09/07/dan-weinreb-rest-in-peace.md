@@ -1,0 +1,23 @@
+Dan Weinreb didn't know me, but I am very familiar and a great admirer of his work. However, one day a few years ago I wrote a blog post entitled "[Yegge, Clojure, Arc, and Lolita: or Days of Future Past](http://blog.fogus.me/2009/02/06/yegge-clojure-arc-and-lolita-or-days-of-future-past/) that generated some very interesting discussion.  Among the best pieces of information-dense wisdom, and one that I've never forgotten, was posted by Mr. Weinreb himself.  Although he addresses points in my blog post and comments attached to it, the comment stands mostly on its own, and in homage I will quote it in full below:
+
+<blockquote>
+I’m not sure what the “Common Lisp contains multitudes” phrase was intended to mean. (Yes, I do recognize the reference to Whitman.) Portability between Common Lisp implementations is excellent when it comes to things that are actually covered by the standard, and there are lots of useful libraries to provide portable ways to do things beyond the scope of the languages (e.g. usocket, CFFI, many more).
+<br/><br/>
+We have ported our 500KLOC airline reservation system core from SBCL to Clozure CL (formerly OpenMCL). It took a bit of work because of some fancy stuff we do, but it wasn’t very hard. We now maintain it in both implementations; every night our buildbots compile and test the code in both implementations, just for extra testing. No problem.
+<br/><br/>
+(OK, not all of the 11 implementations are quite that good, but about 8 of them really are.)
+<br/><br/>
+Yes, there is plenty of interest in Clojure in the Common Lisp community. At the International Lisp Conference (ilc09.org) I intend to get a lot of discussion going about the future of Lisp and how we can all try to move together (and less like a herd of cats!) to pool our efforts. The ultimate success would be to bring the Scheme world and the regular-Lisp world together on one language, although I suspect that’s too hard to accomplish and the Scheme people need to own their own language, so that they can experiment with it, but, we’ll see.
+<br/><br/>
+Yes, mostly-functional languages with software transactional memory is the big new trend. Many new languages are being created based on this, and Rich was far-seeing to do it in Clojure. Yes, it’s primarily because we’ll all be writing more concurrent software to take advantage of all the cores.
+<br/><br/>
+The Lisp s-expression structure is not exactly analogous to an AST in the sense that the compiler community means. An AST is a deeper, richer structure on which a lot of information is hung by the compiler, usually. The s-expressions are more of a “surface syntax”, which is the right place to put extensibility (macros) since ordinary language users won’t understand an AST, and it’s not even clear that it’s a good idea to make the AST’s data structures part of the externally-defined language standard.
+<br/><br/>
+Macros of Lisp-like power for languages with infix-style syntax have been explored. See Jonathan Bachrach’s Java Syntactic Extender, and the Dylan language. Dave Moon will be presenting a new paper on this at the Lisp conference.
+</blockquote>
+
+Based on what I've heard, it seems he was always willing to share his vast wealth of knowledge. 
+
+Goodbye Mr. Weinreb. You will be missed by many; myself included.
+
+:F

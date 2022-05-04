@@ -1,0 +1,3 @@
+<a href="http://lxer.com/module/newswire/view/38501/index.html">LXer: Patent absurdity</a>: "If such a patent had existed in 1862 when Les Miserables was published, the novel would have infringed all three claims - all these things happened to Jean Valjean in the novel. Hugo could have been sued, and would have lost. The novel could have been prohibited - in effect, censored - by the patent holder."
+
+-m

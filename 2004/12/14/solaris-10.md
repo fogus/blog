@@ -1,0 +1,3 @@
+<a href="http://www.thejemreport.com/mambo/content/view/142/41/">Solaris 10: a collection of great, new, unique features - The Jem Report</a>: "Last month I attended Sun's launch event for Solaris 10. Sun has put a tremendous amount of effort into its operating system, with the intention of rebuilding both its Unix market share and its relationship with free software developers. This article looks at the impressive new features that make Solaris 10 an amazing operating system and also some flaws that prevent it from being perfect."
+<br />-m
+<br />

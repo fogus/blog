@@ -1,0 +1,16 @@
+My previous posting concerning RF caused a bit of controversy on the <a href="http://www.orioleshangout.com">Hangout</a> mostly centered around the general consensus that the larger hole in the Orioles lineup can be found in LF instead.  While it is certainly true that there is a large hole in LF (given the poor performance from Mr. Bigbie, Byrnes, Newhan, Surhoff, and Cummings), the amalgamation of the LF rotation was <strong>almost identical to Sosa</strong> in RF!  Let's look at the comparisons:
+<pre>Sosa in 2005:        .671 OPS (.295 OBP, .376 SLG)Aprox. LF in 2005:   .647 OPS (.285 OBP, .362 SLG)</pre>
+Wow!  Our outfield really stunk last year (no big discovery here).  Of course having Gibbons in RF at times last year helped salvage some semblance of what could be considered major-league hitting ability.  I am certainly down on Gibbons at times, the fact of the matter is that he is (sadly) one of our best options for filling one of the gaping holes; only if he is utilized properly in an effective platoon.  However, he can only play one position be it 1B, RF, or LF, and whichever he and his platoon partner wind up, it would be wise to keep them there all season.  So to say that a bigger hole exists in either LF or RF is much like saying that death by fire or molten hot magma is preferable.  The exact production was generated from both positions last year, and in both cases a Gibbons/??? platoon could be used to increase production for 2006.  That being said, I would like to present a few possibilities for next year to help fill the hole that is LF (no particular preferential ordering implied).
+
+<strong>Majewski/Byrnes</strong>
+It's not too late to get Byrnes back into the fold.  Even though he has been non-tendered, the team can still sign him at any time.  If I were in charge I would look into signing him as a way to spell Majewski versus tough lefties, plus he can play other OF positions in a pinch.  The question for Majewski is whether it is wise to bring him to the majors after his shoulder injury.  In a perfect world, Majewski would be placed in AAA for another year, but the viable options are running low at the moment.
+
+<strong>Markakis/Byrnes</strong>
+Essentially the same can be said for Markakis as was said for Majewski.
+
+<strong>Reggie Sanders</strong>
+Once again our friend Reggie Sanders pops up as a possibility.  Of course, the same applies as it did for his inclusion in the <a href="/2005/12/filling-glaring-hole-rf.php">RF edition</a>.  That is, there should be no contract longer than 1 year and no greater than his $4M salary from last year (maybe this could be a LITTLE flexible).  The point is that he could be a stop-gap while we wait for Markakis and Majewski.
+
+As you see, there are not a lot of options at LF, so maybe those guys were right about it being a bigger hole.  The above reflects my deep distrust in the Brain (T)rust performing anything remotely resembling a useful trade to fill this position.  Sure, there are fantasy scenarios where the team is able to spin some left-over parts for a future star in LF, but let's be honest; what are the odds?  The long debate continues.
+
+-m

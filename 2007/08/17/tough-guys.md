@@ -1,0 +1,3 @@
+<embed src='http://videoblazer.net/videoblazer/components/com_seyret/localplayer/seyretplayer.swf' width='400' height='350' bgcolor='#FFFFFF' type='application/x-shockwave-flash' flashvars='file=http://videoblazer.net/videoblazer/seyretfiles/uploads/videos/user_62/user_62_vmzqxnwdkj52ou.flv&image=http://videoblazer.net/videoblazer/seyretfiles/uploads/thumbnails/user_62/user_62_tmzqxnwdkj52ou.jpg&showdigits=false&autostart=false&logo=http://videoblazer.net/videoblazer/components/com_seyret/localplayer/logo.png&repeat=false&backcolor=0x000000&frontcolor=0xCCCCCC&usefullscreen=false' /></embed><br/>
+This is representative of a small percentage of martial arts students.<br/>
+-m

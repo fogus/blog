@@ -1,0 +1,3 @@
+<a href="http://www.freebsd.org/news/newsflash.html#event20050611:01">FreeBSD News Flash</a>: "The FreeBSD 6.0 code freeze has begun. Developers must have approval from re@FreeBSD.org to commit to the HEAD branch of src/. 6.0 snapshots are available from the FTP sites for those able to help test the upcoming major new release of FreeBSD. For more information, please see the release engineering area of the web site."
+
+-m

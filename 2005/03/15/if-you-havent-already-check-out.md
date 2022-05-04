@@ -1,0 +1,1 @@
+<center><img src="http://www.ctrlaltdel-online.com/images/comics/20040716.jpg"><br /><a href="http://www.ctrlaltdel-online.com/?t=archives&date=last">Ctrl+Alt+Del</a></center><br /><br />-m

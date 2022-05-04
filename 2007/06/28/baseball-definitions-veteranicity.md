@@ -1,0 +1,3 @@
+<b>VETERANICITY</b>
+The condition of being a veteran.  That is, one providing leadership through the mere fact that he has been able to stay on major-league rosters for more than 5 years, regardless of skill-level.  Someone displaying veteranicity is often accompanied by an unusually large contract based entirely on his perceived level of veteranicity, spunkitude, and/or youngster mentorosity.<br/>
+-m

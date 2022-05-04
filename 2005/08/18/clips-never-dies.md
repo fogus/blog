@@ -1,0 +1,3 @@
+<a href="http://homepage.mac.com/tblanchard/ObjectiveCLIPS/"></a>: "ObjectiveCLIPS allows the creation of intelligent Cocoa applications with persistent object models and complex business rules. Out of the box, Apple gives you the ability to write Cocoa applications with dumb passive data models using CoreData.  However, there is no convenient way to express complex constraints and dependent values without writing custom business objects.  Even if you write the custom objects, your code will likely be fragile for a variety of reasons.  ObjectiveCLIPS allows you to write rules about your objects and execute actions when rules match. "
+
+-m

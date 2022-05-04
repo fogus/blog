@@ -1,0 +1,3 @@
+<a href="http://www.wincustomize.com/Articles.aspx?AID=81265&amp;u=0">A History of IBM OS/2: 1991 to 1996 - A WinCustomize Article by Draginol</a>: "Picture that. OS/2 2.0 could have come out as a 32bit, multithreaded OS that ran DOS (better than DOS), Windows and new OS/2 software. Was stable, worked great on networks, and had good performance. The only competition was the buggy Windows 3.0 which ran on top of DOS. The only thing different in this scenario than the OS/2 2.0 we actually had is this didn't have the WPS and came out 9 months earlier – before Windows 3.1 vapor could cloud the scene."
+
+-m

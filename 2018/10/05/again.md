@@ -1,0 +1,8 @@
+As I listen to "Again" by [Silver Apples](https://www.amazon.com/Garden-SILVER-APPLES/dp/B01HHGH2FK/?tag=fogus-20) I'm reminded of something I like to call "Computational Fruit Flies."  CFFs are generally small pieces of code (note: _not_ golf) that allow a minimal representation of a larger idea. I've built a whole [series of pamphlets around the dissection of CFFs](http://readevalprintlove.fogus.me) and have spent inordinate amount of time [building](https://github.com/fogus/ulithp) ever [more](https://github.com/fogus/baysick), so needless to say I am into [this](https://github.com/fogus/codd). Indeed, a dream of mine is to write an entire book on the analysis of 50 lines of code... now to find those 50-lines. 
+
+---
+
+I'd love to find a network of likeminded individuals who're interested in trading no-longer needed computer books amongst one another. While it would be nice to unload the more recent fare like [The Rust Programming Language](https://www.amazon.com/Rust-Programming-Language-Steve-Klabnik/dp/1593278284/?tag=fogus-20) (which was pretty good BTW) I'm really more interested in exploring the dried husks of computational literature like: *[Miranda: The Craft of Functional Programming](https://www.amazon.com/Miranda-Functional-Programming-International-Computer/dp/0201422794/?tag=fogus-20)*, *[Operating Systems Design: The XINU Approach](https://www.amazon.com/Operating-System-Design-XINU-Approach/dp/0136375391/?tag=fogus-20)*, and *[Essential Lisp](https://www.amazon.com/Essential-Lisp-John-R-Anderson/dp/0201111489/?tag=fogus-20)*.
+
+If you're interested in such a network then [my trade list is available online](http://www.fogus.me/books/trades.html).
+

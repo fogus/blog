@@ -1,0 +1,1 @@
+<center><a href="http://www.ifilm.com/viralvideo"><img src="images/danzig_cartoon.jpg"></a><br />Click on Picture</center><br /><br /><font class="comment">This is undeniable proof that there is indeed justice in the universe.</font><br />-m

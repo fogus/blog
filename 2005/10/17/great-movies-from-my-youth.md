@@ -1,0 +1,5 @@
+<p>I loved all of these movies in my youth&#8230; and Hell, some them even stand up to the &#8220;adult test&#8221;.</p>
+<p>War Games, Enemy Mine, Willow, Wing Chun, The Last Starfighter, Goonies, Legend, Conan the Barbarian, Tron, Willy Wonka &#038; the Chocolate Factory, 3 O&#8217;Clock High, Princess Bride, Clash of the Titans, They Live, Amazon Women on the Moon, UHF, Pee-Wee&#8217;s Big Adventure, Edward Scissorhands, Raising Arizona, The Jerk, This is Spinal Tap, Stir Crazy, Stripes, Die Hard, Ghostbusters, Trading Places, Coming to America, Brewster&#8217;s Millions, The Toy, See No Evil Hear No Evil, Who&#8217;s Harry Crumb?, The Man with Two Brains, The Jerk, The Breakfast Club, Some Kind of Wonderful, Pump Up the Volume, Real Genius, Beetlejuice, Time Bandits, Reservoir Dogs, Commando, The Running Man, Predator, Aliens, The Thing, The Fly (J.G. version), Poltergeist, The Silence of the Lambs, Amityville Horror, The Return of the Living Dead, The Gate, Silver Bullet, Fright Night, The Lost Boys. Can&#8217;t Buy Me Love, The Howling, Hellraiser, Dragon Slayer, Mask, Lucas.</p>
+
+<p>-m
+</p>

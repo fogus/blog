@@ -1,0 +1,1 @@
+<blockquote>We have made a kind of bargain with Nature: Our children will be difficult to raise, because they are different from us. But, their capacity for new learning will greatly enhance the chances for survival of the human species.</blockquote> <BR><FONT SIZE="1">-Carl Sagan</FONT><br/> -m

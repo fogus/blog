@@ -1,0 +1,4 @@
+Just a thought:<br/>
+
+A Java template/macro/static-blog system comprising some interesting mix of <a href="http://clojure.sourceforge.net/">Clojure</a>, <a href="http://www.scala-lang.org/">Scala</a>, <a href="http://www.opensymphony.com/">OpenSymphony</a>, <a href="http://freemarker.org/">Freemarker</a>, <a href="http://xstream.codehaus.org/">XStream</a>, <a href="http://velocity.apache.org/">Velocity</a>, <a href="http://junit.org/">JUnit</a>, <a href="http://en.wikipedia.org/wiki/Apache_Ant">Ant</a>, <a href="http://www.mozilla.org/rhino/">Rhino</a>, <a href="http://groovy.codehaus.org/">Groovy</a>, and/or <a href="http://jruby.codehaus.org/">JRuby</a>.  I am sure that this bulk would not be feasible, but it was a thought in the shower, and all of the above are interesting learning targets.<br/>
+-m

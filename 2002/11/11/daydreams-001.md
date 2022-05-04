@@ -1,0 +1,2 @@
+I''m ready to go -- to be my own Rimbaud -- to disappear into the darkness of a world I know not of -- and change my identity -- and become someone else.  <BR><BR>I'm tired of myself.<BR><BR>And my bills -- and my deadlines.  So off to Mars I fly -- or Brasil -- or El Dorado -- to spend my days with chicken feet -- and eating bubblegum ice-cream -- and fraternizing with flappers -- and...<BR><BR>...<BR>...what was I talking about again?<BR>...ah yes...<BR><BR>...flappers.<br/>
+-m

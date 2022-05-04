@@ -1,0 +1,2 @@
+<p>This blog post brought to you with my new Nokia 770!  I am once again in a purging mode as far as material posessions go, but this time the proceeds have gone to something fun (rather than vodka&#8230; also, fun, but for other reasons).  </p>
+<p>-m</p>

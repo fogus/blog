@@ -1,0 +1,1 @@
+<center><a href="http://www.denverpost.com/Stories/0,1413,36~53~2723492,00.html"><img src="http://www.capitolabookcafe.com/images/BearHunt.jpg"></a><br />07/18/1937 - 02/20/2005</center><br />-m

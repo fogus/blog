@@ -1,0 +1,3 @@
+<br /><a href="http://news.com.com/Handheld market free fall continues/2100-1047_3-5560453.html?part=rss&amp;tag=5560453&amp;subj=news.1047.20">Handheld market free fall continues | CNET News.com</a>: "For the fourth successive quarter in 2004, sales declined on a year-over-year basis to 2.8 million units, the market researcher said Wednesday. For the full year, the figure was 9.2 million units, compared with 10.6 million units in 2003. This is the third successive year of decline since the market's peak in 2001, IDC said."
+<br />-m
+<br />

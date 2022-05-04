@@ -1,0 +1,3 @@
+Thus starts my humble attempt to analyze the transactions, players, possibilities, games, history, and statistics for (mainly) the Washington DC Nationals and the Baltimore Orioles.  Additionally, I will attempt to cover interesting topics from around the major leagues as well as college, semi-pro ball, winter leagues, and Japan whenever the urge strikes me.  Feel free to leave comments on my analysis.
+
+-m

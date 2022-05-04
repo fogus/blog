@@ -1,0 +1,3 @@
+<a href="http://www.osviews.com/modules.php?op=modload&amp;name=News&amp;file=article&amp;sid=2889&amp;mode=thread&amp;order=0&amp;thold=0">What was Copland? :: osViews | osOpinion :: Tech Opinions for the People, by the People</a>: "Apple began developing a new operating system in 1987. The Macintosh System Software was very pleasant and innovative, but it was not advanced enough to compete with OS/2 or UNIX workstations. The Macintosh System Sofware was somewhat unstable when compared to OS/2, lacked protected memory and had no threaded multitasking. Thomas Hormby submitted the following editorial to osOpinion/osViews which analyses the steps leading up to Apple's next generation operating system."
+<br />-m
+<br />

@@ -1,0 +1,3 @@
+<a href="http://www.computerandvideogames.com/r/?page=http://www.computerandvideogames.com/news/news_story.php(que)id=114124">Computer And Video Games</a>"According to hazy and totally unofficial reports, Nintendo's next-gen console will come broadband-enabled with an online service in the works, feature a hard drive, use controllers fitted with tilt-sensing gyroscopes, allow connectivity with the next-gen GameBoy, and play host to new Mario, Zelda and Super Smash Bros. games. "
+<br />-m
+<br />

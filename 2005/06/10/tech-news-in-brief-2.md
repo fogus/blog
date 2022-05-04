@@ -1,0 +1,11 @@
+<a href="http://www.cnn.com/2005/TECH/06/10/japan.robots.ap/index.html">CNN.com - Japan drums up robot support - Jun 10, 2005</a>: "One model called Batting Robot has a vision system that handles 1,000 images a second, more than 30 times the human eye, allowing it to accurately hit pitches of up to 160 kph (100 mph). At the expo, however, it was using a plastic bat to hit rubber balls at far slower speeds."
+
+<a href="http://www.apple.com/quicktime/qtv/wwdc05/">Apple - QuickTime - WWDC 2005</a>: "Watch Apple CEO Steve Jobs kick-off the Worldwide Developers Conference with a keynote address from San Francisco's Moscone West. See the video-on-demand event right here exclusively in QuickTime and MPEG-4."
+
+<a href="http://arstechnica.com/columns/mac/mac-20050608.ars">Hell freezes over; it must've been the liquid cooling: Hannibal on the Apple-to-Intel transition : Page 1</a>: "Conroe is a dual-core desktop chip that has all of the features in my list above, and is based on the successor to the Pentium M's 'Banias' architecture. This new, 'completely revamped' dual-core architecture will supposedly give a 20-30% performance boost over the current Pentium M and will be the nail in the coffin of the power-inefficient Netburst architecture. I think Conroe is the most likely candidate for the first Intel-based PowerMac, because it would allow Apple to skip Netburst entirely."
+
+<a href="http://www.theinquirer.net/?article=23055">Intel panics and announces Merom</a>: "The chips themselves throw out the failed P4 'Netbust' architecture and are based on the Pentium M philosophy of shorter and more efficient pipelines. I have heard 12 or 13 stages from several people. Don't look for clock speeds anywhere near that of Netburst products, more in the 2.5GHz range for the desktop parts."
+
+<a href="http://www.lugradio.org/episodes/">Linux radio show - LugRadio</a>: "Distro Wars, part III: 75% of the team review the six chosen distributions and distributors (Xandros, Linspire, Novell, Red Hat, Ubuntu, and Gentoo) against various different criteria. This week, they're being reviewed for potential for world domination"
+
+-m

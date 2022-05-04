@@ -1,0 +1,5 @@
+<a href="http://www.kndu.com/article.src?ID=34276">Local</a>: "Those who believe the mark is more than a trick of the eyes, say the image is that of a nurse. Some claim the mark was not visible until Monday evening, and miraculously appeared. "
+
+<a href="http://news.bbc.co.uk/2/hi/science/nature/4070522.stm">BBC NEWS | Science/Nature | Rings of bone grown for couples</a>: "Five couples are having the rings made. They will be grown from bone cells taken from their jawbone."
+
+<a href="http://frankwarren.blogspot.com/2005/06/computer-hacker-looks-for-ufo-cover-up.html">UFO Breaking News! UFO Articles UFO Opinion Editorial UFO Flying Saucers Flying Disks Aerial Phenomenon Alien Abduction FOIA Requests Declassified Documents UFO History UFO Sightings Space Exploration Astrophysics Research Investigation</a>: "Friends said he was desperate to prove that the Americans had mounted a huge cover-up to deny his belief that aliens had visited earth."

@@ -1,0 +1,2 @@
+Some Guy &#0153; refers to a class of person somehow attached to the sports world, regardless of how tenuous that attachment may be, who gains credence simply by stating something about your favorite sports team in a public forum (e.g. radio broadcast, website, TV show, cardboard sign on a street corner, etc...).  The veracity of the statement is usually ignored in lieu of the fact that the statement agrees with something that you want to believe is true.
+-m

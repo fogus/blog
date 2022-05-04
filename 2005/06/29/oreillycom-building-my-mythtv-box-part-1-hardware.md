@@ -1,0 +1,3 @@
+<a href="http://digitalmedia.oreilly.com/lpt/a/5995">oreilly.com: Building My MythTV Box, Part 1: Hardware</a>: "I recently started building my own MythTV system, for reasons that are detailed elsewhere. Even though the broadcast flag was struck down on May 6, I nevertheless pressed ahead with building my system because I was sure the broadcast flag would be back. Although the Innovation Coalition won round one, it was only the opening skirmish. Sure enough, it rose from the dead, rather like a vampire, on Monday. The only sure-fire way to keep my right to tinker with TV was to beat the original deadline."
+
+-m

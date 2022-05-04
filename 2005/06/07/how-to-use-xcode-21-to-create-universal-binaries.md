@@ -1,0 +1,1 @@
+<br />Apple has a <a href="http://developer.apple.com/documentation/MacOSX/Conceptual/universal_binary/universal_binary.pdf">tech document</a> (PDF) on their developers site explaining how to build universal binaries.<br /><br />Of particular note is that coders using AltiVec instructions are going to be hatin (see pgs 53 to 73). <br /><br />-m

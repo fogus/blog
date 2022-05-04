@@ -1,0 +1,3 @@
+<a href="http://www.newsforge.com/article.pl?sid=04/12/22/1954233">NewsForge | Understanding NetBSD 2.0's new technology</a>: "NetBSD is widely known as the most portable operating system in the world. It currently supports 52 system architectures, all from a single source tree, and is always being ported to more. NetBSD 2.0 continues the long tradition with major improvements in file system and memory management performance, significant security enhancements, and support for many new platforms and peripherals. To celebrate the release, we've asked several well-known NetBSD developers to comment on some of NetBSD 2.0's new features."
+<br />-m
+<br />

@@ -1,0 +1,2 @@
+Fixed some DB connection bugs and holes.  New class starting (Compiler Design Theory) -- does anyone have an Aho, Ullman, etc... ''Dragon'' book that they''d like to donate to the Lacrymology Library?  Looking for a house, so interesting modification ideas are requested (I have fire pole, velcro/trampoline rooms, and slide-away bookshelf already).  Added f0gOS tidbits.  "We are in the endtime."<br/>
+-m

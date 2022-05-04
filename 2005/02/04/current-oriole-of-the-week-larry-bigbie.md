@@ -1,0 +1,48 @@
+Much has been said about the potential of Larry Bigbie to be an impact player in the major leagues. I have in the past compared him favorably with a young <a href="http://www.baseball-reference.com/o/o%27neipa01.shtml">Paul O'Neall</a>; but how does that analogy hold up under the microscope?
+
+While O'Neall did make it to the majors at the age of 22 (compared to Bigbie's 23), by the time both players were 25 years old they had surprisingly similar stats:
+<pre><strong>Larry Bigbie</strong>
+ Year Ag G   AB    R    H   2B 3B  HR  RBI  BB  SO   BA   OBP   SLG
++-------------------------------------------------------------------+
+ 2001 23 47  131   15   30   6  0   2   11  17  42  .229  .318  .321
+ 2002 24 16   34    1    6   1  0   0    3   1  11  .176  .194  .206
+ 2003 25 83  287   43   87  15  1   9   31  29  60  .303  .365  .456
++-------------------------------------------------------------------+
+      25 146 452   59  123  22  1  11   45  47  113 .272  .339  .398 
+
+<strong>Paul O'Neill</strong>
+ Year Ag G   AB    R    H   2B 3B  HR  RBI  BB  SO   BA   OBP   SLG
++-------------------------------------------------------------------+
+ 1985 22 5   12    1    4   1  0   0    1   0   2  .333  .333  .417
+ 1986 23 3    2    0    0   0  0   0    0   0   1  .000  .333  .000
+ 1987 24 84  160  24   41  14  1   7   28  18  29  .256  .331  .488
+ 1988 25 145 485  58  122  25  3  16   73  38  65  .252  .306  .414
++-------------------------------------------------------------------+
+      25 237 659  83  167  40  4  23  102  56  97  .253  .312  .431</pre>
+Clearly, O'Neill's raw stats outweigh Bigbie's at the age of 25 due to more playing time.  However, if we were to scale Bigbie's stats onto the same number of games and ABs as O'Neill had, a plausible reason behind Bigbie's small playing time may be found:
+<pre><strong>Larry Bigbie (scaled relatively)</strong>
+ Year Ag G   AB    R    H   2B 3B  HR  RBI  BB  SO   BA   OBP   SLG
++-------------------------------------------------------------------+
+      25 237 659   96   179 32  1  16  neg  69  165  .272 .339  .398</pre>
+Observing these stats, a few items immediately jump to mind:
+<ul>
+	<li>Bigbie would have scored roughly 15% more runs than O'Neill, most likely due to the significantly larger OBP.</li>
+	<li>Bigbie would have struck out 170% of what O'Neill did.</li>
+	<li>Bigbie's SLG is markedly lower than O'Neill's</li>
+</ul>
+Of course, all of these points preclude that Bigbie would have continued at his historical rate during the extra ABs in the scaled model.  As we all know, in baseball anything can happen in the span of 207 ABs (the difference between the historic stats and the scaled).  All caveats aside, it is the second two items that might explain why Bigbie was refused the same chance as O'Neill had during his early years.  That is, there is a tremendous stigma against the strike out that still persists in today's baseball climate (is there any doubt that Adam Dunn would have been far more revered than he was had he not struck out 195 times in 2004).  Coupling his strikeout rate with the fact that Bigbie until that point was an extremely weak hitter, and the picture becomes clear.  That is, O'Neill's career SLG at the age of 25 was much more impressive than Bigbie's during the highly touted juiced ball era.  In fact, O'Neill's SLG for that time was above league average (.383), while Bigbie's fell  below (~.420) for his era.  Simply put, a weak hitting outfielder who strikes out a lot simply doesn't get a lot of ABs in the major leagues.  However, Bigbie's performance for that time cannot be viewed in a vacuum.  That is, if we compare his scaled stats with those of the players he might have replaced for that time, then an interesting dilemma arises.  Of course, in 2001 the lion's share of outfield ABs were wasted on a floundering <a href="http://www.baseball-reference.com/a/anderbr01.shtml">Brady Anderson</a> at the end of his career, and a similarly positioned Delino DeSheilds.  Between the two, the following 'stellar' lines emerged:
+<pre><strong>Anderson and DeSheilds - 2001</strong>
+ Year Ag G   AB    R    H   2B 3B  HR  RBI  BB  SO   BA   OBP   SLG
++-------------------------------------------------------------------+
+             618   79   124 20  5  11  66   91  119  .201 .311  .303</pre>
+In a word... OUCH!  2001 fell within the tenure of Mike Hargrove, and a common view is that he always benched young players in lieu of veterans.  However, even a cursory glance shows that is not in fact.  In fact, Jerry Hairston, Jay Gibbons, and Brian Roberts found substantial playing time during the 2001 season while Sidney Ponson, Josh Towers, and BJ Ryan all pitched regularly.  What about 2002?  Of course, it is difficult to build a case for playing Bigbie in 2002 given the emergence of Gary Matthews and Jay Gibbons that season, as well as the eventual All-Star calibre play of Mora (although that season was rough for him).  However, it is difficult to believe that given a full season of playing time, Bigbie would have been a worse option than either of Marty Cordova, Chris Singeton, Luis Lopez, or Chris Richard.  While Bigbie received 34 ABs for the year 2002, the four players mentioned received 1079 ABs, had a .250/.302/.407 AVG/OBP/SLG line, and struck out 244 times (a separate article could thus be written on the injustice of not playing Howie Clark that year, but I will leave that exercise to the reader).  For both 2001 and 2002, it is conceivable that Bigbie would have been a much better option than those provided.  It is my belief that 2002 specifically caused Hargrove to garner the 'veteran' bias label that was pinned to his forehead.  However, again Hairston, Gibbons, Ponson, Ryan, and even Julio and Bauer suggest otherwise.  My guess is that Hargrove tended to have a bias against young, weak-hitting outfielders who struck out a lot (which Bigbie clearly at that time).  However, it appeared that he had no issues playing veterans matching the latter two patterns.
+
+It seems that I have drifted far afield from my original intention of comparing Bigbie with a young Paul O'Neill.  However, by the end of this article it may seem clearer how the previous digression fits into the larger picture.  Having examined both players up to the age of 25 and found quite similar players, the truly striking resemblance comes at the age of 26.  Specifically:
+<pre><strong>Larry Bigbie - Age 26</strong>
+ Year Ag G   AB    R    H   2B 3B  HR  RBI  BB  SO   BA   OBP   SLG
++-------------------------------------------------------------------+
+ 2004 26 139 478   76   134 23  1  15  68   45  113  .280 .341  .427</pre>
+<pre><strong>Paul O'Neill - Age 26</strong>
+ Year Ag G   AB    R    H   2B 3B  HR  RBI  BB  SO   BA   OBP   SLG
++-------------------------------------------------------------------+
+ 1989 26 117 428   49   118 24  2  15  74   46  64  .276  .346  .446</pre>

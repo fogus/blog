@@ -1,0 +1,12 @@
+I liked this book quite a bit, but I have always had a soft spot for tech-story books, even the fantasy of the Apple story.  The <a href="http://en.wikipedia.org/wiki/Commodore_64">C64</a> was my first computer at the age of <a href="http://www.earthvssoup.com/2004/01/13/129/">9</a> and I loved it with all my heart.  I wrote my college entry essays on it when my peecee broke and was accepted to all of them (<a href="http://www.smcm.edu">errr</a>.... <a href="http://www.stjohnscollege.edu/">both</a>).  The interesting thing to note is that Commodore gets very little credit for revolutionizing the PC industry even though it can be said that they did more for it than Apple and IBM combined.  But I believe that the reasons for their relative obscurity in the revolutionizing department are two-fold:
+
+1) They sold something like 20 million C64s and dominated the market for 5 years or so (which in computer years is something like 27 bajillion years).  Everyone hates the winner.
+
+2) The guys creating the computers were dicks.  From <a href="http://en.wikipedia.org/wiki/Jack_Tramiel">Tramiel</a>'s propensity to screwing his distributors (not to mention his employees, marketers, friends, bosses, etc...) to <a href="http://en.wikipedia.org/wiki/Chuck_Peddle">Peddle</a>'s dismissal of every other engineer in the world, the players involved tended toward antisocial behavior and had over inflated views of themselves.  On more than one occasion <a href="http://en.wikipedia.org/wiki/Bil_Herd">someone</a> describes themselves as having a samurai's spirit or some such nonsense, while often talking about how superior their brain cases were.  At least Apple had the lovable <a href="http://en.wikipedia.org/wiki/Steve_Wozniak">Woz</a> and while IBM was Borg, they were at least nameless and faceless automata.  
+
+So that's it.  It's still a nice read, and highly recommended for those in love with computer folklore.  Just don't expect to find many heroes.
+
+-m
+
+p.s. I should say that I truly think that for a time, those aforementioned dickweeds were absolutely revolutionary with their creations.  And I should say that not everyone involved was detestable; in fact, <a href="http://en.wikipedia.org/wiki/Jay_Miner">Jay Miner</a> was supposedly a well loved cuddly bear of a genius.  I am happy that the Commodore story has been told, and I absolutely plan on studying this book again in the future.
+ 

@@ -1,0 +1,1 @@
+I have been ignoring the blog in favor of my attempts to wiki-ize MP and MC.  The state of affairs for MC can be viewed at:<br /><br /><a href="http://wiki.minotaurcomputing.com">http://wiki.minotaurcomputing.com</a><br /><br />-m
