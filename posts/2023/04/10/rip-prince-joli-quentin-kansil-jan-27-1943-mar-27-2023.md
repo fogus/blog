@@ -1,12 +1,12 @@
 [Prince Joli Quentin Kansil](https://en.wikipedia.org/wiki/Joli_Quentin_Kansil) was a renaissance man amongst game designers. A world traveler by desire, his roots (when he planted them) were in Philippines as an English teacher. I'd like to think that his designs are the kinds of games that might have been invented by "the most interesting man in the world." In addition to designing games, he was also a board game publisher, an accomplished Bridge and Backgammon player and promoter, a teacher, an author, an [inventor of alternative alphabets and calendars](http://web.archive.org/web/20060710031108/http://www.indochinegame.com/board_games/other_projects.html), a restless traveler, and a member of Hawaiian royalty by marriage. To those who knew him and corresponded with him, he was generous with his time and thoughtful in his interactions.
 
-<a href="http://blog.fogus.me/wp-content/uploads/2023/04/pjqk.jpeg"><img src="http://blog.fogus.me/wp-content/uploads/2023/04/pjqk.jpeg" alt="" width="161" height="204" class="aligncenter size-full wp-image-6895" /></a>
+![PJQK](pjqk.jpeg)
 
 Joli Quentin Kansil passed away on March 27th, 2023 -- two months after his 80th birthday.
 
 Kansil's design are quaint by the standards of modern design and are closer to traditional pub games than the games that flood the Kickstarter scene, but I always admired their ingenuity and drew deep inspiration from them for my own (occasional) designs. In this post, I'll run through some of the games that I've played as an homage to a designer whose like we will never see again.
 
-<a href="http://blog.fogus.me/wp-content/uploads/2023/04/pjqk-coll.png"><img src="http://blog.fogus.me/wp-content/uploads/2023/04/pjqk-coll.png" alt="" width="1024" height="768" class="aligncenter size-full wp-image-6894" /></a>
+![My personal collection of PJQK games](pjqk-coll.png)
 
 ## Bridgette
 

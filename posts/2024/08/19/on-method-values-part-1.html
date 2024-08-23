@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>on-method-values-part-1.html</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+
+</head>
+
+<body>
+
+<p>Prior to <a
+href="https://blog.fogus.me/2007/10/24/linkage-20071024/">discovering
+Clojure back in 2007</a>, I was a full-time Java programmer. This was
+long before method handles, method references, lambda expressions, and
+invokedynamic, so viewing Java through a functional programming lens was
+not second-nature to me. Regardless, during my early Clojure
+explorations I fully expected code like the following to “just
+work”:</p>
+<pre><code>(defn up-all [strings]
+  (map .toUpperCase strings))
+;; Unable to resolve symbol: .toUpperCase</code></pre>
+<p>That is, I<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> fully expected Clojure to recognize
+that <code>.toUpperCase</code> referred to the instance method
+<code>String.toUpperCase</code> as a value, and infer how to “do the
+right thing” with it for each element in the <code>strings</code>
+collection handled by <code>map</code> even though Clojure could never
+know what it might hold.</p>
+<p>Of course, it eventually occurred to me that the actual way to do
+what I wanted was to wrap the method call in a function instead:</p>
+<pre><code>(defn up-all [strings]
+  (map (fn [s] (.toUpperCase s)) strings))
+
+(up-all [&quot;a&quot; &quot;b&quot; &quot;c&quot;])
+;;=&gt; [&quot;A&quot; &quot;B&quot; &quot;C&quot;]</code></pre>
+<p>Once I learned of this fact, I put it into my tool-belt and moved on.
+But I could have asked the question of why it didn’t work as I expected
+and even at that early time I think that Clojure could have supported
+it… almost.</p>
+<blockquote>
+<p><em>Spoiler warning: <a
+href="https://github.com/clojure/clojure/blob/master/changes.md#changes-to-clojure-in-version-1120">Clojure
+1.12.0</a> has support for method values, and is feature complete for
+the formal release soon.</em> Follow along with this post using the
+1.12.0 release candidate run with the following Clojure CLI 1-liner:</p>
+<p>clj -Sdeps ‘{:deps {org.clojure/clojure {:mvn/version
+“1.12.0-rc1”}}}’</p>
+</blockquote>
+<h2 id="why-method-values">Why Method Values</h2>
+<p>Adding features to a programming language is not a casual process.
+New features need to first solve a problem and second need to fit within
+the gestalt of the language. Sometimes problems are aesthetic, sometimes
+they address complexities or common mistakes, and sometimes they address
+bugs. As I showed, the lack of method values wasn’t a bug in Clojure
+because there was an idiomatic and straight-forward way to wrap method
+calls with functions. Aesthetically, writing <code>.toUpperCase</code>
+is certainly fewer characters than <code>#(.toUpperCase %)</code> and is
+arguably cleaner, but few Clojure programmers were clamoring for the
+reduction of 4 characters in such cases. Instead, the problems that
+method value solve fall into the complexities category.</p>
+<p>Clojure provides a hinting syntax that adds metadata to applicable
+syntactic elements that signify their types. If you fail to use hinting
+in cases where type information will help resolve ambiguity then your
+program can run slower.</p>
+<h3 id="incidental-reflection">Incidental reflection</h3>
+<p>The function example above is flawed in a way that becomes evident
+with the addition of a line of code:</p>
+<pre><code>(set! *warn-on-reflection* true)
+
+(defn up-all [strings]
+  (map (fn [s] (.toUpperCase s)) strings))
+;; REFLECTION WARNING
+
+(up-all [&quot;a&quot; &quot;b&quot; &quot;c&quot;])
+;;=&gt; [&quot;A&quot; &quot;B&quot; &quot;C&quot;]</code></pre>
+<p>The problem is that Clojure cannot resolve which class the
+<code>.toUpperCase</code> method belongs to until using reflection at
+run time to determine the type of its argument. Reflection is a
+wonderful tool for <a
+href="https://blog.fogus.me/2022/11/10/the-one-about-lisp-interactivity/">interactive
+programming</a> but it’s slower than direct invocation that you get with
+resolved methods using type hints:</p>
+<pre><code>(map (fn [s] (.toUpperCase ^String s)) [&quot;a&quot; &quot;b&quot; &quot;c&quot;])
+;;=&gt; [&quot;A&quot; &quot;B&quot; &quot;C&quot;]</code></pre>
+<h3 id="loss-of-type-generality">Loss of type generality</h3>
+<p>Manual hinting is a fine way to help Clojure resolve method contexts,
+but using type hinting reduces the generality of a function. This
+becomes more clear with the following example:</p>
+<pre><code>(defn absv [^long n] (Math/abs n))
+
+(map absv [-1 -2 3])
+;;=&gt; [1 2 3]</code></pre>
+<p>The <code>absv</code> function<a href="#fn2" class="footnote-ref"
+id="fnref2" role="doc-noteref"><sup>2</sup></a> works fine for longs,
+but does not generalize to doubles because of the manual hinting:</p>
+<pre><code>(map absv [-1.1 -2.45 3.14159])
+;;=&gt; [1 2 3]</code></pre>
+<h3 id="loss-of-arity-generality">Loss of arity generality</h3>
+<p>The function <code>(fn [s] (.toUpperCase ^String s))</code> works
+fine for single strings, but the <code>.toUpperCase</code> method is
+overloaded on arity allowing an additional <code>java.util.Locale</code>
+object argument. The function taking a single argument <code>s</code>
+would clearly not work for users wishing to call the 2-arity case.</p>
+<p>Any method value implementation should work to solve the complexities
+listed, and since the manual solution involved function wrapping, we
+decided that method values should become Clojure functions that call the
+named method. The specifics of the generated functions were iterated on,
+but the general idea was that the function arities would correspond to
+the arities of the method. However, we decided very early on that
+Clojure should support method value syntax not only in value position,
+but also in invocation position.</p>
+<h2 id="qualified-methods-in-invocation-position">Qualified methods in
+invocation position</h2>
+<p>Prior to Clojure 1.12.0, Java interop calls in invocation position
+took one of three forms: <code>Classname/staticMethod</code>,
+<code>.instanceMethod</code>, or <code>Classname.</code> for
+constructors. There are problems with re-purposing the existing
+invocation syntaxes for value position. First, value position method
+values are by nature context agnostic, therefore deriving an instance
+method’s target type is impossible without some additional information
+available only at runtime. Second, the three syntaxes are asymmetric in
+their form. Finally, as a technical point the syntaxes were sugar that
+Clojure translated into various configurations of the <code>.</code> and
+<code>new</code> special forms. Any new syntax had to address all three
+of these considerations.</p>
+<p>Therefore, we moved to what we called “qualified methods”, which is
+an expansion of the existing static method symbolic form to both
+instance methods and constructors:</p>
+<ul>
+<li><code>Classname/staticMethod</code></li>
+<li><code>Classname/.instanceMethod</code></li>
+<li><code>Classname/new</code> for constructors</li>
+</ul>
+<p>Importantly, Clojure already knew how to resolve class names in
+symbol prefixes, so moving to this cleaner syntax allowed us to leverage
+existing code-paths. This allowed us to double down on providing strong
+feature semantics using existing support. Additionally, having the
+prefix class in hand for all three cases allows Clojure to use it as
+essential method resolution contexts, even in invocations:</p>
+<pre><code>(map (fn [s] (String/.toUpperCase s)) [&quot;a&quot; &quot;b&quot; &quot;c&quot;])
+;;=&gt; [&quot;A&quot; &quot;B&quot; &quot;C&quot;]</code></pre>
+<p>The implications for supporting qualified methods naturally led to an
+elegant implementation approach that I’ll discuss in the next post. But
+for now it’s worth noting that by moving to this syntax for instance
+methods required some extra consideration. That is, circumstances can
+arise where the qualifying class in a qualified instance method call can
+contradict the type of the target object, for example:</p>
+<pre><code>(map (fn [s] (String/.toUpperCase ^Object s)) [&quot;a&quot; &quot;b&quot; &quot;c&quot;])
+;;=&gt; [&quot;A&quot; &quot;B&quot; &quot;C&quot;]</code></pre>
+<p>For qualified instance method calls, it made sense to always use the
+qualifying class for the purpose of resolving the instance method to
+invoke.</p>
+<h2 id="qualified-methods-in-value-position">Qualified methods in value
+position</h2>
+<p>Of course, because qualified methods contain the context class for
+the method we can leverage that information to resolve methods in
+otherwise context-free value positions. However, there are deeper
+complexities in play that further complicate resolution in value
+position that I’ll discuss presently.</p>
+<h3 id="method-value-resolution">Method value resolution</h3>
+<p>The different ways to refer to the instance method
+<code>Double/.isNaN</code> and the static method
+<code>Double/isNaN</code> eliminate the first layer of ambiguity.
+However, a bigger problem is how to resolve type-overloaded methods like
+<code>Math/abs</code> that take any of primitive doubles, floats, ints,
+or longs? The obvious solution was to somehow attach signature
+information to the method value itself like <code>Math/abs-long</code>.
+However, this approach is not conducive to programmatic generation
+(i.e. in macros) as it requires symbolic munging and deconstruction by
+every programmer who wants to deal with method values. Instead, Clojure
+already has an elegant and programmer-friendly way to attach information
+to forms, namely via metadata.</p>
+<h4 id="explicit-resolution">Explicit resolution</h4>
+<p>We already saw how to use type hints to resolve the
+<code>.toUpperCase</code> method. So it felt natural to add a new kind
+of metadata to help resolve method values. That is, any qualified method
+with a metadata mapping of the keyword <code>:param-tags</code> to a
+vector of zero or more legal type hints will signal to Clojure the
+desired overload and arity of the method to use in the generated
+function call. We added a shorthand for this metadata using a new
+metadata syntax <code>^[... tag hints ...]</code> for it:</p>
+<pre><code>^[long] Math/abs
+;; resolves to only the static method taking 1 primitive long</code></pre>
+<p>This is analogous to the <code>:tag</code> metadata, and any legal
+<code>:tag</code> value is legal inside of the param-tags vector.
+Further, we also allow the special hint <code>_</code> in the param-tags
+vector that signals a kind of “any type” in that place of the signature.
+Further, the param-tag metadata provides arity declaration by default.
+These capabilities allow programmers to param-tags to convey their
+intent for a specific arity and the minimum types to resolve to a single
+method signature. Opting into this intentional specification means that
+any existing ambiguity is an error condition.</p>
+<h4 id="inference">Inference</h4>
+<p>As you might guess, sometimes NO param-tags might be enough to
+disambiguate a method if there are no type nor arity overloads at all.
+For example, the method <code>java.time.OffsetDateTime/.getYear</code>
+is not overloaded at all and therefore resolves without the use of
+param-tags at all. Sadly our old friend <code>Math/abs</code> is
+overloaded and therefore requires param-tags to resolve. However, I
+showed that Clojure already allows the use of unresolved methods by
+falling back to reflection at run time and therefore it felt natural to
+do the same for unresolved qualified methods without param-tags.</p>
+<p>However, Clojure has always used surrounding context to help resolve
+interop calls. We realized that qualified method invocations could
+leverage not only their qualifying class for resolution context, but
+also the mechanisms for leveraging type flow to resolve type overloads.
+Take the following example:</p>
+<pre><code>(defn bat-file? [filename &amp; {loc :loc}]
+  (let [ext &quot;bat&quot;
+        fnm (if loc 
+              (String/.toLowerCase filename loc)
+              (String/.toLowerCase filename))]
+    (String/.endsWith fnm ext)))
+
+(bat-file? &quot;AUTOEXEC.BAT&quot;)
+;;=&gt; true</code></pre>
+<p>The <code>bat-file?</code> function uses both qualifying class
+information and also type flow information to resolve the method calls
+within:</p>
+<ul>
+<li>The qualifying context is inherent in the qualified
+<code>String/.toLowerCase</code> calls</li>
+<li><code>String/.toLowerCase</code> is arity overloaded, but not type
+overloaded at each arity, so there is no ambiguity</li>
+<li><code>ext</code> is bound to a string literal that Clojure
+recognizes and uses as its type</li>
+</ul>
+<p>While, the calls above all resolve, there may be circumstances where
+type flow is insufficient to resolve even a qualified method call. In
+those cases Clojure falls back to reflective calls at run time. As I
+mentioned before, reflection is a tool supporting <a
+href="https://blog.fogus.me/2022/11/10/the-one-about-lisp-interactivity/">interactive
+programming</a>, which itself is a differentiating feature of Lisp
+languages in general. It was critical that qualified methods in both
+invocation and value position fall back to reflection on non-resolution
+to preserve interactivity. And of course, falling back to reflection
+does not preclude programmers from also using param-tags to guaranteed
+non-reflective cases in production-ready code.</p>
+<h4 id="the-method-value-razor">The method value razor</h4>
+<p>By splitting method value resolution into explicit and inferential
+branches, we’ve provided users with complimentary options. With
+param-tags Clojure programmers can intentionally specifiy which method
+that they want and if Clojure can resolve it then they’re bound to the
+resolved method now and forever.<a href="#fn3" class="footnote-ref"
+id="fnref3" role="doc-noteref"><sup>3</sup></a> On the other hand,
+programmers can forego param-tags and Clojure will derive intention at
+compile time or at runtime via reflection.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Implementing method values for Clojure 1.12.0 was an incremental
+process that incorporated a thoughtful design process coupled with
+thoughtful feedback from the community. As a result I believe that we
+have added a feature to Clojure that’s elegant in approach and in
+implementation (a topic for a future post). If you’re interested in
+using the features outlined in this post then please do try the
+feature-complete release candidate using the following dependency
+coordinates.</p>
+<p><strong>Clojure Deps</strong></p>
+<pre><code>org.clojure/clojure {:mvn/version &quot;1.12.0-rc1&quot;}</code></pre>
+<p><strong>Leiningen</strong></p>
+<pre><code>[org.clojure/clojure &quot;1.12.0-rc1&quot;]</code></pre>
+<p>As always, Clojure feedback is always welcomed at the following
+locations:</p>
+<ul>
+<li><a href="https://ask.clojure.org/">Q&amp;A Forum</a></li>
+<li><a href="http://clojurians.net/">Clojurians Slack</a></li>
+</ul>
+<p>Stay tuned for the next installment when I’ll dig deeper into the
+implementation details and possible future directions related to method
+values.</p>
+<p>:F</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Most new Clojure devs expect this to work I suspect.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The <code>absv</code> function above is illustrative for
+this post only… use the Clojure core function <code>abs</code> instead.
+:)<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>It’s possible that later Java or API versions could
+introduce ambiguity in the minimally-specified cases (i.e. using
+<code>_</code>), but this has always a danger even in type-hinted code.
+Clojure 1.12 provides the tool to avoid future ambiguity by fully
+specifying a method via param-tags.<a href="#fnref3"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</body>
+</html>
