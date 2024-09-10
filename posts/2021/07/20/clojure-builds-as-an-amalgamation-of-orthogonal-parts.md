@@ -1,3 +1,9 @@
+---
+title: "Clojure builds as an amalgamation of orthogonal parts"
+author: "Fogus"
+date: "2021.07.20"
+---
+
 # tools.build
 
 The Clojure Core team recently released a new Clojure library, [tools.build](https://github.com/clojure/tools.build), that is a culmination of thought around batteries-included build support for Clojure projects. I won't go into detail around the history and contents of the library in this post because much of that is found elsewhere, including the [announcement post](https://clojure.org/news/2021/07/09/source-libs-builds), the [tools.build guide](https://clojure.org/guides/tools_build), and the [tools.build API docs](https://clojure.github.io/tools.build). Instead, I'll walk through adding tools.build support to a simple project that currently uses [Leiningen](https://leiningen.org) for building and talk a little about how tools.build goes about the same tasks in a different way.

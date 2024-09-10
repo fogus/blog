@@ -1,3 +1,9 @@
+---
+title: "Languages Zoo"
+author: "Fogus"
+date: "2023.06.02"
+---
+
 As long as I can remember I have loved the process of defining, designing, and implementing my own programming languages. I've created so many languages that you could say that I've created something of a [programming languages zoo](https://plzoo.andrej.com/). Below you'll find a list of the languages that I've created over the years and those that I'm thinking about currently.
 
 

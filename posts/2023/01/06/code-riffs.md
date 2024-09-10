@@ -1,3 +1,9 @@
+---
+title: "Code Riffs"
+author: "Fogus"
+date: "2023.01.06"
+---
+
 <a href="http://blog.fogus.me/wp-content/uploads/2023/01/vs.png"><img src="http://blog.fogus.me/wp-content/uploads/2023/01/vs.png" alt="" width="526" height="611" class="aligncenter size-full wp-image-6877" /></a>
 
 Once upon a time I was deep into the MD/DC/VA area punk scene, and believe it or not I played in my share of bands and participated in my share of punk shows -- both in the crowd and sometimes even on stage. I look back on this time fondly, but to be honest I can't say that I ever contributed any song to the universe of music that was worth listening to. That said, while I can't claim to have been a talented song-writer, like many aspiring musicians I did discover my fair share of riffs along the way.

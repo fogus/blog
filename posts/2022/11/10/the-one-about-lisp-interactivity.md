@@ -1,3 +1,9 @@
+---
+title: "The one about Lisp interactivity"
+author: "Fogus"
+date: "2022.11.10"
+---
+
 Lisp REPLs are on the collective lips of the WWW lately and so I thought I'd add my little bit of chatter to the mix as well.[^fifteen]
 
 For example, David Vujic wrote a post that fell victim to [common misconceptions about what a REPL is](https://davidvujic.blogspot.com/2022/08/joyful-python-with-repl.html). Slava Pestov also joined the fray when he tweeted about the [benefits of interactivity in dynamic programming languages](https://twitter.com/slava_pestov/status/1587809146010755075). Conversely, [Chas Emerick at ocaml.org](https://discuss.ocaml.org/t/whats-your-development-workflow/10358/8?u=cemerick) discussed a contrasting opinion on the fitness of OCaml versus a Clojure development process. However, my favorite post on the subject of Lisp REPLs is from Lisp luminary Mikel Evins who wrote a very good post titled *[On REPL-driven Development](https://mikelevins.github.io/posts/2020-12-18-repl-driven/)*, describing his subjective view on the way that REPL-driven development fits his development mindset. Of particular note was his beautifully phrased description of the fundamental mode of development in Lisp[^st] systems:

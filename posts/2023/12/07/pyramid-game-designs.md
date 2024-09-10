@@ -1,3 +1,9 @@
+---
+title: "Pyramid Game Designs"
+author: "Fogus"
+date: "2023.12.07"
+---
+
 Like most players of games, I have had ideas for my own designs over the years. My medium of choice for realizing design ideas are typically existing game systems. By "system" I mean a set of pieces that do not, in themselves, constitute a game but instead provide a flexible framework for creating new games.[^langdev] One of my favorite game systems are the lovely [Looney Pyramids](https://www.looneylabs.com/pyramids-home) from [Looney Labs](https://www.looneylabs.com/). The following games were designed over the course of years and most are still WiP. After the list I'll share some meta ideas about game design for the pyramids themselves and in general. (sorted in order of my favorite)
 
 [^langdev]: Game design is very much like programming language design. Indeed, the word "game" in this post could be replaced with "language" without missing a beat.

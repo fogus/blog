@@ -1,3 +1,9 @@
+---
+title: "Clojure Core"
+author: "Fogus"
+date: "2021.01.15"
+---
+
 Earlier today Rich Hickey let the cat out of the bag that [I'm joining the Clojure Core](https://twitter.com/richhickey/status/1350110634776657920) development team.
 
 https://twitter.com/richhickey/status/1350110634776657920

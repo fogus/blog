@@ -1,3 +1,9 @@
+---
+title: "RIP, Prince Joli Quentin Kansil (Jan. 27, 1943 – Mar 27, 2023)"
+author: "Fogus"
+date: "2023.04.10"
+---
+
 [Prince Joli Quentin Kansil](https://en.wikipedia.org/wiki/Joli_Quentin_Kansil) was a renaissance man amongst game designers. A world traveler by desire, his roots (when he planted them) were in Philippines as an English teacher. I'd like to think that his designs are the kinds of games that might have been invented by "the most interesting man in the world." In addition to designing games, he was also a board game publisher, an accomplished Bridge and Backgammon player and promoter, a teacher, an author, an [inventor of alternative alphabets and calendars](http://web.archive.org/web/20060710031108/http://www.indochinegame.com/board_games/other_projects.html), a restless traveler, and a member of Hawaiian royalty by marriage. To those who knew him and corresponded with him, he was generous with his time and thoughtful in his interactions.
 
 ![PJQK](pjqk.jpeg)

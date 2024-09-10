@@ -1,3 +1,9 @@
+---
+title: "Notes from Underground: Software Tardigrades"
+author: "Fogus"
+date: "2024.03.08"
+---
+
 – [Cryptobiosis](http://www.ncbi.nlm.nih.gov/pubmed/11290443/) is a peculiar state of biological organization
 
 – [Automatic bug repair](http://news.mit.edu/2015/automatic-code-bug-repair-0629) and LLMs

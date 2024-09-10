@@ -1,3 +1,10 @@
+---
+title: "Thunks — a place to think through ideas still forming"
+author: "Fogus"
+date: "2021.11.19"
+---
+
+
 I haven't been blogging much lately because I'm currently embroiled in a years-long trend toward developing ideas and not quite formalizing any of them. While I have a lot of disparate notes around ideas it makes little sense to just put them out there for all to see[^0], yet I would still like to put some ideas out there and perhaps generate some discussion. Therefore, I've set up a Github repository called [Thunks](https://github.com/fogus/thunks) and a [discussion group around it](https://github.com/fogus/thunks/discussions) in an attempt to do just that.
 
 As far as topics go I will probably jump all over the place but more often than not I'll land on one or more of the following topics:

@@ -1,3 +1,9 @@
+---
+title: "The best things and stuff of 2022"
+author: "Fogus"
+date: "2023.12.13"
+---
+
 Great things and people that I discovered, learned, read, met, etc. in 2022.  No particular ordering is implied.  Not everything is new.
 
 *also: see the lists from [2021](https://blog.fogus.me/2021/12/27/the-best-things-and-stuff-of-2021/), [2020](http://blog.fogus.me/2020/12/31/the-best-things-and-stuff-of-2020/), [2019](http://blog.fogus.me/2019/12/30/the-best-things-and-stuff-of-2019/), [2018](http://blog.fogus.me/2019/01/02/the-best-things-and-stuff-of-2018/), [2017](http://blog.fogus.me/2018/01/02/the-best-things-and-stuff-of-2017/), [2016](http://blog.fogus.me/2016/12/29/the-best-things-and-stuff-of-2016/), [2015](http://blog.fogus.me/2015/12/29/the-best-things-and-stuff-of-2015/), [2014](http://blog.fogus.me/2014/12/29/the-best-things-and-stuff-of-2014/), [2013](http://blog.fogus.me/2013/12/27/the-best-things-and-stuff-of-2013/), [2012](http://blog.fogus.me/2012/12/26/the-best-things-and-stuff-of-2012/), [2011](http://blog.fogus.me/2011/12/31/the-best-things-and-stuff-of-2011/) and [2010](http://blog.fogus.me/2010/12/30/the-best-things-in-2010/)*
