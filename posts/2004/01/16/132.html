@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>132</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+I’ve gotten my kernel to boot finally. It’s is perhaps the most basic
+kernel that one can create; consisting only of a Grub front-end loading
+an
+<a href="http://en.wikipedia.org/wiki/Executable_and_Linkable_Format">ELF</a>
+binary (my kernel) that simply hacks into the VGA memory page, displays
+a text message, and halts the CPU. I am using Grub 0.90, NASM 0.98, and
+GCC 3.2.2 to build and execute in a VmWare virtual machine. I am in the
+process of transforming the VGA hack into a more eloquent abstraction
+such as printk, vsprintnf, and putc. Likewise, I would prefer to
+abstract most operations away from the x86 (although all development
+will occur on it currently), and a video stub is also being coupled with
+the previously mentioned kernel functions. Here is a pic: <br />
+<center>
+<img src="http://images.fogus.me/blog/fogos_001_boot.png">
+</center>
+<p><br /> <br />As you can see, I am writing over the video page and
+stepping on the toes of Grub’s output. That should be fixed in version
+0.011. More details to come. <br />-m <br /></p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

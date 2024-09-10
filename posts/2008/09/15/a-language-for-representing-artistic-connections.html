@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>a-language-for-representing-artistic-connections</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>For the past 10 years or so, I have attempted to keep track of the
+way in which my tastes in art (i.e. literature, music, film, etc..) are
+influenced. I initially started off doing this in the Dot language, but
+quickly found this to be untenable. I have considered migrating my
+current stack of thousands of connections to Prolog, but perhaps a
+simpler, more specific language would be a better option. This language
+would of course have to provide a way to define core entities
+symbolically.</p>
+<table callpadding="0" cellspacing="0" class="irisContainer" style="border-collapse: collapse; border-spacing:0">
+<tbody>
+<tr>
+<td style="margin: 0; padding:0">
+</td>
+<td rowspan="2" class="highlighted output">
+<pre class="ruby highlighted"><span class="normal">a(<span class="constant">:Philosopher</span>).isa(<span class="constant">:Person</span>)
+a(<span class="constant">:Musician</span>).isa(<span class="constant">:Person</span>)
+a(<span class="constant">:Friend</span>).isa(<span class="constant">:Person</span>)
+a(<span class="constant">:Musician</span>).isa(<span class="constant">:Person</span>)
+a(<span class="constant">:Magazine</span>).isa(<span class="constant">:Media</span>)
+a(<span class="constant">:Book</span>).isa(<span class="constant">:Media</span>)
+</span></pre>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Next, it would have to provide a way to track how links between the
+act of observing art and discovering new links occurs:</p>
+<table callpadding="0" cellspacing="0" class="irisContainer" style="border-collapse: collapse; border-spacing:0">
+<tbody>
+<tr>
+<td style="margin: 0; padding:0">
+</td>
+<td rowspan="2" class="highlighted output">
+<pre class="ruby highlighted"><span class="normal">reading(<span class="delimiter">"</span><span class="string">Apparat Singles Collection v1</span><span class="delimiter">"</span>).found(<span class="delimiter">"</span><span class="string">The Encyclopedia of Science Fiction</span><span class="delimiter">"</span>)
+reading(<span class="delimiter">"</span><span class="string">Apparat Singles Collection v1</span><span class="delimiter">"</span>).found(<span class="delimiter">"</span><span class="string">Doc Savage</span><span class="delimiter">"</span>)
+reading(<span class="delimiter">"</span><span class="string">Apparat Singles Collection v1</span><span class="delimiter">"</span>).found(<span class="delimiter">"</span><span class="string">J.G. Ballard</span><span class="delimiter">"</span>).created(<span class="delimiter">"</span><span class="string">Crash</span><span class="delimiter">"</span>)
+reading(<span class="delimiter">"</span><span class="string">Apparat Singles Collection v1</span><span class="delimiter">"</span>).found(<span class="delimiter">"</span><span class="string">Alfred Bester</span><span class="delimiter">"</span>).created(<span class="delimiter">"</span><span class="string">The Stars My Destination</span><span class="delimiter">"</span>)
+reading(<span class="delimiter">"</span><span class="string">Apparat Singles Collection v1</span><span class="delimiter">"</span>).found(<span class="delimiter">"</span><span class="string">Tom Waits</span><span class="delimiter">"</span>).created(<span class="delimiter">"</span><span class="string">The Mule Variations</span><span class="delimiter">"</span>)
+</span></pre>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<p>It would also be nice to define the category of an element in-place
+(this setting would be idempotent?):</p>
+<table callpadding="0" cellspacing="0" class="irisContainer" style="border-collapse: collapse; border-spacing:0">
+<tbody>
+<tr>
+<td style="margin: 0; padding:0">
+</td>
+<td rowspan="2" class="highlighted output">
+<pre class="ruby highlighted"><span class="normal">reading(<span class="delimiter">"</span><span class="string">Nodame Cantabile</span><span class="delimiter">"</span>).at(<span class="delimiter">'</span><span class="string">2008.09.12</span><span class="delimiter">'</span>).found(<span class="delimiter">"</span><span class="string">Edward Elgar</span><span class="delimiter">"</span>).isa(<span class="constant">:Musician</span>)
+</span></pre>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Of course, the verbs used to start a link should not be a
+requirement. Instead, there should be a way to refer to elements
+directly and then create links immediately.</p>
+<table callpadding="0" cellspacing="0" class="irisContainer" style="border-collapse: collapse; border-spacing:0">
+<tbody>
+<tr>
+<td style="margin: 0; padding:0">
+</td>
+<td rowspan="2" class="highlighted output">
+<pre class="ruby highlighted"><span class="normal"><span class="error">$(</span><span class="delimiter">"</span><span class="string">Rob Friesel</span><span class="delimiter">"</span>).isa(<span class="constant">:Friend</span>).recommends(<span class="delimiter">"</span><span class="string">House of Leaves</span><span class="delimiter">"</span>)
+<span class="error">$(</span><span class="delimiter">"</span><span class="string">http://www.houseofleaves.com</span><span class="delimiter">"</span>).refers_to(<span class="delimiter">"</span><span class="string">House of Leaves</span><span class="delimiter">"</span>)
+<span class="error">$(</span><span class="delimiter">"</span><span class="string">Rob Friesel</span><span class="delimiter">"</span>).recommends(<span class="delimiter">"</span><span class="string">Perdido Street Station</span><span class="delimiter">"</span>)
+<span class="error">$(</span><span class="delimiter">"</span><span class="string">Warren Ellis</span><span class="delimiter">"</span>).created(<span class="delimiter">"</span><span class="string">Apparat Singles Collection v1</span><span class="delimiter">"</span>)
+<span class="error">$(</span><span class="delimiter">"</span><span class="string">Weird Tales</span><span class="delimiter">"</span>).isa(<span class="constant">:Magazine</span>).recommends(<span class="delimiter">"</span><span class="string">The Brief History of the Dead</span><span class="delimiter">"</span>)
+<span class="error">$(</span><span class="delimiter">"</span><span class="string">Matt Bachtell</span><span class="delimiter">"</span>).isa(<span class="constant">:Friend</span>).recommends(<span class="delimiter">"</span><span class="string">H.P. Lovecraft</span><span class="delimiter">"</span>).isa(<span class="constant">:Author</span>)
+
+</span></pre>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<p>It would be nice to be able to attach metadata to entities
+directly:</p>
+<table callpadding="0" cellspacing="0" class="irisContainer" style="border-collapse: collapse; border-spacing:0">
+<tbody>
+<tr>
+<td style="margin: 0; padding:0">
+</td>
+<td rowspan="2" class="highlighted output">
+<pre class="ruby highlighted"><span class="normal"><span class="error">$(</span><span class="delimiter">"</span><span class="string">RESTful Web Services</span><span class="delimiter">"</span>).attach {<span class="delimiter">"</span><span class="string">isbn</span><span class="delimiter">"</span> =&gt; <span class="delimiter">"</span><span class="string">0596529260</span><span class="delimiter">"</span>}
+</span></pre>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Sometimes, one piece of art is influenced by another:</p>
+<table callpadding='0' cellspacing='0' class='irisContainer' style='border-collapse: collapse; border-spacing:0'>
+<tbody>
+<tr>
+<td style="margin: 0; padding:0">
+</td>
+<td rowspan='2' class='highlighted output'>
+<pre class="ruby highlighted">
+<p><span class="normal"><span class="error"><span
+class="math inline">$(&lt;/span&gt;&lt;span
+class="delimiter"&gt;"&lt;/span&gt;&lt;span class="string"&gt;Sword of
+Shannara&lt;/span&gt;&lt;span
+class="delimiter"&gt;"&lt;/span&gt;).steals(&lt;span
+class="delimiter"&gt;"&lt;/span&gt;&lt;span class="string"&gt;Lord of
+the Rings&lt;/span&gt;&lt;span class="delimiter"&gt;"&lt;/span&gt;)
+&lt;span class="error"&gt;$</span>(</span><span
+class="delimiter">“</span><span class="string">Neil
+Stephenson</span><span class="delimiter">“</span>).influences(<span
+class="delimiter">“</span><span class="string">Rob Friesel</span><span
+class="delimiter">“</span>)</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

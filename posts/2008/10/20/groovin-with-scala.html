@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>groovin-with-scala</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>I have been attempting to introduce some low-ceremony programming
+tools and languages to my programming team at <a
+href="https://www.tena-sda.org">my job</a> and thanks to a series of
+brown-bags and internal discussions have sold <a
+href="http://www.scala-lang.org">Scala</a> for use in an upcoming
+project. It wasn’t <a
+href="http://en.wikipedia.org/wiki/Functional_programming">functional
+programming</a>, <a
+href="http://www.scala-lang.org/node/127">type-inference</a>, <a
+href="http://www.scala-lang.org/node/107">case classes</a>, or even the
+Actor Model that was the biggest win but instead <a
+href="http://www.scala-lang.org/node/131">embeddable XML</a> and the
+fact that <a
+href="http://www.gracelessfailures.com/2008_06_01_archive.html">Twitter
+uses it</a>… hey, whatever works right?</p>
+<p>I have looked into Scala for a few months and on occasion attempted
+to put together a nice example of how it compares to Java. However, it
+turns out that <a
+href="http://onestepback.org/articles/groovy/index.html">Jim Weirich
+from Compuware presented a nice example</a> for <a
+href="http://groovy.codehaus.org/">Groovy</a> that I decided to steal
+and mangle to work for Scala (standing on the shoulders of giants and
+all that). The results are below, but bear in mind that it works much
+better as a presentation. Nonetheless…</p>
+<blockquote>
+<p>Caveat emptor: I am still learning Scala, so I have yet to absorb its
+idioms, terminology, and nuances</p>
+</blockquote>
+<h2 id="original-java-class">Original Java Class</h2>
+<pre lang="java">
+
+import java.util.*;
+
+class Clutter {
+    public static void main( String[] args) {
+        List names = new ArrayList();
+        names.add( "Mike");
+        names.add( "Marvin");
+        names.add( "Bhagat");
+        names.add( "Horacio");
+
+        System.out.println( names);
+
+        Clutter e = new Clutter();
+        List short_names = e.filterLongerThan( names, 4);
+
+        System.out.println( short_names.size());
+
+        for( String s : short_names) {
+            System.out.println( s);
+        }
+    }
+    
+    public List filterLongerThan( List strings, int length) {
+        List result = new ArrayList();
+
+        for( String s : strings ) {
+            if( s.length() < length+1) {
+                result.add( s);
+            }
+        }
+
+        return result;
+    }
+}
+</pre>
+<h2
+id="there-are-no-semi-colons-and-the-package-wildcard-is-different-in-scala">There
+are no semi-colons and the package wildcard is different in Scala</h2>
+<pre lang="java">
+
+
+import java.util._
+
+class Clutter {
+    public static void main( String[] args) {
+        List names = new ArrayList()
+        names.add( "Mike")
+        names.add( "Marvin")
+        names.add( "Bhagat")
+        names.add( "Horacio")
+
+        System.out.println( names);
+
+        Clutter e = new Clutter()
+        List short_names = e.filterLongerThan( names, 4)
+
+        System.out.println( short_names.size())
+
+        for( String s : short_names) {
+            System.out.println( s)
+        }
+    }
+    
+    public List filterLongerThan( List strings, int length) {
+        List result = new ArrayList()
+
+        for( String s : strings ) {
+            if( s.length() < length+1) {
+                result.add( s)
+            }
+        }
+
+        return result
+    }
+}
+</pre>
+<h2 id="iterating-over-a-list-is-elegant">Iterating over a list is
+elegant</h2>
+<pre lang="java">
+import java.util._
+
+class Clutter {
+    public static void main( String[] args) {
+        List names = new ArrayList()
+        names.add( "Mike")
+        names.add( "Marvin")
+        names.add( "Bhagat")
+        names.add( "Horacio")
+
+        System.out.println( names);
+
+        Clutter e = new Clutter()
+        List short_names = e.filterLongerThan( names, 4)
+
+        System.out.println( short_names.size())
+
+        short_name.foreach( s => System.out.println( s) )
+    }
+    
+    public List filterLongerThan( List strings, int length) {
+        List result = new ArrayList()
+
+        strings.foreach { s =>
+            if( s.length() < length+1) {
+                result.add( s)
+            }
+        }
+
+        return result
+    }
+}
+</pre>
+<h2
+id="let-type-inference-take-care-of-most-of-those-type-annotations-plus-scala-doesnt-need-the-new-keyword">Let
+type-inference take care of most of those type annotations, plus Scala
+doesn’t need the <code>new</code> keyword</h2>
+<pre lang="java"> 
+import java.util._
+
+class Clutter {
+    public static void main( args:Array[String]) {
+        val names = List()  
+        names.add( "Mike")
+        names.add( "Marvin")
+        names.add( "Bhagat")
+        names.add( "Horacio")
+
+        System.out.println( names);
+
+        val e = Clutter() 
+        var List short_names = e.filterLongerThan( names, 4)
+
+        System.out.println( short_names.size())
+
+        short_name.foreach( s => System.out.println( s) ) 
+    }
+    
+    public List filterLongerThan( List strings, int length) {
+        List result = ArrayList()
+
+        strings.foreach { s =>       
+            if( s.length() < length+1) {
+                result.add( s)
+            }
+        }
+
+        return result
+    }
+}
+</pre>
+<h2 id="it-should-not-be-this-difficult-to-create-a-list-of-strings">It
+should not be this difficult to create a list of strings</h2>
+<pre lang="java"> 
+import java.util._
+
+class Clutter {
+    public static void main( args:Array[String]) {
+        val names = List("Mike", "Marvin", "Bhagat", "Horacio")
+
+        System.out.println( names);
+
+        val e = Clutter()                                      
+        var List short_names = e.filterLongerThan( names, 4)   
+
+        System.out.println( short_names.size())
+
+        short_name.foreach( s => System.out.println( s) )      
+    }
+    
+    public List filterLongerThan( List strings, int length) {
+        List result = new ArrayList()
+
+        strings.foreach { s =>                                 
+            if( s.length() < length+1) {
+                result.add( s)
+            }
+        }
+
+        return result
+    }
+}
+</pre>
+<h2 id="filtering-can-be-handled-using-a-for-comprehension">Filtering
+can be handled using a for-comprehension</h2>
+<pre lang="java"> 
+import java.util._
+
+class Clutter {
+    public static void main( args:Array[String]) {
+        val names = List("Mike", "Marvin", "Bhagat", "Horacio") 
+
+        System.out.println( names);
+
+        val e = Clutter()                                       
+        var List short_names = e.filterLongerThan( names, 4)    
+
+        System.out.println( short_names.size())
+
+        short_name.foreach( s => System.out.println( s) )       
+    }
+    
+    public List filterLongerThan( List strings, int length) {
+        for( n <- strings if( n.length <= length)) yield n     
+    }
+}
+</pre>
+<h2
+id="the-filtering-can-occur-locally-and-does-not-need-to-be-part-of-a-class">The
+filtering can occur locally and does not need to be part of a class</h2>
+<pre lang="java"> 
+import java.util._
+
+class Clutter {
+    public static void main( args:Array[String]) {
+        val names = List("Mike", "Marvin", "Bhagat", "Horacio")
+
+        System.out.println( names);
+
+        var List short_names = for( n <- names if( n.length <= 4)) yield n
+
+        System.out.println( short_names.size())
+
+        short_name.foreach( s => System.out.println( s) )      
+    }
+}
+</pre>
+<h2 id="why-not-make-our-class-a-singleton">Why not make our class a
+singleton?</h2>
+<pre lang="java">
+object Clutter {                                             
+    public static void main( args:Array[String]) {
+        val names = List("Mike", "Marvin", "Bhagat", "Horacio")
+
+        System.out.println( names);
+
+        List short_names = for( n <- names if( n.length <= 4)) yield n
+
+        System.out.println( short_names.size())
+
+        short_name.foreach( s => System.out.println( s) )      
+    }
+}
+</pre>
+<h2 id="there-are-no-statics-in-scala">There are no statics in
+Scala</h2>
+<pre lang="java"> 
+object Clutter {                                               
+    def main( args:Array[String]) {                            
+        val names = List("Mike", "Marvin", "Bhagat", "Horacio")
+
+        System.out.println( names);
+
+        List short_names = for( n <- names if( n.length <= 4)) yield n
+
+        System.out.println( short_names.size())
+
+        short_name.foreach( s => System.out.println( s) )      
+    }
+}
+</pre>
+<h2
+id="we-really-do-not-need-a-main-at-all-instead-make-our-filter-a-library-function">We
+really do not need a main at all, instead make our filter a library
+function</h2>
+<pre lang="java">
+<p>object Cleaner {<br />
+def filterLongerThan( names:List[String], len:int) = {<br />
+for( n &lt;- names if( n.length &lt;= len)) yield n } }</p>
+<p>val names = List(“Mike”, “Marvin”, “Bhagat”, “Horacio”)</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

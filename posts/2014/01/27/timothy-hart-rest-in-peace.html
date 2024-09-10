@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>timothy-hart-rest-in-peace</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>On January 20, 2014 the world lost a hacker named Timothy Hart. Hart
+was not just any hacker – he was a hacker of the highest order. If
+you’ve read more than three books on Lisp then you might have seen his
+name pop up here and there. If not, then you’ve definitely felt his
+influence.</p>
+<h2 id="macros">Macros</h2>
+<p>Macros are a ubiquitous element for any Lisp language in use today,
+but the fact is that they were not part of the early LISP
+implementations. Instead, LISP macros were invented years after
+Russell’s first implementation by Hart and were described in a <a
+href="http://dspace.mit.edu/handle/1721.1/6111">short MIT memo entitled
+<em>MACRO Definitions for LISP</em></a>. This short but epic document
+described an extension to the original seven-function LISP eval that
+looked effectively like the following:</p>
+<pre><code>((eq (caar expr) (quote macro))
+ (cond
+   ((eq (cadar expr) (quote lambda))
+    (eval (eval (car (cdddar expr))
+                (cons (list (car (caddar expr)) 
+                            (cadr expr)) 
+                      binds))
+          binds))))</code></pre>
+<p>After reading this paper I took some time to extend my tiny Lisp
+interpreter Lithp to support Hart-style macros. Please take a moment to
+read the original paper; you won’t be disappointed. It’s striking how a
+feature so powerful and eventually far-reaching was described via a
+humble, 3-page memo.<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a></p>
+<h2 id="alpha-beta-search">Alpha-Beta Search</h2>
+<p>Sticking with short, yet deeply influential memos, Hart and D.J.
+Edwards described a modification to the known <a
+href="http://en.wikipedia.org/wiki/Minimax">minimax algorithm</a> that
+would change game search forever. The paper, <em><a
+href="http://dspace.mit.edu/handle/1721.1/6098">The Alpha-Beta
+Heuristic</a></em> is 5-pages of astonishment and still stands as one of
+the best descriptions of the technique. An interesting fact about
+Alpha-Beta pruning is that it was independently invented by numerous
+people and organizations. So go great ideas.</p>
+<h2 id="lisp-1.5">LISP 1.5</h2>
+<p>While a comprehensive write-up of Hart’s work would lead to a much
+longer post, I wanted to highlight three that personally influenced me
+in my programming life. While both the macro and alpha-beta papers were
+important to me, neither more deeply influenced my thinking more than
+the <a
+href="http://www.mcjones.org/dustydecks/archives/2012/08/29/590/">LISP
+1.5 Programmers Manual</a>. Hart is listed as one of the co-authors of
+this amazing work and while I’m not certain of his precise contributions
+to the manual, his association with the book and his contributions to
+this early LISP implementation put him amongst the most influential Lisp
+hackers in the history of the young computing industry. The <em>LISP 1.5
+Programmer’s Manual</em> is near the top of any list of book that every
+programmer should read.</p>
+<p>Timothy Hart. Thank you and rest in peace.</p>
+<p>:F</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Hart’s main contributions to the history of LISP appear
+to be in the form of code. The <a
+href="http://www.softwarepreservation.org/projects/LISP/">Lisp archives
+at the Software Preservation Group</a> have his name scattered
+throughout.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

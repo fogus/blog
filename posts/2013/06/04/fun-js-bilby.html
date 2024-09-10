@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>fun-js-bilby</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p><em>I’ve written a book entitled <a
+href="http://www.functionaljavascript.com">Functional JavaScript</a> due
+out in print sometime in June 2013. In the book I introduce and explore
+various techniques for writing code in a functional style using the <a
+href="http://www.underscorejs.org">Underscore</a> library. As much as I
+would have loved to delve into the ecosystem of functional JS libraries,
+I didn’t want to distract from the core functional topics in the book.<a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> Therefore, I present a series to
+explore a few of my favorite <a
+href="http://blog.fogus.me/tag/fun.js">functional JavaScript
+libraries</a><a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a> focusing primarily on the feature(s)
+that make them interesting, innovative or unique.<a href="#fn3"
+class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a></em></p>
+<h2 id="bilby">Bilby</h2>
+<p>A self-contained functional library, Brian McKenna’s <a
+href="https://github.com/puffnfresh/bilby.js">Bilby</a> stretches the
+possibilities of functional style in JavaScript. It’s worth exploring
+Bilby to learn its entire feature set, but one that is particularly nice
+is its implementation of multimethods.<a href="#fn4"
+class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>
+Brian touts his use of <a
+href="http://www.amazon.com/Category-Computer-Scientists-Foundations-Computing/dp/0262660717/?tag=fogus-20">category
+theory</a> in Bilby, but that’s a red herring that detracts from its
+powerful, yet simple, capabilities and ideas.</p>
+<p>For example, with Bilby is you can define functions that dispatch on
+any number of interesting conditions. Bilby provides a module system
+called environments that aggregate related methods and properties:</p>
+<pre class="prettyprint">
+    var noAnimals = bilby.environment();
+</pre>
+<p>Before adding a multimethod I can define a few helper functions:</p>
+<pre class="prettyprint">
+    function voice(type, sound) {
+      return ["The", type, "says", sound].join(' ');
+    }
+    
+    function isA(thing) {
+      return function(obj) {
+        return obj.type == thing;
+      }
+    }
+    
+    function say(sound) {
+      return function(obj) {
+        console.log(voice(obj.type, sound));
+      }
+    }
+</pre>
+<p>Using these helpers I can tell Bilby:</p>
+<ol type="1">
+<li>The name of the method</li>
+<li>A predicate that checks the arguments<a href="#fn5"
+class="footnote-ref" id="fnref5"
+role="doc-noteref"><sup>5</sup></a></li>
+<li>An action function that performs the method behaviors</li>
+</ol>
+<p>The <code>Environment#method</code> takes the three arguments listed
+above and returns a <em>new</em> environment:</p>
+<pre class="prettyprint">
+    var cats = noAnimals.method('speak', 
+                                isA('cat'), 
+                                say("mew"));
+</pre>
+<p>As shown, adorning an environment with a new multimethod returns a
+new environment. I can now call <code>speak</code>:</p>
+<pre class="prettyprint">
+    cats.speak({type: 'cat'});
+    // (console) The cat says mew
+</pre>
+<p>Adding a new polymorphic behavior is simple:</p>
+<pre class="prettyprint">
+    var catsNDogs = cats.method('speak', 
+                                isA('dog'), 
+                                say("woof"));
+</pre>
+<p>And calling <code>speak</code> with a dog object works as
+expected:</p>
+<pre class="prettyprint">
+    catsNDogs.speak({type: 'dog'});
+    // (console) The dog says woof
+</pre>
+<p>And cats still sound like cats:</p>
+<pre class="prettyprint">
+    catsNDogs.speak({type: 'cat'});
+    // (console) The cat says mew
+</pre>
+<p>Of course, I can match on an arbitrary condition within the dispatch
+predicate:</p>
+<pre class="prettyprint">
+    var animals = catsNDogs.method('speak',
+      function(obj) {
+        return isA('frog')(obj) && 
+               (obj.status == 'dead');
+      },
+      say('Hello ma, baby!'));
+</pre>
+<p>So passing in a dead frog works all the same:</p>
+<pre class="prettyprint">
+    animals.speak({type: 'frog', status: 'dead'});
+    // (console) The frog says Hello ma, baby!
+</pre>
+<p>I love the idea of the immutable environments and look forward to the
+chance to take advantage of them for a project. Of course, Bilby
+provides more than multimethods, including a <a
+href="http://raganwald.com/2013/03/28/trampolines-in-javascript.html">trampoline</a>
+that allows you to return functions, monadic structures,<a href="#fn6"
+class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>, a
+<a
+href="https://github.com/puffnfresh/bilby.js/blob/master/src/do.js">crazy-insane
+operator overloading form</a>, validation helpers and much more.</p>
+<p><em>If you want to talk functional programming, my book, the library
+in question or anything else then feel free to comment below or email me
+at the address at the top of this blog post.</em></p>
+<p>:F</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>I cover a few in an appendix, but did not go as deeply
+as I would have liked given unlimited time and page count.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Including, but not limited to: <a
+href="http://osteele.com/sources/javascript/functional/">Functional
+JavaScript by Oliver Steele</a>, <a
+href="http://functionaljs.org/">Lemonad</a>, <a
+href="http://reactive-extensions.github.com/RxJS/">RxJS</a>, <a
+href="http://bilby.brianmckenna.org/">Bilby</a>, <a
+href="http://allong.es/">Allong.es</a>, <a
+href="http://d3js.org/">D3</a>, <a
+href="https://github.com/Gozala/reducers">Reducers</a>, <a
+href="https://github.com/documentcloud/underscore-contrib">Underscore-contrib</a>,
+<a href="https://github.com/swannodette/mori">Mori</a> and <a
+href="https://github.com/raimohanska/bacon.js">Bacon.js</a>.<a
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Seriously, who needs yet another blog post on closures,
+<code>map</code>, <code>reduce</code>, <code>filter</code>,
+<code>__proto__</code> and the like? I’ll hit on those topics from time
+to time, but they will not be the focus of these posts.<a href="#fnref3"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Bilby’s multimethods are similar to the
+<code>dispatch</code> function defined in chapter 5 of <em><a
+href="http://www.amazon.com/Functional-JavaScript-Introducing-Programming-Underscore-js/dp/1449360726/?tag=fogus-20">Functional
+JavaScript</a></em> but more robust and flexible.<a href="#fnref4"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>The <code>isA</code> function is an example of a curried
+function, up to 2 parameters. A curried function is one that returns a
+closure for each of its logical arguments minus one. When it gets the
+last argument the function is executed with all of the historical
+arguments given to it. All talk more about curried functions in the
+future, but the key is that this behavior is very different than partial
+application such as provided by <code>_.partial</code> or
+<code>Function#bind</code>.<a href="#fnref5" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Bilby is not currently <a
+href="https://github.com/puffnfresh/fantasy-land">Fantasy Land
+compatible</a>, but should be soon(ish). I hope to write about FL in the
+near(ish) future.<a href="#fnref6" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

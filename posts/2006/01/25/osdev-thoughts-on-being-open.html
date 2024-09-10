@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>osdev-thoughts-on-being-open</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>For those of you unfamiliar with my habits, I am in the process of
+developing my own operating system during my hobby hours (or minutes
+recently). The preliminary results have been promising as I have been
+able to implement a base kernel with kprint, kmalloc and kfree (with
+flat mm), pic init, a rudimentary HAL, and some entropy/random routines.
+The real problem so far has not been the progress but rather the lack of
+vision, therefore I will take a few minutes to list out some goals and
+cool features to provide via my OS.</p>
+<ol type="1">
+<li><p>I grew up on the Commodore 64 and loved every minute of it. Among
+my favorite features were the peek and poke commands which allowed you
+to set and get values of memory locations from within BASIC programs.
+These functions were of course completely unprotected, thus allowing you
+to put any byte into any
+<a href="http://www.tkk.fi/Misc/cbm/docs/c64-memorymap.html">memory
+location</a> (including video memory which would cause interesting
+environment changes to occur). As a kid these were invaluable learning
+tools as I could peek and poke around, mess thing up, and then switch on
+and off and be back to square one in 3 seconds. Which leads me to my
+next goal…</p></li>
+<li><p>The C64 was an instant-on machine. As soon as the swich went down
+the BASIC shell was up waiting for input. I would love to get this type
+of response, but it is probably pie in the sky. However, with the help
+of a fast loading kernel and some fast firmware to help out
+(<a href="http://www.linuxbios.org/index.php/Main_Page">LinuxBIOS</a>
+perhaps).</p></li>
+<li><p>I would love to create an OS able to pool high quality entropy
+for use in crypto functions. Currently, I have a few hooks in the HAL
+layer to pull entropy from hardware sources (e.g. the Via C3 and C7
+chips) where appropriate and to also supplemet that pool with very good
+random number generators. An ultimate goal of the OS is to feed as much
+non-deterministic entropy into the pool as possible. Some possibilities
+might be: user key click timings, realtime clock and reference
+oscillator jitter, cpu temp. etc…)</p></li>
+<li><p>HAL. I love hardware abstraction layers and the problems they
+prsent in design and implmentation. I am less interested in providing
+portability as I am for figuring out how to provide portability. The
+journey is the reward.</p>
+<p>That should provide a nice start to getting a fairly complete goal
+set under wraps. I will go now and try to noodle my way through these
+points and expand on them.</p>
+<p>-m</p></li>
+</ol>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

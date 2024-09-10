@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>hostiness</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>The most interesting programming languages moving forward, in my
+opinion, are languages targeting an existing host platform. Regardless
+of your opinion of the following languages, I think that the reason for
+their buzz, power and (eventual?) success is due to their embrace of
+their host targets:</p>
+<ul>
+<li><a href="http://elixir-lang.org/">Elixir</a> is a programming
+language targeting the <a
+href="http://www.unlimitednovelty.com/2009/01/cutting-edge-of-vm-design.html">Erlang
+virtual machine</a>.</li>
+<li><a href="http://coffeescript.org/">CoffeeScript</a> is a language
+that compiles down to JavaScript</li>
+<li><a href="http://clojure.org">Clojure</a> is a Lisp that targets the
+Java Virtual Machine and JavaScript</li>
+<li><a href="http://visi.io/">Visi</a> is a language that targets the
+cloud via a Haskell and Objective C-based runtime</li>
+<li><a href="http://roy.brianmckenna.org/">Roy</a> is a statically typed
+language that targets JavaScript</li>
+<li><a href="http://www.jruby.org">JRuby</a> is a Ruby variant on the
+JVM</li>
+<li><a href="http://cobra-language.com/">Cobra</a> is an OO language
+with builtin support for contracts and unit tests targeting .NET and
+Mono</li>
+<li><a href="http://www.shenlanguage.org">Shen</a> is a beautiful
+statically (optional) typed Lisp variant targeting Common Lisp,
+JavaScript, the JVM and possibly more targets</li>
+</ul>
+<p>There are more of course, but these represent a nice sample of the
+most exciting offerings. Where they differ from other languages is that
+they embrace established, well maintained and/or popular systems. That
+is, they leverage a host platform to their advantage.</p>
+<p>Moving into the future I believe one would need to be gutsy,
+ill-informed or insane (or a mix of the three) to create a language
+runtime from scratch. That’s not to say that it shouldn’t <em>ever</em>
+happen, in fact for “systems” languages like <a
+href="http://www.rust-lang.org/">Rust</a> and <a
+href="http://golang.org/">Go</a> it makes a lot of sense to start from
+whole cloth. However, for higher-level languages leveraging an existing
+runtime is a huge win. One has only a finite amount of time to burn, and
+it’s a weighty choice to want to spend it recreating<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
+garbage collectors, virtual machines and the like. That’s not to say
+that there’s no room for improvement in those areas, but I think at this
+point it’s easier to make a mark in programming languages or compilation
+techniques than in garbage collection or VMs.</p>
+<p>So if I were insane<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a> enough to create a programming
+language for use by others, I would, without hesitation pick one of the
+following hosts:</p>
+<ul>
+<li><a href="http://factorcode.org/">Factor</a>: the concatenative
+programming language has a stunning compiler and runtime</li>
+<li>GHC: the Haskell compiler and extensions with the appropriate
+runtime libraries</li>
+<li>Java Virtual Machine: world-beating megatech</li>
+<li>JavaScript itself or a specific JavaScript targets like Node.js or
+V8</li>
+<li>Erlang’s virtual machine</li>
+<li>A Common Lisp implementation</li>
+<li><a href="http://www.racket-lang.org">Racket</a> via its <a
+href="https://gist.github.com/3840018"><code>#lang</code></a>
+feature</li>
+</ul>
+<p>There are other targets of note,<a href="#fn3" class="footnote-ref"
+id="fnref3" role="doc-noteref"><sup>3</sup></a> especially <a
+href="http://llvm.org">LLVM</a>, <a
+href="http://www.parrot.org">Parrot</a>, <a
+href="http://luajit.org">LuaJit</a>, <a href="http://pypy.org/">PyPy</a>
+and <a href="http://pauillac.inria.fr/~ddr/camlp5/">Camlp5</a> but I’m
+not terribly familiar with the way that they solve the <a
+href="https://github.com/clojure/clojurescript/wiki/Rationale">“library
+problem”</a>.</p>
+<p>I’m not likely to create a programming language at any point this
+decade, but langdev is one of those topics that I love to think
+about.</p>
+<p>:F</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>That’s not to say that you shouldn’t try. I think every
+programmer should try to write a garbage collector or a virtual machine.
+It builds character.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>I use insane with all deference to those insane enough
+to create wonderful languages.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>If you’re not inclined to limit yourself to full-blown
+hosts, then there are langdev elements such as garbage collectors,
+shells, parsers and the like available as libraries.<a href="#fnref3"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

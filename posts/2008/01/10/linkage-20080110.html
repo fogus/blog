@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>linkage-20080110</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p><a href="http://unclutterer.com/2007/12/26/uncluttering-your-refrigerators-crisper/">Unclutter
+the crisper</a><br/></p>
+<p><a href="http://p4wn.sourceforge.net/">p4wn</a><br/></p>
+<a href="http://personalmba.com/recommended-business-books/">Mastering
+Business Through Self-Education</a><br/>
+<blockquote>
+So skip the fancy diploma and $150,000 loan - you can get a world-class
+business education simply by reading these books.
+</blockquote>
+<code>
+<pre>
+PAWN
+16721 LD A (HL)  126
+(81)  ADD N      238 128
+(65)  LD HL NN   33 228 64
+      JP NZ DIS  32 2
+      LD L N     46 241
+      LD D N     22 3
+      LD A E     123
+      ADD (HL)   134
+      PUSH HL    229
+      PUSH AF    245
+      CP N       254 63
+      JP C DIS   56 32
+      CP N       254 148
+      JP NC DIS  48 28
+      CALL STR   205 187 64
+      CP N       254 0
+      JP Z DIS   48 28
+      CP N       254 1
+      JP NZ DIS  32 17
+      LD A D     122
+      CP N       254 1
+      JP NZ DIS  32 12
+      CALL ALIST 205 141 66
+      LD A E     123
+      CP N       254 82
+      JP C DIS   56 19
+      CP N       254 126
+      JP NC DIS  48 15
+      POP AF     241
+      POP HL     225
+      DEC HL     43
+      DEC D      21
+      JP NZ DIS  31 218
+      RET        201
+      LD A D     122
+      CP M       254 1
+      CALL NZ ALIST 196 141 66
+      JP DIS     24 241
+      POP AF     241
+      POP HL     225
+      LD E A     95
+      JP DIS     24 197
+</pre>
+<p></code><a href="http://users.ox.ac.uk/~uzdm0006/scans/1kchess/assem.html">jmp</a><br/></p>
+<p><a href="http://en.wikipedia.org/wiki/Green_threads">Green
+threads</a><br/></p>
+<p><a href="http://maruku.rubyforge.org/">Maruku</a><br/></p>
+<p><a href="http://behaviour-driven.org/">Behavior Driven
+Development</a> <em>or, my eventual phd thesis topic</em><br/></p>
+<a href="http://www.jakevoytko.com/blog/2008/01/06/why-does-rsa-work/">Why
+RSA works</a><br/>
+<blockquote>
+Enter Leonhard Euler. Euler was 18 feet tall, shot laser beams from his
+eyes, and proved Mathematics every second he was awake. In 1736, he took
+23 minutes off from a conquest of Mars to prove Fermat’s Little Theorem.
+</blockquote>
+<p><a href="http://www.theregister.co.uk/2008/01/05/tob_cray1/"><img src="http://regmedia.co.uk/2008/01/05/tob_cray1-6.jpg" alt="Cray-1" /></a><br/></p>
+<p><a href="http://www.valuedlessons.com/2008/01/monads-in-python-with-nice-syntax.html">Monads
+in Python</a><br/></p>
+<p><a href="http://www.benlo.com/microchess/microchess.html">Microchess</a><br/></p>
+<a href="http://gojko.net/2007/11/29/golden-rule-of-web-caching/">Rule
+of web caching</a><br/>
+<blockquote>
+The best option for caching, if possible, is to use static files on the
+disk and allow web servers to publish those files directly.
+</blockquote>
+<object width="425" height="355">
+<param name="movie" value="http://www.youtube.com/v/Qo7vUdKTlhk&rel=1"></param><param name="wmode" value="transparent"></param><embed src="http://www.youtube.com/v/Qo7vUdKTlhk&rel=1" type="application/x-shockwave-flash" wmode="transparent" width="425" height="355"></embed>
+</object>
+<p><br/></p>
+<p><a href="http://common-lisp.net/project/movitz/">Lisp on bare
+metal</a><br/> -m</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

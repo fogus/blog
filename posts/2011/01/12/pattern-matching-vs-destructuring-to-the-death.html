@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>pattern-matching-vs-destructuring-to-the-death</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>In my post about <a
+href="http://blog.fogus.me/2010/12/14/unification-versus-pattern-matching-to-the-death/">unification
+vs. pattern matching</a> I included a little footnote about how the
+creator of <a href="https://github.com/dcolthorp/matchure">Matchure</a>
+is probably often asked how pattern matching differs from Clojure’s
+destructuring. This footnote was an attempt to draw the elusive author
+out and comment on the subject. Since my attempt was a failure, I
+decided to throw this post together to explain<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> it
+myself.</p>
+<p>Imagine that you have a vector of numbers:</p>
+<pre><code>(def $ [1 2 3 4 5])</code></pre>
+<p>How might we bind a variable <code>x</code> to the number at the
+center of this vector? With destructuring this is simple:</p>
+<pre><code>(let [[_ _ x _ _] $] x)
+;=&gt; 3</code></pre>
+<p>However, what if you wanted to bind <code>x</code> based on the
+precise contents of the vector?</p>
+<pre><code>(when-let [[1 2 x 4 5] $] x)
+; java.lang.Exception: Unsupported binding form: 1</code></pre>
+<p>We can’t do that with destructuring because it only cares about the
+“shape” or “outline” of the collection. However, using pattern matching
+we can indeed match in specific cases:</p>
+<pre><code>(when-match [[1 2 ?x 4 5] $] x)
+;=&gt; 3
+
+(when-match [[1 2 ?x 400 500] $] x)
+;=&gt; nil</code></pre>
+<p>This is matching at its most precise, but Matchure also allows
+matching based on arbitrary functions:</p>
+<pre><code>(when-match [[(odd? ?) (even? ?) ?x _ _] $] x)
+;=&gt; 3
+
+(when-match [[(even? ?) (odd? ?) ?x _ _] $] x)
+;=&gt; nil
+
+(when-match [[_ _ ?x &amp; (some #{5} ?)] $] x)
+;=&gt; 3
+
+(when-match [[_ _ ?x &amp; (some #{42} ?)] $] x)
+;=&gt; nil</code></pre>
+<p>Both destructuring and pattern matching let you draw a picture of the
+structure under observation and create bindings as a result. However,
+pattern matching subsumes destructuring because it allows you to draw at
+a finer levels of detail.</p>
+<p>:F</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>This post refers to Matchure’s implementation and is not
+meant to stand in for every language implementation of pattern matching.
+However, it is likely <em>mostly correct</em> for said languages.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

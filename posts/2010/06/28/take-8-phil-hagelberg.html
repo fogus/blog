@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>take-8-phil-hagelberg</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<figure>
+<img src="http://technomancy.us/i/headshot.jpg" title="Technomancy"
+alt="technomancy" />
+<figcaption aria-hidden="true">technomancy</figcaption>
+</figure>
+<p>Continuing my series of micro-interviews with Clojure hackers I
+present Technomancy (aka Phil Hagelberg). Phil continues the theme of
+prolific coders having brought us a series of fantastic projects. Most
+notable among his Clojure output is the (increasingly ubiquitous) <a
+href="http://github.com/technomancy/leiningen">Leiningen</a> build tool.
+However, the story of his mad output does not end there as the <a
+href="http://github.com/technomancy/emacs-starter-kit">Emacs Starter
+Kit</a>, <a
+href="http://github.com/technomancy/clojure-http-client">clojure-http-client</a>,
+and my personal favorite <a
+href="http://github.com/technomancy/robert-hooke">Robert Hooke</a>
+attest. Additionally, he is maintaining both <a
+href="http://github.com/technomancy/clojure-mode">clojure-mode.el</a>
+and <a href="http://github.com/technomancy/swank-clojure">Swank/Slime
+for Clojure</a>. As if that were not enough, Phil is also a contributor
+to the <a href="http://kenai.com/projects/duby">Duby programming
+language</a> and to <a href="http://clojure.org">Clojure</a> itself –
+and all of this[^slacker] is without mentioning his Ruby contributions!
+Finally, Phil works for <a href="http://www.sonian.com">Sonian</a>,
+which is the Avengers[^avengers] of the Clojure community.</p>
+<div style="width: 450px;">
+<h4>
+Q: What led you to Clojure?
+</h4>
+<p>
+I started programming with QBasic in 7th grade, and I got into writing
+Zork-style text adventures. Of course I didn’t understand data
+structures, so my games were very much copy/paste affairs. I wanted to
+put together a tool that could create text adventures, but I ended up
+trying to do this by outputting the whole source (with hard-coded rooms,
+gotos, etc) to .BAS files on disk instead of separating out data and
+logic. As you can imagine it didn’t work very well, but it got me
+thinking.
+</p>
+<p>
+In college I realized I’d have to make the choice at some point between
+Emacs and vi. I gave them each a brief shot, but the default vi key
+bindings are designed to work with a QWERTY layout and are nonsense on
+Dvorak, (yes, I realize now you can fix this) so I ended up going with
+Emacs. Once I got going with Elisp I realized it had the magic “programs
+writing programs” property that I’d been looking for since 7th grade,
+and that sealed the deal for me.
+</p>
+<p>
+Of course, you can’t do <i>that</i> much with Elisp, at least if you
+want to get paid, so I toyed around with Common Lisp. My background was
+in web programming at that point, and so naturally I thought, “I know,
+<a href="http://technomancy.us/1">I’ll port my blog to it!</a>” That
+lasted about a month—it was so awkward at the time just to find a decent
+HTTP server, so CL still has this aura of the 1980s associated with it
+in my head, complete with big hair and Tears For Fears playing in the
+background. (Having
+<a href="http://www.cs.cmu.edu/Groups/AI/html/hyperspec/HyperSpec/Body/fun_make-pathname.html">VAX
+filesystem support</a> included in the language spec certainly doesn’t
+help with that image.)
+</p>
+<p>
+I got into Ruby in 2005 since it felt
+“<a href="http://blog.fogus.me/2010/06/09/clojure-rb/">close enough to
+lisp</a>” to keep my interest, and the money was certainly good. But
+when I watched Rich’s
+<a href="http://clojure.blip.tv/file/1313398/">Clojure for Lisp
+Programmers</a> videos one weekend in November of 2008 it became clear
+that you could really use it for everyday tasks. So the pragmatic angle
+really pulled me in, though the immutability was what caught my eye to
+begin with.
+</p>
+<p><a href="http://www.flickr.com/photos/technomancy/4397554484/"
+   title="Keyboard Pants by Technomancy, on
+          Flickr"><img src="http://farm3.static.flickr.com/2787/4397554484_739ae62eee_m.jpg"
+                       width="240" height="180" alt="Keyboard Pants"
+                       align="left" style="margin: 4px;"/></a></p>
+<h4>
+Q: Are you planning on starting a line of keyboard pants? (please say
+yes)
+</h4>
+<p>
+I’ll probably sell a kit,
+<a href="http://en.wikipedia.org/wiki/Altair_8800">Altair-style</a> and
+let hackers put them together themselves. I wouldn’t want to deprive
+them of the hands-on fun of assembly. I think they’re great, but I fully
+acknowledge that I’m on the lunatic fringe of input and interface
+mechanisms.
+</p>
+<h4>
+Q: As someone who seems to manage an astonishing number of projects
+simultaneously, how do you manage to avoid starving any given project?
+</h4>
+<p>
+At first I misread this as “how do you manage to avoid <i>starting</i>
+any given project”. My answer for that is more interesting, so I’ll
+start there.
+</p>
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/3/32/William-Adolphe_Bouguereau_%281825-1905%29_-_The_Remorse_of_Orestes_%281862%29.jpg/200px-William-Adolphe_Bouguereau_%281825-1905%29_-_The_Remorse_of_Orestes_%281862%29.jpg" alt="Orestes"
+     align="right"  style="margin: 4px;"/></p>
+<p>
+It used to be that I was limited by coming up with names; naming
+projects is really hard. But these days I’ve decided on a policy of
+naming all my projects after literary characters, which has led me to
+the opposite problem—I need to make sure my projects are good enough for
+the names I’ve got in mind. I’ve got this
+<a href="http://p.hagelb.org/coverage.clj.html">silly 25-line test
+coverage hack</a> that I want to release, but calling it “Orestes” seems
+like it doesn’t do
+<a href="http://en.wikipedia.org/wiki/Oresteia">Æschylus’s work</a>
+justice. So I’m limited by the rate at which I read new fiction—I need
+to stumble across some minor characters with names that do a better job
+at reflecting my humbler hacks.
+</p>
+<p>
+As for avoiding <i>starving</i> any given project—well, just ask anyone
+who’s sent me patches: I simply don’t. It’s disgraceful. I really try to
+focus on one project at a time, but that means patches can wait for
+three months before getting applied if they’re for a project I’m not
+focusing on.
+</p>
+<p>
+I try to improve this situation by giving more people commit access so I
+don’t become a bottleneck, but this is tricky. I guess people don’t feel
+like they’re qualified, which is totally bogus. I’m certainly not
+“qualified” to maintain Swank Clojure. I got into it because of my
+background in Emacs, but it turns out you really need to understand its
+Common Lisp background. I have only a superficial understanding of the
+codebase.
+</p>
+<p>
+I like to think of myself more as the “steward” of that code rather than
+the “maintainer”. But I get the patches applied, fix a few bugs, and get
+the releases pushed out. It’s something you can ease your way into, so I
+encourage readers to help out with projects they’re interested in. Don’t
+be intimidated.
+</p>
+<h4>
+Q: What is your relationship to Bus Scheme?
+</h4>
+<p><img src="http://technomancy.us/i/bus_logos.png" align="left"
+     width="250" alt="Bus Scheme logos"  style="margin: 4px;"/></p>
+<p>
+Well, I used to work in downtown Seattle, so I spent a lot of time on
+the bus. I got a copy of <i>The Little Schemer</i> and wanted to play
+around with the ideas in it, so I started
+<a href="http://bus-scheme.rubyforge.org/">Bus Scheme</a> (in Ruby) with
+the stipulation that all implementation must happen while riding the
+bus. I had a lot of fun with that. It never got continuations or
+hygienic macros, but I had the basics of the interpreter working fine
+and put together a simple CL-style macro system.
+</p>
+<p>
+I recommend it as an exercise to folks interested in the nuts and bolts
+of language implementation. It’s much less work than it sounds for a
+language as small as Scheme, and to people who haven’t done their own
+implementation (potential employers perhaps?) it sounds really
+impressive. I certainly learned a lot about parsing and lexical scope as
+well.
+</p>
+<p>
+One of these days I’ll move on to
+<a href="http://technomancy.us/107">Unicycle Java</a>, but I’ve got
+enough on my plate right now.
+</p>
+<h4>
+Q: What’s your favorite code snippet? (any language)
+</h4>
+<p>
+<p>I really like <a href="http://camping.rubyforge.org/">Camping</a></p>
+</div>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

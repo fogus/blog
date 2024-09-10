@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>fun-js</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>A few years ago I got the idea that it would be fun to implement a
+variant of Scheme targeting the JVM. During my search for different ways
+to implement numerics I looked deeply at the implementation of two
+languages: <a
+href="http://jscheme.sourceforge.net/jscheme/main.html">JScheme</a> and
+a little-known language <a href="http://www.clojure.org">Clojure</a>.
+During my explorations with these two languages and the ways that they
+handled and implemented numerics I quickly came to a humbling
+realization: there was no possible way that I could make a language as
+good as either, and along the way I happened to fall in love with
+Clojure. So as a result I completely abandoned my piddly Scheme and
+adopted Clojure outright.</p>
+<p>However, over the months that followed the time that I had spent in
+the interpreter nagged at me. It seemed that perhaps I could use what I
+learned to good effect. Rather than attempt to complete the Scheme for
+the purposes of use, I instead put together a draft of a single book to
+introduce two different topics:</p>
+<ol type="1">
+<li>Functional programming</li>
+<li>Programming language interpretation and compilation</li>
+</ol>
+<p>This book was intended to use JavaScript to implement a variant of
+Scheme piecewise; building a more capable interpreter as the book
+progressed. I got as far as re-implementing much of the original
+language in JavaScript and completed a fairly detailed outline and a
+couple of chapters. However, along the way I got sidetracked on writing
+another book called <a href="http://www.joyofclojure.com/buy">The Joy of
+Clojure</a> and my JS-Scheme book was derailed.</p>
+<p>During my research for the The Joy of Clojure I happened upon a book
+called <a
+href="http://www.amazon.com/Lisp-Small-Pieces-Christian-Queinnec/dp/0521545668/?tag=fogus-20">Lisp
+In Small Pieces</a> that simply blew my mind. Aside from the powerful
+content itself, the very premise was… wait for it…</p>
+<blockquote>
+<p>to implement a variant of Scheme piecewise; building a more capable
+interpreter as the book progressed.</p>
+<p>– me, in this blog post, like 7 seconds ago</p>
+</blockquote>
+<p>As you can imagine, I completely abandoned my JS/Scheme book
+idea.</p>
+<p>However, over the months that followed the time that I had spent on
+the interpreter, outline and chapters nagged at me. It seemed that
+perhaps I could use what I learned to good effect. Rather than attempt
+to complete the Scheme for the purposes of a book, I instead put
+together drafts of <em>two different books to introduce two different
+topics</em>:</p>
+<ol type="1">
+<li>Functional programming</li>
+<li>Programming language interpretation and compilation</li>
+</ol>
+<p>Instead of creating a language for the purposes of building an
+understanding of functional programming, I could instead write one book
+introducing functional programming for a language that could use such a
+book and another introducing how and why languages are created the way
+that they’re created. About a year and a half ago I started both of
+these books, but as it stands only one has managed to come to fruition
+so far.</p>
+<h2 id="introducing-functional-javascript">Introducing <em>Functional
+JavaScript</em></h2>
+<p>Through an odd set of circumstances my name, via <a
+href="http://ashkenas.com/">Jeremy Ashkenas</a>, found its way onto the
+desk of Mary Treseler at <a
+href="http://shop.oreilly.com/product/0636920028857.do">O’Reilly</a> and
+I inked a contract to complete my book as an O’Reilly venture:</p>
+<p><a href="http://www.amazon.com/Functional-JavaScript-Introducing-Programming-Underscore-js/dp/1449360726/?tag=fogus-20"><img src="http://blog.fogus.me/wp-content/uploads/2013/03/funjs-228x300.jpg" alt="funjs" width="228" height="300" class="aligncenter size-medium wp-image-5114" /></a></p>
+<h2 id="when">When</h2>
+<p>As of a month ago the book was effectively complete and is now making
+its way through the internal review process.<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
+<strong>The expected release date is June 2013, but <a
+href="http://www.amazon.com/Functional-JavaScript-Introducing-Programming-Underscore-js/dp/1449360726/?tag=fogus-20">the
+book is available for pre-order from Amazon now</a>.</strong></p>
+<h2 id="why">Why</h2>
+<p>There are many good books on JavaScript that cover, to varying
+degrees, functional programming. However, there is a surprising lack of
+JavaScript books that tackle the topic full-on. I am an advocate of
+functional programming and functional programming techniques, so I think
+that there are many lessons from functional programming languages like
+Clojure and Haskell that are directly applicable to JavaScript. While
+I’m am advocate, I’m fairly non-dogmatic and pragmatic about functional
+programming, so I think there is room for a book on the topic that takes
+a realistic and fun, yet principled perspective.</p>
+<h2 id="what">What</h2>
+<p>The book uses and builds on the <a
+href="http://underscorejs.org/">Underscore library</a> to highlight and
+explain functional programming techniques. It’s not intended as a full
+reference to Underscore.js, but is instead about functional programming
+in JavaScript. You have to wait for the release to see it all, but a
+high-level outline of the chapters is as follows:</p>
+<ul>
+<li>Chapter 1: Getting started</li>
+<li>Chapter 2: First-class functions and applicative programming</li>
+<li>Chapter 3: Variable scope and closures</li>
+<li>Chapter 4: Higher-order functions</li>
+<li>Chapter 5: Function building functions</li>
+<li>Chapter 6: Recursion</li>
+<li>Chapter 7: Purity, immutability and policies for change</li>
+<li>Chapter 8: Flow-based programming</li>
+<li>Chapter 9: Programming without class</li>
+</ul>
+<p>This book has been a long time in the works in some form or another
+and I think that despite all of the setbacks getting here, now is the
+best time for it to see the light.</p>
+<p>I hope that you’ll enjoy.</p>
+<p><em><a href="https://news.ycombinator.com/item?id=5407287">hacker
+news discussion</a></em></p>
+<p>:F</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Additionally my good friend <a
+href="http://blog.founddrama.net">Rob Friesel</a> has taken some of his
+precious time to provide valuable feedback along the way.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

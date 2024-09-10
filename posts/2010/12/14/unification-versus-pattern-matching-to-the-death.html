@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>unification-versus-pattern-matching-to-the-death</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>The number one question asked of me at <a
+href="http://first.clojure-conj.org/">The Conj</a><a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
+was: <em>what is unification?</em>. Once I explained what unification
+was and how <a
+href="http://github.com/clojure/core.unify">clojure.core.unify</a>
+implemented it, the follow-up question was inevitably: <em>how is
+unification different from pattern matching?</em>. You see, Drew
+Colthorp wrote a fantastic pattern matching library called <a
+href="http://github.com/dcolthorp/matchure">Matchure</a> that creates
+bindings based on the way that structural forms<a href="#fn2"
+class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>
+match:</p>
+<pre><code>(if-match [[?a ?b] [1 2]] {&#39;?a a &#39;?b b})
+
+;=&gt; {?a 1, ?b 2}</code></pre>
+<p>That is, the bindings <code>a</code> and <code>b</code> are created
+based on the way that the structural template containing the “variables”
+<code>[?a ?b]</code> matches with the actual form <code>[1 2]</code>.
+The core.unify library works similarly to Matchure for this specific
+case, as shown below:</p>
+<pre><code>(unify &#39;[?a ?b] [1 2])
+
+;=&gt; {?b 2, ?a 1}</code></pre>
+<p>So what the heck do we need unification for? The answer lies in the
+question: <em>what happens when there is a variable element on
+<strong>both</strong> sides of the match?</em></p>
+<pre><code>(if-match [[?a ?b] [1 ?a]] {&#39;?a a &#39;?b b})
+
+; java.lang.Exception: 
+;   Unable to resolve symbol: ?a in this context</code></pre>
+<p>Pattern matching, while powerful<a href="#fn3" class="footnote-ref"
+id="fnref3" role="doc-noteref"><sup>3</sup></a> does not handle the case
+where matching variables appear on both sides of the check. However,
+this scenario is exactly where unification shines:</p>
+<pre><code>(unify &#39;[?a ?b] &#39;[1 ?a])
+
+;=&gt; {?b 1, ?a 1}</code></pre>
+<p>And there we have it – the fundamental difference between unification
+and pattern matching. There are of course vast differences between the
+implementations of Matchure and core.unify<a href="#fn4"
+class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>,
+but I’ll save those for another day.</p>
+<p>:f</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Besides, “Will you please go away?”<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>I’ll bet Drew gets asked all the time: <em>What is the
+difference between pattern matching and destructuring?</em> :p<a
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Having used Scala over the past 2.75 years, I must say
+that I’ve grown to feel exquisite sadness whenever I use a language
+without pattern matching.<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>One huge difference that should be immediately apparent,
+is that Matchure does binding while core.unify does not. I plan to add
+binding sooner rather than later.<a href="#fnref4" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

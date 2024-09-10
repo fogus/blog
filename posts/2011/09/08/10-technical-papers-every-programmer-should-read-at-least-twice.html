@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>10-technical-papers-every-programmer-should-read-at-least-twice</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p><em>Let me preface this post by saying that no programmer
+<strong>should</strong> feel compelled to read any of these papers. I
+list them because I think that they provide a breadth of information
+that is generally useful and interesting from a computer science
+perspective. What you do with that information is your prerogative,
+including ignoring it completely. Instead, learn what you think is
+important for what you need to accomplish your job, education,
+interests, etc.</em></p>
+<p>Inspired by a fabulous post by <a
+href="http://web.archive.org/web/20121024173845/http://blog.objectmentor.com/articles/2009/02/26/10-papers-every-programmer-should-read-at-least-twice">Michael
+Feathers along a similar vein</a>, I’ve composed this post as a sequel
+to the original. That is, while I agree almost wholly with
+Mr. Feather’s[^writing] choices, I tend to think that his choices are
+design-oriented[^design] and/or philosophical. In no way, do I disparage
+that approach, instead I think that there is room for another list that
+is more technical in nature, but the question remains, where to go next?
+In this post I will offer some guidance based on my own readings. The
+papers chosen herein are not intended to act as a C.S. hall of fame, but
+instead hope to accomplish the following:</p>
+<ul>
+<li>All papers are freely available online (i.e. not pay-walled)</li>
+<li>They are technical (at times highly so)</li>
+<li>They cover a wide-range of topics</li>
+<li>The form the basis of knowledge that every great programmer should
+know, and may already</li>
+</ul>
+<p>Because of these constraints I will have missed some great papers,
+but for the most part I think this list is solid. Please feel free to
+disagree and offer alternatives in the comments.</p>
+<h2 id="a-visionary-flood-of-alcohol">A Visionary Flood of Alcohol</h2>
+<h4
+id="fundamental-concepts-in-programming-languages-link-to-paper">Fundamental
+Concepts in Programming Languages <a
+href="https://github.com/papers-we-love/papers-we-love/blob/master/plt/fundamental-concepts-in-programming-languages.pdf?raw=true">(link
+to paper)</a></h4>
+<p><strong>by Christopher Strachey</strong></p>
+<p>Quite possibly the most influential set of lecture notes in the
+history of computer science. Left and Right-values, Parametric and
+Ad-hoc polymorphism were all defined in this paper. Much of the content
+may already occupy your mind, but the sheer weight of the heady topics
+assembled in one place is stunning to observe.</p>
+<h4 id="why-functional-programming-matters-link-to-paper">Why Functional
+Programming Matters <a
+href="https://github.com/papers-we-love/papers-we-love/blob/master/functional_programming/why-functional-programming-matters.pdf">(link
+to paper)</a></h4>
+<p><strong>by John Hughes</strong></p>
+<p>I found this paper extremely lucid on the advantages of functional
+programming with the added advantage of showing off examples of
+beautiful code. There are seemingly an infinite number of papers on the
+topic of laziness with streams and generators, but I’ve yet to find a
+better treatment. Finally, I’ve always been partial to <a
+href="http://weblog.raganwald.com/2007/03/why-why-functional-programming-matters.html">Reginald
+Braithwaite’s “Why Why Functional Programming Matters Matters”</a> as a
+complement to this paper.</p>
+<h4 id="an-axiomatic-basis-for-computer-programming-link-to-paper">An
+Axiomatic Basis for Computer Programming <a
+href="https://github.com/papers-we-love/papers-we-love/blob/master/comp_sci_fundamentals_and_history/axiomatic-basis-computer-programming.pdf?raw=true">(link
+to paper)</a></h4>
+<p><strong>by C. A. R. HOARE</strong></p>
+<p>I came to this paper late in my career, but when I finally found it I
+felt like I had been hit by a bus. At the core of the paper lies the
+following assertion:</p>
+<pre><code>P {Q} R</code></pre>
+<p>Taken to mean:</p>
+<blockquote>
+<p>If the assertion P is true before initiation of a program Q, then the
+assertion R will be true on its completion</p>
+</blockquote>
+<p>Where <code>P</code> is a precondition, <code>Q</code> is the
+execution of a program, and <code>R</code> is the result.</p>
+<p>In other words, as long as a program/function/method/etc. receives a
+set of parameters conforming to its preconditions, its execution is
+guaranteed to produce a well-formed result. This paper inspired me to
+explore <a href="http://github.com/fogus/trammel">contracts programming
+in Clojure</a>, but the proof implications reached in Hoare’s paper run
+much deeper.</p>
+<h4
+id="time-clocks-and-the-ordering-of-events-in-a-distributed-system-link-to-paper">Time,
+Clocks, and the Ordering of Events in a Distributed System <a
+href="http://research.microsoft.com/en-us/um/people/lamport/pubs/time-clocks.pdf">(link
+to paper)</a></h4>
+<p><strong>by Leslie Lamport (1978)</strong></p>
+<p>Lamport has been highly influential in the field of distributed
+computation for a very long time and almost any of his papers on the
+subject should impress. However, this particular paper is likely his
+most influential and single-handed defined two branches of study in
+distributed computing since:</p>
+<ol type="1">
+<li>The reasoning of event ordering in distributed systems and
+protocols</li>
+<li>The state machine approach to redundancy</li>
+</ol>
+<p>The most amazing aspect of this paper is that after you read it you
+might think to yourself, “Well, of course that’s how it should work.” <a
+href="http://www.amazon.com/o/asin/1558601902?tag=fogus-20">Jim Gray</a>
+once said that this paper was both obvious and brilliant. I would say
+that there is no higher compliment.</p>
+<h4
+id="on-understanding-types-data-abstraction-and-polymorphism-link-to-paper">On
+Understanding Types, Data Abstraction, and Polymorphism <a
+href="http://citeseer.ist.psu.edu/viewdoc/summary?doi=10.1.1.117.695">(link
+to paper)</a></h4>
+<p><strong>by Luca Cardelli and Peter Wegner</strong></p>
+<p>I had originally thought to list Milner’s <em>A Theory of Type
+Polymorphism in Programming</em>, but thought that a survey paper would
+be better. I must admit that my own readings have not gone deep into the
+exploration of type systems, so any additional suggestions would be
+greatly appreciated.</p>
+<h4
+id="recursive-functions-of-symbolic-expressions-and-their-computation-by-machine-part-i-link-to-paper">Recursive
+Functions of Symbolic Expressions and Their Computation by Machine, Part
+I <a href="http://www-formal.stanford.edu/jmc/recursive.html">(link to
+paper)</a></h4>
+<p><strong>by John McCarthy</strong></p>
+<p>It’s become a cliche to recommend McCarthy’s seminal paper
+introducing LISP. I will not count this toward the target of 10, but I
+would be remiss to excluse it because it’s a great read that is nicely
+supplemented with the study of <a href="http://fogus.me/fun/lithp">a
+simple implementation of McCarthy’s original
+specification</a>.[^lisp]</p>
+<h2 id="the-machinery-for-change">The Machinery for Change</h2>
+<h4
+id="predicate-dispatch-a-unified-theory-of-dispatch-link-to-paper">Predicate
+Dispatch: A Unified Theory of Dispatch <a
+href="https://github.com/papers-we-love/papers-we-love/blob/master/plt/predicate-dispatching.pdf?raw=true">(link
+to paper)</a></h4>
+<p><strong>by Michael Ernst, Craig Kaplan, and Craig
+Chambers</strong></p>
+<p>Describes a method for dispatching functions based not on a static
+set of rules, but instead as the traversal of a decision tree that could
+be built at compile-time and extended incrementally at runtime. What
+this means is that dispatch is controlled and adapted based on an open
+set of conditions describing the rules of dispatch. This stands opposed
+to the current popular trend of languages whose dispatch is hard-coded
+and not open for extension at all.</p>
+<h4
+id="equal-rights-for-functional-objects-or-the-more-things-change-the-more-they-are-the-same-link-to-paper">Equal
+Rights for Functional Objects or, The More Things Change, The More They
+Are the Same <a
+href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.23.9999">(link
+to paper)</a></h4>
+<p><strong>by Henry G. Baker</strong></p>
+<p>At the heart of Clojure and ClojureScript’s implementation is
+<code>#equiv</code> that is in turn based off of Henry Baker’s
+<code>egal</code> operator introduced in this paper. Briefly, equality
+in Clojure is defined by equality of value, which is facilitated by
+pervasive immutability. Equality in the presence of mutability has no
+meaning.</p>
+<h4 id="organizing-programs-without-classes-link-to-paper">Organizing
+Programs Without Classes <a
+href="http://bibliography.selflanguage.org/_static/organizing-programs.pdf">(link
+to paper)</a></h4>
+<p><strong>by David Ungar, Craig Chambers, Bay-wei Chang, and Urs
+Hölzle</strong></p>
+<p>The greatest crime perpetrated in the name of JavaScript is the
+propensity for every framework, library, and trifle uses the prototypal
+inheritance capabilities of the language to implement class-based
+inheritance. <a href="http://blog.fogus.me/2010/12/20/self/">I propose
+that this behavior stunts the power of JavaScript</a>. However, the
+class-based mentality is pervasive, and is only likely to grow stronger
+as JavaScript moves toward “modernized” data-modeling techniques. Having
+said that, <a
+href="http://www.infoq.com/resource/articles/the-joy-of-clojure/en/resources/JoyofClojureCH09.pdf">I
+love the prototypal model</a>. It’s flexibility and simplicity is
+astounding, and this paper[^self</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

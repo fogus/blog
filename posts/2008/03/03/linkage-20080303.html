@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>linkage-20080303</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p><a href="http://www.cio.com/article/print/191000">Zed: You used Ruby
+for what?</a><br/></p>
+<p><a href="http://www-jpc.physics.ox.ac.uk/index.html">JPC</a><br/></p>
+<p><a href="http://clojure.blip.tv/file/707974/">Clojure data
+structures</a><br/></p>
+<a href="http://www.ams.org/featurecolumn/archive/random.html">Random
+Numbers: Nothing Left to Chance</a><br/>
+<blockquote>
+At first glance, it may seem like a simple thing to generate random
+numbers. In fact, you may think that humans could do this easily by, for
+instance, just writing sequences of 0’s and 1’s in a stream of
+consciousness. By following this link, you will be able to write a
+sequence of one hundred 0’s and 1’s that will be analyzed using a few of
+the tests we’ll encounter later in this article. If your sequence passes
+these tests, it shares several properties with truly random sequences.
+However, you will most likely find it difficult to write a sequence that
+passes these tests. Humans have a difficult time creating random
+sequences by trying to “act randomly.”
+</blockquote>
+<p><a href="http://cobra-language.com/docs/papers-etc/Cobra-Socal-Piggies-2008-02-Slides.pdf">Cobra
+Language</a> (pdf)<br/></p>
+<p><a href="http://www.defmacro.org/ramblings/lisp.html">The Nature of
+Lisp</a><br/> Tons and tons about everything.<br/></p>
+<a href="http://www.billingsgazette.net/articles/2008/03/01/features/life/19-assasinations.txt">Could
+doctors save Honest Abe?</a><br/>
+<blockquote>
+After describing the circumstances surrounding each famous
+assassination, Housinger offered his opinion on whether modern medicine
+could have saved those high-profile victims if the attack had occurred
+in Billings today.
+</blockquote>
+<p><a href="http://lispmeister.com/blog/lisp-news/opencog.html">OpenCog</a><br/></p>
+<p><a href="http://thedailywtf.com/Articles/So-You-Hacked-Our-Site!.aspx">Web
+security blunders</a><br/></p>
+<p><a href="http://www.westeros.org/Citadel/FAQ/">Song of Ice and Fire
+FAQ</a> and
+<a href="http://en.wikipedia.org/wiki/A_Song_of_Ice_and_Fire">WP
+article</a><br/> Something to tide me over until <i>A Dance with
+Dragons</i><br/></p>
+<p><a href="http://western-skies.blogspot.com/2008/02/simple-complete-example-of-python.html">Python
+getstate, setstate</a><br/></p>
+<a href="http://softwaresimply.blogspot.com/2008/02/how-i-learned-to-stop-worrying-and-love.html">Haskell’s
+type inference</a><br/>
+<blockquote>
+When the lightbulb came on, it was blinding. I just needed to use the
+result of lookup in a way that forced the Haskell’s type inference to
+put it into the Maybe monad! To do this, all you have to do is compare
+to Just pass instead of pass.
+</blockquote>
+<pre><code>
+import re
+from itertools import *
+iterpreter = (lambda s: (
+    (lambda g: lambda env, exp: g(g)(env, exp))
+    (lambda g: (lambda interpret:(
+        lambda env, exp:{
+            list:lambda exp:(
+                (exp[:1]==["lambda"]) and
+                    (lambda env: lambda params:
+                        (lambda nenv: [interpret(nenv, e)
+                                for e in exp[2:]][-1])
+                            (lambda x: dict(zip(exp[1], params)).get(x, False)
+                                or env(x)))(env)
+                or (lambda pexp: pexp[0](pexp[1:]))([interpret(env, e)
+                    for e in exp])),
+            str:lambda exp: env(exp), int:lambda exp: exp
+        }[type(exp)](exp)))(lambda env, exp:g(g)(env, exp))))
+        (lambda x:{"sum":(lambda params: sum(params))}.get(x, False),
+        reduce(lambda env, v:
+            (v==")" and
+                (lambda:((lambda i:env[:i]+[env[i+1:]])
+                    (len(env)-env[::-1].index("(")-1)))
+            or (lambda:env+[v]))(),
+                [(i==2 and int(e[i]) or e[i]) for e, i in
+                    [(e,sum([c*(i is not "") for i, c in zip(e, count())]))
+                        for e in re.findall(r"(\()|(\))|(\d+)|(\w+)",s)]],
+                        [])[0]))
+
+s = "((lambda (a b) (sum a (b))) 1 (lambda () 8))"
+v = iterpreter(s)
+print v
+</code></pre>
+<p><a href="http://thinkpython.blogspot.com/2008/02/lisp-in-single-expression.html">Lisp
+in a single expression</a><br/></p>
+<p><a href="http://lonelymachines.org/mall-ninjas/">Mall Ninjas</a> and
+<a href="http://9x19mm.com/forum/viewforum.php?f=14">Ask a Mall
+Ninja</a><br/></p>
+<p><a href="http://thinkpython.blogspot.com/2005/02/simple-scheme-interpreter.html">PyScheme</a><br/></p>
+<p><a href="http://aigamedev.com/programming-tips/optimize-virtual-functions">Optimizing
+C++ virtual functions</a><br/></p>
+<p><a href="http://www.sitepoint.com/article/rapid-restful-rails-apps">Rapid
+RESTful Rails</a><br/></p>
+<a href="http://www.thisdev.com/2008/02/myth-of-duck-typing.html">The
+myth of the duck</a><br/>
+<blockquote>
+There is nothing in the concept of dynamic typing or duck typing that
+requires that interfaces (or even classes) cannot be specified. But,
+instead, Ruby pushes work onto programmers that the compiler and runtime
+system ought to be doing automatically.
+</blockquote>
+<p><a href="http://cdr.eurolisp.org/document/5/extra-num-types.html">Extra
+Numerical Types for Common Lisp</a><br/></p>
+<p><a href="http://programmersatwork.wordpress.com/">Programmers at
+Work</a><br/></p>
+<p><a href="http://code.google.com/p/aima-python/">Russell and Norvig’s
+PyAIMA</a><br/></p>
+<a href="http://arcfn.com/doc/macros.html">Arc internals:
+macros</a><br/>
+<blockquote>
+Macro creation in Arc is, somewhat surprisingly, not part of the ac.scm
+foundation, but is implemented in arc.arc out of annotated functions.
+</blockquote>
+<a href="http://www.lispcast.com/2008/02/the-arc-debate/">The Arc
+Debate</a><br/>
+<blockquote>
+Continuation-based web programming lets you program in a natural,
+structured programming style. You avoid the spaghetti code of html links
+you have to write.
+</blockquote>
+<p><a href="http://www.pacifict.com/Story/">The Graphing Calculator
+Story</a><br/></p>
+<object width="425" height="355">
+<param name="movie" value="http://www.youtube.com/v/ywej7hBP17U"></param><param name="wmode" value="transparent"></param><embed src="http://www.youtube.com/v/ywej7hBP17U" type="application/x-shockwave-flash" wmode="transparent" width="425" height="355"></embed>
+</object>
+<p><br/></p>
+<p><a href="http://bookletcreator.com/">BookletCreator</a><br/></p>
+<a href="http://www.siggraph.org/publications/newsletter/v32n2/contributions/collins.html">Game
+graphics in 8-bits</a><br/>
+<blockquote>
+The golden era of the 8-bit computer game began around 1982 and
+continued until about 1990.
+</blockquote>
+<p><a href="http://blog.makezine.com/archive/2008/02/heathkit_hero.html?CMP=OTC-0D6B48984890">Heathkit
+HERO</a> and
+<a href="http://www.robotgallery.com/robotgallery/heathkit/index.html">Robot
+Gallery</a><br/></p>
+<p><a href="http://blogs.zdnet.com/semantic-web/?p=105">Semantic Web is
+open</a><br/></p>
+<p><a href="http://evolvingworker.com/2008/2/28/using-mind-mapping-data-to-drive-your-software-application">Mind
+mapping data to drive your application</a><br/></p>
+<p><a href="http://www.codinghorror.com/blog/archives/001065.html">Douchebaggery</a><br/></p>
+<p><a href="http://www.pipeline.com/~hbaker1/">Archive of research
+papers</a><br/></p>
+<p>-m</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

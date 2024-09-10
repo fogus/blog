@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>take-6-george-jahad</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>George Jahad is, in my estimation, one of the most exciting Clojure
+hackers. His public output, while spartan, is incredibly compelling.
+I’ve learned<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> quite a bit from his Clojure output
+and hope to see more. George works for <a
+href="http://runa.com/">Runa</a> (they are <a
+href="http://www.workatruna.com/">hiring</a> BTW); one of the big four<a
+href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a> Clojure employers.</p>
+<h3 id="what-led-you-to-clojure">What led you to Clojure?</h3>
+<p>My road to Clojure has been lined not just with great technology, but
+with great people. Smart, fun-loving, dynamic people who have really
+made a difference in my life. Great technology combined with great
+people; it’s irresistible!</p>
+<p>In early 2009, I was programming in C, porting Android to different
+devices, and wanted to try something higher level. Hacking emacs was
+often the funnest part of my work day. I knew I’d never get paid to do
+that, so I started studying other lisps. Then going to the <a
+href="http://www.meetup.com/The-Bay-Area-Clojure-User-Group/">Bay Area
+Clojure meetups</a> sponsored by the Runa guys, <a
+href="http://twitter.com/amitrathore"><span class="citation"
+data-cites="amitrathore">@amitrathore</span></a>, and <a
+href="http://twitter.com/rberger"><span class="citation"
+data-cites="rberger">@rberger</span></a>. (They’ve been doing a great
+job of promoting Clojure in the SF Bay Area; I wouldn’t be a
+professional Clojure programmer today if it weren’t for them.)</p>
+<p>I was an anti-java snob, so it took a while, but I kept going to
+meetups and following the <a
+href="http://groups.google.com/group/clojure">mailing list</a>; pretty
+soon, I realized I’d found something special.</p>
+<p>I started getting involved: added <a
+href="http://georgejahad.com/clojure/cljdb.html">Clojure support to the
+Emacs JDB interface</a>, and got the <a
+href="http://is.gd/eA1El">Clojure REPL working on Android</a>.</p>
+<p>Amit encouraged me to show my stuff at <a
+href="http://www.mefeedia.com/watch/20002628">a meetup with Rich</a>. We
+all went out to dinner afterwards. I was disappointed not to get to sit
+at Rich’s table. Instead I sat next to a couple of characters named <a
+href="http://twitter.com/dysinger"><span class="citation"
+data-cites="dysinger">@dysinger</span></a> and <a
+href="http://twitter.com/technomancy"><span class="citation"
+data-cites="technomancy">@technomancy</span></a><a href="#fn3"
+class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.
+I’d never heard of them before! A few months later, Tim hired me to do
+Clojure full time at Sonian. Missing dinner with Rich ended up being one
+of the best things that ever happened to me!</p>
+<p>I received my “phd” in Clojure at the University of Sonian. My
+professors were Doctors Dysinger, Hagelberg, <a
+href="http://github.com/danlarkin">Larkin</a> and <a
+href="http://github.com/scgilardi">Gilardi</a>. My dissertation was the
+<a href="http://github.com/GeorgeJahad/debug-repl">debug-repl</a>. Given
+the level of ability there, I wanted to show I was “worthy”; I was also
+growing annoyed by Clojure’s lack of debugging tools. Unfortunately, the
+original version required hacking the compiler. Thankfully, <a
+href="atosborne"><span class="citation"
+data-cites="atosborne">@atosborne</span></a> showed that unnecessary,
+that an existing Compiler var would suffice, and the debug-repl was
+born. Then <a href="http://twitter.com/hugoduncan"><span
+class="citation" data-cites="hugoduncan">@hugoduncan</span></a> ported
+it to Slime and you and <a
+href="http://blog.n01se.net/?author=3">Chris</a> discussed it in the <a
+href="http://joyofclojure.com">JoC</a>; Rich sanctified the whole thing
+by <a
+href="http://github.com/GeorgeJahad/debug-repl/commit/1f4381ed5f8dd40b5111f91e94f5cedef96ac1ac">exposing
+the Compiler var as the implicit <code>&amp;env</code> arg to
+macros</a>.</p>
+<h3 id="favorite-snippet-of-code">Favorite snippet of code?</h3>
+<p>Well, <a href="http://twitter.com/stuartsierra"><span
+class="citation" data-cites="stuartsierra">@stuartsierra</span></a>
+won’t be happy with my answer, but it’s: <a
+href="http://github.com/clojure/clojure/blob/master/src/clj/clojure/walk.clj#L35">clojure.walk/walk</a></p>
+<p>The audacity of bending Clojure to your will with 12 lines of
+code.</p>
+<p><a href="http://stuartsierra.com/">Stuart</a>, the author, hates it
+because he says it’s too buggy and breaks on too many edge cases, but
+it’s been really good to me. I’ve used it to solve a number of problems,
+including how to <a
+href="http://georgejahad.com/clojure/difform.html">diff two clojure
+forms</a>.</p>
+<p>If Stuart has the time, I’d be interested in hearing more about the
+problems. I haven’t run into them yet.</p>
+<h3 id="can-you-describe-your-typical-day-at-runa">Can you describe your
+typical day at Runa?</h3>
+<p>I stayed in touch with Amit and Rob, and as I learned more about the
+work, I got real excited about what they were doing. Basically, the Runa
+guys have found gross inefficiencies in the e-commerce systems that
+exist today and are using Clojure to ameliorate them. The inefficiencies
+are so great, that we only have to make a small difference to have a big
+impact on our customers’ bottom line.</p>
+<p>In a typical day, I will explore any problems that have occurred in
+the runtime in the last 24 hours; if there is nothing serious there,
+then I think about ways to make the system more efficient or easier to
+maintain/debug or continue adding features. It’s a totally new business
+model. We’re figuring it out as we go, trying new things each day to see
+what sticks. <em>That’s another reason why Clojure is such a good fit
+for us. We need to be able to make significant changes to a large system
+on a daily basis, without the whole thing falling apart.</em></p>
+<p>When things get tense, we have a “meeting”, Amit’s euphemism for
+playing Quake3.</p>
+<p>Overall, it’s a very smart, collegial environment, with a strict <a
+href="http://www.youtube.com/watch?v=UacbJ72dluU&amp;feature=channel">no
+a**holes policy</a>, aggressively attacking interesting problems with
+Clojure.</p>
+<p>What more could you ask for? More details at <a
+href="http://www.workatruna.com"
+class="uri">http://www.workatruna.com</a></p>
+<h3 id="horror-movies-or-westerns">Horror movies or westerns?</h3>
+<p>Which one is “Dr. Strangelove”?</p>
+<h3 id="whats-next-for-you">What’s next for you?</h3>
+<p>The debug-repl is pretty good overall, but has a few weaknesses, due
+to the nature of Clojure. The main ones are that it can’t be invoked
+automatically when an exception is thrown, and it can’t show the local
+scope from higher up in the stack. Fixing that would require changing
+Clojure internals. Rich has suggested, and I agree, that before we spend
+a lot of time changing Clojure to improving debugging, we should be
+exploiting the debug infrastructure the Java vm already provides.</p>
+<p>I started doing this with a <a
+href="http://georgejahad.com/clojure/cdt.html">Clojure Debugging
+Toolkit</a>. It’s a command line debugger, like JDB or GDB, but the
+command line is the standard Clojure REPL, with extensions that allow
+you to set breakpoints on function entry or exceptions, and eval clojure
+expressions on the remote target.</p>
+<p>While it’s already functional, it’s missing some standard features
+like: stepping, modification of locals, breakpoints on line numbers.
+After adding those, I’ll extend cljdb as an Emacs based front end.</p>
+<p>There is also a problem with the compiler clearing locals; it’s great
+when you are trying to avoid holding the head of a lazy seq, but not so
+good when you are debugging and trying to look up the stack to see what
+the values are there. Hopefully, that will be addressable somehow.</p>
+<p>Once those basics are done, we can start doing some interesting
+things. Start’s thinking about it as a DSL for the creation of debugging
+features. For example, it should be fairly easy to create a seq of all
+the local vars in all the stack frames in all the threads on the VM. You
+could then filter that looking for ones that might be holding the
+head.</p>
+<h3 id="favorite-editor-drawing-app-todo-app-notes-app-etc.">Favorite
+editor, drawing app, todo app, notes app, etc.?</h3>
+<p>I’m a total Emacs geek. Use it for all of the above as well as
+shells, debuggers, bookmarks, window management, email, IRC and
+text-based web browsing. Regularly have 400 buffers<a href="#fn4"
+class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>
+open in a single session. Emacs is to editors what Clojure is to
+languages.</p>
+<p>Before I go, I just wanted to say I’m really looking forward to <a
+href="http://first.clojure-conj.org/">clojure-conj in October</a>.
+Thanks loads to the <a href="http://clojure.com">Clojure/core</a> team
+for pulling it together. It’s going to be awesome! See you all
+there![^drink]</p>
+<p>[^drink</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>The final section of <a
+href="http://joyofclojure.com">The Joy of Clojure</a> is inspired by
+George’s <a
+href="http://github.com/GeorgeJahad/debug-repl">debug-repl</a>…<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="thinkrelevance.com">Relevance</a> (Super
+Friends), <a href="http://www.sonian.com/">Sonian</a> (The Avengers) ,
+<a href="http://runa.com">Runa</a> (The Armorines?), and <a
+href="http://www.akamai.com/">Akamai</a> (??). I am leaning toward
+tagging Akamai as the Legion of Doom since it seems to be populated by
+evil geniuses (in a good way).<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>I also <a
+href="http://blog.fogus.me/2010/06/28/take-8-phil-hagelberg/">interviewed
+Phil Hagelberg</a>.<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>WJW!!<a href="#fnref4" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

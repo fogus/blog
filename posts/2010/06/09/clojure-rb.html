@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>clojure-rb</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>Call me crazy, but it seems that there is a large influx of Ruby
+programmers exploring the Clojure programming language. Based on the
+results of <a
+href="http://muckandbrass.com/web/display/~cemerick/2010/06/07/Results+from+the+State+of+Clojure,+Summer+2010+Survey">Chas
+Emerick’s great State of Clojure - Summer 2010 survey</a>, 17% of
+surveyed Clojure users come from a Ruby background. Based on observed
+trends, I expect that percentage to grow in the next round. But why?</p>
+<h2 id="an-opening-of-minds">An Opening of Minds</h2>
+<p><a href="http://paulgraham.com">Paul Graham’s</a> seminal essays on
+Lisp were an incredible boon for reawakening the public’s interest in
+the language. I imagine many programmers, like myself, were awe-struck
+when reading <a href="http://paulgraham.com/avg.html">Beating the
+Averages</a> for the first time. While I had previous experience with
+Lisp in a university setting, I was never able to crystalize my feelings
+on the matter. Upon reading that essay in early 2001 I was driven to an
+incredible urge to “get me some of that” – which I did by enrolling in
+an Artificial Intelligence graduate school program in the fall of the
+same year. I believe, based on personal conversations that there were
+many who had a similar urge, but chose a different path – the path of
+“halfway to Lisp”.<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> That is, I believe that languages<a
+href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a> like Perl, Python, and Ruby managed
+to capture a significant portion of programmer mindshare because they
+not only learned their lessons from Lisp, but they put many of its
+powerful capabilities in the hands of their programmers.</p>
+<h2 id="enter-clojure">Enter Clojure</h2>
+<p>And now years later we see that Clojure, while still humble compared
+to Java, C++, C, and C#, is gaining increasing popularity and mindshare
+in the technological zeitgeist. In increasing cases Clojure seems to be
+gaining <a href="http://www.thoughtworks.com/radar/">serious
+consideration for</a>, if not outright adoption. But again – why? In my
+humble opinion it can be summarized as the result of a feedback loop
+starting with the influence of Lisp on languages like Ruby which again
+feedback into an increased interest and adoption of Clojure.<a
+href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a></p>
+<h2 id="ruby.clj">ruby.clj</h2>
+<p><em>I would love to hear from Ruby programmers on the following
+observation<a href="#fn4" class="footnote-ref" id="fnref4"
+role="doc-noteref"><sup>4</sup></a>, be it correct or
+wrong-headed.</em></p>
+<p>The existence of the Lisp feedback loop has lured Ruby programmers in
+much the same way that Lisp lured them into Ruby in the first place.
+That is, Ruby programmers being the adventurous lot to begin with, are
+not satisfied with “halfway to Lisp”. Instead, they want it all. That’s
+not to say that I think (nor wish) Ruby programmers will abandon ship
+and run arms-wide to Clojure. Instead, I think that our industry can
+support both in a complementary relationship modeled (just to name one
+such scenario) much like the inner workings of <a
+href="http://www.infoq.com/articles/flightcaster-clojure-rails">FlightCaster</a>.
+I already see a similar path in Clojure as previously observed in Ruby<a
+href="#fn5" class="footnote-ref" id="fnref5"
+role="doc-noteref"><sup>5</sup></a>. That is, Clojure seems to be used
+in applications already built on cutting edge technologies (as noted by
+Chas in his survey results post mentioned in the beginning). Is it
+really too much to suppose that this environment might also appeal to
+the Rubyist?</p>
+<h2 id="finally">Finally</h2>
+<p>I’ve babbled on enough about this, but let me end by saying that I
+fully expect that the inclusion of Clojure into the Well-Grounded
+Rubyist’s<a href="#fn6" class="footnote-ref" id="fnref6"
+role="doc-noteref"><sup>6</sup></a> arsenal will work to strengthen said
+Rubyist’s skills and indeed the language itself. Likewise, the presence
+of Ruby mindshare into the Clojure community will help to motivate a
+continuing culture of practicality, while also maintaining cutting edge,
+yet practical, exploration.</p>
+<p>Welcome Rubyists<a href="#fn7" class="footnote-ref" id="fnref7"
+role="doc-noteref"><sup>7</sup></a> – it’s a pleasure.</p>
+<p>:f</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Guy L. Steele in a famous quote mentioned that Java
+dragged C++ programmers “halfway to Lisp”. While I agree with the
+sentiment in general, I always felt like Ruby and Python were sitting to
+the right of the halfway mark, and Java the left.<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>I’m not implying that Paul Graham is the reason that
+these languages succeeded, only that his essays may have helped provoked
+similar motivations in some.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>That’s not to diminish the herculean effort by Rich
+Hickey, Clojure’s author, in creating a truly beautiful language that
+stands on its own merits. But if the industry has taught us anything,
+it’s that the existence of superior tech does not guarantee adoption.<a
+href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Thanks to some compelling conversations with <a
+href="http://www.designpatternsinruby.com">Russ Olsen</a> and <a
+href="http://novarug.org">Gray Herter</a> at the local Clojure meetups.
+At times vodka was involved, so I hope I’m not misrepresenting their
+views on the matter.<a href="#fnref4" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>One aspect of the Ruby community that I’ve always been
+deeply impressed with is the seemingly instant birth of libraries
+supporting new technologies. Clojure’s community has this to some
+extent, but it’s nothing akin to the freakish rapidity displayed by
+Rubyists.<a href="#fnref5" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>To borrow a title of fellow Manning author David Black<a
+href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>And with <a href="http://jruby.org">JRuby</a> we can
+share the same runtime and libraries.<a href="#fnref7"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

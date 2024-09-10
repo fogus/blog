@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>announcing-core-memoize-v0-5-1</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>core.memoize is a new Clojure contrib library providing the following
+features:</p>
+<ul>
+<li><p>An underlying <code>PluggableMemoization</code> protocol that
+allows the use of customizable and swappable memoization caches that
+adhere to the synchronous <code>CacheProtocol</code> found in <a
+href="http://github.com/clojure/core.cache">core.cache</a></p></li>
+<li><p>Memoization builders for implementations of common caching
+strategies, including:</p>
+<ul>
+<li>First-in-first-out (<code>memo-fifo</code>)</li>
+<li>Least-recently-used (<code>memo-lru</code>)</li>
+<li>Least-used (<code>memo-lu</code>)</li>
+<li>Time-to-live (<code>memo-ttl</code>)</li>
+<li>Naive cache (<code>memo</code>) that duplicates the functionality of
+Clojure’s <code>memoize</code> function</li>
+</ul></li>
+<li><p>Functions for manipulating the memoization cache of
+<code>core.memoize</code> backed functions</p></li>
+</ul>
+<p>core.memoize is based on a library named Unk, found at <a
+href="http://github.com/fogus/unk"
+class="uri">http://github.com/fogus/unk</a> that is planned for
+deprecation.</p>
+<h2 id="absorb">Absorb</h2>
+<p>You can use core.memoize in your <a
+href="https://github.com/technomancy/leiningen">Leiningen</a> and <a
+href="https://github.com/flatland/cake">Cake</a> projects with the
+following <code>:dependencies</code> directive in your
+<code>project.clj</code> file:</p>
+<pre><code>[org.clojure/core.memoize &quot;0.5.1&quot;]</code></pre>
+<p>For Maven-driven projects, use the following slice of XML in your
+<code>pom.xml</code>’s <code>&lt;dependencies&gt;</code> section:</p>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;org.clojure&lt;/groupId&gt;
+  &lt;artifactId&gt;core.memoize&lt;/artifactId&gt;
+  &lt;version&gt;0.5.1&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+<p>Enjoy!</p>
+<h2 id="places">Places</h2>
+<ul>
+<li><a href="https://github.com/clojure/core.memoize">Source
+code</a></li>
+<li><a href="http://dev.clojure.org/jira/browse/CMEMOIZE">Ticket
+system</a></li>
+<li><a
+href="http://groups.google.com/group/clojure/browse_frm/thread/69d08572ab265dc7">Announcement</a></li>
+<li>Examples and documentation – in progress</li>
+</ul>
+<h2 id="whither-unk">Whither Unk</h2>
+<p>The v0.5.1 version of core.memoize is based almost wholly on the
+final version of Unk, with the following changes:</p>
+<ul>
+<li>All cache factory functions have been moved to core.cache</li>
+<li>The <code>SoftCache</code> backed implementation was buggy and
+removed for now</li>
+</ul>
+<h2 id="plans">Plans</h2>
+<p>The following capabilities are under design, development, or
+consideration for future versions of core.memoize:</p>
+<ul>
+<li>LIRS backed memoization</li>
+<li>A <a
+href="https://github.com/richhickey/clojure-contrib/blob/1c805bd0e515ea57028721ea54e6db4b0c791e20/src/main/clojure/clojure/contrib/def.clj#L143">defn-memo</a>
+macro</li>
+<li>A <a
+href="http://google-collections.googlecode.com/svn/trunk/javadoc/com/google/common/collect/MapMaker.html">MapMaker</a>
+style ctor interface</li>
+<li>Reimplementation of a cache based on soft references</li>
+<li>test.generative usage</li>
+<li>Deprecation of Unk</li>
+<li>Documentation and examples</li>
+</ul>
+<p>More planning is needed around capabilities not listed nor thought
+of.</p>
+<p>:F</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

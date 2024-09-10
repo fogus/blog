@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>hikeebas-search-function</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>[sourcecode lang=“c” gist=“1003531”]int search(int alpha, int beta,
+int depth) { int i, j; //Looping variables int evaluation_score; //The
+static evaluation int a, b; //Temporary Alpha-beta scores BOOLEAN check
+= FALSE; //Are we in check? BOOLEAN found_legal_move; //Have we found a
+legal move?</p>
+<p>/*** Return a score only when we are at a quiet position ***/
+if(!depth) return(quiesce(alpha, beta));</p>
+<p>a = alpha; b = beta;</p>
+<p>nodes++; principal_variation_size[ply] = ply;</p>
+<p>/*** If we are in check then we want to search deeper in the tree
+***/ check = in_check(side);</p>
+<p>if(check) depth++;</p>
+<p>generate_legal_moves();</p>
+<p>if(follow_pv) /* Are we following the principal variation? */
+find_principal_variation();</p>
+<p>found_legal_move = FALSE;</p>
+<p>/*** Loop through the moves ***/ for(i = move_start[ply]; i &lt;
+move_end[ply]; i++) { find_best_move(i);</p>
+<pre><code> /*** If we can&#39;t make the best move then we start over ***/
+ if(!make_move(move_stack[i].current_move.description))
+   continue;
+
+ found_legal_move = TRUE;
+
+ /***
+  * Now that we found our move we have to check for the
+  * opponent&#39;s reply
+  ***/
+ evaluation_score = -negascout(-b, -a, depth-1);
+
+ /*** Now that the move&#39;s been considered take it back ***/
+ take_back();
+
+ if((evaluation_score &gt; a) &amp;&amp;
+    (evaluation_score &lt; beta) &amp;&amp;
+    (i &gt; move_start[ply]) &amp;&amp;
+    (depth &lt; max_depth-1))
+ {
+    a = -negascout(-beta, -evaluation_score, depth-1);
+ }
+
+ a = max_int(a, evaluation_score);
+
+ if(a &gt;= beta)
+ {
+    /***
+     * The current move caused a cutoff so we want to increase the
+     * history value so that this move gets ordered high next time
+     * that we search it
+     ***/
+     history[move_stack[i].current_move.description.from] \
+            [move_stack[i].current_move.description.to] += depth;
+
+     return(a);
+  }
+
+  /*** Update the principal variation ***/
+  principal_variation[ply][ply] = move_stack[i].current_move;
+
+  for(j = ply + 1; j &lt; principal_variation_size[ply+1]; j++)
+    principal_variation[ply][j] = principal_variation[ply+1][j];
+
+  principal_variation_size[ply] = principal_variation_size[ply+1];
+
+  b = a + 1;
+}</code></pre>
+<p>return(a); } [/sourcecode]</p>
+<p>-m</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

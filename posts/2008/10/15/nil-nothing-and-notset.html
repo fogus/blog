@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>nil-nothing-and-notset</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<figure>
+<img
+src="http://farm4.static.flickr.com/3172/2945223760_01c5282155_o.png"
+title="What happens on (is nothing nothing)" alt="jaka" />
+<figcaption aria-hidden="true">jaka</figcaption>
+</figure>
+<p>One of the more nagging elements of Java programming (and programming
+in general) is that there is a coarseness to the representation of the
+conditions nil, nothing, and notset. In Java, one typically uses
+<code>null</code> to represent all three of these conditions and the
+semantics for the <em>actual</em> meaning lies in the secret incantation
+of its usage. While playing around with my hobby language <a
+href="http://github.com/fogus/jaka/tree/master">Jaka</a> I felt that
+there could be a finer way to deal with these conditions using a set of
+objects known as object references.</p>
+<h2 id="nil">nil</h2>
+<p>In Jaka, <a
+href="http://github.com/fogus/jaka/tree/master/src/scala/fogus/jaka/Existential.scala">nil</a>
+is used to represent an object that has no possible value. Since, Jaka
+is built around the <a
+href="http://github.com/fogus/jaka/tree/master/src/jaka/fogus/jaka/Cons.scala">Cons</a>
+data structure, the really only idiomatic usage of nil is for its
+termination. However, there are conceivably other instances where “no
+possible value” could come into play. Of all of the object reference
+types, nil is the only that an object can be explicitly set.</p>
+<h2 id="notset">notset</h2>
+<p>While nil represents the case where an object can have no possible
+value, <a
+href="http://github.com/fogus/jaka/tree/master/src/scala/fogus/jaka/Existential.java">notset</a>
+describes an object whose value has never been defined. When an object
+is defined without a value it is implicitly marked as notset. Jaka is
+designed such that any defined objects are immutable, so it is useful to
+distinguish those that have not been set.</p>
+<pre lang="lisp">
+(def x)
+x  => gives notset
+(def y x)  => error condition, x was never set 
+</pre>
+But the real win is when you access a map with a key that was never set:
+<pre lang="lisp">
+(def m {a 1 b 2})
+(get m a)  => 1
+(get m c)  => notset
+</pre>
+<h2 id="nothing">nothing</h2>
+<p>Jaka distinguishes between an object having no possible value, an
+unknown value, and with <a
+href="http://github.com/fogus/jaka/tree/master/src/scala/fogus/jaka/Existential.java">nothing</a>,
+the non-existence of an object. One of the driving goals of Jaka is to
+eliminate needless earth-shattering exceptions. Most languages will
+choke if an undefined variable is even referenced, but Jaka will happily
+assign it as nothing and move on. What this means to something like
+addition is TBD, but for something as fundamental as equality it’s a
+no-brainer.</p>
+<pre lang="lisp">
+(def x 2)
+(is x z)  => z was never defined, so it's "value" is nothing and the equality check is false
+</pre>
+<p>Of course, if you try to check the equality of two nothing objects a
+hole in the space-time continuum is ripped opened.</p>
+<p>-m</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

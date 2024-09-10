@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>broccoli-v022-bellwitch</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>Finally got around to wrapping up the second iteration of
+<a href="/projects/broccoli">Broccoli</a>. Most of the work was put
+towards changing the syntax. That is, I originally went with a Lispy
+syntax filled with parentheses to one where different symbols are used
+in explicit contexts. The reason for this was that I originally intended
+Broccoli to be syntax-less similar to Lisp. However, the more that I got
+into the development the more I realized that there was an inherent
+syntax in the code, and it was good. I do not treat
+<a href="http://gigamonkeys.com/book/functions.html">data and functions
+as equivalent as Lisp does</a>, therefore it is not necessary that
+everything be a
+<a href="/projects/broccoli/thoughts/lists.html">list</a>. Therefore, I
+decided to work out a syntactic structure that made sense:</p>
+<h2 id="block-level-statements">Block-level statements</h2>
+<p>There are two types of block-level statements: function definitions
+and flow control structures (e.g. if-then-else, while, for, and
+case-when). Therefore, when defining a block-level structure, I went
+with the C-like bracketing system. Block-level statements always
+describe a lexical contour, of which the highest level is at the
+function.</p>
+<h2 id="function-calls">Function calls</h2>
+<p>Function calls would be familiar to anyone who has used Lisp. That
+is, function calls are surrounded by parentheses and hold to a prefix
+notation scheme. This was done to allow for function composition in the
+future, but I may or may not continue down that path.</p>
+<h2 id="sigils">Sigils</h2>
+<p>The first versions of Broccoli used sigils to denote variables much
+like Perl and Ruby. The level of granularity for denoting the variable
+type was far more coarse in that there was only a separation between
+scalar and collection types. I decided to keep this distinction, but
+only for purposes of readability. That is, scalars are denoted with a
+single underscore and collections with a double underscore. You can
+assign lists to variables with single underscores and vise-verse, the
+differentiation is for those (such as myself) who enjoy the information
+provided by sigils.</p>
+<h2 id="function-args">Function Args</h2>
+<p>Function arguments are wrapped in vertical bars… like in Ruby blocks
+but without commas (note, that is the only similarity with Ruby
+blocks).</p>
+<p>The <a href="/projects/broccoli/bugs.html#ticket-bell-witch">other
+changes</a> compared to the older versions are that I have added some
+trigonometric functions, a couple flow control structures (while and
+case), and started overloading some core functions.</p>
+<p>Distributions of v0.2.2 are available on request.</p>
+<p>-m</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

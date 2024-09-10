@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>a-response-to-ineffectual-java-ng-proposals</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>[sourcecode lang=“java” gist=“591070”]// There is a difference
+between classes and data</p>
+<p>// All classes and data are immutable by default public data Person {
+String name; Int age;</p>
+<pre><code>// return type inference
+public toString() {
+    return name + &quot; is &quot; + age;
+}</code></pre>
+<p>}</p>
+<p>// somewhere else</p>
+<p>// Chains replace the need for ordered arg ctors // do we really need
+new all over the place? Each class // defn defines a factory singleton
+Person p = Person().age(45).name(“Jimmy Jimmy Jim Jim”);</p>
+<p>// accessors appear direct p.name;</p>
+<p>// shouldn’t println be a first-class citizen by now? // polymorphic
+print facility stays because it rocks println(p); //// Jimmy Jimmy Jim
+Jim is 45</p>
+<p>// immutability should be a compile-time check p.name = “froby”; ////
+Compilation Error: attempting to set an immutable field</p>
+<p>/* NOTSET */</p>
+<p>// What if we do not set a property?</p>
+<p>Person p = Person().name(“Jimmy Jimmy Jim Jim”);</p>
+<p>println(p.age); //// <NotSet></p>
+<p>// If a field is not set, then it’s type is NotSet // How do we set
+it? // Answer: you don’t. You create a new object with the field set
+Person p2 = p.age &lt;- 45;</p>
+<p>// &lt;- is an operator that says, take an instance and return a new
+instance // with some field set</p>
+<p>Person p3 = p.name &lt;- “Frobby”, p.age &lt;- 21;</p>
+<p>// You can chain the &lt;- operator if you want with commas</p>
+<p>// So what do we have here? // = Sets a reference // &lt;- “mutates”
+a property, returning a new instance // If a property has not been set,
+then it’s type is NotSet</p>
+<p>/* NOTHING */</p>
+<p>// Nothing, almost takes the place of null, except that it is // a
+bottom type // Nothing is different than NotSet in that it is an actual
+value // rather than a semantic type meaning, “this thing has not been
+// set” // // So why have both? The reason is that in Java we are often
+forced to // overload the meaning of null to stand in for both Nothing
+and NotSet. // By making them types you can now handle them explicitely
+along different // code paths:</p>
+<p>pubic class Foo { void handle(String o) { println(“got a string”);
+}</p>
+<pre><code>void handle(NotSet o) {
+    println(&quot;was never set&quot;);
+}
+
+void handle(Nothing o) {
+    println(&quot;got nothing&quot;);
+}</code></pre>
+<p>}</p>
+<p>/* EXCEPT */</p>
+<p>// Checked exceptions are out. Missing catches can instead be
+compiler warnings // try/catch blocks should be cleaner</p>
+<p>/* INVARIANTS */</p>
+<p>public class Foo { <span class="citation"
+data-cites="invariant">@invariant</span>(_ &lt; 10) <span
+class="citation" data-cites="invariant">@invariant</span>(_ &gt; 0) Int
+x;</p>
+<pre><code>@pre(n != 0, n != 1)
+@post(_ != 0, _ &gt; x)
+Int frob(Int n) {
+    return x * n;
+}</code></pre>
+<p>}</p>
+<p>// invariant checks occur on construction and mutation</p>
+<p>/* LITERALS */</p>
+<p>// Maps and sequences should have literal syntax</p>
+<p>Map&lt;String, Int&gt; m = {“foo” : 1, “bar” 2};</p>
+<p>List<Int> l = [1,2,3,4,5];</p>
+<p>Set<Int> s = |1,2,3,4|;</p>
+<p>// But what are the concrete types? There can be a default, or there
+can be a scoped // ctor, or there could be something like:</p>
+<p>List<Int> l = ArrayList([1,2,3,4,5]);</p>
+<p>// or maybe just</p>
+<p>List<Int> l = ArrayList(1,2,3,4,5);</p>
+<p>Map&lt;String, Int&gt; m = HashMap(“foo” : 1, “bar” 2);</p>
+<p>// which is literal-syntax-lite</p>
+<p>// The point is… if you’re going to invent a new Java that breaks
+compatability, then // at least try and fix some of the major issues
+like verbosity, invariants, inference, // checked exceptions, and
+mutability. Go wild. Everything presented here could be // compiled
+directly into Java. Pre-processors are go!</p>
+<p>// :f [/sourcecode]</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>programming-language-development-the-past-5-years</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>I recently compiled a list of <a
+href="http://blog.fogus.me/2011/08/14/perlis-languages/">Perlis
+Languages</a> that were meant to illustrate varying paradigms not
+typically found in mainstream programming languages. Those languages
+were meant to stretch your mind and are not necessarily representative
+of the state of the art in language design and implementation. In this
+post I will provide a list of fairly new languages (let’s say 5 years
+with a little flex) that display<a href="#fn1" class="footnote-ref"
+id="fnref1" role="doc-noteref"><sup>1</sup></a> interesting features and
+display higher-order thinking in the way that they tend toward an
+evolution of past learnings in programming language thinking. Not all of
+these languages enjoy active development, but the more important point
+is that they represent in some way “new language thinking”. Remember
+that this goal does not necessarily mean “innovative”.</p>
+<p>Unlike my Perlis post, I have not fully explored all of the languages
+below, so caveat emptor. Please correct me if I misrepresent something.
+No meaning behind the ordering implied.</p>
+<h3 id="take-the-associated-poll"><a
+href="http://gopollgo.com/what-is-the-most-innovative-programming-language-created-since-2006">take
+the associated poll!</a></h3>
+<h2 id="shen">Shen</h2>
+<p><em>released: 2011, author: Dr. Mark Tarver</em></p>
+<p>I included the fantastic language Qi in my Perlis Languages post, so
+it may seem gratuitous to include its successor Shen here. In fact Shen
+and Qi offer most of (all of?) the same high-level features:</p>
+<ul>
+<li>A Lisp</li>
+<li>Optional static typing</li>
+<li>Pattern matching with guards</li>
+<li>Macros</li>
+<li>Partial application</li>
+<li>Function backtracking</li>
+<li>Builtin Prolog</li>
+<li>Builtin compiler compiler</li>
+</ul>
+<p>However, Shen is indeed the next evolutionary step after Qi. Shen
+builds on the ideas in Qi in various ways, but the primary motivating
+force is targetability. What exactly does that mean? The precursor Qi
+was built to target Common Lisp as its host language and did so to
+maximum effect. However, Qi was found to target a very small subset of
+Common Lisp. Therefore, Dr. Tarver devised the idea that the successor
+Shen should be defined in terms of a minimal kernel Lisp language called
+Kl which would, in theory, provide an easier port target across various
+runtime hosts, including, but not limited to: JavaScript, Python,
+Clojure, and Common Lisp. I have been thinking of “kernel Lisps” a lot
+and so Shen is ripe with ideas.</p>
+<p>An example of a <code>member</code> function using the embedded
+Prolog:</p>
+<pre><code>(defprolog member
+  X [X | _] &lt;--;
+  X [_ | Y] &lt;-- (member X Y);)
+
+(prolog? (member 1 [1 2 3]))
+/*=&gt; true */</code></pre>
+<p>Partial application is automatic (simplified below):</p>
+<pre><code>(* 2)
+/*=&gt; #&lt;FUNCTION LAMBDA (x) (* 2 x)&gt;
+
+((* 2) 54)
+/*=&gt; 108 */</code></pre>
+<p>Here is a function that calculates the nth triangle number:</p>
+<pre><code>(define triangle
+  0 -&gt; 0
+  N -&gt; (+ N (triangle (- N 1))))
+
+(triangle 100)
+/*=&gt; 5050 */</code></pre>
+<p>And a typed version of the same:</p>
+<pre><code>(tc +)  /* turn on type-checking */
+
+(define triangle
+  {number --&gt; number}
+  0 -&gt; 0
+  N -&gt; (+ N (triangle (- N 1))))
+
+(triangle 5)
+/*=&gt; 15 : number */
+
+(triangle a)    
+/* type error */</code></pre>
+<p>Shen is a natural evolutionary step along the long, winding path that
+is Lisp history. Many modern programming languages are absorbing
+features that Lisp innovated long ago, but still the most exciting
+languages are Lisps.</p>
+<h4 id="more-resources">More resources</h4>
+<ul>
+<li><a
+href="http://www.lambdassociates.org/specification/shen_1.8.htm">Official
+standard</a></li>
+<li><a
+href="http://www.lambdassociates.org/download/index.htm">Source</a></li>
+<li><a
+href="http://shenlanguage.org/documentation/Tutorials/Shen-in-15min.htm">Shen
+in 15 minutes</a></li>
+</ul>
+<h2 id="agda-2">Agda 2</h2>
+<p><em>released: 2009, author: Ulf Norel</em></p>
+<p>I’ve yet to truly wrap my head around Agda (any year now), but I can
+say a few things about it. First, Agda is a purely functional, pattern
+matching, dependently typed programming language that walks the thin
+border adjacent to proof assistants. In dependently typed languages,
+type expressions can contain (depend on) a program expression.
+Therefore, the resolution of type constraints is a function of code or
+predicated on values. It’s like a kick in the face. As an added bonus,
+the Agda type language is the same as the value language (i.e. the
+programming language itself). What this means is that type invariants in
+Agda can express a much wider spectrum of constraints than typically
+attributed to static type systems; for example, <a
+href="http://www.cs.nott.ac.uk/%7Etxa/publ/ydtm.pdf">a list type that
+statically guarantees sorted order</a> (PDF). There’s a drop-kick for
+you.</p>
+<p>Here is an encoding of even and odd numbers in the Agda type
+system:</p>
+<pre><code>data Nat : Set where
+  zero : Nat
+  suc  : Nat -&gt; Nat
+
+fortyTwo : Nat
+fortyTwo = 42
+
+plus : Nat -&gt; Nat -&gt; Nat
+plus  zero   m = m
+plus (suc n) m = suc (plus n m)
+
+mutual
+  even : Nat -&gt; Bool
+  even zero    = true
+  even (suc n) = odd n
+
+  odd : Nat -&gt; Bool
+  odd zero    = false
+  odd (suc n) = even n</code></pre>
+<p>The previous code defines two datatypes: 1) the natural numbers and
+2) the even natural numbers. You can also define type functions as infix
+operators:</p>
+<pre><code>_+_ : Nat -&gt; Nat -&gt; Nat
+zero  + m = m
+suc n + m = suc (n + m)</code></pre>
+<p>This represents the extent of my understanding about Agda so far.
+While it would be nice to know more, what I’ve seen is amazing enough to
+warrant inclusion.</p>
+<h4 id="more-resources-1">More resources</h4>
+<ul>
+<li><a
+href="http://wiki.portal.chalmers.se/agda/agda.php?n=Main.HomePage">The
+Agda Wiki</a></li>
+<li><a
+href="http://www.cse.chalmers.se/~ulfn/darcs/Agda2/examples/Introduction/">Intro
+sources</a></li>
+<li><a
+href="http://wiki.portal.chalmers.se/agda/agda.php?n=Main.PapersUsingAgda">Papers
+using Agda</a></li>
+<li><a href="http://code.haskell.org/Agda/">Source</a></li>
+</ul>
+<h2 id="ioke">Ioke</h2>
+<p><em>released: 2008, author: Ola Bini</em></p>
+<p>Ola Bini’s <a href="http://ioke.org">Ioke</a> is based on a simple
+question: what kind of language can you build if you completely
+disregard performance and instead focus on expressivity?<a href="#fn2"
+class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> As
+it turns out you gain incredible expressiveness as shown in Bini’s
+presentation series (links below). One of the more interesting aspects
+of Ioke is that it is a homoiconic language providing macros.</p>
+<pre><code>myfor = dsyntax(
+&quot;takes a name, an enumerable, and a transforming expr
+and returns the result of transforming each entry in 
+expression, with the current value of the enumerable
+bound to the name given as the first argument&quot;,
+
+  [argName, enumerable, argCode]
+
+  &#39;&#39;(`enumerable map(`argName, `argCode))
+)
+
+myfor(x, 1..5, x*2) 
+;=&gt; [2,4,6,8,10]</code></pre>
+<p>Another advantage in studying Ioke is my own personal first
+axiom:</p>
+<blockquote>
+<p>When brilliant people create things, study them.</p>
+</blockquote>
+<p>As programmers the onus is on us to push our skills to the point of
+uncomfortableness. Studying the works of great minds is a highly
+effective way to do this.</p>
+<h4 id="more-resources-2">More resources</h4>
+<ul>
+<li><a href="http://ioke.org/">Ioke</a></li>
+<li><a
+href="http://blip.tv/carlfk/ioke-a-folding-language-1-of-2-2240400">Ioke:
+a Folding Language</a> (video)</li>
+<li><a href="http://ioke.org/wiki/index.php/Main_Page">Ioke
+Wiki</a></li>
+<li><a
+href="http://olabini.com/blog/2008/09/ioke/">Announcement</a></li>
+<li><a
+href="http://kenai.com/projects/ioke/sources/main/show">Source</a></li>
+<li><a
+href="http://olabini.com/blog/2009/01/macro-types-in-ioke-or-what-is-a-dmacro/">Macro
+types in Ioke - or: What is a dmacro?</a></li>
+</ul>
+<h2 id="pure">Pure</h2>
+<p><em>released: 2008, author: Albert Gräf</em></p>
+<p>Pure is a functional language built around <a
+href="http://code.google.com/p/pure-lang/wiki/PurePrimer1#Term_rewriting">term
+rewriting</a>. Term rewriting is very similar to what we did in
+high-school algebra using the FOIL method:</p>
+<pre><code>(x1 + y1) * (x2 + y2) = 
+  (x1 * x2) +            // First
+  (x1 * y2) +            // Outer 
+  (y1 * x2) +            // Inner 
+  (y1 * y2);             // Last</code></pre>
+<p>The code above defines the steps needles to transform the
+multiplication of two binomials into the FOIL steps. Testing this
+rewrite rule yields:</p>
+<pre><code>(x + 3) * (x + 5);
+//=&gt; x*x+x*5+3*x+15</code></pre>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>As with any post, there should always be an implicit “to
+me” and “in my opinion” attached to any statement. Welcome to
+blogging!<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Really the goal is probably extreme expressiveness, but
+I like the way the speed angle sounds – it’s more “in your face”.<a
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

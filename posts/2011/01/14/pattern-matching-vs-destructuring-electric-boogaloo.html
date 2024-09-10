@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>pattern-matching-vs-destructuring-electric-boogaloo</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>After my <a
+href="http://blog.fogus.me/2011/01/12/pattern-matching-vs-destructuring-to-the-death/">previous
+post comparing pattern matching and destructuring in Clojure</a> a fine
+gentleman was kind enough to point out an incredibly concise
+summary:</p>
+<blockquote>
+<p>Pattern matching is a conditional construct and destructuring
+isn’t.</p>
+<p>– <a href="http://clojure.org">a fine gentleman</a></p>
+</blockquote>
+<p>This is absolutely correct, and I missed making that distinction in a
+clear way. Consider the following, from my previous post:</p>
+<pre><code>(def $ [1 2 3 4 5])
+
+(when-match [[1 2 ?x 4 5] $] x)
+;=&gt; 3
+
+(when-match [[1 2 ?x 400 500] $] x)
+;=&gt; nil</code></pre>
+<p>It appears that conditional branching is occurring somehow based on
+pattern matching, but what about the following using destructuring:</p>
+<pre><code>(when-let [[_ _ x _ _] $] x)
+;=&gt; 3</code></pre>
+<p>Now it would seem that destructuring also acts a conditional, but
+that is an illusion brought on by the nature of <code>when-let</code>.
+We can see the distinction more clearly if we pull apart what is
+actually happening behind the scenes using the <code>destructure</code>
+function<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> (formatted for clarity):</p>
+<pre><code>(destructure &#39;[[_ _ x _ _] [1 2 3 4 5]])
+
+;=&gt; [V [1 2 3 4 5]
+     _ (nth V 0 nil)
+     _ (nth V 1 nil)
+     x (nth V 2 nil)
+     _ (nth V 3 nil)
+     _ (nth V 4 nil)]</code></pre>
+<p>That is, the result of <code>destructure</code> is a simple sequence
+of steps to pull apart the vector <code>[1 2 3 4 5]</code> piece by
+piece. Replacing the structure above into the expansion of the previous
+<code>when-let</code> you can see how the actual condition occurs
+(formatted for clarity):</p>
+<pre><code>(let* [temp $]
+  (if temp
+    (do
+      (let* [&lt;the destructuring bits&gt;]
+        x))))</code></pre>
+<p>That is, not only does the destructuring provide no conditional
+property, but its not even involved in the expanded conditional logic at
+all. However, if we expand <a
+href="https://github.com/dcolthorp/matchure">Matchure’s</a>
+<code>when-match</code> expression, the picture looks very different
+(formatted for clarity):</p>
+[sourcecode lang=“clj” gist=“779635”]
+<html>
+<head>
+<title>
+301 Moved Permanently
+</title>
+</head>
+<body bgcolor="white">
+<center>
+<h1>
+301 Moved Permanently
+</h1>
+</center>
+<hr>
+<center>
+nginx/0.7.67
+</center>
+</body>
+</html>
+<p>[/sourcecode]</p>
+<p>While this expansion is pretty big, it’s clear that the code produced
+is walking through the vector <code>[1 2 3 4 5]</code> and conditionally
+checking its contents against the expected pattern.</p>
+<p>And therein lies the reality of the opening quote.</p>
+<p>:F</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>If you really want to understand destructuring, then
+there is no better way than to experiment with the
+<code>destructure</code> function.<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

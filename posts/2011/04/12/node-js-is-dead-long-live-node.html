@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>node-js-is-dead-long-live-node</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<h1 id="funode">Funode</h1>
+<p><em>the development of this project has been superseded by my
+involvement with <a
+href="http://github.com/clojure/clojurescript">ClojureScript</a>. novus
+ova seclorum!</em></p>
+<p>I give <a href="http://nodejs.org/">node.js</a> a ribbing from time
+to time, mostly in response to the propensity of its greatest adherents
+to view it in an unrealistic light. My real bias is of course against
+Javascript. My problem with Javascript has always been that expertise is
+defined more in terms of understanding its faults rather than its
+features. Node.js needs to be liberated from the shackles of the
+unwieldy mess that is Javascript. Node.js should become its own language
+forged in the embers lit by Crockford.</p>
+<h2 id="node.js-is-dead.-long-live-node.">Node.js is dead. Long live
+Node.</h2>
+<p><a href="http://github.com/fogus/funode">Funode</a> is my vision for
+a runtime that realizes the potential in Node. <a
+href="http://github.com/fogus/funode">Funode</a> is a functional library
+for Node.js – a state of mind yielding Node.</p>
+<p>The greatest things to happen to Javascript are:</p>
+<ul>
+<li>being tied to the browser</li>
+<li>being divorced from the browser</li>
+</ul>
+<p>Node is the way forward. <a
+href="http://github.com/fogus/funode">Funode</a> is the map.</p>
+<h2 id="the-funode-way">The Funode Way©</h2>
+<p>Why would you write this:</p>
+<pre><code>function do_request(req) {
+  return long_io_operation(
+    req, 
+    callback=function(results) {
+      return create_something_from(results);
+    });
+}</code></pre>
+<p>When you can instead write this:</p>
+<pre><code>function do_request(req) {
+  var result = long_io_operation(req);
+  return create_something_from(result);
+}</code></pre>
+<p>This is but a taste!</p>
+<p>The Funode Way© will include:</p>
+<ul>
+<li>persistent, immutable data structures</li>
+<li>coroutines</li>
+<li>pure prototypal inheritance</li>
+<li>functional composition</li>
+<li>observable collections</li>
+<li>functors</li>
+<li>advice</li>
+<li>currying</li>
+<li>partial application</li>
+<li>combinators</li>
+<li>unification</li>
+<li>promises</li>
+<li>pre and postconditions</li>
+<li>macros</li>
+<li>FSMs</li>
+<li>and so much more…</li>
+</ul>
+<p>The next step of course is to print some t-shirts and speak at some
+conferences, but then the very next step will be to change the
+world.</p>
+<h2 id="t-shirt-options">T-Shirt Options</h2>
+<h4
+id="funode-exploiting-the-inherent-inefficiencies-in-nothingness">Funode:
+exploiting the inherent inefficiencies in nothingness</h4>
+<h4 id="use-funode-because-io-is-always-slower.">Use Funode! Because I/O
+is always slower.</h4>
+<h4 id="use-erlang-message-queues-funode">Use <span
+style="text-decoration: line-through;">Erlang!</span> <span
+style="text-decoration: line-through;">message queues!</span>
+Funode!</h4>
+<h4 id="node.js-is-dead.-long-live-node.-1">Node.js is dead. Long live
+Node.</h4>
+<p>Available as polo, for casual Friday.</p>
+<h2 id="changing-the-world">Changing the world</h2>
+<p>TBD</p>
+<p>:f</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>bookpr0n-0-gregory-chaitins-algorithmic-information-theory</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>In a (hopefully) ongoing series of blog posts named BookPr0n, I will
+highlight and briefly describe some interesting and (at times) obscure
+books that I come across. The books will tend to be technological in
+nature, but not exclusively so.</p>
+<p>The first in the series is the first book published by the immortal
+<a href="http://en.wikipedia.org/wiki/Chaitin">Gregory Chaitin</a>
+titled <em>Algorithmic Information Theory</em> (AIT - also <a
+href="http://www.umcs.maine.edu/~chaitin/cup.pdf">available online</a>
+or <a
+href="http://www.amazon.com/gp/product/0521616042/?tag=fogus-20">for
+purchase</a>). It should be noted that my copy is the 1st edition,
+whereas the link above is for the current 3rd edition. I have been
+looking for some time to purchase and read Chaitin’s book <em><a
+href="http://www.amazon.com/gp/product/9814021725/?tag=fogus-20">The
+Unknowable</a></em> for a few years now, so when I came across AIT on <a
+href="http://www.paperbackswap.com">Paperback Swap</a> I had to grab
+it.</p>
+<p><a href="http://www.amazon.com/Algorithmic-Information-Cambridge-Theoretical-Computer/dp/0521616042/?tag=fogus-20"><img src="http://farm9.staticflickr.com/8206/8252035051_02150a7faf_d.jpg" alt="cover" /></a></p>
+<p>The cover is a bit hard on the eyes, but it does follow the scheme
+for the <a
+href="http://images.google.com/images?q=cambridge%20tracts%20in%20theoretical%20computer%20science">Cambridge
+Tracts in Theoretical Computer Science</a> series; for better or for
+worse.</p>
+<p><img src="http://farm9.staticflickr.com/8060/8252050819_3d6254d71e_n_d.jpg" alt="pg 11" /></p>
+<p>Eleven pages into the book we find <a
+href="http://en.wikipedia.org/wiki/Pascal%27s_Triangle">Pascal’s
+Triangle</a> which for me is a huge win as far as pure geekery goes.</p>
+<p><img src="http://farm9.staticflickr.com/8063/8252060065_61192b0186_n_d.jpg" alt="pg 83" />
+<img src="http://farm9.staticflickr.com/8348/8252060261_c22b1f251f_m_d.jpg" alt="pg 90" /></p>
+<p>Later pages perfectly illustrate what this book brings to the table.
+On first glance they appear to be the ramblings of an insane mind, but
+there is logic to this seeming chaos. First, in chapter 3 Chaitin
+defines a <a
+href="http://www.cs.umaine.edu/~chaitin/unknowable/lisp.c">simplified
+version of LISP</a> and writes three versions of the code for the
+<code>eval</code> function (which also happens to be a <a
+href="http://en.wikipedia.org/wiki/Universal_Turing_machine">universal
+Turing machine</a>) using this language. In chapter 4 he converts his
+definition of simplified LISP into a <a
+href="http://en.wikipedia.org/wiki/Register_machine">register
+machine</a> and then compiles that into an <a
+href="http://en.wikipedia.org/wiki/Diophantine_equation#Modern_research">exponential
+diophantine equation</a> (which incidentally was written in <a
+href="http://en.wikipedia.org/wiki/Rexx">REXX</a>).</p>
+<p>So the question arises: what’s the point? “Simply put”, Chaitin’s
+goal in performing the above steps is to create an equation that
+represents a universal turing machine so that he can then calculate by
+random evaluation and encode an approximation to the <a
+href="http://en.wikipedia.org/wiki/Halting_probability">halting
+probability</a> (which remember, would also correspond to a LISP program
+as a exponential diophantine equation) leading the conclusion that this
+halting probability is an programmatic way to represent <a
+href="http://en.wikipedia.org/wiki/Incompleteness_theorem">Gödel’s
+incompleteness theorems</a>. In other words, there is no possible way to
+tell if his, or any other program, <a
+href="http://en.wikipedia.org/wiki/Halting_Problem">has a finite or
+infinite set of programs that will run to their conclusion</a>.</p>
+<p>Further information <a href="http://cs.umaine.edu/~chaitin/">can be
+found on Chaitin’s homepage</a> and his book <em><a
+href="http://www.amazon.com/gp/product/1400077974/?tag=fogus-20">Meta
+Math: The Quest for Omega</a></em>.</p>
+<p><em>note: The first 64-bits of Chaitin’s constant have been shown (in
+decimal form) to be <a
+href="http://akpublic.research.att.com/~njas/sequences/A100264">0.0078749969978123844</a>.</em></p>
+<p>-m</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

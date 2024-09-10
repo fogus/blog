@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>compiling-clojure-to-javascript-pt-2-why-no-eval</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<h1 id="why-no-eval">Why no eval?</h1>
+<p><em>this is the second entry in an n-part <a
+href="http://blog.fogus.me/tag/clj-compilation">series explaining the
+techniques and design principles of ClojureScript</a>. translations: [<a
+href="http://ykomatsu.akaumigame.org/compiling-clojure-to-javascript-pt-2-why-no-eval-ja.html">日本語</a>]</em></p>
+<p>I was not expecting to talk about <code>eval</code> so soon in this
+series, but apparently its exclusion from <a
+href="http://github.com/clojure/clojurescript">ClojureScript</a> was
+more controversial than I imagined. However, by excluding
+<code>eval</code> the Clojure/core team was not acting miserly, but
+instead had valid reasons for its exclusion. This post will go over why
+<code>eval</code> was excluded and why it may never see the light of day
+in the core distribution.</p>
+<p><a href="http://blog.fogus.me/wp-content/uploads/2011/07/random-image-from-library-of-congress1.jpeg"><img src="http://blog.fogus.me/wp-content/uploads/2011/07/random-image-from-library-of-congress1-238x300.jpg" alt="" title="random image from library of congress" width="238" height="300" class="aligncenter size-medium wp-image-3389" /></a></p>
+<h2 id="what-is-eval">What is <code>eval</code>?</h2>
+<p>The first question you may have is “who cares?” but preceding that
+may be “what is eval?” Simply put, <code>eval</code> is a function that
+takes a data structure representing a program and executes it in the
+context of the dynamic environment. For example, in Clojure you can
+perform the follow:</p>
+<pre><code>(eval &#39;(+ 1 2 3))
+;=&gt; 6</code></pre>
+<p>This takes the list: the symbol <code>+</code> and the numbers
+<code>1</code>, <code>2</code>, and <code>3</code> and executes it as if
+it was typed into the REPL. Let’s look at a more interesting
+example:</p>
+<pre><code>(def blip [\b \e \e \p])
+(def buzz {:beep 42})
+
+(eval (list* (keyword (reduce str blip)) 
+             [(symbol &quot;buzz&quot;)]))
+
+;=&gt; 42</code></pre>
+<p>This fragment builds from pieces the list <code>(:beep buzz)</code>
+which is evaluated as a keyword lookup into a map. This is an
+interesting example not because the result is useful, but in that it
+demonstrates an interesting property of Clojure (and Lisp in general) –
+code is made of the same data structures that the language itself
+manipulates.</p>
+<h2 id="eval-is-indeed-very-cool">eval is Indeed Very Cool</h2>
+<p>One of the first games that programmers new to Lisp play is the
+<code>eval</code> game. That is, they build a bunch of data structures
+using the Lisp functions and pass them into <code>eval</code>. It’s
+great fun. Having <code>eval</code> in ClojureScript would also be a
+very useful tool. Indeed, I suspect it would be extremely useful to base
+an in-page REPL on <code>eval</code>. This REPL could then be made to
+operate within the context of the currently loaded ClojureScript-enabled
+page allowing direct manipulation of the page elements and even the
+runtime code itself. This is potentially a very powerful debugging and
+incremental development tool for ClojureScript in the same way that <a
+href="http://getfirebug.com/">Firebug</a> serves for JavaScript.
+However, the greatest part about this “fictional” REPL is that <a
+href="https://github.com/ibdknox/brepl">it doesn’t require that
+ClojureScript provide <code>eval</code> <strong>at all</strong></a>.<a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a></p>
+<p>But honestly, if ClojureScript programs are composed of data forms
+directly manipulable by the language itself then why not just provide
+<code>eval</code> anyway? The answer can be found, as many answers in
+life, in the tradeoffs.</p>
+<h2 id="fojurescript">FojureScript</h2>
+<p>Imagine a language named FojureScript that is exactly like
+ClojureScript in every way except that it contains <code>eval</code>
+(and has awesome error messages). FojureScript programs are compiled
+into JavaScript with a compiler written in another language named
+Fojure. FojureScript’s compiler also allows for <a
+href="http://blog.fogus.me/2011/07/21/compiling-clojure-to-javascript-pt1/">differing
+levels of optimization</a> from raw JavaScript emission, to advanced
+dead-code elimination. What happens when a call to <code>eval</code> is
+performed in FojureScript? In the first scenario the naive
+<code>eval</code> falls down:</p>
+<pre><code>(eval &#39;(+ 1 2 3))
+;!! Unknown function +.
+;!! Maybe you meant fojs.bore._PLUS_?</code></pre>
+<p>So clearly the problem is that during the compilation process the
+function named by <code>+</code> is munged into a JavaScript function
+<code>fojs.bore._PLUS_</code>. OK, no big deal. FojureScript can be made
+to resolve the properly munged names at evaluation time with
+(relatively) minimal fuss. However, what about the call to
+<code>eval</code> in the case of a maximally minified compilation?</p>
+<pre><code>(eval &#39;(+ 1 2 3))
+;!! WTF dude!?  I have no idea what + is!
+:!! That function doesn&#39;t even exist.</code></pre>
+<p>What’s the problem?</p>
+<p>If you looked in the FojureScript bore.fojs library you would see
+that <code>+</code> is clearly defined. However, in the production code
+a call to <code>+</code> never actually occured and therefore its
+implementation was removed completely from the runtime environment!</p>
+<h2 id="blurring-the-lines">Blurring the Lines</h2>
+<p>Although Lisp programs are made up of data structures available in
+the language, there is a marked difference between the data composing
+the code, and the data flowing through the code. The data composing the
+language is subject to static analysis and a lot of information about it
+can be garnered at the time of compilation. The data running through the
+code is known only at the time of execution and therefore can only be
+known in very superficial ways. There is a stark line between what is
+known at compilation time and what is known at runtime. Therefore,
+compilation can and will eventually remove a function that is needed at
+runtime via <code>eval</code>.<a href="#fn2" class="footnote-ref"
+id="fnref2" role="doc-noteref"><sup>2</sup></a> And therein lies the
+rub. The presence of <code>eval</code> blurs the line between runtime
+and compilation time requiring that everything available in the latter
+be present in the former. <em>(or is it the other way around?)</em></p>
+<h2 id="trade-off">Trade-off</h2>
+<p><a href="https://github.com/clojure/clojurescript/wiki/Rationale">A
+goal</a> of the ClojureScript team is to provide maximally minified
+source code that maintains program semantics. The trade-off therefore is
+that it is much more important as a ClojureScript design principle that
+the runtime environment be available at dev time than the dev
+environment be available at runtime.<a href="#fn3" class="footnote-ref"
+id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<p>The larger goal of Clojure (the family) is to generate
+high-performance code on <em>every single platform</em> and to support
+<code>eval</code> in ClojureScript is antithetical to that goal. It
+would be a fool’s errand to try and support <code>eval</code> in the
+face of aggressive code elimination – you can have one, but not the
+other. ClojureScript is designed to solve the types of big problems that
+are simply too difficult to fathom, much less achieve, using raw
+JavaScript or any number of JavaScript frameworks. It’s conceivable that
+these huge applications will require a bevy of libraries. You cannot
+effectively leverage these libraries without an optimizing compiler
+utilizing dead-code elimination. You cannot have the optimizing compiler
+if you wish to support <code>eval</code>. <em>Q.E.D.</em></p>
+<p>While you may not agree with all decisions made in the development of
+ClojureScript (especially regarding <code>eval</code>), I hope you will
+agree that it was not designed and developed by fools.</p>
+<p>I hope…</p>
+<p>Anyone?</p>
+<p>…</p>
+<p>Bueller?</p>
+<p>:F</p>
+<p><em>thanks to <a href="https://github.com/redinger">Chris
+Redinger</a> and <a
+href="http://blog.fogus.me/2010/08/03/take-5-brenton-ashworth/">Brenton
+Ashworth</a> for reading a draft of this post</em></p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>I knew this would happen, just not this quickly. Great
+timing I’d say.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>And if you extrapolate from this point you’ll see why
+there is no runtime compilation. That is, if a macro builds a form
+containing functions that were optimized away at runtime, then bad
+things will happen.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>This principle is manifest in <a
+href="https://github.com/ibdknox/brepl">Chris Granger’s brepl</a>.<a
+href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

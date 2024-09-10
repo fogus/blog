@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>clojure-golf-episode-1</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>This is an attempt to have some fun with <a
+href="http://clojure.org">Clojure</a>. I hope to engage the Clojure
+community, but it would be all the more fun if others played along with
+their chosen language(s). The idea is that I present a sub-optimal code
+snippet and people throw in their optimized, smallest, and/or weirdest
+submissions of that same function.</p>
+<p>Episode 1 is the function <code>filter-collecting</code> taken
+directly from <a
+href="http://people.csail.mit.edu/gregs/ref-dyn-patterns.html">Greg’s
+Little Object System</a> – the code is thus:</p>
+<pre class="prettyprint lang-clj">
+(defn filter-collecting [predicate collector & lists] 
+  (lazy-seq 
+    (loop [lists lists out []] 
+      (if (empty? (first lists)) 
+        (reverse out) 
+        (let [heads (map first lists)] 
+          (if (apply predicate heads) 
+            (recur (map rest lists) (cons (apply collector heads) out)) 
+            (recur (map rest lists) out)))))))
+
+(filter-collecting (fn [x y] (< x y)) (fn [x y] (+ x y)) ‘(1 7 3 9) ‘(5 5 5 5)) 
+;;=> (6 8)
+</pre>
+<p>In a nutshell, it takes <em>n</em> number of <code>lists</code> and
+applies a <code>predicate</code> to subsequent elements. If said
+predicate passes, then it applies the <code>collector</code> function
+(arity <em>n</em>) and returns that result in a collection. As a
+starting point, it should be noted that this is a direct translation
+from Scheme and should be more Clojure-esque</p>
+<p>Have fun.</p>
+<h2 id="follow-up">Follow-up</h2>
+<p>There were some nice follow-ups on the <a
+href="http://groups.google.com/group/clojure/browse_frm/thread/b08ec71d4bd355c8/eb150ea310eceabb?lnk=gst&amp;q=golf#">Clojure
+group</a> (code changes only done for formatting purposes):</p>
+<h4 id="jarkko-oranen">Jarkko Oranen</h4>
+<pre lang="lisp">
+(defn filter-collecting [c f & seqs] 
+  (remove nil? 
+          (apply map (fn [& args] 
+                       (when (apply c args) 
+                         (apply f args))) 
+                 seqs))) 
+</pre>
+<h4 id="christophe-grand">Christophe Grand</h4>
+<em>my personal favorite</em>
+<pre lang="lisp">
+(defn filter-collecting [predicate collector & lists] 
+  (for [v (apply map vector lists) 
+          :when (apply predicate v)] 
+    (apply collector v))) 
+</pre>
+<h4 id="chris-houser">Chris Houser</h4>
+<pre lang="lisp">
+(defn filter-collecting [p c & l] 
+  (map #(apply c %) 
+       (filter #(apply p %) 
+               (apply map vector l)))) 
+</pre>
+<h4 id="laurent-petit">Laurent Petit</h4>
+<pre lang="lisp">
+(let [x (Object.)] 
+   (defn filter-collecting [p c & l] 
+      (remove #(identical? % x) 
+        (apply map #(if (apply p %&) (apply c %&) x) l)))) 
+
+;; AND 
+
+(defn filter-collecting [p c & l] 
+  (apply mapcat 
+         #(when (apply p %&) [(apply c %&)]) l))  
+</pre>
+<h4 id="jonathan-smith">Jonathan Smith</h4>
+<pre lang="lisp">
+(defn filter-collecting [p c & seqs] 
+  (let [fun #(if (apply p %1) 
+               (conj! %2 (apply c %1)) 
+               %2)] 
+    (loop [hs (map first seqs) 
+           ts (map rest seqs) 
+           result (transient [])] 
+      (if (next (first ts)) 
+        (recur (map first ts) 
+               (map rest ts) 
+               (fun hs result)) 
+        (persistent! (fun hs result))))))
+</pre>
+<p>Thanks to everyone who participated.</p>
+<p>-m</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>take-6-anthony-simpson</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p><a href="http://github.com/Raynes">Raynes</a> (<em>aka</em> Anthony
+Grimes) is a Clojure prodigy. His projects have gained some notoriety in
+the community, but chief among them is <a
+href="http://try-clojure.org">Try Clojure</a>. Following in the
+footsteps of other <strong>Try XX</strong> sites, Anthony is gradually
+pulling together what will, in my opinion, prove to be an invaluable
+asset for Clojure neophytes.</p>
+<p><em><a href="http://blog.fogus.me/tag/take">(take…</a> is an on-going
+series of micro-interviews focused on interesting Clojurians.</em></p>
+<h3 id="what-led-you-to-clojure">What led you to Clojure?</h3>
+<p>My first <em>real</em> language was actually Haskell. When I started
+programming, I found little more than frustration in object oriented
+languages like C#. Everything felt so unnecessarily complex to me.
+Classes for every little thing, OOP here, there, and everywhere.</p>
+<p>A friend introduced me to Haskell, and that’s when I really started
+to learn to program rather than swim around in bulky OOP concepts that
+made little sense to me.</p>
+<p>Since then, I’ve played with all sorts of languages. Ruby, Scala,
+Ioke, Factor, etc. On the JVM, Scala lead me to Clojure. Finding Clojure
+was like seeing God. Clojure is everything I’ve ever wanted. All the
+good of OOP without any of the bad, bulky, and complex. I’ve been using
+Clojure for probably around a year, but I’ve been playing with it for
+probably two. All together, I’ve been programming a little over 3 years,
+and at the time of this writing, I’m 16 years old.</p>
+<h3
+id="youve-been-finding-some-nice-niches-with-your-clojure-projects.-are-you-specifically-targetting-specific-niches-or-has-it-simply-fallen-that-way">You’ve
+been finding some nice niches with your Clojure projects. Are you
+specifically targetting specific niches, or has it simply fallen that
+way?</h3>
+<p>My projects are random at best. sexpbot started as a little script to
+connect to IRC with <a
+href="http://www.jibble.org/pircbot.php">Pircbot</a>. It turned into my
+largest project, and managed to spin off another project, Irclj, an IRC
+library I wrote to replace Pircbot in sexpbot.</p>
+<p>As for try-clojure, I don’t remember exactly how that was started,
+but I made a joke about the other TryLanguage sites to my buddy <a
+href="http://blog.licenser.net">Heinz</a> (Licenser) in #clojure-casual
+on freenode, and how we should write one for Clojure. I never intended
+to actually do it, but by the next day, Heinz had already bought the
+domain and decided it would be. I’m happy he did. It’s my first real
+well-known (kind of) project, and despite my horrible design skills, I’m
+quite proud of it. :)</p>
+<h3 id="can-you-share-your-favorite-code-snippet">Can you share your
+favorite code snippet?</h3>
+<p>Probably going to have to be this one:</p>
+<pre><code>require&#39;socket&#39; 
+a,p,c=$*
+$&gt;=TCPSocket.new a,p
+puts&quot;USER &quot;*5,&quot;NICK w&quot;
+$&gt;.each{|l|puts case l
+when/(P.+)-/
+$1+$&#39;
+when/PI/
+&quot;PO#$&#39;JOIN &quot;+c
+end}</code></pre>
+<p>from <a
+href="http://scott-olson.org/2010/05/16/the-ruby-irc-bot-that-fits-in-a-tweet.html">here</a></p>
+<p>Scott is a friend, and that snippet is pretty impressive. It’s all
+that comes to mind right now.</p>
+<h3 id="zombiesz-or-vampires"><a
+href="http://www.quora.com/Why-do-zombies-terrify-us-so">Zombies</a> or
+vampires?</h3>
+<p>Vampires, of course. Zombies just walk<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
+around stupidly. Vampires are lucid and strong.</p>
+<h3 id="whats-your-next-project">What’s your next project?</h3>
+<p>I don’t have any real plans right now, but my next new project will
+probably be a graphical RSS and Atom reader. Something I’ve been wanting
+to do for a while. It will be two projects when it happens. A library
+for reading the feeds, and the actual application. I want the RSS
+reading stuff to be a library itself so that I can use it in
+sexpbot.</p>
+<p>Mostly, I just need to do some serious work on existing stuff like
+sexpbot and tryclojure. sexpbot is one of those
+never-going-to-be-finished projects.</p>
+<h3 id="what-do-you-listen-to-when-you-code">What do you listen to when
+you code?</h3>
+<p>Pretty much everything I have. Most recently, The Script, AC/DC, and
+The All-American Rejects. Other ones include Adam Lambert, Shinedown,
+Train, Disturbed, and lots of Coldplay.</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Except for the “fast zombies”.<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

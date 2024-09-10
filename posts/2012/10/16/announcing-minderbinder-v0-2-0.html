@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>announcing-minderbinder-v0-2-0</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>Minderbinder is a Clojure library for defining unit conversions
+available at read, compile and run time.</p>
+<p><em>This post is a quick overview. More information is available on
+the <a href="https://github.com/fogus/minderbinder">Minderbinder source
+repo</a>.</em></p>
+<h1 id="use">Use</h1>
+<p>Include the following in your <a
+href="https://github.com/technomancy/leiningen">Leiningen</a>
+project.clj file:</p>
+<pre><code>[fogus/minderbinder &quot;0.2.0&quot;]</code></pre>
+<p>Or include the following in your pom.xml file in the
+<code>dependencies</code> section:</p>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;fogus&lt;/groupId&gt;
+  &lt;artifactId&gt;minderbinder&lt;/artifactId&gt;
+  &lt;version&gt;0.2.0&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+<h1 id="examples">Examples</h1>
+<p>Minderbinder includes unit conversions for the following units of
+measure:</p>
+<ul>
+<li><a
+href="https://github.com/fogus/minderbinder/blob/master/src/minderbinder/time.clj">Time</a>:
+via <code>#unit/time</code>, base is <code>:milliseconds</code>, ns is
+<code>minderbinder.time</code></li>
+<li><a
+href="https://github.com/fogus/minderbinder/blob/master/src/minderbinder/length.clj">Length</a>:
+via <code>#unit/length</code>, base is <code>:meters</code>, ns is
+<code>minderbinder.length</code></li>
+<li><a
+href="https://github.com/fogus/minderbinder/blob/master/src/minderbinder/information.clj">Information</a>:
+via <code>#unit/info</code>, base is <code>:byte</code>, ns is
+<code>minderbinder.information</code></li>
+</ul>
+<h2 id="using-minderbinders-unit-reader-form">Using Minderbinder’s unit
+reader form</h2>
+<pre><code>(ns minderbinder.test.core
+  (:require minderbinder.time))
+
+(== #unit/time [1 :second]
+    #unit/time [1000 :ms])
+
+;;=&gt; true
+
+(== #unit/time [1 :minute 30 :seconds]
+    #unit/time [90 :seconds])
+
+;;=&gt; true</code></pre>
+<h2 id="using-minderbinders-unit-parse-functions">Using Minderbinder’s
+unit parse functions</h2>
+<pre><code>(ns minderbinder.test.core
+  (:require [minderbinder.length :as mbr]))
+
+(mbr/parse-length-unit [1 :km])
+
+;;=&gt; 1000
+
+(mbr/parse-length-unit [1 :ramsden-link])
+
+;;=&gt; 381/1250</code></pre>
+<h2 id="defining-custom-conversion-rules">Defining custom conversion
+rules</h2>
+<p>Defining a unit conversion is accomplished via Minderbinder’s
+<code>defunits-of</code> macro. The body of the macro expects the
+following structure:</p>
+<p><strong>(defunits-of <em>unit-name</em> <em>base-unit-tag</em>
+<em>docstring</em> <em>conversion-spec</em>)</strong></p>
+<p>The <em>conversion spec</em> part of the body currently allows pairs
+of mappings defined in reletive terms. The pairs always start with a
+keyword used as the unit tag. However, the right-hand side of the pair
+can be one of the following:</p>
+<ol type="1">
+<li>Number - defines the value of the unit relative to the base
+unit</li>
+<li>Vector - defines the value of the unit relative to another contained
+unit</li>
+<li>Keyword - defines a single alias for a unit</li>
+<li>Set - defined one or more aliases for a unit</li>
+</ol>
+<p>A simplified version of <a
+href="https://github.com/fogus/minderbinder/blob/master/src/minderbinder/length.clj">Minderbinder’s
+length conversion definition</a> serves as an example:</p>
+<pre><code>(defunits-of length :meter
+  &quot;The meter is the length of the path 
+  traveled by light in vacuum during a 
+  time interval of 1/299,792,458 of 
+  a second.&quot;
+   
+  :m  :meter                   ;; an alias for the base unit
+  :km 1000                     ;; a larger value relative to the base unit
+  :km #{kilometer kilometers}  ;; multiple aliases for a unit
+  :cm 1/100                    ;; a smaller value relative to the base
+  :mm [1/10 :cm])              ;; a value relative to another unit</code></pre>
+<h3 id="generated-vars">Generated vars</h3>
+<p>The <code>defunits-of</code> macro will define three things in the
+namespace where the <code>defunits-of</code> macro appears:</p>
+<ol type="1">
+<li><p><code>parse-XXX-unit</code> - a function that parses the unit
+vector according to the conversion spec, returning the total value
+relative to the base.</p></li>
+<li><p><code>unit-of-XXX</code> - a macro that allows the for
+<code>(unit-of-XXX 1 :foo)</code> that returns the total value relative
+to the base.</p></li>
+<li><p><code>XXX-table</code> - a map describing the unit conversion
+rules.</p></li>
+</ol>
+<h1 id="plans">Plans</h1>
+<ul>
+<li>ClojureScript integration</li>
+<li>More conversions included by default</li>
+<li>Base unit changing</li>
+<li>Cross-unit conversions via function results</li>
+<li>More plans not yet thought up.</li>
+</ul>
+<p>:F</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

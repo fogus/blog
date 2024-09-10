@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>35</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>Here for your amusement, ridicule, or admiration is the first draft
+text of my final project proposal for my Artificial Intelligence class.
+Feel free to offer suggestions, poke fun, or correct my wretched
+grammar.<br />
+<br /> <br /><i>Begin</i> <br />The intention of my final project and
+the subsequent presentation will be to illustrate the strength of
+genetic algorithm techniques for searching intractable problem sets. The
+problem in question is contrived, but is complex enough to be virtually
+insolvable by conventional search techniques.<br />
+<br /> <br />The Problem <br /> <br />In order to properly demonstrate
+the usefulness of genetic algorithms, a problem had to be constructed
+that was both simple in design yet extremely complex to solve using
+conventional methods. The design that was created involves a simple game
+based loosely on Knuth’s PAC-world, which involves an adversarial
+relationship between two entities whose behavior is determined by fifty
+simple factors. These entities are pitted against one another in a fight
+for survival, the result of which is determined only by the subtle
+interactions between the fifty factors mentioned above. These entities
+will age, kill one another, give birth, and die of ‘old age’. The entity
+with the highest population at the end of a fixed amount of time will be
+declared to have the stronger attributes. The intractable nature of this
+scenario is in determining the proper combination of attributes that
+will create an entity capable of surviving against any opponent.<br />
+<br /> <br />The Entities <br /> <br />The individual entities will each
+have fifty attributes that will determine their behavior when confronted
+with certain conditions within the game world.<br />
+<br /> <br />1. Birth Factors (4 values) <br /> a. These properties
+determine the behavior of a newly born entity into an empty cell in the
+world. An entity is born into an empty cell if another entity of the
+same family is facing that cell and is the stronger species. The Birth
+Factors determine how this new entity is born, that is, the attributes
+determine the direction that it will face given its parents age.
+<br />2. Replacement Factors (16 values) <br /> a. When a cell in the
+world is occupied by an entity A and faced by a stronger enemy entity B,
+then the cell occupied by A is replaced by a newborn entity of type B.
+The Replacement Factors determine the direction that the newborn will be
+in given B’s age and the direction of the original A entity that was in
+the cell. <br />3. Edge Factors (3 values) <br /> a. When a round ends,
+any entities facing the edge of the world will be turned according to
+the Edge Factors and age. <br />4. Empty Factors (3 values) <br /> a.
+When a round ends, any entities facing an empty cell in the world and is
+not being attacked will be turned according to the Empty Factors and
+age. <br />5. Friendly Factors (12 values) <br /> a. When a round end,
+any entities facing an entity of the same family will be turned
+according to its age and the age of the entity that it faces. <br />6.
+Enemy Factors (12 values) <br /> a. When a round end, any entities
+facing an enemy entity will be turned according to its age and the age
+of the enemy that it faces. <br /> <br />The combination of all of the
+factors above coupled with the age of the individuals within the world
+work to create an incredibly complex problem fro determining powerful
+combinations of properties. <br /> <br />The Goal <br /> <br />Using the
+description above, I will attempt to design a genetic algorithm
+including an appropriate fitness function to attempt to find powerful
+combinations. This will be done by: <br />· Creating a strategy for
+pitting entity families against one another <br />· Determining the
+winners after a certain fixed number of rounds <br />· Combining strong
+attributes between families in order to attempt to create stronger
+decedents <br />· Introducing random mutations to avoid stagnation
+<br /> <br />The Implementation <br /> <br />The program to perform the
+project specifications will be written in Common Lisp. <br /> <br />-m
+<br /></p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

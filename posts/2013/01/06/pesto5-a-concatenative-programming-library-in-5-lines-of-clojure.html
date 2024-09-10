@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>pesto5-a-concatenative-programming-library-in-5-lines-of-clojure</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>Concatenative styles are making the rounds lately including some
+interesting examples in <a
+href="https://github.com/brandonbloom/factjor">Clojure</a> and <a
+href="https://gist.github.com/4467979">Haskell</a>. Now I’m perpetually
+drawn to concatenative languages and their ideas, so I wanted to know
+what it would take to provide a minimally representative concatenative
+experience in Clojure.<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> As it turns out… not much:</p>
+<pre><code>(defn postfix [&amp; e]
+  (reduce #(if (fn? %2)
+             (let [[l r &amp; m] %]
+               (cons (%2 r l) m))
+             (cons %2 %)) [] e))</code></pre>
+<p>This is how it’s used:</p>
+<pre><code>(postfix 5 1 2 + 4 * + 3 -)
+;;=&gt; [14]</code></pre>
+<p>The way that it works is that it treats every non-function as a value
+and every function as a binary function taking two elements off of a
+“stack”. It then wraps the answers back up onto the “top” of the stack.
+The final answer is the stack itself.</p>
+<p>This is in no way indicative of a fully blown representation of
+concatenative programming languages,<a href="#fn2" class="footnote-ref"
+id="fnref2" role="doc-noteref"><sup>2</sup></a> but it was fun and it
+highlights the stark simplicity of the model. This is my year to finally
+<a href="http://factorcode.org/">take concatenative languages
+seriously</a>. <a href="http://fogus.me/important/von-thun/">I plan to
+study hard</a>. I hope you’ll join me.</p>
+<p>:F</p>
+<p><em>if you want to talk concatenative languages or pesto5, then feel
+free to comment below or email me at the address at the top of my
+blog</em></p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>pesto5 is too small to be a “library”, but <a
+href="https://gist.github.com/4468183">a gist will do</a>.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>It’s debatable if this is concatenative at all, but alas
+the name pesto5 was too alluring to pass on.<a href="#fnref2"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

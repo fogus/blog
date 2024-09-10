@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>clojure-spec-data-design-01-sketching-a-struct</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>With the growing focus on functional programming the importance of
+data design has been thrust to the forefront. That said, you wouldn’t
+know that the importance was widely agreed upon based on an observation
+of existing data-driven APIs. Certainly I’ve committed my share of sins
+in the name of “API data packets,” but with the release of <em>Spec</em>
+I’ve come to approach the matter of data design in a more systematic
+way. In this quick post I’ll talk briefly about the first step that I
+like to call “sketching a struct” that I suspect many programmers do to
+some extent, but one that I believe is enhanced in the presence of <a
+href="https://clojure.org/about/spec">clojure.spec</a>.</p>
+<h2 id="sketching-a-struct">Sketching a Struct</h2>
+<p>The act of sketching a struct is not magical. Whether you’re
+designing an object graph, JSON packet, or Clojure map the point is
+generally the same: just type out<a href="#fn1" class="footnote-ref"
+id="fnref1" role="doc-noteref"><sup>1</sup></a> what the data structure
+should look like. Imagine that you’re interested in designing the
+representation for the runtime <em>state</em> of a game that you’re
+creating. The game consists of pieces of varying <em>sizes</em> and
+<em>capability</em>, each of which can reside at a certain location
+called a <em>system</em> either as a <em>ship</em> or a <em>star</em>.
+Each player controls a single system containing two stars called a
+<em><a
+href="http://www.looneylabs.com/rules/homeworlds">homeworld</a></em>.
+This bare skeleton is probably enough to sketch out a structure to
+represent the state for this fictional game.</p>
+<p>When sketching a struct I tend to work top-down until I have
+something that works for me and then switch to a bottom-up approach when
+implementing specs and helper functions. Therefore, sketching top-down
+means starting with the high-level game state, structured as a Clojure
+map:</p>
+<pre class="prettyprint lang-clj">
+{:game/players    [{:player/name "Mike" 
+                    :player/seat :seat/north}, 
+                   {:player/name "Russ" 
+                    :player/seat :seat/south}]
+ :game/turn       0
+ :game/systems    {:??? :???}
+ :game/homeworlds {:seat/north :??? :seat/south :???}}
+</pre>
+<p>When sketching a struct I like to fill out the data with something
+representational, but there are times when I don’t quite know what I’m
+after, so instead of wasting time trying to come up with the perfect
+representation I just move on and put a placeholder keyword
+<code>:???</code> or perhaps empty structure literals wherever I need
+them. So you’ll notice that I’ve decided to prefix my keywords in the
+sketch above. In my early days of writing Clojure I probably would have
+used flat keys like <code>:players</code> or <code>:systems</code> but
+over time I’ve grown to appreciate the organizational utility of
+namespaced keys. With the introduction of <em>Spec</em> I’ve taken to
+always using namespaced keys for domain-level concerns<a href="#fn2"
+class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> and
+flat keys for local (e.g. function kwargs or Record keys) concerns.
+Regarding the use of the vector for the <code>:game/players</code> value
+my thinking was that its nature as a sequential structure could be
+leveraged<a href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a> for the encoding of the
+<code>:game/turn</code> value. In general, when designing a domain
+structure in Clojure I find it useful to leverage<a href="#fn4"
+class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> the
+fundamental characteristics of the data types used when they’re
+appropriate for encoding essential domain information. Note that the use
+of <code>:seat/north</code> and <code>:seat/south</code> can be thought
+of as representing enumerations in the system. Finally, by embedding the
+player representation in the state structure I’ve got a good idea of its
+essential nature, but as sketches go it may need adjustment later
+on.</p>
+<p>Moving down to the next relevant sub-structure in the state, I might
+represent the system structure as:</p>
+<pre class="prettyprint lang-clj">
+{:system/name  :name
+ :system/stars [:???]
+ :system/ships {:ships/north [:???], 
+                :ships/south [:???]}}
+</pre>
+<p>The layout seems reasonable, but I’m not quite sure how to represent
+the stars and ships residing in the system. The game is such that the
+same pieces are used to represent both and there is a good chance that
+any given system will have pieces of the same size and capability. This
+seems like a nice segue into the piece structure:</p>
+<pre class="prettyprint lang-clj">
+{:piece/action :action/build
+ :piece/size   1}
+</pre>
+<p>There are two important characteristics os a piece: its capability
+(i.e. action) and its size. The size could have been an enumeration such
+as <code>:size/small</code>, but a number works just as well. When
+dealing with homogenous data elements like the piece structure I prefer
+to organize the data such that they’re categorized by their residence in
+the host structure rather than using something like an embedded tag.
+Anyway, now that I have a useable piece structure I can start filling in
+a little more detail:</p>
+<pre class="prettyprint lang-clj">
+{:game/players    [{:player/name "Mike" 
+                    :player/seat :seat/north}, 
+                   {:player/name "Russ" 
+                    :player/seat :seat/south}]
+ :game/turn       0
+ :game/systems    
+  {:name {:system/name  :name
+          :system/stars [{:piece/action :action/move 
+                          :piece/size 1}]
+          :system/ships {:ships/north 
+                          [{:piece/action :action/build 
+                            :piece/size 1}], 
+          :ships/south []}}}
+ :game/homeworlds 
+  {:seat/north 
+    {:system/name  :north
+     :system/stars [{:piece/action :action/trade 
+                     :piece/size 2}
+                    {:piece/action :action/move 
+                     :piece/size 3}]
+     :system/ships {:ships/north 
+                     [{:piece/action :action/build 
+                       :piece/size 3}], 
+                    :ships/south []}} 
+   :seat/south 
+    {:system/name  :south
+     :system/stars [{:piece/action :action/attack 
+                     :piece/size 2}
+                    {:piece/action :action/trade 
+                     :piece/size 1}]
+     :system/ships {:ships/north [], 
+                    :ships/south 
+                      [{:piece/action :action/move 
+                        :piece/size 3}]}}}}
+</pre>
+<p>Is this the best possible structure? Maybe or maybe not. The point at
+this stage is not to devise the perfect structure but instead to use the
+data representation as a tool for thinking about the larger problem at
+hand. A nice side effect is that at this point I have a useable
+structure to begin writing a little code. However, in the past the code
+that I’d write would be of the nature of utility functions and
+validators. However, with the advent of <em>Spec</em> my entire thought
+process changed – and I’ll talk about how in the next post.</p>
+<p>:F</p>
+<p>The series so far…</p>
+<ul>
+<li><a
+href="http://blog.fogus.me/2017/01/10/clojure-spec-introduction/">Introduction</a></li>
+</ul>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>While Lisp programmers have long know the utility of
+sketching their structs, I’m convinced that one of the primary reasons
+that JSON has taken over the world is that it provides JS-direct
+syntactic literals that can be easy typed up and manipulated with little
+fuss. JSON is a perfectly adequate tool for sketching for many
+programmers.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The main benefits of prefixed keys are that they allow
+for contextual name semantics and provide an environment for domain data
+growth.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>I could have also flattened the structure to have
+independent keys <code>:player/north</code> and
+<code>:player/south</code> instead, but the use of namespace keys
+fosters the idea of keeping similar concerns at the same logical level
+within a structure. However, there is nothing preventing a flatter state
+structure in Clojure and my structure above is a matter of personal
+aesthetics.<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Leveraging the characteristics of a data format is only
+as powerful as the limitations imposed by its impoverishment however.<a
+href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

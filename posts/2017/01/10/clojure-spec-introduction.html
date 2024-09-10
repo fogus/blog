@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>clojure-spec-introduction</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>If you’ve looked into the relatively new <a
+href="http://www.clojure.org">Clojure</a> library <a
+href="http://blog.cognitect.com/blog/2016/5/23/introducing-clojurespec">clojure.spec</a>
+you might have come across something curious. Observe the use of
+<code>core.spec/or</code>:</p>
+<pre class="prettyprint lang-clj">
+(require '[clojure.spec :as s])
+    
+(s/def ::num (s/or :float float? 
+                   :int   int? 
+                   :ratio ratio?))
+    
+(s/conform (s/coll-of ::num) [0.25 1/2 1])
+;;=> [[:float 0.25] [:ratio 1/2] [:int 1]]
+</pre>
+<p>The result of the call to <code>s/conform</code> is quite descriptive
+in the way that it mirrors the vector <code>[0.25 1/2 1]</code>
+provided. Indeed, the form of the return looks interesting like a naive
+version of a parse-tree, but why should such a thing happen? What’s the
+purpose of the <code>s/conform</code> function in light of the fact that
+<em>spec</em> already provides functions for validation and rich
+descriptions of their failures:<a href="#fn1" class="footnote-ref"
+id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<pre class="prettyprint lang-clj">
+(s/valid? (s/coll-of ::num) [0.25 1/2 1])
+;;=> true
+    
+(s/valid? (s/coll-of ::num) [0.25 1/2 :blarg])
+;;=> false
+    
+(s/explain-data (s/coll-of ::num) [0.25 1/2 :blarg])
+    
+;;=> #:clojure.spec{
+;  :problems ({:path [:float], 
+;              :pred float?, 
+;              :val :blarg, 
+;              :via [:user/num], 
+;              :in [2]} 
+;             {:path [:int], 
+;              :pred int?, 
+;              :val :blarg, 
+;              :via [:user/num], 
+;              :in [2]} 
+;             {:path [:ratio], 
+;              :pred ratio?, 
+;              :val :blarg, 
+;              :via [:user/num], 
+;              :in [2]})}
+</pre>
+<p>It certainly seems that if <em>spec</em> were limited to validation
+and explanation then it would be fairly useful in its own right.
+However, <em>spec</em> provides capability beyond validation and
+explanation precisely because it’s not designed to merely solve those
+problems but instead recognizes them as components for solving a much
+more pernicious “language problem”.</p>
+<p>So what’s the problem?</p>
+<p>Functional languages in general and Clojure specifically fosters the
+use of aggregations of simple data to represent complex domain
+information, the ugly truth is that each and every data aggregation
+necessarily constitutes its own <a
+href="http://blog.fogus.me/2010/03/23/clojures-mini-languages/">mini-language</a>.
+Of course, the nature of languages is such that their meaning and
+interpretation is encoded in custom parsing code. That is, prior to the
+introduction to <em>spec</em>, Clojure programmers had to create ad hoc
+parsers for walking their domain structures and identifying and
+reporting any errors or inconsistencies. Tools like the useful <a
+href="https://github.com/plumatic/schema">Schema</a> library helped to
+alleviate the complexities around the problem of the data mini-language,
+but it’s focused mainly on the problem of validation. The <em>spec</em>
+library on the other hand recognizes that there is a fundamental synergy
+between specification, parsing, combination, validation, explanation,
+and generation and provides an extremely powerful tool for managing the
+complexities inherent in data design.</p>
+<p>I’m going to take some time over the coming weeks to write about
+<em>spec</em> and explore some of its uses and advantages, specifically
+as they pertain to the problem of mini-languages brought on by the use
+of domain data encoding and in its use as a general <a
+href="http://swannodette.github.io/2016/06/03/tools-for-thought">tool
+for thinking</a> about data and program design.</p>
+<p>:F</p>
+<p><em>Thanks to David Nolen, Alex Miller, Rich Hickey, and Carin Meier
+for reading a draft of this post.</em></p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>The <code>#:clojure.spec{ ... }</code> form shows the
+new <a href="http://dev.clojure.org/jira/browse/CLJ-1910">namespaced
+map</a> feature slated for the <a
+href="http://dev.clojure.org/jira/browse/CLJ/fixforversion/10750">Clojure
+1.9 release</a>.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

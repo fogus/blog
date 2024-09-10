@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>perlis-languages</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p><em>this is another entry in a series on <a
+href="http://blog.fogus.me/tag/enrichment">programmer
+enrichment</a></em></p>
+<p><img src="http://blog.fogus.me/wp-content/uploads/2011/08/alan_perlis-243x300.jpg" alt="" title="alan_perlis" width="243" height="300" style="display: block; margin-left: auto; margin-right: auto" /></p>
+<blockquote>
+<p>A language that doesn’t affect the way you think about programming is
+not worth knowing. – Alan Perlis</p>
+</blockquote>
+<p><em>inspired by a <a
+href="http://lambda-the-ultimate.org/node/3464">LtU thread</a> and the
+great post <a
+href="http://jasonrudolph.com/blog/2011/08/09/programming-achievements-how-to-level-up-as-a-developer/">Programming
+Achievements: How to Level Up as a Developer</a> by Jason
+Rudolph[^my-list]. most code samples from <a
+href="http://rosettacode.org/wiki/Main_Page">Rosetta Code</a>.</em></p>
+<p>The philosopher Friedrich Nietzsche believed that all interactions
+and interpretations of the external world occurred through the lens of
+individual perspective. Therefore, truth to Nietzsche was subject to
+interpretation. Programmers are especially prone to subjective views on
+their industry best-practices and valuations, often colored by their
+chosen[^chosen] programming languages.[^not-just] However, Nietzsche
+believed that in order to achieve a high-level of thinking, one should
+grant all perspectives equal opportunity and let them stand, or fall, on
+their own merits. You’ve probably experienced this approach yourself in
+college if a professor demanded the classic assignment whereby students
+write an essay taking the side of an argument that they themselves
+denounce. This type of exercise is potentially very powerful in that it
+often works to crystalize one’s own beliefs and occasionally helps to
+shake those beliefs to the core.</p>
+<p>A Perlis Language is a programming language that I believe will shake
+one’s views on software development to the core.</p>
+<p>Below I will enumerate[^npo] some of my Perlis Languages and give an
+all-too-brief overview and just a sip of code for each.</p>
+<h2 id="joy">Joy</h2>
+<p><a
+href="http://www.kevinalbrecht.com/code/joy-mirror/joy.html">Joy</a> is
+an example of a <a
+href="http://c2.com/cgi/wiki?ConcatenativeLanguage">concatenative
+programming language</a> or more simply put, a stack-based language.
+That is, functions are never explicitly passed arguments, but instead
+take an implicit stack that is maintained by the programmer. This may
+seem totally insane, a sentiment not wholly inaccurate, but the levels
+of succinctness and elegance achieved via this model is stunning. The
+complexity in maintaining a stack is typically handled by concatenative
+programmers through the process of vigorous factoring of words (think
+functions) into smaller words. There is a whole class of purely
+stack-manipulation primitives that signal the need for factoring when
+their use becomes too pervasive. The goal is to constantly drive the
+code toward an expression of the domain rather than an expression of the
+programming language-specific expression of the domain. There are
+certainly better and more historically significant concatenative
+languages, but Joy strikes a nice chord with me – your mileage may
+vary.</p>
+<pre><code>(* Quicksort in Joy *)
+
+DEFINE qsort ==
+   [small]
+   []
+   [uncons [&gt;] split]
+   [swapd cons concat]
+   binrec .</code></pre>
+<h4 id="more-information">More information</h4>
+<ul>
+<li><p><a href="http://www.codecommit.com/blog/category/cat">Daniel
+Spiewak wrote a great trilogy about concatenative languages</a>; his
+treatment is far better than I could ever produce.</p></li>
+<li><p><a
+href="http://www.kevinalbrecht.com/code/joy-mirror/j01tut.html">A Joy
+tutorial</a></p></li>
+<li><p>The <a
+href="http://concatenative.org/wiki/view/Front%20Page">Concatenative
+Wiki</a></p></li>
+</ul>
+<p><em>possible substitutes: <a
+href="http://factorcode.org/">Factor</a>, <a
+href="http://www.ultratechnology.com/4th_1970.html">Forth</a>, <a
+href="http://www.cat-language.com/">Cat</a>, <a
+href="http://www.tailrecursive.org/postscript/postscript.html">PostScript</a></em></p>
+<h2 id="eiffel">Eiffel</h2>
+<p>Eiffel is an extremely opinionated object-oriented programming
+language. Like myself, many programmers today have a majority-share of
+“real-world” experience in one OO language or another. However, you
+haven’t used anything like Eiffel. That is, the bulk of Eiffel will be
+recognizable to most programmers, but the enlightening feature for most
+is the first-class support for <a
+href="http://en.wikipedia.org/wiki/Design_by_contract">Design by
+Contract</a>. In a nutshell, DbC (or contracts programming) is an
+approach that allows one to specify the expectations on method results
+based on their required input parameters and also to define class-level
+invariants.[^inv] This may seem fairly simplistic, but it’s in this
+simplicity that forms the basis for an extremely powerful design
+paradigm. In fact, contract support libraries and extensions have been
+created for other languages: <a
+href="http://blog.brianguthrie.com/2007/03/20/lets-make-a-deal-handshake-a-contract-system-for-ruby/">Ruby</a>,
+<a href="http://fogus.me/fun/trammel">Clojure</a>, <a
+href="http://en.wikipedia.org/wiki/GNU_Nana">C++</a>, <a
+href="https://code.google.com/p/cofoja/">Java</a>, and <a
+href="http://github.com/andresteingress/gcontracts">Groovy</a> to name
+only a few.</p>
+<pre><code>-- Dictionary class fragment
+
+class DICTIONARY [ELEMENT]
+feature
+    put (x: ELEMENT; key: STRING) is
+            -- Insert x so that it will be retrievable
+            -- through key.
+        require
+            count &lt;= capacity
+            not key.empty 
+        ensure
+            has (x)
+            item (key) = x
+            count = old count + 1
+        end
+invariant
+    0 &lt;= count
+    count &lt;= capacity
+end</code></pre>
+<h4 id="more-information-1">More information</h4>
+<ul>
+<li><a
+href="http://www.eiffel.com/developers/design_by_contract.html">An
+introduction to DbC</a></li>
+<li><a
+href="http://buksbaum.us/2011/04/20/using-code-contracts-for-safer-code/">Using
+code contracts for safer code</a></li>
+<li><a
+href="http://onestepback.org/index.cgi/Tech/Programming/DbcAndTesting.html">DbC
+and Unit Testing</a> by Jim Weirich</li>
+</ul>
+<p><em>possible substitutes: <a
+href="http://www.digitalmars.com/d/2.0/index.html">D</a>, <a
+href="http://cobra-language.com/">Cobra</a></em></p>
+<h2 id="qi">Qi</h2>
+<p><a href="http://www.lambdassociates.org/Book/page000.htm">Qi</a> is a
+Lisp – big deal right? Wrong. Qi is a Lisp with skinnable types, a
+built-in logic engine, rewrite rules, back-tracking dispatch, built-in
+lexer and parser generators, and pattern matching that compiles down to
+<a
+href="http://www.lambdassociates.org/studies/study10.htm">highly-performant
+Common Lisp</a>. The author <a
+href="http://www.lambdassociates.org/">Dr. Mark Tarver</a> has strong
+opinions on the state of the software development in general and Lisp in
+particular (you may already have read <em><a
+href="http://www.lambdassociates.org/blog/bipolar.htm">The Bipolar Lisp
+Programmer</a></em>) and these opinions shine in the implementation of
+Qi. The successor to Qi, Shen, is in active development with a release
+scheduled some time this summer.</p>
+<pre><code>\ A simple expression calculator \
+
+(datatype arith-expr
+
+    X : number;
+    ====================
+    [num X] : arith-expr; 
+
+    if (element? Op [+ - * /])
+    X : arith-expr; Y : arith-expr;
+    ===============================
+    [X Op Y] : arith-expr;)
+
+ (define do-calculation
+  {arith-expr --&gt; number}
+  [X + Y] -&gt; (+ (do-calculation X) (do-calculation Y))
+  [X - Y] -&gt; (- (do-calculation X) (do-calculation Y))
+  [X * Y] -&gt; (* (do-calculation X) (do-calculation Y))
+  [X / Y] -&gt; (/ (do-calculation X) (do-calculation Y))
+  [num X] -&gt; X)</code></pre>
+<h4 id="more-information-2">More information</h4>
+<ul>
+<li><a href="http://groups.google.com/group/Qilang">Qi language
+group</a></li>
+<li><a
+href="http://jng.imagine27.com/articles/2011-06-28-141124_purely_functional_types_red_black_trees_in_qi.html">Purely
+Functional Red/Black Trees in Qi</a> by Justin Grant</li>
+</ul>
+<p><em>possible substitutes: <a
+href="http://code.google.com/p/pure-lang/">Pure</a></em></p>
+<h2 id="clojure">Clojure</h2>
+<p>Clojure is a fantastic language, but <a
+href="http://www.joyofclojure.com">let’s just say that I have some skin
+in this game</a>. Take this entry with a grain of salt. So instead…</p>
+<h2 id="kernel">Kernel</h2>
+<p><a href="http://web.cs.wpi.edu/~jshutt/kernel.html">Kernel</a> is
+also a Lisp, but it differs in that it completely eliminates the line
+separating compile-time and runtime via [fexprs</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

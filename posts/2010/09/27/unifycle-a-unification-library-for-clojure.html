@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>unifycle-a-unification-library-for-clojure</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>As a first step toward a much grander Clojure project I needed a
+unification library to supplement a simple logic engine (the second step
+in the larger plan). There are a few options floating around, but
+nothing that was readily available nor complete. Therefore, I decided to
+package a simple unification library in hopes that others might find it
+useful and hopefully eliminate the need to search around fruitlessly
+like I did. A basic use case for Unifycle is as follows:</p>
+<p>[sourcecode lang=“clojure” gist=“599021”](use ’[me.fogus.unifycle
+:only [unifier]])</p>
+<p>;; unify two expressions with an occurs check</p>
+<p>(unifier ‘((?a * ?x ** 2) + (?b * ?x) + ?c)’(?z + (4 * 5) + 3))</p>
+<p>;=&gt; ((?a * 5 ** 2) + (4 * 5) + 3)[/sourcecode]</p>
+<p>Unifycle exposes a number of canned functions, starting with
+<code>unifier</code>, <code>try-subst</code>, and
+<code>garner-unifiers</code>. These functions use an <em>occurs
+check</em> internally, so use them with that fact in mind. I have also
+exposed versions of these functions without internal <em>occurs
+check</em> named <code>unifier-</code>, <code>try-subst-</code>, and
+<code>garner-unifiers-</code>. If you know what unification is then you
+know what an <em>occurs check</em> is – if not, then this whole post is
+probably moot.</p>
+<p>I have also exposed factory functions named
+<code>make-occurs-unify-fn</code>, <code>make-occurs-subst-fn</code>,
+<code>make-occurs-unifier-fn</code>, <code>make-unify-fn</code>,
+<code>make-subst-fn</code>, and <code>make-unifier-fn</code>. The first
+three create versions using and <em>occurs check</em> and the last three
+create versions without. Each of these factory functions take a single
+predicate function that is used to determine if a symbol in a
+(potentially) unified expression refers to a variable. From the example
+above, you’ll notice that the default variable function is preceded with
+a question mark (e.g. <code>?snigglet</code>).</p>
+<p>I have created a <a
+href="http://fogus.me/fun/unifycle/">documentation page for Unifycle</a>
+that I plan to expand. Any and all help is appreciated.</p>
+<p>:f</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

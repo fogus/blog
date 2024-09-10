@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>clojure-golf-episode-2-largest-prime-factor</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>In the <a
+href="http://blog.fogus.me/2009/08/14/clojure-golf-episode-1/">last
+episode of Clojure Golf</a> we saw some interesting ways to write a
+function that takes a couple sequences, applies a function to the
+pairing elements, and then returns a list of the results based on a
+supplied filtering function. Thanks to all who participated in that
+exercise.</p>
+<p>This episode is a little tougher.</p>
+<p>Below I have written a function that takes two numbers: any given
+number, and another number that acts as a starting point. This function
+will then calculate the largest prime factor of the given number. The
+implementation of this function came from a <a
+href="http://twitter.com">Twitter</a> meme where people would describe
+<a href="http://search.twitter.com/search?q=songsincode">songs in
+code</a> within the constraints of 140 characters. As it turns out,
+<em>most</em> of the snippets were meant to be humerous and didn’t
+actually run or represent legal source programs at all. I wanted to
+break that trend while still maintaining some sense of humor about the
+whole thing. In any case, before I thought of an entry I knew that my
+snippet would deal with the Tommy Tutone song <a
+href="http://en.wikipedia.org/wiki/8675309">867-5309/Jenny</a>. However,
+what I didn’t know at the time was that the number 8675309 is a prime
+number <a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a>, but once I realized this I knew
+what <a href="http://twitter.com/fogus/status/3451864235">my
+#songsincode entry would be</a>.</p>
+<p>[sourcecode lang=“clj” gist=“183954”] ;; largest prime factor (defn
+lpf “Takes a number n and a starting number d &gt; 1 and calculates the
+largest prime factor of n starting at number d.</p>
+<p>usage: (lpf 364362978 2) =&gt; 8675309” [n d] (if (&gt; d n) (- d 1)
+(recur (#(if (zero? (rem % d)) (recur (/ % d)) %) n) (inc d))))
+[/sourcecode]</p>
+<p>I think the above function is likely as small as it can get <a
+href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a>, but it’s not very fast
+(e.g. <code>(lpf 1234567890123456789012345678901234567890 2)</code> <a
+href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a> took about 10 minutes on my
+machine). Therefore, this episode of Clojure Golf is devoted to making
+<code>lpf</code> as fast as possible, while still preserving as much
+compactness as possible. It would also be nice to see how to squeeze a
+few more characters out of this particular implementation.</p>
+<p>As always, Clojure snippets are not required – any programming
+language is encouraged.</p>
+<p>-m</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>I’m <a
+href="http://divisbyzero.com/2009/08/25/367-5309-more-than-jennys-phone-number/">not
+the first person to discover this</a>.<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>99 characters, minus docstring<a href="#fnref2"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>5,964,848,081<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

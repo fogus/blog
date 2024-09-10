@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>evalive-a-go-go</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>I’ve mentioned my spunky little library evalive numerous times, but
+never got around to announcing it officially. Well here you go. evalive:
+a tiny clojure library providing another eval… and destro.</p>
+<p><a href="http://github.com/fogus/evalive">source</a></p>
+<p><a href="http://fogus.me/fun/evalive/">marginalia docs</a></p>
+<figure>
+<img src="http://images.fogus.me/logos/evalive.png" title="0x14 eyes"
+alt="evalive" />
+<figcaption aria-hidden="true">evalive</figcaption>
+</figure>
+<h2 id="examples">Examples</h2>
+<pre><code>(use &#39;[evalive.core :only (evil destro)])</code></pre>
+<h3 id="evil">evil</h3>
+<pre><code>(evil &#39;{message &quot;Hello&quot;, place &quot;Cleveland&quot;}
+      &#39;(println message place))
+
+; Hello Cleveland</code></pre>
+<h3 id="destro">destro</h3>
+<pre><code>(destro [message place] [&quot;Hello&quot; &quot;Cleveland&quot;])
+;=&gt; {vec__2438 [Hello Cleveland], message Hello, place Cleveland}</code></pre>
+<h3 id="evil-destro">evil destro</h3>
+<pre><code>(evil (destro [message place] [&quot;Hello&quot; &quot;Cleveland&quot;])
+      &#39;(println message place))
+
+; Hello Cleveland</code></pre>
+<h2 id="getting">Getting</h2>
+<h3 id="leiningen">Leiningen</h3>
+<p>Modify your <a
+href="http://github.com/technomancy/leiningen">Leiningen</a>
+dependencies to include <a
+href="http://fogus.me/fun/evalive/">evalive</a>:</p>
+<pre><code>:dependencies [[evalive &quot;1.0.0&quot;] ...]    </code></pre>
+<h3 id="maven">Maven</h3>
+<p>Add the following to your <code>pom.xml</code> file:</p>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;evalive&lt;/groupId&gt;
+  &lt;artifactId&gt;evalive&lt;/artifactId&gt;
+  &lt;version&gt;1.0.0&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+<p>Have fun.</p>
+<p>:f</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

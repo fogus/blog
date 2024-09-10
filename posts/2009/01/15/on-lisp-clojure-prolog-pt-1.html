@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>on-lisp-clojure-prolog-pt-1</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>; As always, I will post when the code is “complete”, but my progress
+can be followed on <a
+href="http://github.com/fogus/polyglot/tree/master/reading/onlisp">Github</a>.
+Also, this post is executable, just copy and paste into a Clojure
+REPL.</p>
+<p>(comment ” &gt; Posts in this series: <a
+href="/2008/09/26/on-lisp-clojure-chapter-2/">ch. 2</a>, <a
+href="/2008/10/02/on-lisp-clojure-chapter-2-redux/">ch. 2 redux</a>, <a
+href="/2008/09/30/on-lisp-clojure-chapter-3/">ch. 3</a>, <a
+href="/2008/10/08/on-lisp-clojure-chapter-4/">ch. 4</a>, <a
+href="/2008/10/24/on-lisp-clojure-chapter-5/">ch. 5</a>, <a
+href="/2009/01/14/on-lisp-clojure-prologon-lisp-clojure-prolog/">ProloG
+pt. 1</a></p>
+<p>First, let me thank <a
+href="http://pragprog.com/titles/shcloj/programming-clojure">Stuart
+Halloway</a> for <a
+href="http://blog.thinkrelevance.com/2008/12/12/on-lisp-clojure">picking
+up the On Lisp -&gt; Clojure port where I left off</a>. I do not know if
+that was intentional, but in any case it makes for nice reading to start
+with my first 5 chapters and then transition right into Mr. Halloway’s
+posts (which are much higher quality IMO).</p>
+<p>“)</p>
+<p>; One of my favorite parts from <em><a
+href="http://www.paulgraham.com/onlisp.html">On Lisp</a></em> is his
+implementation of an embedded Prolog interpreter based on a simple
+database and inference system. My main goal for starting the On Lisp
+-&gt; Clojure series was to eventually have this embedded Prolog system
+to use in my own applications. I will start out by just talking about a
+few preliminary structures and functions and then expand on them in
+future installments.</p>
+;
+<pre lang="lisp">
+
+;;
+;; The original Lisp make-hash-table function works on a 
+;; cons-cell structure, however Clojure provides a persistent 
+;; hash structure instead.  I am not going to port the Common 
+;; Lisp function to Clojure, but instead will modify the Prolog 
+;; implementation to fit a more idiomatic Clojure approach.
+;; 
+(defn make-db []
+  nil)
+
+(def *default-db* (ref (make-db)))
+
+(defn clear-db 
+  "Takes a db and clears it"
+  ([] (clear-db *default-db*))
+  ([db] (dosync (ref-set db nil))))
+
+(defn db-query
+  "Takes a db and a key and returns the mapped val"
+  ([key] (db-query *default-db* key))
+  ([db key] (get @db key)))
+
+;;
+;; db-push in Clojure is a bit trickier since it will be working
+;; on a referenced persistent hash map.  This version is larger 
+;; than the On Lisp version do to the fact that the database
+;; being queried is an in-transaction value.  
+;;
+(defn db-push 
+  "Stores a value in a the db"
+  ([key val] (db-push *default-db* key val))
+  ([db key val]
+     (dosync
+      (commute db
+               (fn [the-db key val]
+                 (assoc the-db key (cons val (get the-db key))))
+               key
+               val))))
+
+;;
+;; fact is almost a direct translation save for minor syntax diffs
+;;
+(defmacro fact 
+  [pred & args]
+  `(do
+     (db-push '~pred '~args)
+     '~args))
+
+(defn test-pt1 []
+  (fact painter reynolds joshua english)
+  (fact painter canale antonio venetian)
+  (db-query 'painter))
+
+;</pre>
+<p>; There is definitely some room for improvement
+(suggestions/criticisms always welcome), but these initial functions
+work the same as the On Lisp originals, so that’s all for now. I’ll come
+back later for more.</p>
+<p>;-m</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>on-lisp-clojure-chapter-5</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>; Chapter 5, entitled “Returning Functions”, is where we really start
+to see the power of functional programming. It is the types of problems
+outlined in the chapter where <a href="http://clojure.org">Clojure</a>
+really shines. In fact, many of the functions created by Paul Graham in
+<em>On Lisp</em> are built into Clojure, as I will show below.</p>
+<p>; As always, I will post when the code is “complete”, but my progress
+can be followed on <a
+href="http://github.com/fogus/polyglot/tree/master/reading/onlisp">Github</a>.
+Also, this post is executable, just copy and paste into a Clojure
+REPL.</p>
+<blockquote>
+<p>Posts in this series: <a
+href="/2008/09/26/on-lisp-clojure-chapter-2/">ch. 2</a>, <a
+href="/2008/10/02/on-lisp-clojure-chapter-2-redux/">ch. 2 redux</a>, <a
+href="/2008/09/30/on-lisp-clojure-chapter-3/">ch. 3</a>, <a
+href="/2008/10/08/on-lisp-clojure-chapter-4/">ch. 4</a>, <a
+href="/2008/10/24/on-lisp-clojure-chapter-5/">ch. 5</a></p>
+</blockquote>
+<p>; pg. 62</p>
+<p>; Clojure does not have a typecase function, but one could be made by
+writing a macro that expands into something like (I stress ‘like’ as
+this is not exactly correct):</p>
+;
+<pre lang="lisp">
+(defn joiner [obj]
+  (let [name (. (. (. obj getClass) getGenericSuperclass) getName)]
+    (cond
+     (= name "clojure.lang.ASeq") cons
+     (= name "java.lang.Number") +)))
+;</pre>
+<p>; Clojure of courser has a multi-method facility that would provide
+something similar:</p>
+;
+<pre lang="lisp">
+(defmulti joiner class)
+(defmethod joiner :default [obj] cons)
+(defmethod joiner java.lang.Number [obj] +)
+
+(joiner 2)
+(joiner '(2 3 4))
+(joiner 3.14159)
+(joiner [1 2 3])
+(joiner "test")
+;</pre>
+<p>; Of course it would be nice if we could use type hints for dispatch
+and simplify the API. I will not hold my breath for this (especially
+since it breaks Clojure’s current intent for type hints… and my comment
+on it was ignored :p).</p>
+;
+<pre lang="lisp">
+(defn foo
+  ([#^java.lang.Number x] +)
+  ([x] cons)) 
+;</pre>
+<p>; pg. 63</p>
+<p>; One of PG’s famous “inventions” is the make-adder function. He <a
+href="http://www.paulgraham.com/icad.html">originally presented it</a>
+as a test for programming language X which is used to determine how such
+a simple function cannot be easily defined in many (at the time) popular
+languages. Of course, since Clojure has closures like Lisp, it’s a
+no-brainer.</p>
+;
+<pre lang="lisp">
+(defn make-adder [n]
+  (fn [x] (+ x n))) 
+
+(def add3 (make-adder 3))
+(add3 10)
+;</pre>
+<p>; Remember that <code>(remove-if)</code> function from <a
+href="http://blog.fogus.me/2008/10/02/on-lisp-clojure-chapter-2-redux/">chapter
+2</a>? We can use Clojure’s <code>(complement)</code> function to build
+an inverse function from an existing predicate.</p>
+;
+<pre lang="lisp">                                                                                                                                                
+(defn remove-if [f lst]
+  (if (seq lst) ; idiomatic                                                                                                                                        
+    (if (f (first lst))
+      (recur f (rest lst))
+      (lazy-cons (first lst) (remove-if f (rest lst))))
+    nil))
+
+(remove-if (complement odd?) '(1 2 3 4 5 6))
+; </pre>
+<p>; pg. 65</p>
+<p>; Memoization has gotten a lot of airtime recently as it was a fun
+game to show how it could be done in language x – that meme seems to
+have died away. In short, memoization is the act of defining a function
+that caches past results of calls to it and returns the cached version
+if it exists. This is useful when it does a computationally intense
+operation and it expects to be called often with similar values. I was
+planning on writing a memoization function, but found that the <a
+href="http://sourceforge.net/projects/clojure-contrib">Clojure
+Contribs</a> library <a
+href="http://clojure-contrib.svn.sourceforge.net/viewvc/clojure-contrib/trunk/src/clojure/contrib/memoize/memoize.clj?revision=157">already
+has one</a>.</p>
+;
+<pre lang="lisp">
+(defn memoize
+  [function]
+  (let [cache (ref {})]
+    (fn [& args]
+      (or (@cache args)
+          (let [result (apply function args)]
+            (dosync
+             (commute cache assoc args result))
+            result)))))
+
+(def slowly (memoize (fn [x] (. Thread sleep 100) x)))
+(time (slowly 1)) 
+(time (slowly 1)) 
+
+(def mri (memoize (remove-if f lst)))
+(time (mri odd? (range 1000)))
+(time (mri odd? (range 1000)))
+
+;; This may show an more dramatic speed-up
+(time (doall (mri odd? (range 11000))))
+(time (doall (mri odd? (range 11000))))
+;</pre>
+<p>; pg. 66</p>
+<p>; PG talks next about function composition, that is, defining a
+function that takes functions f and g (any number but 2 for
+illustration) functions and returns a function that is f(g(&amp;args)).
+Of course, Clojure provides this in the form of the <code>(comp)</code>
+function:</p>
+;
+<pre lang="lisp">
+((comp first list) 'a 'b 'c)
+((comp first rest list) 'a 'b 'c)
+;</pre>
+<p>; I skip over the tree functions (pgs. 70-75) built by PG because for
+the most part they are either included or trivial using Clojure’s <a
+href="http://clojure.org/api#toc569">Zipper</a> API. Maybe I will come
+back one day and do this should I need them in later chapters. But for
+now, good day.</p>
+<p>; -m</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

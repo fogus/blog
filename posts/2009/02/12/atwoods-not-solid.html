@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>atwoods-not-solid</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<figure>
+<img
+src="http://farm4.static.flickr.com/3482/3274703628_7b5b2a0d8e_o.png"
+title="Original photo by http://www.flickr.com/photos/carowallis1/"
+alt="what happens when you bang your head against the wall" />
+<figcaption aria-hidden="true">what happens when you bang your head
+against the wall</figcaption>
+</figure>
+<p>Jeff Atwood, the patron saint of <a
+href="http://blog.jayfields.com/2009/01/cost-of-net-negative-producing.html">NNPPs</a>,
+recently wrote a post <a
+href="http://www.codinghorror.com/blog/archives/001225.html">decrying
+SOLID as Ferengi programming</a>. Stepping back, <a
+href="http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod">SOLID</a>
+is a set of principles outlined by <a
+href="http://blog.objectmentor.com/articles/category/uncle-bobs-blatherings">Robert
+Martin</a> that distill his 200 years of Object-oriented programming
+into a set of best practices fostering agility, testability,
+extensibility, and any other <em>ity</em> that you can think of.
+Mr. Atwood warns us that the SOLID principles are created by someone who
+likely has not written a lot of code, and are not feasible for
+programmers who write software in the <em>real world</em>.</p>
+<p>Not unexpectedly, a common theme that I see in the comment section is
+as follows:</p>
+<blockquote>
+<p>I created tons of software w/o SOLID and the customer was happy, so
+that’s all that matters in the real world. <a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+</blockquote>
+<p>The statement above would be laughable, if it weren’t almost true.
+That is, software development is an interesting field in that there is a
+very large spectrum of competence. <a href="#fn2" class="footnote-ref"
+id="fnref2" role="doc-noteref"><sup>2</sup></a> It’s almost like a
+baseball talent pyramidal structure where for every all-star developer
+at the top, there are two for each of them in skill, and four below for
+each of them, etc… <a href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a> Sadly, at any competency level
+software can be developed that <em>gets the job done and makes the
+customer happy</em>. In all but the most blatent of cases, it is very
+difficult for the customer, who is often not versed in software
+development, to tell the difference in quality between software written
+by all-stars and those by no-stars. So if that were the case, who cares
+right?</p>
+<p>The problem really manifests for the developers downstream tasked
+with maintenance; you know, <a
+href="https://www.thedacs.com/databases/url/key/5881">the majority</a>.
+I think Mr. Atwood is completely dismissive of these developers by
+preaching such a laissez-faire approach. But honestly, there is often
+very little that is sexy about the maintenance cycle, and he certainly
+wouldn’t have such a following if he chose it as the focus of his blog.
+However, not all projects are blessed with developers at the caliber of
+Mr. Atwood’s ninja programming team. Instead, most teams are populated
+all along the competency spectrum (and many filled primarily from the
+base) and it’s these <em>real world</em> teams that absolutely must
+adhere to a solid set of software development principles in order to
+maintain some semblance of sanity in the codebase.</p>
+<p>Regardless <a href="http://www.paulgraham.com/noop.html">how you feel
+about Object-oriented programming</a>, it is difficult for me to
+understand why one would choose to disparage the SOLID principles; that
+is, unless you’ve already internalized the majority of them over the
+years without realizing it, or you revel in your NNPP status.</p>
+<p>-m</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>This is not a direct quote, only a taste of a general
+buzzing noise eminating from the comments section.<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>I can’t imagine that the more classical engineering
+fields have such a wide gap between those with the least talent and
+those with the most. Am I wrong?<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>For example, for each <a href="http://clojure.org">Rich
+Hickey</a>, there are 37,856 of me.<a href="#fnref3"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

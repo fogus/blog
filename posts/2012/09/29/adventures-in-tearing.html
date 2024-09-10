@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>adventures-in-tearing</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>An interesting thought exercise is to pull apart ideas that are
+typically thought inseparable. One could call this act <a
+href="http://www.infoq.com/presentations/Simple-Made-Easy">decomplecting</a>,<a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> but for the purposes of this post
+I’ll coin the term “adventures in tearing.”</p>
+<p>A few interesting examples in the wild include:</p>
+<h2 id="kernel">Kernel</h2>
+<p><a href="http://web.cs.wpi.edu/~jshutt/kernel.html">The Kernel
+programming language</a> pulls apart function creation into two parts:
+1. <code>$vau</code> - an operator<a href="#fn2" class="footnote-ref"
+id="fnref2" role="doc-noteref"><sup>2</sup></a> like <code>lambda</code>
+in Lisp-like languages but without evaluation if its arguments. 2.
+<code>wrap</code> - an operator that takes the result<a href="#fn3"
+class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> of
+<code>$vau</code> and creates a function that receives its arguments
+evaluated.</p>
+<h2 id="david-hume">David Hume</h2>
+<p>Whether you agree with <a
+href="http://www.constitution.org/dh/hume.htm">David Hume’s
+philosophy</a> or not, it’s difficult to deny that he was a master of
+tearing ideas apart into their constituent parts. Often when examining a
+composite’s parts you’ll gain a deeper understanding of the whole.
+Instead, Hume famously attempted to use tearing to unravel the very
+fabric of human understanding.</p>
+<p>Specifically, one of Hume’s famous passages talks about the action of
+<a href="http://www.gutenberg.org/files/9662/9662-h/9662-h.htm">one
+billiard ball connecting with another</a>. The human notion that the
+action of one ball hitting another <em>causes</em> the other to move,
+according to Hume, is an illusion. Instead, causality is a fabrication
+of the human mind assigned to antecedent and sequent events conjoined in
+time. Further, that humans believe that any event causes another is a
+bias built over a lifetime of observing events constantly conjoined in a
+consistent way.</p>
+<p>This is an exercise in tearing taken to an extreme that has motivated
+philosophers since 1748.</p>
+<h2 id="wat">Wat</h2>
+<p>Manuel Simoni’s <a href="https://github.com/manuel/wat-js">Wat
+programming language</a> decomposes type definition, creation, tags and
+access from the typical type/class definition model.</p>
+<p>An example of Wat used in this way is as follows:</p>
+<pre><code>(def (type-tag type-creator type-accessor) (make-type))
+;;=&gt; (#{anonymous} #[Applicative anonymous] #[Applicative anonymous])</code></pre>
+<p>Where the <code>make-type</code> function returns a triplet described
+by the names above. The interesting part about this feature is that it
+separates creation from access allowing one to limit access to one
+aspect or both using ad hoc encapsulation mechanisms. This is very
+similar to <a
+href="http://docs.racket-lang.org/reference/creatingmorestructs.html">Racket’s
+<code>make-struct-type</code> feature</a> with and added element of
+runtime reflection. It’s a very clever extension to Scheme that seems
+fairly obvious in hindsight. That’s the funny thing about obviousness;
+it’s of course obvious once someone shows it to you. Unfortunately,
+people (and even programmers) are apt to take the obvious for granted
+and fail to see things as anything less than wholly formed ideas. Wat’s
+<code>make-type</code> feature has helped me to better grasp some
+elusive aspects of types, privacy and reflection.</p>
+<p>Mr. Simoni talks more about this particular <a
+href="http://axisofeval.blogspot.com/2012/08/schemes-missing-ingredient.html">Wat
+capability in a blog post</a>; I highly recommend reading it.</p>
+<h2 id="clojure">Clojure</h2>
+<p><a href="http://clojure.org">Clojure</a> pulls apart transformation
+from data representation and order in its <a
+href="http://clojure.com/blog/2012/05/08/reducers-a-library-and-model-for-collection-processing.html">reducers
+library</a>.</p>
+<p>Additionally, Clojure has a multimethods feature that splits the idea
+of function dispatch from the dispatch logic itself. Instead, Clojure’s
+multimethods allow you to define a function that is used as the dispatch
+logic that itself can be a different multimethod.<a href="#fn4"
+class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+<h2 id="fini">Fini</h2>
+<p>There are other great examples of <em>adventures in tearing</em>
+including, but not limited to: <a
+href="http://www.datomic.com">Datomic</a>, <a
+href="http://www.alu.org/mop/index.html">Common Lisp’s MOP</a>, the
+stack in Forth-like languages, <code>shift</code>/<code>reset</code> in
+delimited continuation models, and Mathematica’s <a
+href="http://reference.wolfram.com/mathematica/tutorial/CollectingExpressionsDuringEvaluation.html">Reap
+and Sow</a>.</p>
+<p>I’ve been thinking a lot about tearing ideas apart and while I’ve not
+blazed new ground I think that I’ve gained a greater appreciation for
+some (for me) difficult ideas. The process of tearing, or decomplecting
+if you will, has given me greater insight into <a
+href="http://en.wikipedia.org/wiki/Actor_model">actors</a>, <a
+href="http://www.github.com/clojure/core.unify">unification</a>, and
+continuations. Once you get the mindset it’s difficult to avoid viewing
+the world, ideas, prejudices and software as conglomerates of finer
+grained notions – or at least attempting to anyway. I hope that further
+adventures in tearing can shed some light on my recent elusive problems
+like browser-based apps, simulation, and event sourcing.</p>
+<p>I plan to continue my studies in tearing and will <a
+href="http://www.complected.org/">share</a> my ideas as I go. I hope
+that you’ll share yours as well.</p>
+<p>:F</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Of all the people that I’ve worked with, Rich Hickey is
+the Decomplector General.[^st] His ability to pull apart a system into
+its parts is inspiring.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Excuse my imprecise terminology regarding Kernel – my
+attempt here is to use more common parlance. A future post will be more
+precise.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>The combination of these two operations combine to
+provide function semantics similar to common programming languages. That
+is, <code>lambda</code> (or JavaScript-style <code>function</code>) is
+<em>not</em> a primitive type, but instead composed of two other more
+primitive features.<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>While you can abuse multimethods along a dispatch chain
+like this, it can be a bit confusing. Additionally, although Clojure’s
+multimethods are open in regard to the dispatch value, the dispatch
+function is locked by default. There are ways around that, but they’re
+ill advised.<a href="#fnref4" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>function-identities</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>One of the first features one will encounter when exploring Clojure
+(and most Lisps that I am familiar with) is that its arithmetical
+operations can take any number of arguments.</p>
+<pre><code>(+ 1 2 3 4 5)
+;=&gt; 15</code></pre>
+<p>This feature is very convenient, but if you are a tinkerer then you
+may quickly encounter something about Clojure that seems odd, or at
+least surprising. What happens if you pass zero arguments to the
+<code>+</code> function?</p>
+<pre><code>(+)
+;=&gt; 0</code></pre>
+<p>What about <code>*</code>?</p>
+<pre><code>(*)
+;=&gt; 1</code></pre>
+<p>For addition and multiplication, the values <code>0</code> and
+<code>1</code> are known as the <a
+href="http://en.wikipedia.org/wiki/Identity_element">identities</a> for
+each function respectively. Some of you may already know of this and
+others may intuitively get why they are this way.</p>
+<h2 id="iterative-and-applicative-examples">Iterative and Applicative
+Examples</h2>
+<p>In words, the results thus observed can be summarized as:</p>
+<ul>
+<li>The sum of no numbers is 0</li>
+<li>The product of no numbers is 1</li>
+</ul>
+<p>Ignoring the mathematical aspects for now, how would similar behavior
+manifest itself in “real word” code? An insight can be found in the way
+one might implement a sum function in an classically imperative way
+(using Ruby to illustrate):</p>
+<pre><code>def summer(*args)
+  result = 0
+  args.each {|x| result += x}
+  result
+end</code></pre>
+<p>An applicative solution proves more succinct, but the principle is
+the same:</p>
+<pre><code>def summer(*args)
+  args.inject(0) {|x,y| x + y}
+end</code></pre>
+<p>Both yielding:</p>
+<pre><code>summer(1,2,3,4,5)
+#=&gt; 15
+
+summer()
+#=&gt; 0</code></pre>
+<p>As you can see, both implementations of <code>summer</code> use an
+accumulator (explicit in the first case, and implicit in the second)
+initialized to <code>0</code>. When the function is passed no args then
+the looping is never performed and the initializer <code>0</code> is
+returned. Pretty clear right?</p>
+<h2 id="σ-and">Σ and ∏</h2>
+<p>Why not simply restrict <code>+</code> to two arguments and make it
+signal an error when less or more are given? Surely this would be more
+intuitive no? Well, it depends on whose intuition you’re talking about.
+A mathematician would have no problem with the behavior outlined above.
+Because to a mathematician Clojure’s addition function does not
+implement <code>+</code>, it implements something closer to <span
+style="font-family: times, serif; font-size:150%">Σ</span> (and in the
+case of <code>*</code>, <span
+style="font-family: times, serif; font-size:150%">∏</span>)<a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a>. For the infix plus it makes no
+sense to allow zero arguments, but for <span
+style="font-family: times, serif; font-size:150%">Σ</span> it does. But
+these are simply restrictions of notation and not emblematic of any
+deeper truths.</p>
+<h2 id="but-why">But Why?</h2>
+<p>As you’ve noticed, I haven’t really explained why function identities
+are important. Indeed, there is more that can be said about function
+identities, but this post is already longer than I intended, so I’ll
+hold off on that discussion for another day. However, for now think
+about this question:</p>
+<blockquote>
+<p>Assume that the identities for addition and multiplication were
+replaced by arity exceptions. What abilities would you lose?</p>
+</blockquote>
+<p>I’ll answer this question next time.<a href="#fn2"
+class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>:F</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Clojure’s <code>+</code> and <code>*</code> is not
+exactly <span style="font-family: times, serif; font-size:150%">Σ</span>
+and <span style="font-family: times, serif; font-size:150%">∏</span>,
+but they’re close enough for the sake of this discussion.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Unless someone beats me to it.<a href="#fnref2"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

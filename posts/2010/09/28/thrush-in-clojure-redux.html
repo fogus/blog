@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>thrush-in-clojure-redux</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p><a href="http://github.com/fogus/skiing">Combinators are fun</a>. In
+fact, there seems to be a combinator renaissance lately – almost like
+the Ancient Greeks who excavated Mycenaean technology surpassing their
+own<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a>. There is one specific combinator
+called the <em>Thrush</em> that <a
+href="http://blog.fogus.me/2009/09/04/understanding-the-clojure-macro/">effectively
+takes a set of nested functions and turns them into a pipeline</a>.
+There are far better explanations of the Thrush than this, including <a
+href="http://github.com/raganwald/homoiconic/blob/master/2008-10-30/thrush.markdown#readme">one
+by Reginald Braithwaite focusing on Ruby</a>, <a
+href="http://debasishg.blogspot.com/2010/04/thrush-in-clojure.html">one
+by Debasish Ghosh focusing on Clojure</a>, and <a
+href="http://clojure.bighugh.com/thrush.html">and another focused on
+Clojure by Shawn Hoover</a>. Go ahead and read those – I’ll wait…</p>
+<p>Of the posts linked above, I tend to point people toward Reginald
+Braithwaite’s treatment because it focuses in on the functional aspects
+whereas the latter two do not. What do I mean by that? Well, the Clojure
+treatments focus too much on the <code>-&gt;</code> and
+<code>-&gt;&gt;</code> macros which are only <em>mostly</em> Thrush
+combinators. What a wishy-washy thing to say! Maybe a more direct way to
+phrase it is that neither <code>-&gt;</code> nor <code>-&gt;&gt;</code>
+are the Thrush combinator. Eeeek!</p>
+<h2 id="a-little-bit-about-macros">A Little Bit About Macros</h2>
+<p>Macros in Clojure (and Lisp in general) operate in different “times”,
+the most obvious being “compilation time”. The picture is actually
+foggier than this, but for this discussion it should suffice. What that
+means is that a macro receives its arguments as unevaluated data
+structures that are then manipulated in some way before being fed into
+the compiler. In the case of the <code>-&gt;</code> macro, a call of the
+following will look and act just like the Thrush operator mentioned in
+the posts above:</p>
+<pre><code>(-&gt; 5 (+ 4) -)
+;=&gt; -9</code></pre>
+<p>That is, we take the number 5, feed it into the addition (to four)
+function, and then negate it. The expansion of this macro call would
+be:</p>
+<pre><code>(- (+ 5 4))
+;=&gt; -9</code></pre>
+<p>This is what I meant by <em>mostly Thrush</em>.</p>
+<p>However, <code>-&gt;</code> performs a transformation of its
+arguments into a nested form and doesn’t deal directly with functions at
+all, if it did then we would expect the following to work:</p>
+<pre><code>(-&gt; 5 (fn [x] (+ x 4)) -)
+; java.lang.RuntimeException: 
+;   java.lang.UnsupportedOperationException...</code></pre>
+<p>The reason for this exception can be understood by observing the
+following:</p>
+<pre><code>(macroexpand-1 &#39;(-&gt; 5 (fn [x] (+ x 4))))
+;=&gt; (fn 5 [x] (+ x 4))</code></pre>
+<p>The <code>-&gt;</code> macro is treating the form
+<code>(fn [x] (+ x 4))</code> not as a function at all but instead as a
+list of the symbol <code>fn</code>, a vector <code>[x]</code>, and
+another list <code>(+ x 4)</code> and just plops <code>5</code> right
+between the the symbol and vector. Clearly <code>-&gt;</code> is not the
+Thrush at all, but does play one on TV.</p>
+<h2 id="the-thrush-in-clojure">The Thrush in Clojure</h2>
+<p>Clojure has a function <code>comp</code> that works similarly to how
+we want the Thrush to act, but it does so in reverse – so why not fix
+that “deficiency” directly:</p>
+<pre><code>(defn thrush [a &amp; args] 
+  ((apply comp (reverse args)) a))
+
+(thrush 5 (fn [x] (+ x 4)) -)
+;=&gt; -9</code></pre>
+<p>Hooray!! We’ve done it! A real-live Thrush combinator in Clojure.
+There is one problem however. This implementation is forced to walk the
+arguments once more than it should. A more elegant and efficient
+solution (by <a href="http://blog.n01se.net">Chris Houser</a>, author of
+<a href="http://joyofclojure.com">The Joy of Clojure</a>) is as
+follows:</p>
+<pre><code>(defn thrush [&amp; args] 
+  (reduce #(%2 %1) args))
+
+(thrush 5 #(+ % 4) -)
+;=&gt; -9</code></pre>
+<p>Elegant indeed!</p>
+<h2 id="thrushiness">Thrushiness</h2>
+<p>My goal in this post was not to bash the view of <code>-&gt;</code>
+and <code>-&gt;&gt;</code> as having a high degree of Thrushiness.
+Instead, I wanted to illustrate that they are not entirely Thrushful,
+and you can run into issues if you treat them as such.</p>
+<p>:f</p>
+<p><em>Thanks to <a href="http://twitter.com/craigandera">Craig
+Andera</a> for reading a draft of this.</em></p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>This is how I feel whenever I read a computer book from
+the 70s.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

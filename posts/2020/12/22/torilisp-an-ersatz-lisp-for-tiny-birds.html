@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>torilisp-an-ersatz-lisp-for-tiny-birds</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>When deciding to work on a side-project three factors are needed to
+transition from fancy to application: goal, motivation, and time.</p>
+<p>Time is usually the biggest sticking point for me personally but with
+COVID most of what I may have spent my time on this year was cancelled.
+However, motivation was still a huge sticking point until I came across
+a couple of projects that helped propel me forward. First, I spent some
+time earlier this year combing over <a
+href="https://twitter.com/maryrosecook">Mary Rose Cook</a>’s lovely <a
+href="https://github.com/maryrosecook/littlelisp">Little Lisp</a>
+interpreter code. Given what I knew about Mary’s previous projects it
+was no surprise that the Little Lisp implementation was simple and
+elegant. However, what I wasn’t prepared for was that hacking on the
+interpreter turned out to be straight-forward and addictive. However, it
+wasn’t until I re-discovered <a
+href="https://twitter.com/wtaysom">William Taysom</a>’s old Scheme-like
+language <a
+href="https://web.archive.org/web/20090625142941/http://moonbase.rydia.net/mental/blog/programming/misp-is-a-lisp">Misp</a>
+that I had a form for the interpreter in mind. At the time of William’s
+original blog posts about Misp I was drawn to his passion and enjoyed
+the implementations of the language that he posted.<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
+Around the same time I found Paul Graham’s original Arc tutorial <a
+href="http://www.arclanguage.org/tut.txt">tut.txt</a> and used it
+extensively to guide me in what to implement next.<a href="#fn2"
+class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> All
+discussion about Arc aside, I definitely appreciate the clarity and
+layout of the Arc tutorial and found it a great outline for a little
+language.</p>
+<p>Finally, as some of you might know I <a
+href="https://www.amazon.com/gp/product/B00D624AQO?tag=fogus-20">dabbled
+in functional programming in JavaScript</a> and even went so far as to
+create a couple of libraries pushing the fringe of fp in js; namely <a
+href="https://github.com/fogus/lemonad">Lemonad</a> and <a
+href="https://github.com/documentcloud/underscore-contrib">underscore-contrib</a>.
+Some of the ideas in these libraries found their way into my own
+interpreter which ultimately pushed my code away from Misp, Little Lisp,
+and Arc into …something else – that something else I’m calling
+<strong>Tori Lisp – an ersatz LISP for little birds</strong>.</p>
+<center>
+ToriLisp = Litle Lisp + Misp + tut.txt + Lemonad + underscore-contrib +
+a pinch of CLJ
+</center>
+<p>Here’s a very small sample of the language:</p>
+<pre><code>鳥&gt;  (let (x 3 y 4)
+       (+ (* x 2) (* y 2)))
+;;=&gt; 14
+
+(def map
+  (λ (fn list)
+    (if (no list)
+      list
+      (cons (fn (first list))
+            (map fn (rest list))))))
+
+鳥&gt;  (map (+ 10) &#39;(1 2 3))
+;;=&gt; [ 11, 12, 13 ]
+
+鳥&gt;  ({x y | (/ (+ x y) 2)} 2 4)
+;;=&gt; 3
+
+鳥&gt;  (len &quot;abc&quot;)
+;;=&gt; 3
+鳥&gt;  (len {a | a})
+;;=&gt; 1
+鳥&gt;  (len +)
+;;=&gt; 2
+
+鳥&gt;  (read &quot;(push [1] &#39;Z)&quot;)
+;;=&gt; [ &quot;&#39;push&quot;, [ &quot;&#39;list&quot;, 1 ], [ &quot;&#39;quote&quot;, &quot;&#39;Z&quot; ] ]
+鳥&gt;  (eval (read &quot;(push [1] &#39;Z)&quot;))
+;;=&gt; [ &quot;&#39;Z&quot;, 1 ]  </code></pre>
+<p>If I wanted to present a list of features then the following list
+would work:<a href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a></p>
+<ul>
+<li>Functional</li>
+<li>Immutable access to JavaScript arrays and hash-maps.</li>
+<li>Function auto-currying</li>
+<li>Function introspection</li>
+<li>Bottoms-out at JavaScript structures and functions</li>
+<li>ML-like Refs</li>
+<li>Lightweight syntax for common language forms</li>
+</ul>
+<p>If you’re interested in checking out the language then the <a
+href="https://github.com/fogus/tori-lisp">ToriLisp Github repository</a>
+has a quick start, test suite, and its own tut.txt.</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Though the implementations did not make the Internet
+Archive it seems. I reached out to Mr. Taysom years ago and he was kind
+enough to send me the code but I hesitate to share it publicly without
+his approval.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Consider this a form of <a
+href="https://tom.preston-werner.com/2010/08/23/readme-driven-development.html">README-driven
+language development</a>.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Currently ToriLisp doesn’t have macros though not
+because it would have been terribly difficult to add. Instead, I wanted
+to start with functional literals and auto-currying and see how far it
+could take me. I may add them at a later date but only time will tell.<a
+href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

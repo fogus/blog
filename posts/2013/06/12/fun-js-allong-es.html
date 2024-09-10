@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>fun-js-allong-es</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p><em>I’ve written a book entitled <a
+href="http://www.functionaljavascript.com">Functional JavaScript</a> due
+out in print sometime in June 2013. In the book I introduce and explore
+various techniques for writing code in a functional style using the <a
+href="http://www.underscorejs.org">Underscore</a> library. As much as I
+would have loved to delve into the ecosystem of functional JS libraries,
+I didn’t want to distract from the core functional topics in the book.<a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> Therefore, I present a series to
+explore a few of my favorite <a
+href="http://blog.fogus.me/tag/fun.js">functional JavaScript
+libraries</a><a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a> focusing primarily on the feature(s)
+that make them interesting, innovative or unique.[^map]</em></p>
+<p>The <a href="http://allong.es/">allong.es</a> library by <a
+href="http://www.twitter.com/raganwald/">Reginald Braithwaite</a>
+provides a bevy of useful function combinators in its arsenal. However,
+an additional aspect from my perspective, and something that I didn’t
+cover in depth in <a
+href="http://www.functionaljavascript.com">Functional JavaScript</a> is
+its support for stateful iterators:</p>
+<pre class="prettyprint">
+var iterators = require('./allong.es').iterators
+var take      = iterators.take,
+    map       = iterators.map,
+    drop      = iterators.drop;
+
+var ints = iterators.numbers(0);
+</pre>
+<p>Aside from the necessary import séance required to get the correct
+allong.es iteration functions, I also defined an iterator
+<code>ints</code>, over all numbers. I can then “perform” an operation
+over the <code>ints</code> iterator:</p>
+<pre class="prettyprint">
+map(ints, function(n) { return n * n });
+
+//=> function () {
+//      var element;
+//      element = iter();
+//      if (element != null) {
+//        return unaryFn.call(element, element);
+//      } else {
+//        return void 0;
+//      }
+</pre>
+<p>I think <a
+href="http://www.youtube.com/watch?v=DuNHOHJ7SIw&amp;t=0m12s">Xergiok
+said it best</a>.</p>
+<iframe width="430" height="242" src="http://www.youtube.com/embed/DuNHOHJ7SIw#t=12" frameborder="0" allowfullscreen>
+</iframe>
+<p>You see the thing about iterators like those found in allong.es is
+that they are built using chains of functional combinators. Instead of
+performing calculations right away, the iterator calculations are
+deferred by essentially wrapping them inside of functions and returning
+those instead. We can chain these allong.es iterator library calls to an
+arbitrary depth, as shown below:</p>
+<pre class="prettyprint">
+var squares = take(drop(map(ints, function(n) {
+  return n * n;
+}), 100000), 100);
+</pre>
+<p>Just for fun I squared all of the integers, dropped the first 100,000
+results and then grabbed the next 100. The magic of the allong.es
+iterator is that I’ve not actually performed any calculation yet; so let
+me perform one:</p>
+<pre class="prettyprint">
+squares();
+//=> 10000000000
+</pre>
+<p>As shown, every chained calculation is wrapped in a function and
+deferred until I explicitly ask for it. That is, only when I query the
+iterator using an external iterator (in the case above, just calling a
+function) will any of the calculations occur. I can also use an external
+iterator like <code>for</code> to gather up some calculations:</p>
+<pre class="prettyprint">
+var coll = [];
+
+for (var i = 0; i < 100; i++ ) {
+  coll.push(squares())
+}
+
+coll;
+//=> [10000200001,
+//    10000400004,
+//    10000600009,
+//    10000800016,
+//    10001000025,
+//    10001200036,
+//    ...
+//    10020010000,
+//    undefined]
+</pre>
+<p>I can check the math by manually squaring the number 100,001 (because
+I already calculated the 100,000 * 100,000 case):</p>
+<pre class="prettyprint">
+100001 * 100001;
+//=> 10000200001
+</pre>
+<p>And as shown, the manual calculation matches with the first element
+in the <code>coll</code> array. As you might have guessed, the
+<code>undefined</code> on the end is due to the fact that the iterator’s
+first calculation was already consumed. That’s one downside of stateful
+iterators; once you call it the deferred calculation is run and can
+never be run again. I’d love to see a stateless version of the allong.es
+iterators.</p>
+<p>There is too much in allong.es and about iterators in general to do
+justice here. I highly recommend you <a
+href="http://allong.es/try/">explore allong.es yourself</a>. In
+addition, there is a book that motivates, describes most of the
+allong.es offerings and its underpinnings entitled <em><a
+href="https://leanpub.com/javascript-allonge">JavaScript
+Allongé</a></em> also by the inimitable Braithwaite.</p>
+<h2 id="a-quick-review-of-javascript-allongé-by-reginald-braithwaite">A
+quick review of JavaScript Allongé by Reginald Braithwaite</h2>
+<p>While not exclusively a book about functional programming, JavaScript
+Allongé will provide a solid foundation for functional techniques.
+However, you’ll not be beaten about the head and neck with dogma.
+Instead, every section is motivated by relevant dialog and fortified
+with compelling source examples. If you look in the front of the <a
+href="http://samples.leanpub.com/javascript-allonge-sample.pdf">free
+sample of the book</a> (PDF link) you’ll see a list of interesting
+highlights in one of the forewords by some dude no one’s ever heard
+of:</p>
+<ul>
+<li>It makes a great companion to the book I have in my brain</li>
+<li>It’s very well written</li>
+<li>It’s got good thinking</li>
+<li>It thanks Friedman and Felleisen</li>
+<li>It’s not too hung up on the “idea” of classes</li>
+</ul>
+<p>Taking each of these points in turn, I think I can elaborate a
+bit.</p>
+<h3 id="a-great-companion">A great companion</h3>
+<p>I would say that JavaScript Allongé makes a great companion to <a
+href="http://www.amazon.com/Functional-JavaScript-Introducing-Programming-Underscore-js/dp/1449360726/?tag=fogus-20">my
+book</a>. In fact, I humbly offer the following reading order for those
+of you interested in exploring a functional JavaScript style more
+deeply:</p>
+<ol type="1">
+<li><a
+href="http://www.amazon.com/JavaScript-Good-Parts-Douglas-Crockford/dp/0596517742/?tag=fogus-20">JavaScript:
+The Good Parts</a></li>
+<li><a
+href="http://www.amazon.com/Functional-JavaScript-Introducing-Programming-Underscore-js/dp/1449360726/?tag=fogus-20">Functional
+JavaScript</a></li>
+<li><a
+href="http://www.amazon.com/Effective-JavaScript-Specific-Software-Development/dp/0321812182/?tag=fogus-20">Effective
+JavaScript</a></li>
+<li>JavaScript Allongé</li>
+</ol>
+<p>These are <em>the</em> books to learn functional JavaScripting.</p>
+<h3 id="well-written">Well written</h3>
+<p>Come on! It’s Raganwald. If you’ve not read his other books nor his
+prolific blogging output, then by all means <a
+href="https://github.com/raganwald/homoiconic">start with Homoiconic</a>
+and track down the rest of his words right now.</p>
+<h3 id="good-thinking">Good thinking</h3>
+<p>This is harder to pinpoint, but the gist is that the approach in the
+book is highly functional in style:</p>
+<ul>
+<li>Reducing mutation</li>
+<li>Favoring purity</li>
+<li>Fostering and using function combination</li>
+</ul>
+<p>The book is quite opinionated, but it never comes off as dogmatic. I
+think readers will appreciate the tone.</p>
+<h3 id="a-little-scheming">A little Scheming</h3>
+<p>Reginald thanks Daniel Friedman and Matthias Felleisen in his book.
+These are two authors and thinkers who have also deeply influenced my
+own thinking, writing and programming styles. One excellent book worth
+reading is <em><a
+href="http://www.amazon.com/The-Little-Schemer-4th-Edition/dp/0262560992?tag=fogus-20">The
+Little Schemer</a></em>.<a href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a></p>
+<h3 id="almost-without-class">Almost without class</h3>
+<p>Finally, JavaScript Allongé covers to some degree class-based
+programming techniques, but it’s certainly not the focus of his book. I
+personally prefer a functional style, but I can appreciate the merits of
+class-based, object-oriented programming where it fits. There are enough
+books about this style of programming, so I can appreciate that Reginald
+took a functional bent for his book because I think that there is a lot
+of teaching to do regarding functional programming in JavaScript.</p>
+<p>I liked JavaScript Allongé very much and I think that from the
+beginner to the experienced JavaScripter to the expert, we can all learn
+from its lessons.</p>
+<p>:F</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>I cover a few in an appendix, but did not go as deeply
+as I would have liked given unlimited time and page count.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Including, but not limited to: <a
+href="http://osteele.com/sources/javascript/functional/">Functional
+JavaScript by Oliver Steele</a>, <a
+href="http://functionaljs.org/">Lemonad</a>, <a
+href="http://reactive-extensions.github.com/RxJS/">RxJS</a>, [Bilby<a
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Crockford created <a
+href="http://javascript.crockford.com/little.html">The Little
+JavaScripter</a> which is inspired by this great book.<a href="#fnref3"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

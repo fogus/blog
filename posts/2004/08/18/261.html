@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>261</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<span style="font-size:100%;"><b style="font-family: courier new;">My
+One True Way</b> <br /> <br /> </span><span
+style="font-family: courier new;font-family:courier new;font-size:100%;">Recently
+I’ve had to reinstall </span><span
+style="font-size:100%;"><a style="font-family: courier new;" href="http://www.apple.com/macosx/">OSX
+Panther</a></span><span
+style="font-family: courier new;font-family:courier new;font-size:100%;">
+on my </span><span
+style="font-size:100%;"><a style="font-family: courier new;" href="http://www.apple.com/powermac/architecture.html">PowerMac</a></span><span
+style="font-family: courier new;font-family:courier new;font-size:100%;">
+because of a weird issue with certain pictures (including some toolbar,
+dock, and menu icons) were being rendered in </span><span
+style="font-size:100%;"><a style="font-family: courier new;" href="http://www.personal.psu.edu/users/a/z/azm124/grimace.jpg">Grimace</a></span><span
+style="font-family: courier new;font-family:courier new;font-size:100%;">
+purple and toxic pee green. It wasn’t a ground breaking issue, but it
+was annoying and gave me an excuse to start from scratch and reimplement
+My One True Way, which had fallen out of harmony. My One True Way is
+simply my method of setting up my system in a way that makes sense to
+me. This encompasses directory structure, dock/menu usage, symlink
+creation, script writing, desktop background, desktop allocation,
+program installation, and program configuration. For the most part, M1TW
+is virtually identical across platforms except for a few differences in
+the programs installed. This post describes the approach that I’ve taken
+with OSX recently while deviations for other platforms are highlighted
+when appropriate.</span><span style="font-size:100%;"> <br /> <br />
+<i style="font-family: courier new;">Step 0 - OS Installation</i> <br />
+</span><span
+style="font-family: courier new;font-family:courier new;font-size:100%;">For
+any system conforming to M1TW, all hard-drives are first repartitioned
+and each individually formatted and checked for bad blocks. Using the
+OSX Panther disk (as well as Linux and Windows) this is a trivial
+matter. However, I adhere to a strict partitioning scheme for most of my
+systems, although the details for each differ.</span><span
+style="font-size:100%;"> <br /> <br /> </span><span
+style="font-family: courier new;font-family:courier new;font-size:100%;">
+OSX (Panther at the moment)</span><span style="font-size:100%;"> <br />
+</span>
+<ol style="font-family: courier new;">
+<ol>
+<li>
+<span style="font-size:100%;">Partition 0 - OSX System files and home
+directory. <br /> </span>
+</li>
+<pre><code> &lt;li&gt;&lt;span style=&quot;font-size:100%;&quot;&gt;Partition 1 - &lt;a href=&quot;http://www.apple.com/itunes/&quot;&gt;iTunes&lt;/a&gt; library</code></pre>
+<br /> </span>
+</li>
+<li>
+<span style="font-size:100%;">Partition 2 - CVSROOT</span>
+</li>
+<li>
+<span style="font-size:100%;">Partition 3 - Vault <br /> </span>
+</li>
+<pre><code>&lt;/ol&gt; &lt;/ol&gt; &lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;font-family: courier new;font-family:courier new;font-size:100%;&quot;  &gt;    Linux (&lt;/span&gt;&lt;span style=&quot;font-size:100%;&quot;&gt;&lt;a style=&quot;font-family: courier new;&quot; href=&quot;http://www.debian.org/&quot;&gt;Debian&lt;/a&gt;&lt;/span&gt;&lt;span style=&quot;font-family: courier new;font-family:courier new;font-size:100%;&quot;  &gt; at the moment - Vanilla install)&lt;/span&gt;&lt;span style=&quot;font-size:100%;&quot;&gt;</code></pre>
+<br /> </span>
+<ol style="font-family: courier new;">
+<ol>
+<li>
+<span style="font-size:100%;">/dev/sda1 - /boot | 2MB <br /> </span>
+</li>
+<pre><code> &lt;li&gt;&lt;span style=&quot;font-size:100%;&quot;&gt;/dev/sda2 - /</code></pre>
+<br /> </span>
+</li>
+<li>
+<span style="font-size:100%;">/dev/sda3 - /swap</span>
+</li>
+<pre><code> &lt;li&gt;&lt;span style=&quot;font-size:100%;&quot;&gt;/dev/sda4 - Extended&lt;/span&gt;&lt;/li&gt;     &lt;li&gt;&lt;span style=&quot;font-size:100%;&quot;&gt;/dev/sda5 - /home&lt;/span&gt;&lt;/li&gt;     &lt;li&gt;&lt;span style=&quot;font-size:100%;&quot;&gt;/dev/sda6 - /usr&lt;/span&gt;&lt;/li&gt;     &lt;li&gt;&lt;span style=&quot;font-size:100%;&quot;&gt;/dev/sda7 - /usr/local&lt;/span&gt;&lt;/li&gt;     &lt;li&gt;&lt;span style=&quot;font-size:100%;&quot;&gt;/dev/sda8 - /var&lt;/span&gt;&lt;/li&gt;     &lt;li&gt;&lt;span style=&quot;font-size:100%;&quot;&gt;/dev/sda9 - /tmp&lt;/span&gt;&lt;/li&gt;     &lt;li&gt;&lt;span style=&quot;font-size:100%;&quot;&gt;/dev/sdb1 - /cvs&lt;/span&gt;&lt;/li&gt;     &lt;li&gt;&lt;span style=&quot;font-size:100%;&quot;&gt;/dev/sdb2 - /vault&lt;/span&gt;&lt;/li&gt;   &lt;/ol&gt; &lt;/ol&gt;&lt;span style=&quot;font-family: courier new;font-family:courier new;font-size:100%;&quot;  &gt;      Windows (XP Pro at the moment)&lt;/span&gt;&lt;span style=&quot;font-size:100%;&quot;&gt;</code></pre>
+<br /> </span>
+<ol style="font-family: courier new;">
+<ol>
+<li>
+<span style="font-size:100%;">Partition 0 - Windows</span>
+</li>
+<pre><code> &lt;li&gt;&lt;span style=&quot;font-size:100%;&quot;&gt;Partition 1 - Mike&lt;/span&gt;&lt;/li&gt;     &lt;li&gt;&lt;span style=&quot;font-size:100%;&quot;&gt;Partition 2 - Yuki&lt;/span&gt;&lt;/li&gt;     &lt;li&gt;&lt;span style=&quot;font-size:100%;&quot;&gt;Partition 3 - Vault&lt;/span&gt;&lt;/li&gt;   &lt;/ol&gt; &lt;/ol&gt;&lt;span style=&quot;font-family: courier new;font-family:courier new;font-size:100%;&quot;  &gt; The partition scheme above are fairly self-explanatory, however a few exceptions need to be explained. First, for all of my systems I like to keep a Vault partition. The vault is a repository for essential programs, configuration files, and backups. I usually keep a copy of the latest versions of my essential programs (listed below), any periodic backups, mirrored copies of all important configuration files (XF86Config, .vimrc, .bashrc, .profile, nethack.sav, etc...), and a mirror of the CVS repository. This partition is ALWAYS stored on a separate disk from the main OS and is occassionally burned to a disk. The Mike and Yuki volumes are our own sandboxes for to play in.&lt;/span&gt;&lt;span style=&quot;font-size:100%;&quot;&gt;</code></pre>
+<br /> <br /> </span><span
+style="font-family: courier new;font-family:courier new;font-size:100%;">Once
+the partitions have been created, formatted, and checked for bad blocks,
+then the real fun begins. I always install from media even though most
+Linux systems allow for network installations – I like the tactility of
+CD-ROMS.</span><span style="font-size:100%;"> <br /> <br /> </span><span
+style="font-style: italic; font-family: courier new;font-family:courier new;font-size:100%;">Step
+1 - Booting Up</span><span
+style="font-family: courier new;font-family:courier new;font-size:100%;">
+</span><span
+style="font-style: italic; font-family: courier new;font-family:courier new;font-size:100%;">for
+the First Time</span><span style="font-size:100%;"> <br /> </span><span
+style="font-family: courier new;font-family:courier new;font-size:100%;">Once
+the OSes have been installed, it is now time to boot up for the first
+time and install the critical software, or as I like to call it, Ring 0
+software. Ring 0 software is generally comprised of the
+following:</span><span style="font-size:100%;"> <br /> <br /> <span
+style="font-family: courier new;">ALL</span> <br /> </span>
+<ol style="font-family: courier new;">
+<ol>
+<li>
+<a href="http://www.gnu.org/software/bash/bash.html"><span
+style="font-size:100%;">Bash</span></a>
+</li>
+<pre><code> &lt;li&gt;&lt;a href=&quot;http://gcc.gnu.org/&quot;&gt;&lt;span style=&quot;font-size:100%;&quot;&gt;GCC&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;     &lt;li&gt;&lt;a href=&quot;http://www.perl.org&quot;&gt;&lt;span style=&quot;font-size:100%;&quot;&gt;Perl&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;     &lt;li&gt;&lt;a href=&quot;http://www.python.org&quot;&gt;&lt;span style=&quot;font-size:100%;&quot;&gt;Python&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;     &lt;li&gt;&lt;a href=&quot;http://www.openssh.com/&quot;&gt;&lt;span style=&quot;font-size:100%;&quot;&gt;SSH&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;     &lt;li&gt;&lt;a href=&quot;http://www.apache.org&quot;&gt;&lt;span style=&quot;font-size:100%;&quot;&gt;Apache httpd&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;     &lt;li&gt;&lt;a href=&quot;http://www.php.org&quot;&gt;&lt;span style=&quot;font-size:100%;&quot;&gt;PHP&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;     &lt;li&gt;&lt;span style=&quot;font-size:100%;&quot;&gt;&lt;a href=&quot;http://www.mysql.com/&quot;&gt;MySQL&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size:100%;&quot;&gt;&lt;a href=&quot;https://www.cvshome.org/&quot;&gt;CVS&lt;/a&gt;</code></pre>
+<br /> </span>
+</li>
+</ol>
+</ol>
+<span
+style="font-family: courier new;font-family:courier new;font-size:100%;">
+OSX</span><span style="font-size:100%;"> <br /> </span>
+<ol style="font-family: courier new;">
+<ol>
+<li>
+<p><span style="font-size:100%;"><a href="http://www.apple.com/support/downloads//">Software
+Updates</a></p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>baysick-a-scala-dsl-implementing-basic</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p><em>This post was featured on the <a
+href="http://www.scala-lang.org">Scala</a> website. It is advised to <a
+href="http://www.scala-lang.org/node/1403">jump there first</a> and then
+sneak back here … eventually.</em></p>
+<p>A couple weeks back I came across a post on creating the <a
+href="http://www.nabble.com/-scala--ease-of-making-DSLs-in-Scala---nobody-cares-to22450638.html#a22450638">simplest
+possible BASIC DSL written in Scala</a> by Szymon Jachim. The
+implementation itself was dead simple to understand, but I suspected it
+was due to the fact that it only provided <code>GOTO</code> and
+<code>PRINT</code>. The title of the post was <em>ease of making DSLs in
+Scala - nobody cares</em>, which was unfortunate because I think that
+many people care, including myself, so I took it upon myself to extend
+the DSL to be a pseudo-implementation of <a
+href="http://en.wikipedia.org/wiki/Tiny_BASIC_programming_language">Tiny
+BASIC</a>. In a nutshell, I found that it was simple to create an
+internal DSL providing a simple dialect of BASIC using Scala. There were
+some sticking points, which I will touch on later, but overall it was a
+joy. The <a href="http://github.com/fogus/baysick/tree/master">code is
+available</a> for public consumption, so feel free to try it, criticize
+it, and/or improve it. I find it retains its simplicity even after
+extending the original to provide additional forms and functions.</p>
+<p>Here is a simple <a
+href="http://en.wikipedia.org/wiki/Lunar_Lander_(computer_game)#Lunar_Lander_.281971.29">Lunar
+Lander</a> game written in Baysick.</p>
+<p>[sourcecode lang=“bas” gist=“122994”] object Lunar extends Baysick {
+def main(args:Array[String]) = { 10 PRINT “Welcome to Baysick Lunar
+Lander v0.9” 20 LET (’dist := 100) 30 LET (’v := 1) 40 LET (’fuel :=
+1000) 50 LET (’mass := 1000)</p>
+<pre><code>60 PRINT &quot;You are drifting towards the moon.&quot;
+70 PRINT &quot;You must decide how much fuel to burn.&quot;
+80 PRINT &quot;To accelerate enter a positive number&quot;
+90 PRINT &quot;To decelerate a negative&quot;
+
+100 PRINT &quot;Distance &quot; % &#39;dist % &quot;km, &quot; % &quot;Velocity &quot; % &#39;v % &quot;km/s, &quot; % &quot;Fuel &quot; % &#39;fuel
+110 INPUT &#39;burn
+120 IF ABS(&#39;burn) &lt;= &#39;fuel THEN 150
+130 PRINT &quot;You don&#39;t have that much fuel&quot;
+140 GOTO 100
+150 LET (&#39;v := &#39;v + &#39;burn * 10 / (&#39;fuel + &#39;mass))
+160 LET (&#39;fuel := &#39;fuel - ABS(&#39;burn))
+170 LET (&#39;dist := &#39;dist - &#39;v)
+180 IF &#39;dist &gt; 0 THEN 100
+190 PRINT &quot;You have hit the surface&quot;
+200 IF &#39;v &lt; 3 THEN 240
+210 PRINT &quot;Hit surface too fast (&quot; % &#39;v % &quot;)km/s&quot;
+220 PRINT &quot;You Crashed!&quot;
+230 GOTO 250
+240 PRINT &quot;Well done&quot;
+
+250 END
+
+RUN</code></pre>
+<p>} } [/sourcecode]</p>
+<h1 id="notes">Notes</h1>
+<ol type="1">
+<li>Variables are denoted with the single quote which corresponds to
+Scala’s symbol literals</li>
+<li>The assignment operator is the Pascal-like <code>:=</code></li>
+<li>The append operator for the <code>PRINT</code> form is
+<code>%</code></li>
+<li>Only integer math is supported</li>
+<li>Strings cannot (currently) be compared using the relational
+operators</li>
+<li>Usage of Scala code within the BASIC forms is not fully
+supported</li>
+<li>There are currently only 6 math functions: <code>ABS</code>
+<code>SQRT</code> <code>+</code> <code>-</code> <code>*</code> and
+<code>/</code></li>
+</ol>
+<h1 id="issues">Issues</h1>
+<ol type="1">
+<li><p>As has been mentioned by innumerable programmers advocating (and
+deriding) DSLs, you are often constrained by the host language in the
+grammar, error reporting, and hosting capabilities of your DSL. While
+Scala allows you to support bizarre grammars without significantly
+increasing the complexity, it does not necessarily facilitate a simple
+way to provide solid error reporting and hosting. This is not
+necessarily a limitation of Scala per se, but instead for general
+purpose languages. In order to effectively build a wide range of DSLs
+divorced from their underlying host we need a language that is
+especially geared toward building DSLs. The two important language
+features that Scala provides that makes it especially conducive for DSLs
+are <a
+href="http://www.artima.com/weblogs/viewpost.jsp?thread=251945">operator
+notation</a> and <a
+href="http://lalitpant.blogspot.com/2008/08/scala-implicits-dose-of-magic-part-1.html">implicits</a>.
+Usually, a language is considered DSL-friendly if it allows you to omit
+the dot on a method call, but a really powerful DSL metalanguage would
+have to go much much further than that.</p></li>
+<li><p>For some strange reason I could not coax Scala into allowing my
+<code>LET</code> forms to be parenthesis free. I assume that it is an
+error on my part, but I was never able to solve it before my artificial
+deadline expired.</p></li>
+</ol>
+<h1 id="todo">Todo</h1>
+<ol type="1">
+<li>A subroutine facility via <code>GOSUB</code> and
+<code>RETURN</code></li>
+<li>Allow strings to be compared using the relation operators</li>
+</ol>
+<p>So there you have it – Baysick: A Scala DSL Implementing BASIC.</p>
+<p>-m</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>the-joy-of-the-joy-of-clojure</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p><a href="http://joyofclojure.com">The Joy of Clojure</a> has gone to
+print.<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> The tentative timeline is as
+follows:</p>
+<ol start="0" type="1">
+<li>Chapters 1, <em>Clojure Philosophy</em> (the “why” of Clojure) and
+9, <em>Combining Data and Code</em> (namespaces, multimethods,
+prototypes, reify, etc.), will be available as free content from <a
+href="http://www.joyofclojure.com/buy">Manning’s Joy page</a>.</li>
+<li>The final EBook version will be released by early March. At the
+moment it looks like the book will be available in epub, mobi, and pdf
+formats.</li>
+<li>The <a href="https://github.com/fogus/joyofclojure">source code</a>
+will be released.</li>
+<li>The paperback will be bound and available sometime in mid-March <a
+href="http://www.amazon.com/gp/product/1935182641?ie=UTF8&amp;tag=fogus-20">to
+book retailers</a>.</li>
+<li>The <a href="http://joyofclojure.com">official website</a> will get
+a facelift and new/additional content.</li>
+</ol>
+<p>It’s has been an absolute pleasure<a href="#fn2" class="footnote-ref"
+id="fnref2" role="doc-noteref"><sup>2</sup></a> working with <a
+href="http://blog.n01se.net">Chouser</a><a href="#fn3"
+class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> and
+our army of <a href="http://manning.com">Manning</a><a href="#fn4"
+class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>
+editors and proofreaders. I would also like to thank <a
+href="http://clj-me.cgrand.net/">Christophe Grand</a> for his
+excellent<a href="#fn5" class="footnote-ref" id="fnref5"
+role="doc-noteref"><sup>5</sup></a> technical review. Additionally, I
+would like to thank <a href="http://steve-yegge.blogspot.com/">Steve
+Yegge</a> for writing the foreword and providing insightful feedback<a
+href="#fn6" class="footnote-ref" id="fnref6"
+role="doc-noteref"><sup>6</sup></a> that I believe made our book all the
+stronger. Finally,<a href="#fn7" class="footnote-ref" id="fnref7"
+role="doc-noteref"><sup>7</sup></a> words cannot properly express my
+deep respect and gratitude to Rich Hickey the creator of <a
+href="http://clojure.org">Clojure</a> – <a
+href="http://steve-yegge.blogspot.com/2006/04/software-needs-philosophers.html">philosopher-programmer</a>.
+Without his vision it’s obvious that this book would not have existed,
+but furthermore my life would be much the poorer.<a href="#fn8"
+class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></p>
+<p>The book has taken so much of my time this past year that I can
+scarcely fathom what to do next<a href="#fn9" class="footnote-ref"
+id="fnref9" role="doc-noteref"><sup>9</sup></a>. Whatever it will be,<a
+href="#fn10" class="footnote-ref" id="fnref10"
+role="doc-noteref"><sup>10</sup></a> I hope I can learn<a href="#fn11"
+class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>
+even a fraction as much as I did writing <em>Joy</em>.</p>
+<p>Hope you like the book.</p>
+<p>Fogus signing out.</p>
+<p>:f</p>
+<p><em>thanks to <a href="http://www.michaelharrison.ws/">Michael
+Harrison</a> who was kind enough to read a draft of this post</em></p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>The book currently stands at about 333 pages. There is
+much that we cut that probably could have benefitted the Clojure
+community, but for the sake of stronger coherence we decided against
+inclusion. I personally wrote (roughly) an additional 100 pages of
+material that didn’t make it. I am not sure what the cut count for
+Chouser might be, but I suspect it’s significant. Some of this extra
+material will make it onto <a href="http://joyofclojure.com">the
+official Joy of Clojure website</a>, blog posts, and perhaps another
+portion will make it into future editions… when and if they ever
+materialize.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Well of course not always – but that is to be expected
+when humans deal with humans. I can sometimes be be surly, so I hope
+there are no hard feelings.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>OMG… Chouser is smart. If you ever have the chance to
+work closely with someone brilliant then jump[^15] at the opportunity.
+It is indeed a humbling experience at times, but you will come out of
+that experience a smarter and better person overall. There was a time
+early in the process when I was on the verge of dropping out of the book
+project, but it was the opportunity to work with Chouser that changed my
+mind. I’m glad that I did as I found in Chouser a consummate partner and
+a true friend.<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Speaking from no other point of reference, I must say
+that while I didn’t always agree with the decisions made[^13] by Manning
+(a claim that they can make against me also), my overall experience with
+them was positive. What is the future of publishing? I have no idea.
+However, I do see that publishing firms have a clear advantage over
+self-publishing through the stunning strength of their editorial staff.
+It would be very difficult to self-publish and match the same level of
+quality obtainable with the help of professional editors and
+proofreaders.<a href="#fnref4" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>OMG… Christophe is ridiculously smart.<a href="#fnref5"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>What can I say about Mr. Yegge that everyone doesn’t
+already know? I will say that his emails are just as insightful and
+witty as his blog posts. I was not expecting that, but I <em>was</em>
+pleasantly surprised. It was almost like receiving my own personalized
+<a href="http://sites.google.com/site/steveyegge2/blog-rants">Drunken
+Rants</a>.<a href="#fnref6" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Obviously there are many more people deserving thanks,
+and we’ve tried to thank them in the book’s acknowledgements.<a
+href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Writing a book is a double-edged sword. On the one hand
+it is a monumental task that one can be proud of when complete. However,
+on the other hand it is an unbelievable pervasive disturbance in one’s
+life. To anyone wishing to write a book I have only one piece of advice.
+Unless you are 100% certain that you want to write a book and are
+willing to sacrifice time for yourself and with your loved ones, and are
+able to learn a healthy dose of humility… don’t. I plan to follow[^10]
+this advice moving forward.<a href="#fnref8" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>Having said that, I really think that I’ve spent my book
+writing capital. For better or for worse, <em>Joy</em> is the best
+possible book that I am able to produce, and I can’t imagine finding
+either the ability or the motivation to do it again. Maybe I’m wrong,
+and a flash of inspiration will hit me one day, but if that is true,
+then it’s too abstract for me to see even as the remotest possibility. I
+would much rather return to school and finish my philosophy degree, or
+learn Haskell[^12] or OCaml, or <a
+href="http://blog.fogus.me/2011/02/25/tramp-oline/">Ruby</a>, or Factor,
+or NBL,[^14] or Io, or Mozart, or <a
+href="http://old.nabble.com/J-Source-GPL-td31045068s24193.html">J</a>,
+or Joy, or complete my black belt, or get a Ph.D, or <a
+href="http://fogus.me/notes/osdev.html">write an operating system</a>,
+or learn to play the Piano, or release these 14 half-baked Clojure
+projects, or learn Yoga, or watch the entire run of STNG, or contribute
+to <a href="http://blog.n01se.net/?p=41">CinC</a>, or build a lego city
+with my kids, or watch more baseball, or take a long trip with my wife,
+or read the ANSI Common Lisp standard, or write a program for my kids,
+or <a href="http://eventedzen.com">explore the inherent efficiencies</a>
+of <a
+href="http://blog.fogus.me/2010/10/19/the-nothingness-metric/">nothingness</a>,
+or build a website with Rails, or learn to play Go and Shogi, or listen
+to the complete works of Cluster, or all of the above and more.<a
+href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>So I got a <a
+href="http://thinkrelevance.com/blog/2011/03/02/relevance-turns-30.html">job
+with Relevance</a> working with some extremely bright people… including,
+but not limited to, the <a href="http://clojure.com">Clojure/core
+team</a>. I think the words that best describe my feelings are: OMG.
+<em>todo: expand my vernacular</em><a href="#fnref10"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>Of everyone who will ever read <em>Joy</em>, I will
+have learned the most.<a href="#fnref11" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

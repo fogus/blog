@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>unk</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p><img alt="" src="http://images.fogus.me/blog/titan.jpg" title="Unk" style="float:left; display:inline;" class="alignleft" width="150" height="150" /></p>
+<p><a href="https://github.com/fogus/unk">unk</a> is a <a
+href="http://en.wikipedia.org/wiki/Memoization">memoization</a> library
+for Clojure that provides an extension to the base capabilities.</p>
+<h1 id="using-unk">Using unk</h1>
+<p>unk is easy to use.</p>
+<h2 id="leiningen">Leiningen</h2>
+<pre><code>[unk &quot;0.9.0&quot;]</code></pre>
+<h2 id="maven">Maven</h2>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;unk&lt;/groupId&gt;
+  &lt;artifactId&gt;unk&lt;/artifactId&gt;
+  &lt;version&gt;0.9.0&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+<h2 id="source">Source</h2>
+<p><a href="https://github.com/fogus/unk">Unk is on the Githubs</a>.</p>
+<h2 id="straight-up-replacement">Straight-up replacement</h2>
+<p>unk can be used in place of <code>clojure.core.memoize</code>.</p>
+<pre><code>(def slowly (fn [x] (Thread/sleep 3000) x)) 
+(time [(slowly 9) (slowly 9)])
+; &quot;Elapsed time: 6000.63 msecs&quot; 
+;=&gt; [9 9]</code></pre>
+<p>This calls for <code>fogus.unk.memo</code>:</p>
+<pre><code>(def sometimes-slowly (manipulable-memoize slowly)) 
+(time [(sometimes-slowly 108) (sometimes-slowly 108)]) 
+; &quot;Elapsed time: 3000.409 msecs&quot; 
+;=&gt; [108 108]</code></pre>
+<p><code>fogus.unk.memo</code> is a raw replacement for
+<code>clojure.core.memoize</code> – it does the exact same thing. All of
+unk’s memoization strategies can operate as replacements for
+<code>memoize</code>, except that each displays its own operational
+characteristics.</p>
+<h2 id="fifo">Fifo</h2>
+<p>There is a basic Fifo cache.</p>
+<pre><code>(def id (memo-fifo identity 2))</code></pre>
+<p>This creates a new function <code>id</code> operating with a
+First-in-first-out cache of size two. How would this operate under
+use?</p>
+<pre><code>(id 42)
+;=&gt; 42</code></pre>
+<p>What does the cache look like?</p>
+<pre><code>(snapshot id)
+;=&gt; {[42] 42}</code></pre>
+<p>Simple enough. But what if we cross the size limit?</p>
+<pre><code>(id 108)
+;=&gt; 108
+(id 9)
+;=&gt; 9
+(snapshot id)
+;=&gt; {[108] 108, [9] 9}</code></pre>
+<p>Of course, the first entry in the cache <code>42</code> has been
+removed.</p>
+<h2 id="and-the-rest">And the rest…</h2>
+<p>unk also provides a Least-recently-used (LRU), Least-used (LU),
+Time-to-live (TTL, in ms), and a basic cache (i.e. like
+<code>memo</code>) built on soft references.<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. I
+will not go into incredible detail about those here, but I am working on
+documentation that will explain more and include more thorough usage
+scenarios.</p>
+<h1 id="why-unk">Why unk?</h1>
+<p>Because I needed it on a project. I didn’t simply need memoization. I
+needed pluggable (LRU, LU, TTL, FIFO, etc.), manipulable
+(<code>memo-swap!</code>, <code>memo-clear!</code>,
+<code>memo-unwrap</code>, etc.), extendable
+(<code>build-memoizer</code>), and inspect-able (<code>snapshot</code>,
+etc.) memoization. It’s as simple as that. <a
+href="http://dev.clojure.org/jira/browse/CLJ-804">I suspect you may need
+it too</a>. This is why I’m announcing it now, rather than waiting until
+it’s fully documented.</p>
+<p>For now you can view the <a
+href="http://www.fogus.me/fun/unk/">annotated unk source code</a> for
+some ideas.</p>
+<h2 id="the-true-story-of-unk">The true story of unk</h2>
+<p>unk is inspired by section 12.4 in <em><a
+href="http://joyofclojure.com">The Joy of Clojure</a></em> which is in
+turn inspired by the <a
+href="http://kotka.de/blog/2010/03/memoize_done_right.html">memoization
+philosophy</a> espoused by <a
+href="http://clj-me.cgrand.net/">Christophe Grand</a>, Eugen Dück, and
+<a href="http://kotka.de/">Meikel Brandmeyer</a>. In addition, I would
+like to thank <a href="http://cemerick.com/">Chas Emerick</a> for his <a
+href="https://gist.github.com/747395">memoization based on
+SoftReferences</a>. This project would be nothing<a href="#fn2"
+class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>
+without their original vision. Thanks gentlemen!</p>
+<p>:F</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>In alpha at the moment. Use with care. Patches
+welcomed.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Seriously… nothing… I never would have thought of this
+on my own.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

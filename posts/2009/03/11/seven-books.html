@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>seven-books</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>Like many programmers, I’m always on the lookout for the perfect
+programming book. Over the years I have tried to <a
+href="http://blog.fogus.me/2004/07/08/242/">enumerate</a> a <a
+href="http://blog.fogus.me/2005/03/28/essential-unix-programming-books/">few</a>
+key <a href="http://blog.fogus.me/2004/04/04/195/">examples</a>, however
+after reading them all I am still left wanting. However, I recently came
+across a couple interesting blog posts [^motivation] that motivated me
+that the only way to find the set of perfect books for programmers was
+to build them myself.</p>
+<p>The process is simple:</p>
+<ol type="1">
+<li>Define the set of topics</li>
+<li>Find the PDFs comprising the aggregate essays for each topic</li>
+<li>Create a table of contents, forward, and write or steal a summary of
+each essay</li>
+<li>Merge everything together</li>
+<li>Go to <a href="http://lulu.com">Lulu.com</a> and print a book
+[^copyright]</li>
+<li>Read the books</li>
+<li>???</li>
+<li>Become a better programmer (i.e. profit)</li>
+</ol>
+<blockquote>
+<p>YOU, and NO ONE ELSE, is responsible for your career. – <a
+href="http://blog.objectmentor.com/articles/2009/02/27/whiners-that-fail">Uncle
+Bob Martin</a></p>
+</blockquote>
+<h1 id="the-topics">The Topics</h1>
+<p>After thinking about the possible topics that would be beneficial to
+my own enrichment (and to the programmer in general), I hit on the
+following seven:</p>
+<ol start="0" type="1">
+<li><p>Core</p>
+<p>Things that every programmer should know and read about; taken mostly
+from <a
+href="http://blog.objectmentor.com/articles/2009/02/26/10-papers-every-programmer-should-read-at-least-twice">the
+list compiled by Michael Feathers</a> with some of my own
+additions.</p></li>
+<li><p>The Lambda Papers</p>
+<p>Including the original <a
+href="http://library.readscheme.org/page1.html">Lambda Papers</a> and
+relevant essays pertaining to them and their topics.</p></li>
+<li><p>Functional Programming</p>
+<p>Topics concerning functional programming in general including, but
+not limited to: state, immutability, lambda calculus, purity, recursion,
+pattern matching, laziness, type systems, closure, anonymous functions,
+and currying.</p></li>
+<li><p>Language Development</p>
+<p>One way to learn more about developing new programming languages is
+to learn how other programming languages were created. This book would
+be similar to the previous two books except with a slant toward the more
+practical aspects of language development.</p></li>
+<li><p>Object-oriented Design</p>
+<p>While I am learning more and more <a
+href="http://blog.fogus.me/tag/clojure,scala,haskell,lisp,onlisp/">the
+virtues of functional programming</a>, I still think that
+object-oriented programming has just as an important role as ever in
+software design and development.</p></li>
+<li><p>Software Development Management</p>
+<p>While my own brief foray into software development manager can only
+be described as a failure, I believe that the right person implementing
+the right management techniques can be as valuable as the greatest
+programmer that you’ve ever met.</p></li>
+<li><p>Operating Systems Development</p>
+<p>From web-based, to monolithic, to exo-kernel, to micro-kernels, there
+is a lot to be learned from the field of operating system development
+and their relationships to the underlying hardware; as long as I do not
+constrain myself to the <a
+href="http://en.wikipedia.org/wiki/Von_Neumann_architecture">Von Neumann
+architechture</a>.</p></li>
+<li><p>Interviews and Anecdotes</p>
+<p>What better way to become a better software developer and designer
+than to read about the art from the masters.</p></li>
+</ol>
+<p>And that is it. I think that after crunching through the seven books
+outlined above, I should, at least minimally, be smarter than I was this
+time last year. I’m always looking for suggestions and comments about my
+outline above. I do not want these books to be <em>my</em> vision of the
+best, but instead I want them to be <em>the best</em> available. In
+addition, I will likely discover new essays, code snippets, and
+interviews after books are created, so I will likely create an 8th or
+even 9th book to cover those.</p>
+<p>To end this post, I present the table of contents and summary section
+[^summaries] to Book 0: Core:</p>
+<h2 id="foreword">Foreword</h2>
+<p>THE ORIGINS OF PATTERN THEORY THE FUTURE OF THE THEORY, AND THE
+GENERATION OF A LIVING WORLD – Christopher Alexander</p>
+<h2 id="essays">Essays</h2>
+<ol type="1">
+<li>On the Criteria to Be Used in Decomposing Systems Into Modules –
+David Parnas</li>
+<li>A Note On Distributed Computing – Jim Waldo, Geoff Wyant, Ann
+Wollrath, Sam Kendall</li>
+<li>The Next 700 Programming Languages – P. J. Landin</li>
+<li>Can Programming Be Liberated from the von Neumann Style? – John
+Backus</li>
+<li>Reflections on Trusting Trust – Ken Thompson</li>
+<li>Lisp: Good News, Bad News, How to Win Big – Richard Gabriel</li>
+<li>An Experimental Evaluation of the Assumption of Independence in
+Multiversion Programming – John Knight and Nancy Leveson</li>
+<li>Arguments and Results – James Noble</li>
+<li>A Laboratory For Teaching Object-Oriented Thinking – Kent Beck, Ward
+Cunningham</li>
+<li>Programming as an Experience: the inspiration for Self – David
+Ungar, Randall B. Smith</li>
+<li>Equal Rights for Functional Objects or, The More Things Change, The
+More They Are the Same – Henry G. Baker</li>
+<li>The Universal Design Pattern – Steve Yegge</li>
+<li>A Universal Modular Actor Formalism for Artificial Intelligence –
+Carl Hewitt, Peter Bishop, Richard Steige</li>
+<li>The Humble Programmer – Edsger W. Dijkstra</li>
+<li>Notes on Programming in C – Robert Pike</li>
+<li>Go To Statement Considered Harmful – Edsger W. Dijkstra</li>
+<li>Callbacks in C++ Using Template Functors – Rich Hickey</li>
+<li>What Every Computer Scientist Should Know About Floating-Point
+Arithmetic – David Goldberg</li>
+<li>Duff’s Device – Tom Duff</li>
+<li>MATREX Data Collection and Analysis: Linking Simulation Results to
+Military Analyst Requirements – Michael Fogus, Dave Prochnow, Kuan Penn,
+Howard Borum</li>
+</ol>
+<p><strong>On the Criteria to Be Used in Decomposing Systems Into
+Modules – Parnas</strong></p>
+<p>This is a very old paper, but it is more than a classic. In in it,
+Parnas introduces a forerunner to the Single Responsibility Principle.
+He introduces the idea that we should use modularity to hide design
+decisions – things which could change. People still don’t consider this
+as often as they should.</p>
+<p>Another thing I really like in the paper is his comment on the KWIC
+system which he used as an example. He mentioned that it would take a
+good programmer a week or two to code. Today, it would take practically
+no time at all. Thumbs up for improved skills and better tools. We have
+made progress.</p>
+<p><strong>A Note On Distributed Computing – Waldo, Wyant, Wollrath,
+Kendall</strong></p>
+<p>Abstraction is great but it can only go so far. In this paper, the
+authors lay to rest what was once a pervasive myth – that we could
+design a distributed system and make distribution transparent. Ever
+wonder why you had to implement specific interfaces to do remoting in
+Java? This is why.</p>
+<p>In the aftermath it might seem hard to believe that people thought
+this was possible. I think we can we partially thank this paper for
+that.</p>
+<p><strong>The Next 700 Programming Languages – Landin</strong></p>
+<p>Most of us have spent a lot of time working in traditional
+programming languages, but functional programming languages are slowly
+seeing an uptick and many OO languages are gaining functional features.
+This paper (which reads like a tutorial) makes an argument for an
+expression-oriented style of programming. It also lays the foundation
+for lazy evaluation.</p>
+<p>One of the other neat things about this paper, from a historical
+point of view, is that there is a discussion section at the end in which
+there a number of questions and comments about whether making
+indentation significant in a language is a good idea. I was thrown to
+see people asking whether or not this would be a problem for functions
+which span over several pages(!).</p>
+<p><strong>Can Programming Be Liberated from the von Neumann Style? –
+Backus</strong></p>
+<p>John Backus is known for a number of achievements in computer
+science. He received the ACM Turing Award for his work on Fortran. This
+paper, which he presented at the award ceremony was rather shocking at
+the time because it said, in essence, “we got it wrong.” Backus took the
+opportunity to make a plea for pure functional programming. His
+arguments were convincing and they helped to set a research agenda which
+is just now starting to make some waves in the mainstream.</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

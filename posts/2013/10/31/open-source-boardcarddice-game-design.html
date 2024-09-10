@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>open-source-boardcarddice-game-design</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>I’ve come to the wonderful world of board and card gaming fairly late
+in life. While many people were spending days and nights playing <a
+href="http://www.boardgamegeek.com/boardgame/98/axis-allies">Axis &amp;
+Allies</a> or <a
+href="http://www.boardgamegeek.com/boardgame/15712/egyptian-ratscrew">Egyptian
+Ratscrew</a> during their formative years I spent my time either
+building little computer games, riding my skateboard or reading. Growing
+up I rarely, if ever played board and card games. In fact, I don’t think
+that my family owned a single one. That’s not to say that I didn’t
+“game” per se, in fact I was deep into <a
+href="https://www.wizards.com/dnd/">Dungeons and Dragons</a> <a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> for about 10 years – until I went to
+college. There were many people at my college who gamed, and I was
+probably invited to sessions<a href="#fn2" class="footnote-ref"
+id="fnref2" role="doc-noteref"><sup>2</sup></a> dozens of times, but for
+one reason or another I found myself hiding away in the hidden Linux lab
+deep in the dungeons of the Physics building or just hanging with good
+friends chatting all night. Interestingly, my previous company <a
+href="http://thinkrelevance.com/">Relevance</a> (now Cognitect) had a
+very strong gaming culture and I never took advantage of that fact –
+silly me.</p>
+<p>Recently however, my son discovered the joys of board games through
+his after-school program and developed a passion for playing Chess <a
+href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a> and <a
+href="http://www.looneylabs.com/games/fluxx">Fluxx</a>. <a href="#fn4"
+class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> The
+interesting part of his budding passion is that along the way I too have
+falling in love with playing games. More to the point, the exquisite
+beauty of a well-designed tabletop game is something that I can
+appreciate not only as a player, but also as a <a
+href="http://fogus.me/fun/">creator</a>.</p>
+<p>Therefore, I’ve decided to try my hand at creating some games to try
+and exercise a mental muscle that I haven’t used in ages – telling a
+good story and designing elaborate traps. <a href="#fn5"
+class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>
+Since I am enamored by <a href="https://github.com/fogus">the
+open-source coding model</a> I’ve decided to create a few games in
+public, eliciting feedback and contributions along the way. <a
+href="#fn6" class="footnote-ref" id="fnref6"
+role="doc-noteref"><sup>6</sup></a> I have a few humble ideas already,
+<a href="#fn7" class="footnote-ref" id="fnref7"
+role="doc-noteref"><sup>7</sup></a> so once I have a few spare cycles
+I’ll put down some rules and post about my ideas.</p>
+<p>Thanks for reading. Game on.</p>
+<p>:F</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Second edition for ever y’all!<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>One game that I did indulge in during my undergraduate
+years was <a
+href="http://www.boardgamegeek.com/boardgame/1302/cosmic-wimpout">Cosmic
+Wimpout</a> – a fun dice game.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Chess is one of the few board games that I did play as a
+child, but had abandoned for the most part for close to 20 years.<a
+href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Fluxx, if you’ve never played it, can be summarized as
+chaos in a card deck. It’s great fun, has <a
+href="http://www.amazon.com/s/ref=nb_sb_noss_1?tag=fogus-20&amp;url=search-alias%3Daps&amp;field-keywords=fluxx&amp;sprefix=fluxx%2Caps&amp;rh=i%3Aaps%2Ck%3Afluxx">multiple-themes</a>
+and is a great price.<a href="#fnref4" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>For what it’s worth, I was the DM for my local DND group
+growing up, but those creative muscles, I fear, have long-since
+atrophied.<a href="#fnref5" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>The idea of open-source game design is in no way
+original. There are hundreds, if not thousands, of budding game
+designers out there creating amazing games in public. My personal
+favorite site for such adventures is one devoted to <a
+href="http://icehousegames.org/wiki/index.php?title=Main_Page">Icehouse
+games</a>. My few initial game ideas are centered around Icehouse parts.
+Also look at <a href="http://www.opensourceboardgame.org/"
+class="uri">http://www.opensourceboardgame.org/</a>.<a href="#fnref6"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>My family has been so kind as to listen to my rambling
+ideas and even play-test a few small sessions.<a href="#fnref7"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

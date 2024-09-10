@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>moleskine-notes-for-oct-2008</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>fogus.jaka - Jaka - Closure - Continuation - Environment - Function -
+Type - Kernel - Repl - Pair - Lambda</p>
+<p>fogus.jaka.meta - Mop</p>
+<p>fogus.jaka.types - Atom - Integer - Float - Symbol</p>
+<p>fogus.jaka.comp - Compiler</p>
+<blockquote>
+<p>Originally you choose one of three doors which have equally
+randomized probabilities. You have on average a 1/3 chance of being
+right. Consequently, the chance that you are wrong is 2/3. If you stick
+with that original choice, then nothing that happens afterward changes
+those probabilities. In other words, the chance of the winning door
+being ONE OF THE OTHER TWO is 2/3 - regardless of what happens next.</p>
+</blockquote>
+<blockquote>
+<p>When Monty Hall shows you a losing door from these other two, he is
+helping you enormously. He is effectively saying, “Look, the chance of
+the prize being behind one of these two doors (of the three) is 2/3, and
+I’m going to help you by showing you one of them which ISN’T the
+winner.” After he has done this, the probability of your original door
+being the right one doesn’t suddenly jump to 50%, when it was only 33.3%
+beforehand. Why on earth should it? Your original choice was one out of
+three. If you played the game 100 times and stuck with the original
+choice you’d end up being right about 33 times, REGARDLESS of whether
+Monty Hall showed you what was behind any one, two or all of the doors.
+To repeat, you chose one of three doors originally, and if you stick
+with that choice you have a one in three chance of being right. End of
+story.</p>
+</blockquote>
+<pre><code>With 3 doors, each door starts with a 1/3 chance.
+p(DoorA) = 33%, p(DoorB) = 33%, p(DoorC) = 33%.
+
+Or put another way... 
+If you pick A: 
+    p(DoorA) = 33%, p(DoorB or DoorC) = 67%.
+Remove DoorB and the goat behind it and you&#39;re left with: 
+    p(DoorA) = 33%, p(DoorC) = 67%.</code></pre>
+<blockquote>
+<p>In the present problem Monty Hall is giving you additional
+information about the distribution of probabilities by showing you a
+“losing” door.</p>
+</blockquote>
+<blockquote>
+<p>That’s why the million door analogy is so helpful in clarifying. You
+started with a freakin huge probability that you picked the wrong door
+And only a 1/1,000,000 chance that you picked the right door. If Monty
+then removes doors with goats behind them until their are only two doors
+left, the one you originally picked and one other (the other being the
+one door he’s been avoiding picking). The odds that you originally
+picked the right door are still 1 in a million, the odds that the one
+other door is the correct door are 999,999/1,000,000. So given those
+odds you should probably switch doors when given the opportunity. I
+certainly would.</p>
+</blockquote>
+<h1 id="clojure-classifier-from-somewhere-on-pastebin">Clojure
+Classifier (from somewhere on pastebin)</h1>
+<pre lang="lisp">
+(def good "c:/users/xxxx/desktop/datasets/goodemails.txt")
+(def spam "c:/users/xxxx/desktop/datasets/spam.txt")
+(def spam? "c:/users/xxxx/desktop/datasets/spamtest.txt")
+
+(defn count-words [file]
+  (reduce 
+    (fn [occ w] 
+      (if (> (count w) 4) 
+        (assoc occ w 1) 
+        (merge-with + occ {w 1}))) {} (split file " ")))
+
+(defn most-common [n tuples]
+    (keys (take n (sort #(compare (val %2) (val %1)) tuples))))
+
+(defn count-word [x xs]
+    (count (filter (fn [y] (= y x)) xs)))
+
+(defn count-all-words [set lst]
+    (map #(count-word % lst) set))
+
+(defn classify [good spam test accuracy]
+    (let [a (most-common accuracy (count-words (slurp good)))
+      b (most-common accuracy (count-words (slurp spam)))
+      c (splt (slurp test) " ")]
+        (let [goodCount (sum (count-all-words a c)) 
+          badCount  (sum (count-all-words b c))]
+        (/ badCount (+ badCount goodCount)))))
+</pre>
+<h1 id="todo">TODO</h1>
+<ol type="1">
+<li>Object-literal syntax for arrays and hashes</li>
+<li>Array slicing and other intelligent collection operators</li>
+<li>Perl 5 compatible regular expression literals</li>
+<li>Destructuring bind (e.g. x, y = returnTwoValues())</li>
+<li>Function literals and first-class, non-broken closures</li>
+<li>Standard OOP with classes, instances, interfaces, polymorphism,
+etc.</li>
+<li>Visibility quantifiers (public/private/protected)</li>
+<li>Iterators and generators</li>
+<li>List comprehensions</li>
+<li>Namespaces and packages</li>
+<li>Cross-platform GUI</li>
+<li>Operator overloading</li>
+<li>Keyword and rest parameters</li>
+<li>First-class parser and AST support</li>
+<li>Static typing and duck typing</li>
+<li>Type expressions and statically checkable semantics</li>
+<li>Solid string and collection libraries</li>
+<li>Strings and streams act like collections</li>
+<li>Modify comment headers</li>
+<li>Add .hash function to strings</li>
+<li><span class="citation" data-cites="idx">@idx</span>() command busted
+(maybe use ix_list_progn_index_get_cmd)</li>
+<li>Rename type_atom to type_symbol</li>
+<li>Move ix_type_cmd somewhere else</li>
+<li>Drawn the memory map (indexes, etc…)</li>
+<li>Make things static that should be static</li>
+<li>inst#class -&gt; ix_oo_inst_class_get</li>
+<li>Create mindmap ala CLojure</li>
+<li>Implement the <a
+href="http://github.com/raganwald/homoiconic/tree/master/2008-10-30/thrush.markdown">Thrush
+permuting combinator</a></li>
+<li>Create rudimentary ns hack to load things like ext math</li>
+<li>Make min/max work on lists also</li>
+<li>Change after, around, before, primary to be decls in
+func_messages.[ch]</li>
+</ol>
+<blockquote>
+<p>The most specific event can serve as a general example of a class of
+events.</p>
+</blockquote>
+<h1 id="potential-clojure-projects">Potential Clojure Projects</h1>
+<ol type="1">
+<li>Version Spaces</li>
+<li>Workflow engine</li>
+<li>Simple oo system</li>
+</ol>
+<blockquote>
+<p>Ix should be (more) orthogonal</p>
+</blockquote>
+<pre><code>for([?i in range(1 10)]
+     if([odd?( ?i)]
+         out(&quot;Odd &quot; ?i crlf)
+     else
+         out(&quot;Even &quot; ?i crlf)))</code></pre>
+<pre><code>(wf/wf
+  (wf/act
+     (wf/put foo 2)
+
+     (if (= (wf/get bar) 3)
+       (wf/end)
+       (wf/conc
+        (dosomething (wf/get baz))
+        (if (something02 (wf/get fiz))
+          (something03))))))</code></pre>
+<pre lang="prolog">
+% Unprogramming a permutation machine
+
+stack([],[],[]) --> [].
+stack([push|Instrs],[I|IS],SS) --> stack(Instrs,IS,[I|SS]).
+stack([pop|Instrs],IS,[S|SS]) --> [S], stack(Instrs,IS,SS).
+
+% ?- phrase(stack(Instructions, [1,2,3,4,5], []), [1,2,4,3,5], []).
+% Instructions = [push, pop, push, pop, push, push, pop, pop, push, pop] .
+</pre>
+<p><a
+href="http://rapidshare.com/files/158735881/clips6.3_CERN_Linux4.tar.gz.html"
+class="uri">http://rapidshare.com/files/158735881/clips6.3_CERN_Linux4.tar.gz.html</a></p>
+<p>-m</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

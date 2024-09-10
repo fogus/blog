@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>compiling-clojure-to-javascript-pt-3-the-himera-model</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p><em>this is the fourth entry in an n-part <a
+href="http://blog.fogus.me/tag/clj-compilation">series explaining the
+compilation techniques of Clojure</a>. translations: [<a
+href="http://ykomatsu.akaumigame.org/compiling-clojure-to-javascript-pt-3-the-himera-model-ja.html">日本語</a>]</em></p>
+<p>When <a
+href="http://github.com/clojure/clojurescript">ClojureScript</a> was
+first announced there was much gnashing of teeth over the fact that it
+provided neither <code>eval</code>, nor runtime macros. In response, I
+did <a
+href="http://blog.fogus.me/2011/07/29/compiling-clojure-to-javascript-pt-2-why-no-eval/">tackle
+the matter of <code>eval</code></a>, but code speaks louder than words,
+so I therefore present <a
+href="http://github.com/fogus/himera">Himera</a>, a ClojureScript
+compilation web-service.</p>
+<p>I have a deployment of <a
+href="http://himera.herokuapp.com/index.html">Himera on Heroku</a>
+(shown below – caveat emptor) if you’d like to play with it.
+Additionally, the <a href="http://github.com/fogus/himera">Himera source
+code is available on Github</a>.</p>
+<p><a href="http://himera.herokuapp.com/index.html"> <img
+src="http://farm8.staticflickr.com/7188/6874829058_0694d746c4_d.jpg"
+title="Click to visit Himera" alt="himera-ws" /> </a></p>
+<h2 id="what-himera-is">What Himera is</h2>
+<p>Himera<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> (Russian: Химера, pronounced
+Hee-mera with a trill) is an experiment in slicing and dicing the
+typical REPL model of Lisp computation, providing a modularized web
+service for ClojureScript compilation.</p>
+<h2 id="repl">REPL</h2>
+<p>Lisps, and Clojure is no exception, provide a unique programming
+experience via the REPL. The canonical representation of the REPL
+described as source is summarized simply as:</p>
+<pre><code>(loop (print (eval (read))))</code></pre>
+<p>You’ve probably seen this contrivance, but what exactly does it mean?
+The diagram below is a graphical representation of the same idea:</p>
+<figure>
+<img
+src="http://farm8.staticflickr.com/7272/6872246852_6e1f3775b8_n_d.jpg"
+title="REPL 10000ft" alt="repl-vanilla" />
+<figcaption aria-hidden="true">repl-vanilla</figcaption>
+</figure>
+<p>That is, a REPL is a composition of three repeating functions:
+<code>read</code>, <code>eval</code>, and <code>print</code>. The read
+step takes a string (or maybe an input buffer) and produces a Lisp data
+structure representing the program in hand<a href="#fn2"
+class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.
+This data structure is then fed into the <code>eval</code> function and
+executed as a program. Finally, the result of the evaluation step
+(another Lisp data structure) is printed to the user.</p>
+<p>This model of the REPL is highly simplistic, but it serves as
+representational for most cases. However, because of a lot of historical
+baggage, the typical conception of this model is often limited to that
+of a single process, as in the image below:</p>
+<figure>
+<img
+src="http://farm8.staticflickr.com/7271/7018375589_3394d31528_n_d.jpg"
+title="The REPL as single process" alt="repl-1-proc" />
+<figcaption aria-hidden="true">repl-1-proc</figcaption>
+</figure>
+<p>But this is an outmoded ideal, whether it be at a console REPL:</p>
+<figure>
+<img
+src="http://farm8.staticflickr.com/7250/6872327792_04a2833c9d_n_d.jpg"
+title="REPL in da console" alt="repl-console" />
+<figcaption aria-hidden="true">repl-console</figcaption>
+</figure>
+<p>… a browser:</p>
+<figure>
+<img
+src="http://farm8.staticflickr.com/7109/6872327840_f047cfa2a9_n_d.jpg"
+title="REPL in da browser" alt="repl-browser" />
+<figcaption aria-hidden="true">repl-browser</figcaption>
+</figure>
+<p>… or a phone:</p>
+<figure>
+<img
+src="http://farm8.staticflickr.com/7272/6872328064_9d19f52a10_n_d.jpg"
+title="REPL in da iPhone" alt="repl-phone" />
+<figcaption aria-hidden="true">repl-phone</figcaption>
+</figure>
+<p>It simply does not need to be configured in such a way. The very
+nature of Lisp and its furcated architecture allows many different ways
+to arrange the components of a REPL.</p>
+<h2 id="an-exploded-view-of-the-repl">An exploded view of the REPL</h2>
+<p>Before I can talk about various ways to slice up the REPL into bits
+and pieces I should mention that the canonical image above is way too
+simplistic. Instead, the ClojureScript compiler is modularized along
+much finer dimensions than the Lispy trinity. Observe the following:</p>
+<figure>
+<img
+src="http://farm8.staticflickr.com/7280/7018455969_e35f4bfffc_z_d.jpg"
+title="ClojureScript&#39;s compiler anatomy"
+alt="cljs-compiler-anatomy" />
+<figcaption aria-hidden="true">cljs-compiler-anatomy</figcaption>
+</figure>
+<p>The constituent parts of the ClojureScript anatomy are as
+follows:</p>
+<h3 id="input">Input</h3>
+<p>Some input device reads a string of characters and feeds it into the
+reader as a true string datatype or some input buffer.</p>
+<h3 id="reader">Reader</h3>
+<p>The reader consumes the string from the input device and transforms
+it into a Clojure data structure. In other words, the raw string:</p>
+<pre><code>&quot;(vector :thx (-&gt; 1138 - str))&quot;</code></pre>
+<p>Is converted into a Clojure persistent list data structure of three
+elements: 1) the symbol <code>vector</code>, 2) the keyword
+<code>:thx</code>, and 3) another persistent list of three elements a
+symbol <code>-&gt;</code>, <code>1138</code>, a symbol <code>-</code>
+and another symbol <code>str</code>. The source view of this data
+structure is described in Clojure as:</p>
+<pre><code>(list &#39;vector :thx (list &#39;-&gt; 1138 &#39;- &#39;str))</code></pre>
+<p>The result of the Reader is always a Clojure data structure, Java
+instance, or an error.</p>
+<h3 id="macro-expansion-macro-xp">Macro expansion (macro-xp)</h3>
+<p>The raw Clojure data structures produced by the Reader are then
+processed for macro-expansion to some fixed point (i.e. they are
+expanded until the input equals the output). In the case of the
+structure listed above, the macro <code>-&gt;</code> would be expanded
+into the following:</p>
+<pre><code>(vector :thx (str (- 1138)))</code></pre>
+<p>This is where Clojure’s idea of (and Lisp in general) code as data
+diverges from the syntactic representation.</p>
+<h3 id="analyzer">Analyzer</h3>
+<p>The analysis phase of ClojureScript compilation builds an abstract
+syntax tree (AST) that represents the program itself, divorced from
+syntactic matters. That is, the tree structure defines logical groupings
+along branches, binding contexts alongs tree depth, etc. This is where
+Clojure’s (and Lisp in general) code as data diverges from its parse
+form. The analysis phase also marks the end of the the first phase in
+ClojureScript’s 2-phase compilation process.</p>
+<h3 id="emitter">Emitter</h3>
+<p>This is where ClojureScript’s AST is walked and transformed into
+JavaScript. This is the beginning and end of the second phase of
+ClojureScript’s 2-phase compilation process. This is also where you
+would typically deploy your ClojureScript application. However, in the
+context of a REPL layout, two more elements are missing.</p>
+<h3 id="eval-or-runtime">Eval (or runtime)</h3>
+<p>The JavaScript that is produced by the ClojureScript compiler is
+evaluated. The original code <code>(vector :thx (str (- 1138)))</code>
+under examination above would result in what in Clojure would look like
+the following:</p>
+<pre><code>[:thx &quot;-1138&quot;]</code></pre>
+<p>However, it would be JavaScript and therefore an instance of
+<code>cljs.core.Vector</code> containing two strings.<a href="#fn3"
+class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<h3 id="print">Print</h3>
+<p>The result of the JavaScript is “printed” via the appropriate
+means.</p>
+<p>Taking this exploded view of the ClojureScript compiler to heart,
+imagine how the traditional REPL model might look differently under
+various operational constraints. Below I will illustrate a few.</p>
+<h2 id="the-browser-connected-repl">The Browser-connected REPL</h2>
+<p>Because ClojureScript has neither runtime evaluation nor compilation
+elements, the <a href="http://clojure.com">Clojure/core</a> team had to
+devise a way to provide an agile development experience that Clojure
+programmers were accustomed to. The initial release of ClojureScript
+packaged <a href="http://www.mozilla.org/rhino/">Rhino</a> and used it
+as the evaluation engine of the emitted JavaScript, however, this was
+less than optimal for numerous reasons outside of the scope of this
+post. Eventually, it was decided that the evaluation engine should
+instead be that of a browser, as shown below:</p>
+<figure>
+<img
+src="http://farm8.staticflickr.com/7051/6873346498_f822daa961_d.jpg"
+title="Browser-connected REPL" alt="bc-repl" />
+<figcaption aria-hidden="true">bc-repl</figcaption>
+</figure>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Химера was a Russian band that I liked very much as a
+younger man.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>A popular view of a Lisp program is that its data
+structure, syntax, and abstract syntax tree are equivalent. The fact of
+the matter is that these three things are very very different… the
+subject of a future post.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Keywords in ClojureScript are compiled down to
+JavaScript strings prefixed with some magic unicode character.<a
+href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

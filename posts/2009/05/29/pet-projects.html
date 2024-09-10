@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>pet-projects</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p><em>this is another entry in a series on <a
+href="http://blog.fogus.me/tag/enrichment">programmer
+enrichment</a></em></p>
+<p>Most programmers looking to improve their craft are enthusiastic
+about learning new programming languages. I am a huge proponent of
+polyglot programming practices and as a result I attack literature, code
+samples, and discussions regarding interesting programming languages and
+dialects with a gusto unmatched by any other hobby in my life (save for
+MST3K). I would like to take a moment to clarify my previous sentence.
+That is, it’s not fair to qualify any particular programming language
+with the term <em>interesting</em> because in fact</p>
+<blockquote>
+<p>all programming languages are interesting in <em>some</em> way</p>
+</blockquote>
+<p>That being said, I have accumulated a set of pet projects that I tend
+to cycle through when learning new languages. Each pet project scratches
+a certain itch and each requires differing approaches for solving. When
+learning a new language I like to solve two or more of these pet
+projects in order to get a feel for the capabilities and shortcomings of
+said language. The current set of projects is as follows.</p>
+<h2 id="lisp-interpreter">Lisp Interpreter</h2>
+<p>The idea of creating an interpreter for a subset of Lisp has only
+recently become <a href="http://github.com/fogus/lithp/tree">a
+member</a> of my pet projects. I previously shied away from creating a
+Lisp because it has become incredibly ubiquitous and it seemed silly to
+throw Y.A.L.I. (<strong>Y</strong>et <strong>A</strong>nother
+<strong>L</strong>isp <strong>I</strong>nterpreter) into the already
+over-crowded landscape. However, upon further reflection on the matter I
+realized</p>
+<blockquote>
+<p>the best way to learn two programming languages concurrently is to
+write an interpreter or compiler of one using the other. However, it’s
+highly probable that you will gain a deeper understanding of the
+implemented language rather than the implementation language.</p>
+</blockquote>
+<p>It’s not accurate to label this particular pet project a Lisp
+interpreter because in all likelihood I will instead write one for a
+wholly different language in order to more effectively reap the 2-1
+benefits in the future.</p>
+<h2 id="lexer-generator">Lexer Generator</h2>
+<p>With outstanding tools like <a
+href="https://javacc.dev.java.net">JavaCC</a>, <a
+href="http://dinosaur.compilertools.net">Lex</a>, <a
+href="http://www.antlr.org">Antlr</a>, and <a
+href="http://flex.sourceforge.net">Flex</a> it seems unlikely that one
+could further the current understanding of scanner generator techniques.
+However, it’s useful to note</p>
+<blockquote>
+<p>your own set of pet projects should not attempt to be groundbreaking
+but instead work to further your own understanding of their constituent
+parts and how they are implemented using your chosen target language</p>
+</blockquote>
+<p>If you manage to do something truly innovative, then kudos to you.
+However, I like to maintain a set of projects solving well-known
+problems; that way the bulk of the implementation activity is spent
+trying to solve the problem using the target language idioms and not in
+research and design.</p>
+<h2 id="knuths-pac-land">Knuth’s Pac-Land</h2>
+<p>Pac-Land is essentially Conway’s Game of Life on steroids. It’s a
+great project for targeting languages facilitating highly concurrent
+programs.</p>
+<h2 id="linear-algebra-library">Linear Algebra Library</h2>
+<p>I do this mainly to refresh my mathematical muscles every couple of
+years. This brings us to another principle one should adhere to with a
+set of pet projects</p>
+<blockquote>
+<p>It’s not always exclusively about honing your programming skills. In
+the world of pet projects, side-effects are a good thing.</p>
+</blockquote>
+<h2 id="workflow-engine">Workflow Engine</h2>
+<p>This project is mainly an attempt to finally get it right… next
+time.</p>
+<h2 id="m-ary-tree">m-ary Tree</h2>
+<p>It’s a good idea to incorporate a data structures project into your
+set. An <a
+href="http://www.brpreiss.com/books/opus5/html/page257.html">m-ary
+tree</a> is as good as any and oft times better given that you can do
+additional experimentation on the effects of: 1. Differing values for m
+2. Immutability 3. Generic implementation</p>
+<p>And to boot, it’s always fun to implement the searching and sorting
+functions for the tree.</p>
+<h2 id="now-do-this">Now Do This</h2>
+<p>The most useful tool that I’ve come across in the past 3 years is
+Jakob Lodwick’s <a href="http://nowdothis.com">Now Do This</a> TODO
+application. It’s so simple in its perfection it almost hurts me
+physically that I didn’t think of it first. In any case, it’s a great
+little app that helps to exercise UI capabilities of a target
+programming language.</p>
+<h2 id="project-scaffolding-generator">Project Scaffolding
+Generator</h2>
+<p>This is a bit more involved and to be honest I haven’t done it in a
+while since I last implemented it to learn Python, but it’s a good (and
+practical) project. And that leads us to another principle</p>
+<blockquote>
+<p>Don’t worry about practicality when choosing your own pet projects,
+but with all other things being equal favor it.</p>
+</blockquote>
+<h2 id="gap-buffer">Gap Buffer</h2>
+<p>Long ago I set out to create <a
+href="http://blog.fogus.me/2008/07/23/confessions-of-a-textual-loser/">my
+own text editor</a>. However, after spending many hours on the task I
+realized that it was unlikely that my editor would be any better than
+hundreds of other editors. Therefore, I decided to call it quits after
+finally getting to the point of having a usable (albeit lame) text
+editor. That is not to say that my effort was wasted as I learned a lot,
+which is the foremost <a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> point of any pet programming
+project. The most intriguing part was of course the runtime text storage
+mechanism implemented as a <a
+href="http://en.wikipedia.org/wiki/Gap_buffer">gap buffer</a>. I will
+occasionally feel nostalgic for my old gap buffer (I called it Gappy)
+and have previously reimplemented it a couple of times, although it’s
+been a while.</p>
+<h1 id="next-generation-projects">Next generation projects</h1>
+<p>Pet projects have come and gone and those listed above are no
+different. That being the case, I have considered adding a couple
+additional projects as listed below.</p>
+<h2 id="twitter-client">Twitter client</h2>
+<p>Creating a Twitter client has crossed my mind, but in all likelihood
+by the time I feel motivated to do one there will be millions of others
+available for study.</p>
+<blockquote>
+<p>You are not required to always write code. Instead, try supplementing
+the creation of pet projects with the study of existing implementations
+of your pet projects in your target language(s).</p>
+</blockquote>
+<h2 id="project-euler">Project Euler</h2>
+<p>I like the idea of <a href="http://projecteuler.net">Project
+Euler</a> but I simply cannot personally find any enthusiasm for
+attempting the problems, which of course brings one additional principle
+that you absolutely <strong>must</strong> adhere to</p>
+<blockquote>
+<p>You can forget every other principle – as long as you have fun</p>
+</blockquote>
+<p>What are your pet projects?</p>
+<p>-m</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Even when it turns out to be not very fun.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>take-8-david-edgar-liebke</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<h1
+id="take-8-david-edgar-liebke"><code>(take 8 (david-edgar-liebke))</code></h1>
+<p>David Edgar Liebke is a prolific writer of <a
+href="http://clojure.org">Clojure</a> source codes. His project <a
+href="http://incanter.org/">Incanter</a> is a rocket-powered statistical
+environment based on <a href="http://www.r-project.org/">R</a> with
+beautiful visualization capabilities (and then some). David is also a
+major data geek and is not afraid to talk about it on his <a
+href="http://data-sorcery.org/">Data Sorcery</a> blog. As a founding
+member of <a href="http://clojure.com">Clojure/core</a>, David flys
+to-and-fro in the Clojure-jet fighting against the enemies of concision,
+simplicity, and bad statistics. He was gracious enough to take some time
+to answer a few of my questions.</p>
+<p><em><a href="http://blog.fogus.me/tag/take">(take…</a> is an on-going
+series of micro-interviews focused on interesting Clojurians.</em></p>
+<h3 id="what-is-the-genesis-of-incanter">What is the genesis of
+Incanter?</h3>
+<p>Incanter is the result of a project I was working on with my Ph.D
+advisor before leaving grad school to pursue Clojure/core. The goal was
+to develop a standalone application for building specific kinds of
+statistical models that are used in the social sciences.</p>
+<p>My early prototypes were built with R, which I love, but it has
+limitations as a platform for building standalone applications. So I
+searched for alternatives that would give me R’s interactive development
+cycle, it’s core statistical and linear algebra functions, its basic
+data visualization capabilities, but that would be better suited for
+general-purpose application development. That’s when I found
+Clojure.</p>
+<p>I spent a fair amount of time using Lisp for AI programming as an
+undergrad, and then had the opportunity to spend more time with it a
+couple years ago learning to write automated theorem provers. I had
+always loved its minimalist syntax, the emphasis on using only a few
+data structures, the mind-melting awesomeness of recursion and macros,
+and of course the REPL. So, I had always kept an eye out for
+opportunities to return to Lisp.</p>
+<p>After a few preliminary experiments with Clojure, and a couple
+different Java numeric libraries, I had basic statistical and linear
+algebra functionality. Then one evening I threw <a
+href="http://www.jfree.org/jfreechart/">JFreeChart</a> into the mix,
+giving me basic data visualizations.</p>
+<p>I was able to very quickly build an environment that had some of the
+key features of R that I depended on the most, just by combining Clojure
+with a couple Java libraries, I was hooked and have never looked
+back.</p>
+<p>Incanter took on a life of its own. What was once built as the
+underlying framework for a specific data modeling application became a
+general purpose statistical computing environment.</p>
+<h3 id="are-you-a-music-while-programming-kind-of-guy">Are you a
+music-while-programming kind of guy?</h3>
+<p>I don’t usually listen to music when I’m working alone or remote
+pairing, but I definitely like the energy it provides when I’m working
+down at <a href="http://thinkrelevance.com">Relevance</a> HQ – although
+with the competing musical tastes of 20 different people (not to mention
+Aaron Bedra’s perverse love of mashups), it’s an eclectic mix to be
+sure.</p>
+<h3 id="do-programmers-stink-at-statistics">Do programmers stink at
+statistics?</h3>
+<p>Almost everybody stinks at statistics. However, programmers have an
+edge now that programming has become an important part of statistics.
+Unfortunately, they may have no choice but to become better at it
+because statistics has become an important part of computer science.</p>
+<h3 id="vi-emacs-or-other">Vi, Emacs, or other?</h3>
+<p>Both. I started life in Emacs, switched to vi/vim because I spent a
+lot of time doing system administration. I developed much of Incanter
+with vim and a command line REPL, but I finally found my way back to
+Emacs for Clojure development because of the power duo of Slime and <a
+href="http://www.emacswiki.org/emacs/ParEdit">Paredit</a>, but I still
+use vim for for everything else.</p>
+<h3
+id="aside-from-clojure-what-programming-languages-do-you-hold-in-high-esteem">Aside
+from Clojure, what programming languages do you hold in high
+esteem?</h3>
+<p>I love R despite, or perhaps because of, its quirks; I love the
+purity of <a href="http://library.readscheme.org/page1.html">Scheme</a>,
+and I’ve always appreciated <a href="http://ruby-lang.org/">Ruby</a>,
+and after spending time at Relevance with some of the best Ruby
+programmers anywhere, that appreciation has grown.</p>
+<h3
+id="why-did-you-give-up-the-life-of-celebrity-and-riches-to-join-clojurecore">Why
+did you give up the life of celebrity and riches to join
+Clojure/core?</h3>
+<p>I gave up a pretty awesome job, working with some of the best people
+in the bioinformatics world, a great environment, and a bit of free
+time. In return I get to work with some of the best Clojurists in the
+world (including <a
+href="http://www.amazon.com/Programming-Clojure-Pragmatic-Programmers-Halloway/dp/1934356336">Stuart
+Halloway</a>, <a
+href="http://www.amazon.com/Practical-Clojure-Definitive-Guide-VanderHart/dp/1430272317">Stuart
+Sierra</a>, and the man himself, <a
+href="http://www.amazon.com/gp/richpub/listmania/fullview/R3LG3ZBZS4GCTH">Rich
+Hickey</a>). I get a front row seat to the development of one of the
+most interesting programming languages around, and I get to participate
+in the early stages of a growing community, full of incredibly bright
+and enthusiastic people. It was an opportunity I couldn’t resist.</p>
+<h3
+id="can-you-provide-a-picture-summarizing-your-feelings-about-clojurecore">Can
+you provide a picture summarizing your feelings about Clojure/core?</h3>
+<p>I think this pretty much sums up my feelings.</p>
+<figure>
+<img src="http://images.fogus.me/blog/cookie.gif" title="Cookiej"
+alt="cookies" />
+<figcaption aria-hidden="true">cookies</figcaption>
+</figure>
+<h3
+id="why-should-anyone-care-about-clojurecore-and-clojure-in-general">Why
+should anyone care about Clojure/core and Clojure in general?</h3>
+<p>Well, I think the goals of Clojure/core are pretty cool</p>
+<ol type="1">
+<li>Help fund the further development of Clojure</li>
+<li>Help improve the Clojure ecosystem and community</li>
+<li>Help those that don’t understand the benefits of Clojure’s approach
+to see the value</li>
+<li>Help those that already understand the value to build systems</li>
+</ol>
+<p>And I think the combination of in-depth knowledge of the Clojure
+language and Relevance’s well known expertise in agile development is
+pretty fantastic.</p>
+<p>I consider Lisp the first agile programming language. Later languages
+couldn’t match its power and fast development cycle. Eventually features
+like dynamic typing, interactive development with a REPL, and
+meta-programming made their way to newer languages. In time leading to
+Ruby, and now Clojure brings it back full circle.</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

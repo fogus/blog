@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>pointless-programming-in-javascript</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>Using <a href="http://underscorejs.org">Underscore</a> and <a
+href="http://www.functionaljs.org">Lemonad</a>, how could you write a
+run-length encoder/decoder without ever referencing a function
+parameter?</p>
+<p>One way:</p>
+<pre><code>var S = [&#39;a&#39;, &#39;a&#39;, &#39;a&#39;, &#39;a&#39;, 
+         &#39;b&#39;, &#39;c&#39;, &#39;c&#39;, 
+         &#39;a&#39;, &#39;a&#39;, &#39;d&#39;, 
+         &#39;e&#39;, &#39;e&#39;, &#39;e&#39;, &#39;e&#39;];
+
+var pack = L.partial1(L.partitionBy, _.identity);
+
+pack(S);
+//=&gt; [[&#39;a&#39;, &#39;a&#39;, &#39;a&#39;, &#39;a&#39;], [&#39;b&#39;] ...]
+
+var rle = _.compose(
+  L.partial1(L.flip(_.map), 
+             L.juxt(L.plucker(&#39;length&#39;), 
+                    _.first)), 
+  pack);
+
+rle(S);
+//=&gt; [[4, &#39;a&#39;], [1, &#39;b&#39;], [2, &#39;c&#39;], 
+      [2, &#39;a&#39;], [1, &#39;d&#39;], [4, &#39;e&#39;]]
+
+var rld = _.compose(
+  _.flatten, 
+  L.partial1(L.flip(_.map), 
+             L.splat(L.repeat)));
+
+L.pipeline(S, rle, rld);
+
+//=&gt; [&quot;a&quot;, &quot;a&quot;, &quot;a&quot;, &quot;a&quot;, &quot;b&quot;, ...]</code></pre>
+<p>The above style is called “point-free” style where “points” refer to
+function parameters like <code>a</code> and <code>b</code> in the
+function <code>function(a, b) { ... }</code>. The functions
+<code>rle</code> and <code>rld</code> are built entirely via the
+composition functions in Lemonad and Underscore<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.
+Fun fun.js.</p>
+<p>I’ll cover point-free style to a small degree in my <a
+href="http://www.functionaljavascript.com">upcoming book on functional
+JavaScript</a>, but it’s a fun way to think about building programs and
+I encourage you to explore.</p>
+<p><em>I have <a href="https://gist.github.com/fogus/5354028">a gist
+with the same code</a> for syntax highlighting and different
+spacing.</em></p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Underscore has for a while had the
+<code>_.compose</code> function, but is only now incorporating other
+composition functions like <code>_.partial</code> and (maybe)
+<code>_.flip</code>.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

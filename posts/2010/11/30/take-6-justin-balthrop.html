@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>take-6-justin-balthrop</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p><a href="http://ninjudd.com/">Justin Balthrop</a> is the author of <a
+href="http://clojure-cake.org">Cake</a> (the Clojure build tool, not the
+spongy delicious treat). He works for <a
+href="http://www.geni.com">Geni</a> and is an alumni of The University
+of New Mexico<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a>. Interestingly, Justin (or ninjudd
+as he is known on the Intertubes) is the only person I’ve ever met who
+looks just like his/her online images.</p>
+<h3 id="what-led-you-to-clojure">What led you to Clojure?</h3>
+<p>I was obsessed with Logo in fourth grade. The other kids wanted to
+play Oregon Trail, and I wanted to tell the turtle how to draw things.
+The fact that the drawing commands were relative to the turtle’s current
+position made a lot of sense to me. It’s so different from the way a
+human draws. Like the difference between looking at a maze on paper and
+actually being inside a maze.</p>
+<p>After that, I didn’t see Lisp again until my second year in college.
+I almost gave up on Computer Science after the first C++ class, but
+someone in one of my math classes convinced me to take “Non-Imperative
+Programming”. It was all about Scheme, and I was obsessed immediately.
+The professor, <a href="http://www.cs.unm.edu/~williams">Lance
+Williams</a>, taught the class using Emacs instead of a chalk board. He
+wrote programs and ran them in class, debugging and refactoring as he
+went. There was something magical about the REPL and the way it let you
+develop software. I think I was more comfortable in Scheme after one day
+than C++ after an entire semester.</p>
+<p>Since I didn’t have another functional programming class for two
+years, I applied to be a teaching assistant for the Scheme class so I
+could keep doing it. There’s nothing better than the look on a person’s
+face when functional programming starts making sense to them. After
+that, I started reading <a href="http://mitpress.mit.edu/sicp">SICP</a>
+and <a href="http://www.amazon.com/o/asin/0133708756?tag=fogus-20">ANSI
+Common Lisp</a>. Paul Graham’s philosophy of <a
+href="http://www.paulgraham.com/progbot.html">building programs from the
+bottom up</a> quickly overtook the UML diagrams and requirements
+documents of traditional software engineering in my head.</p>
+<p>Over the next eight years, I ended up doing C++, a bit of Java, then
+Perl and Ruby. I didn’t think I could make money programming Lisp, so I
+settled on Ruby, appeasing myself with the block syntax instead of
+macros and making my coworkers uncomfortable with too many lambdas. I
+tried to write functional Ruby code, but it was always a struggle. I
+once had to change a purely functional library to be impure because the
+calls to clone were too expensive without persistent data structures. It
+seemed like a small trade-off for performance at the time, but using
+mutable data structures allowed a bunch of nasty bugs to creep in since
+then. Someone should volunteer to implement persistent data structures
+for Ruby as a community service…</p>
+<p>In the end, I happened upon Clojure by accident. We were in the
+process of looking for a faster language than Ruby for our graph
+traversal algorithms at Geni. We’d narrowed the choice down to Java, C++
+or Erlang, when I saw a forum post comparing Clojure to Erlang that
+claimed Clojure could be as fast as Java with the right optimizations. I
+built a prototype of our graph in Clojure that was 10-20 times faster
+than our Ruby version, and I’ve been doing Clojure full-time ever
+since.</p>
+<h3 id="what-is-cake-and-why-is-it-important">What is Cake and why is it
+important?</h3>
+<p>Cake is the build tool that we didn’t mean to write. We spent a
+heroic amount of time trying to use existing tools, but in the end, it
+came down to two things: 1) we wanted to write our builds in Clojure,
+not XML and 2) our builds were too complicated to do in <a
+href="https://github.com/technomancy/leiningen">Leiningen</a>. This was
+before lein had hooks, and the first version of Cake was actually a
+proof of concept I wrote to show how I thought hooks should work in
+Leiningen. Then <a href="http://twitter.com/lancepantz">Lance
+Bradley</a> added some basic tasks and all of a sudden we had a build
+tool.</p>
+<p>I was pretty smitten by Martin Fowler’s <a
+href="http://martinfowler.com/articles/rake.html">rake article</a> when
+I started programming Ruby, and it convinced me that dependency-based
+programming was the way to go for a build tool. Don’t get me wrong,
+functions are great. All but the most simple tasks in Cake are written
+as functions internally. But when you’re dealing with a bunch of
+interconnected actions that by definition have side-effects, there is a
+lot of incidental complexity that dependency-based programming deals
+with for you. This is especially true when users need to be able to
+extend and modify built-in tasks.</p>
+<p>The other really exciting feature of Cake is the persistent JVM. I
+like the fast startup it provides, but aside from that, a shared,
+persistent process just makes sense for a language with concurrency
+primitives like Clojure. I love to open up multiple REPLs on the same
+JVM and experiment with concurrent code interactively. Or to open a REPL
+while a migration is running to check on the status in realtime. This is
+something Swank users have been able to experience for a long time, but
+Cake brings this to everyone.</p>
+<p>Cake’s core philosophy is that tasks should be easy to write. In the
+Ruby world, developers end up writing a lot of tasks because Rake makes
+it so easy, and that’s a good thing. It was quite a shock when I first
+came to Clojure and started using Ant. My build.xml files quickly grew
+to hundreds of lines. I found myself copying XML between projects, and I
+had to write Java if I wanted reusable tasks.</p>
+<p>Programmers don’t want to think about their build tool. They don’t
+want to learn a new language to customize their build, and most
+programmers don’t want the complexity hidden behind their IDE either.
+Programmers want a build tool that is powerful when they need it, but
+most of the time, they just want to open up a single file, add a few
+lines of code, and get on with the rest of their work.</p>
+<h3 id="why-does-aquaman-get-such-a-bad-rap">Why does Aquaman get such a
+bad rap?</h3>
+<p>If you look into it, you’ll find that almost every person who thinks
+Aquaman is lame watched <em>Super Friends</em> when they were a kid.
+Other than <em>Super Friends</em>, Aquaman was actually pretty awesome.
+The question we should be asking is: Who hated Aquaman so much that they
+created an anti-Aquaman propaganda machine and dressed it up as a
+children’s TV show? <a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a></p>
+<h3
+id="how-does-the-perception-of-tdd-between-the-ruby-and-clojure-communities-differ">How
+does the perception of TDD between the Ruby and Clojure communities
+differ?</h3>
+<p>I never really believed in test driven development, even when I was
+in the midst of it. The biggest problem is that TDD makes it too easy to
+write bad tests– tests that do more harm than good, like the too-brittle
+functional test that breaks every time you change anything, or the
+almost useless unit test that stubs so many interactions that it keeps
+passing even when everything is totally broken. I’ve wasted too many
+days fighting with tests like these.</p>
+<p>The hard part about software is writing good abstractions, and tests
+are never going to solve that part for you. It seems too many
+programmers in the test-driven world write tests before they even
+understand the problem. It’s really hard to write good tests this way.
+I’m still a big believer in jumping in and starting to program to figure
+out your problem. But this only works if you’re willing to throw away
+the code that isn’t any good, and maybe people are less likely to do
+that if they already have a full suite of passing tests.</p>
+<p>Here’s the thing: tests are incredibly important for making sure your
+implementation does what you designed it to do, but they are deceptively
+hard to write well. The best tests are the ones that are written out of
+necessity rather than habit. The best tests are the ones written after
+you’ve thought hard about your problem and come up with a good design.
+If tests are driving development, then tests are also driving design,
+and tests</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Having never visited New Mexico I have grand visions of
+sweeping desert landscapes, crags, and cacti – you know, like that
+picture on the side of my neighbor’s van when I was a kid. Remember that
+one?<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>I’ve never considered this before – it’s so insidious
+that it must be true. Chupacabra!<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

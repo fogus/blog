@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>emergence-and-quality</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>Although the blogging bug has not hit me lately, I have been thinking
+about bloggable topics. One interesting topic that I’m mulling around in
+my mind at the moment is the idea of emergence in programming language
+design. The catalyst for this focus was my recent research into the
+processes that board game designers use to create games.</p>
+<h2 id="emergent-strategies-and-idioms">Emergent strategies and
+idioms</h2>
+<p>First, one of my favorite designers <a
+href="http://www.koryheath.com/">Kory Heath</a>, has extensive design
+notes for two of my favorite games <a
+href="http://www.koryheath.com/zendo/design-history/">Zendo</a> <a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> and <a
+href="http://www.koryheath.com/uptown/design-history/">Uptown</a>. <a
+href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a> In both design histories you’ll see
+themes that are very reminiscent of the same themes that pop up when
+talking to language designers about their creations.<a href="#fn3"
+class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>
+It’s eerie the parallels between the two worlds. I suppose this parallel
+explains my <a
+href="http://blog.fogus.me/2013/10/31/open-source-boardcarddice-game-design/">recent
+interest in the process of board/card/dice game</a> design.<a
+href="#fn4" class="footnote-ref" id="fnref4"
+role="doc-noteref"><sup>4</sup></a></p>
+<p>A point that I particularly like espoused by Mr. Heath is that idea
+of <a
+href="http://web.archive.org/web/20061119095146/http:/wunderland.com/WTS/Kory/JoEGD/Discussion/heath14.html">emergent
+strategies</a>. The idea of emergent strategy reminds me of programming
+language idioms. Idioms in languages come about for various reasons, but
+the best idioms emerge from the language itself. That is, the strongest
+idioms emerge during the use of the language and play on and highlight
+the language’s strengths<a href="#fn5" class="footnote-ref" id="fnref5"
+role="doc-noteref"><sup>5</sup></a>. It’s almost as if the language
+itself begs for a given idiom to arise. It’s a topic I want to ponder
+much more – in both game design<a href="#fn6" class="footnote-ref"
+id="fnref6" role="doc-noteref"><sup>6</sup></a> and language design.</p>
+<h2 id="quality">Quality</h2>
+<p>The second topic that I’ve been thinking about concerns quality.
+There is a very interesting discussion by Daniel Solis and (again) Kory
+Heath about differing approaches to achieving quality in their designs.
+There are many nuances in play during the discussion, but I hope that a
+representational summary is as follows:</p>
+<ul>
+<li>Heath: Hold back a design until it feels perfect</li>
+<li>Solis: Quality will emerge (there’s that word again) from
+quantity</li>
+</ul>
+<p>You can watch the video below to regain some of the nuance, but I
+believe that summarizes the discussion fairly well.</p>
+<iframe width="560" height="315" src="//www.youtube.com/embed/aUiSDjSJMyg?list=UUVMiK5E4VEq7FPCNBsw1hJQ" frameborder="0" allowfullscreen>
+</iframe>
+<p>This dichotomy really hits home for me, especially in the way that I
+view, and have viewed, open source software. That is, until about
+13-months ago I believed that more was better in open-source and by
+releasing package after package I could contribute a body of work that
+was not only useful in isolation, but could point to an underlying
+philosophy of design. However, <a
+href="https://www.youtube.com/watch?v=1E2CoObAaPQ">after spending nearly
+a year on a single system</a> my viewpoint on the matter has changed
+completely. That is, my view now is that I want to hold off on code and
+designs until I feel like they tell a story by themselves.<a href="#fn7"
+class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>
+Practically speaking this means that I’ll be releasing far less software
+than I have in the past. I still want to contribute to open source of
+course, and am still active in <a
+href="http://www.clojure.org">Clojure</a>, <a
+href="http://datomic.com">Datomic</a>, and <a
+href="https://github.com/documentcloud/underscore-contrib">_.contrib</a>;
+however for my own designs I want to strive for something more.</p>
+<p>:F</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>My son calls Zendo, the ultimate brain-game.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The ultimate “Chillaxing” game.<a href="#fnref2"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Specifically I’m reminded of a conversation that I had
+with José Valim about <a href="http://elixir-lang.org/">Elixir</a> two
+StrangeLoops ago.<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Another thing that I’m sure drives my along this
+trajectory is that I struggle tremendously on game design, so it’s
+really started firing neurons that I didn’t know that I had.<a
+href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Rather than patch a language flaw.<a href="#fnref5"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Another game designer that I admire is <a
+href="http://nickbentleygames.wordpress.com/category/game-designs/">Nick
+Bentley</a>, the creator of the amazing <a
+href="http://nickbentleygames.wordpress.com/2012/04/29/my-best-game-i-suspect-ketchup/">Catchup</a>.<a
+href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>As it turns out, I have decided <em>not</em> to release
+<a href="https://gist.github.com/fogus/7118257">Zeder</a> as open
+source. After spending a year working on it and its encompassing system,
+I’ve come to the realization that I can do better. That’s not to say
+that I’m disappointed in its design, indeed it could be useful to many
+people. Instead, to release Zeder would put me in a position where I
+would feel compelled to maintain it for the next X number of years, and
+that is something that I cannot bring myself to do with a system that I
+do not believe is perfect.<a href="#fnref7" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

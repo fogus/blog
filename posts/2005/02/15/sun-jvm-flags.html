@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>sun-jvm-flags</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<pre><br />Useful Java flags and techniques<br />--------------------------------<br /><br />FLAGS<br /><br /><b>-verbosegc</b> : Outputs garbage collection information from the running JVM<br /><br /><b>-Xrunhprof</b> : Provides runtime JVM statistics (heap, cpu, etc...)<br /><br /> example<br />  -Xrunhprof:file=log.txt,thread=y,depth=3<br />  <br /> syntax<br />  -Xrunhprof[:help]|[:option=value,option2=value2, ...]<br />  <br /> parameters<br />  OptionName and Value   Description   Default<br />  ---------------------  -----------   -------<br />  heap=dump|sites|all   heap profiling   all<br />  cpu=samples|old   CPU usage   off<br />  format=a|b    ascii or binary output  a<br />  file=<file>    write data to file  java.hprof<br />  net=<host>:<port>   send data over a socket write to file<br />  depth=<size>    stack trace   depth 4<br />  cutoff=<value>    output cutoff point  0.0001<br />  lineno=y|n    line number in traces?  y<br />  thread=y|n    thread in traces?  n<br />  doe=y|n    dump on exit?   y<br /><br /><b>--XX:ThreadStackSize=512</b> : Specify the size of stack for each new Java thread.<br /><br /><b>-XX:+AggressiveHeap</b> : This option instructs the JVM to push memory use to the<br /> limit: the overall heap is 3900MB, the new generation is 3072MB, the allocation area<br /> of each thread is 256KB, and the collection policy defers as long as possible before<br /> collecting.<br /><br /><b>-Xms3g -Xmx3g</b> : Sets the heap minimum and maximum size to 3GB (use 'm' for megabytes)<br /><br /><b>-server</b> : Use optimizing JIT compiler<br /><br /><b>-XX:+UseConcMarkSweepGC</b> : Use concurrent garbage collector<br /><br /><b>-XX:+UseParallelGC</b> : Use parallel garbage collector<br /><br /><b>-Xint</b> : Interpret only, no JIT<br /><br /><b>-XX:+DisableExplicitGC</b> : Disable calls to System.gc(), JVM still performs garbage collection when necessary</pre>
+<p><br />-m</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

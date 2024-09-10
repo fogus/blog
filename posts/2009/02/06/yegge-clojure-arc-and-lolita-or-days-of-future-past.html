@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>yegge-clojure-arc-and-lolita-or-days-of-future-past</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p><img src="http://blog.fogus.me/wp-content/uploads/2009/02/tinrobot-300x300.jpg" alt="" title="tinrobot" width="300" height="300" class="aligncenter size-medium wp-image-4598" /></p>
+<p><em>This post was discussed thoroughly on <a
+href="http://news.ycombinator.com/item?id=470254">Hacker News</a>. Even
+Mr. Graham was kind enough to comment – though not in the affirmative.
+There was moderate discussion on <a
+href="http://www.reddit.com/r/programming/comments/7vgho/yegge_clojure_arc_and_lolita/">Reddit</a>
+as well.</em></p>
+<p>A long time ago, in a galaxy far far away, <a
+href="http://steve-yegge.blogspot.com/2006/04/lisp-is-not-acceptable-lisp.html">Steve
+Yegge wrote an essay on Common Lisp</a> named <em>Lisp is not an
+Acceptable Lisp</em>. As far as Yegge essays go, it was one of the more
+Molotov-esque. There are a few items in this ancient tract that I feel
+are spot on with reality and another few that seem to miss the mark
+these many centuries later.</p>
+<h1 id="precognition">Precognition</h1>
+<blockquote>
+<p>Arc’s going to be a new religion, of course, because programmers just
+haaaaaave to make it that way.</p>
+</blockquote>
+<p>Looking back on the reaction to the <a
+href="http://www.paulgraham.com/arcll1.html">announcement of Arc</a>,
+Yegge was reading the writing on the wall with this particular comment.
+Paul Graham has always tended to be viewed as a living/breathing/walking
+religion because of his spectacular essays on <a
+href="http://www.paulgraham.com/nerds.html">high school life</a>,
+education failures, and general purpose geekery. However, his essays are
+likely to be remembered for the way that they generated a frenzy-tinged
+lust for LISP. There are a 1000 reasons why this could be, but the most
+likely lies in the fact that when his most groundbreaking essays were
+written, the world of programming was <a
+href="http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html">mired
+in the world of Java, C, Visual BASIC, and C++</a>. His essays on LISP
+elucidated an almost <a
+href="http://www.paulgraham.com/avg.html">Utopian world of programming
+power</a>, long forgotten or little imagined to those mired in <a
+href="http://en.wikipedia.org/wiki/Paul_Graham#Blub">Blub</a>.</p>
+<blockquote>
+<p>… My prediction: someone will get tired of waiting, and they’ll
+Torvalds Arc into obsolescence before it’s ever released.</p>
+</blockquote>
+<p>The <a href="http://paulgraham.com/arc0.html">release of Arc</a> was
+a grand day in the history of the Internets. Birds sang that day my
+friends. The air smelled of the finest of perfume. I believe even <a
+href="http://en.wikipedia.org/wiki/Christopher_Hitchens">Christopher
+Hitchens</a> thanked the gods that day (speaking of cult-like figures in
+the world of geekdom). As a result of this unparalleled software
+release, <a href="http://www.plt-scheme.org/">mzscheme</a> was
+downloaded over a trillion times. However, the honeymoon was short and
+the grumbling was indeed furious thereafter. “Is this it?” Now bear in
+mind, over the years leading up to the release, the fledgling Arc
+community had nurtured such expectations of Mr. Graham’s language that
+anything short of <a href="http://singinst.org">The Singularity</a>
+occurring as a result of its execution was tantamount to <a
+href="http://www.mgm.com/title_title.php?title_star=WARGAMES">Global
+Thermonuclear War</a> followed by the cancellation of <em>Heroes</em>
+and the concurrent deaths of <a
+href="http://dsc.discovery.com/fansites/mythbusters/mythbusters.html">Adam
+and Jamie</a>. It was running on top of mzscheme? It didn’t support
+UNICODE? No module system? Few libraries? Unhygienic macros? Lists for
+dinner – again? These criticisms festered into essentially an Internet
+meme [^meme]; everyone was jumping in on the lashing. Eventually, the
+buzz of Arc wore off and all that remained was the negativity.
+Eventually, Mr. Graham himself seemed to spurn [^spurn] the language,
+and it has since been relegated to the dustbin of the <a
+href="http://github.com/languages/Arc">github fork</a>. [^gh]</p>
+<p>And then along came <a href="http://clojure.org">Clojure</a>. For all
+intents and purposes, Clojure’s creator Rich Hickey <strong>is</strong>
+Arc’s Torvalds quipped on by Mr. Yegge. Adding powerful namespacing
+coupled with the fact that it’s built on top of the JVM dispels the
+questions and gripes aimed at Arc from the start. Any momentum that Arc
+may have gained from its release and subsequently maintained once the
+love affair ended was squashed under the heel of the Clojure juggernaut.
+Sure, Arc still has its proponents, desperately clinging to their
+language of choice like a desperate Humbert Humbert to a very pregnant
+Lolita [^lo], but even <a
+href="http://news.ycombinator.com/item?id=446238">they have the
+preliminary itch of disillusionment</a>.</p>
+<blockquote>
+<p>Truth be told, Lisp should probably have a skinnable syntax. That
+implies a canonical abstract syntax tree, which of course hasn’t been
+defined (and in many implementations isn’t even available to you, the
+way it is in the Io language, say).</p>
+</blockquote>
+<p>Now I’m not a LISP expert, but it seems to me that the S-Expression
+is popularly regarded as the canonical representation of the LISP AST
+(and many other languages for that matter). That is, the LISP syntax is
+as close to an AST as one can get. Perhaps the presence of macros,
+<strong>#</strong>, <strong>`</strong>, <strong>’</strong>, and
+<strong>,</strong> muddy the waters a bit, but not much.</p>
+<h1 id="misses">Misses</h1>
+<blockquote>
+<p>Your only other option is to design a new language, and you won’t get
+any help from Lisp people, because they will hate you.</p>
+</blockquote>
+<p>It seems to me that the <a href="http://www.infoq.com/oopsla">greater
+LISP community</a> is embracing Clojure and its creator Rich Hickey most
+amiably. Not coming from a LISP background, it’s difficult to say what
+the condition of vitriol and hatred was when the original article was
+written. Additionally, I do not have a herd of LISP hackers roaming my
+office halls in order to observe any low-frequency mummers disparaging
+Rich Hickey. In any case, Clojure has <a
+href="http://danweinreb.org/blog/software-technologies-that-i-must-learn">garnered
+a lot of excitement</a> from some <a
+href="http://bc.tech.coop/blog/081023.html">highly credible LISP
+hackers</a>. If <a href="http://smuglispweeny.blogspot.com/">Mr. Kenny
+Tilton</a> would come around, then the coup would be complete.</p>
+<blockquote>
+<p>Or maybe you could go the Haskell route and not have OOP at all. That
+seems to alienate most programmers, though, despite the attractions of
+not having to create nouns for everything.</p>
+</blockquote>
+<p>It’s tough to be negative on Mr. Yegge on this quote considering that
+2006 was still during the time when OOP principles were drilled into
+every C.S. majors’ skull and could be heard in the laughter of children.
+However, the functional programming para-dig-em is finally starting to
+gain a handhold in an otherwise homogeneous programming language
+landscape [^homogeneous].</p>
+<h1 id="still-true">Still True?</h1>
+<blockquote>
+<p>Macros are notoriously hard to debug, and honestly it needn’t be that
+way. If your editor knows all about macros, then you should be able to
+click to see the expansion, and click again to see its sub-expansions,
+all the way down to the primitive functions.</p>
+</blockquote>
+<p>It may simply be my own ignorance, but I still do not know of an
+editor that does this for any current LISP. <em>(pointers
+welcome)</em></p>
+<h1 id="conclusion">Conclusion</h1>
+<p>In order to wrap up this post, I would like to quote a comment posted
+in the comments section of the original article:</p>
+<blockquote>
+<p>Lisp indeed leaves you with your own ideas and your own limitations.
+It doesn’t pose any artificial restrictions on your programs that you
+have to work against, and it doesn’t provide any “color by numbers”
+examples that make you feel like you have achieved something. Lisp
+requires you to be creative.</p>
+</blockquote>
+<p>The quote above by <a href="http://p-cos.net/">Pascal Costanza</a>
+says it all: about Clojure, about Common Lisp, about <a
+href="http://www.lambdassociates.org/">Qi</a>, Scheme, and even about
+Arc.</p>
+<p>Having spent a majority of my programming career writing Blub, I have
+only recently [^college] discovered the power of languages in the LISP
+vein. Like many programmers, my interest was stoked by the excellent and
+iconic (as far as Internet noise goes) LISP essays written by
+Mr. Graham. I, like many others, dreamed of the [100 Year Language</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>no-stinking-mutants</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>In the quest for programming nirvana developers are constantly trying
+to reduce complexities in their code. One source of confusion and
+complexity is mutation. This post is about the different faces of
+mutation and state change, and the ways that Clojure helps to alleviate
+the complexities surrounding them. This is not a comprehensive treatise
+by any means, but hopefully it serves as a survey.</p>
+<p><em>disclosure: this was a rejected submission to <a
+href="http://pragprog.com/magazines/2011-07/content">PragPub’s Special
+Clojure issue</a> (which was excellent BTW), so it’s much longer than I
+would have liked for my blog, and probably much more formal than I
+normally write.</em></p>
+<h1 id="a-surfeit-of-mutation">A surfeit of mutation</h1>
+<p>The Java programming language allows one to create classes with
+publicly accessible fields:</p>
+<pre><code>package gfx;
+
+public class ThreeDee {
+    public double x;
+    public double y;
+    public double z;
+}</code></pre>
+<p>This level of promiscuity in a Java class definition allows any other
+piece of code to directly manipulate the instance fields:</p>
+<pre><code>ThreeDee p = new ThreeDee();
+p.x = 0.0;
+p.y = 1.0;
+p.z = 2.0;</code></pre>
+<p>Almost every Java book written will discourage public class fields in
+the name of tight-coupling and instead promote the use of getters and
+setters. From the perspective of mutation complexities however, there is
+very little difference between one and the other. The tangled web of
+mutation still exists.</p>
+<figure>
+<img src="http://images.fogus.me/articles/web-of-confusion.png"
+alt="web of confusion" />
+<figcaption aria-hidden="true">web of confusion</figcaption>
+</figure>
+<p>While this example is extreme, Java’s model for mutation leads to a
+tightly coupled web of mutation that can make programs difficult to
+reason about, test, and change. There are better alternatives to this
+web of insanity, as I will discuss next.</p>
+<h1 id="package-local-mutation">Package local mutation</h1>
+<p>A more constrained model of mutation is one bounded by package
+access. Observe the following class definition:</p>
+<pre><code>package gfx;
+
+public class ThreeDee {
+    double x;
+    double y;
+    double z;
+}</code></pre>
+<p>The class <code>ThreeDee</code> now limits access to its fields to
+only the classes within the <code>gfx</code> package. This is less of a
+problem for coupling because the assumption is such that you have more
+control over the code in a given package and can therefore adjust
+accordingly should the fields in <code>ThreeDee</code> change. However,
+while the web of mutation has been shrunk, it is still complex within
+the <code>gfx</code> package itself.</p>
+<figure>
+<img src="http://images.fogus.me/articles/pkg-web.png"
+alt="pkg web of confusion" />
+<figcaption aria-hidden="true">pkg web of confusion</figcaption>
+</figure>
+<p>While certainly not a widespread phenomenon, you will on occasion
+encounter package-level mutable fields in Java source in the wild.</p>
+<h1 id="class-local-mutation">Class local mutation</h1>
+<p>Every Java book (and most OO books in general – for good reason IMO)
+written will espouse the virtues of data hiding encapsulation. This
+practice is useful not only in hiding implementation details, but also
+to hide mutation. For example, <a
+href="http://code.google.com/p/guava-libraries/">Google’s Guava
+library</a> provides an <code>ImmutableList</code> class that implements
+an immutable implementation of the classic list data-structure. An
+example usage is as below:</p>
+<pre><code>import com.google.common.collect.ImmutableList;
+
+ImmutableList lst = ImmutableList.of(&quot;servo&quot;, &quot;joel&quot;, &quot;crow&quot;);
+System.out.println(&quot;lst is &quot; + lst.toString());
+
+System.out.println(&quot;REVERSING!&quot;);
+lst.reverse();
+
+System.out.println(&quot;lst is now &quot; + lst.toString());</code></pre>
+<p>When running the code above, you’ll notice the following printed:</p>
+<pre><code>lst is [servo, joel, crow]
+REVERSING!
+lst is [servo, joel, crow]    </code></pre>
+<p>The <code>ImmutableList</code> class lives by its namesake and does
+not provide a mutable interface, in fact if you try to call the mutable
+bits of the <code>java.util.List</code> interface a
+<code>java.lang.UnsupportedOperationException</code> is thrown.</p>
+<pre><code>lst.remove(0);
+// java.lang.UnsupportedOperationException</code></pre>
+<p>The Guava library is designed to provide clean immutable
+collections[^guava] for use in Java programs. However, that’s not to say
+that mutation isn’t there. Instead, the mutable bits are cleverly hidden
+away inside of the Guava classes. In the case of
+<code>ImmutableList</code> there is a plain-old Java array holding the
+elements of the list hidden away from grubby little mutants.</p>
+<p>Limiting mutation at the class boundary is a fairly nice way to
+develop Java classes, especially those requiring concurrent execution.
+That is, if a class is immutable from an external API perspective and
+its internals are thread-safe, then instances can be shared freely
+across thread boundaries.</p>
+<figure>
+<img src="http://images.fogus.me/articles/class-web.png"
+alt="class web of confusion" />
+<figcaption aria-hidden="true">class web of confusion</figcaption>
+</figure>
+<p>However, there is still a problem. That is, Google’s Guava library is
+an amazing piece of programming, but it’s advantages can only be
+realized within the context of a system-wide convention for
+immutability. In other words, Java will not enforce immutability as a
+language feature – the onus is on us to enforce our own
+best-practices.</p>
+<p>I don’t know about you, but I’ve found programming conventions and
+best-practices difficult to observe completely when left to my own
+devices.</p>
+<p>This is where Clojure enters the fray.</p>
+<h1 id="single-points-of-mutation">Single points of mutation</h1>
+<p>Clojure is a programming language in the Lisp family of languages
+that eschews promiscuous mutation. The core libraries and data
+structures are geared toward immutability by default. In fact, Clojure’s
+data-structures provide most of the same functionality as Guava, except
+in Clojure these features are exposed and enforced at the language
+level. Therefore, the problem of an adherence to convention is
+simplified vastly. However, let’s be realistic; sometimes mutation is
+needed. In the case where mutation really does seem like a good fit for
+any given problem at hand, Clojure provides multiple solutions.</p>
+<h2 id="reference-types">Reference types</h2>
+<p>Recall the image denoting the aforementioned web of mutation:</p>
+<figure>
+<img src="http://images.fogus.me/articles/web-of-confusion.png"
+alt="web of confusion" />
+<figcaption aria-hidden="true">web of confusion</figcaption>
+</figure>
+<p>Clojure’s model of mutation attempts to simplify the model from the
+chaos above by distilling the points of mutation into as few points of
+evil as possible; preferably one:</p>
+<figure>
+<img src="http://images.fogus.me/articles/single-point.png"
+alt="single point" />
+<figcaption aria-hidden="true">single point</figcaption>
+</figure>
+<p>Clojure offers a set of reference types that provide a mutation model
+centered on singular points of mutation. References types can be viewed
+as containers for values – where values are things that cannot be
+changed like the number <code>9</code> or the immutable vector
+<code>[1 2 3]</code>. Clojure therefore allows mutation only at the
+boundary of the reference type under very specific semantic constraints.
+The precise mutation semantics of each reference type are beyond the
+scope of this article,[^more-ref] but common among each is that the
+mutation occurs as the result of a function call given the reference
+type’s current value.</p>
+<h2 id="atoms">Atoms</h2>
+<p>The simplest of Clojure’s mutable reference types is the Atom. Simply
+put, the Atom implements thread-safe compare-and-swap logic for
+mutation.</p>
+<pre><code>(def TIME (atom 0))</code></pre>
+<p>The Atom <code>TIME</code> when created will hold the value
+<code>0</code>. To get at the value inside Clojure provides a
+dereferencing function <code>deref</code> (<em>note, the symbol
+<code>;=&gt;</code> denotes a function return value</em>):</p>
+<pre><code>(deref TIME)
+;=&gt; 0</code></pre>
+<p>All of Clojure’s reference types adhere to a simple interface for
+retrieving their value using <code>deref</code> (or the syntactic
+<code>@</code> operator, that does the same thing). To update the value
+in the Atom <code>TIME</code> Clojure uses the <code>swap!</code>
+function that itself takes the Atom and a update function that will be
+used to calculate a new value from the current value:</p>
+<pre><code>(swap! TIME inc)
+
+@TIME
+;=&gt; 1</code></pre>
+<p>You can also pass arguments to the update function (where
+applicable):</p>
+<pre><code>(swap! TIME + 100)
+
+@TIME
+;=&gt; 101</code></pre>
+<p>Internal to the <code>swap!</code> function, the preceding will be
+executed as such:</p>
+<ol type="1">
+<li>Get the current value of <code>TIME</code> from the Atom</li>
+<li>Calculate <code>(+ &lt;current value&gt; 100)</code></li>
+<li>Check if the value in the Atom is the same as before</li>
+<li>If it is, then set the new value to the calculated value</li>
+<li>Else Retry from step 1</li>
+</ol>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

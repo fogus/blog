@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>monkeying-with-clojures-comp-function</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>A slight modification to Clojure’s <code>comp</code> function gives
+me more power:</p>
+<pre class="prettyprint lang-clj">
+(defn comp+
+  ([] identity)
+  ([f] f)
+  ([f g] 
+     (fn 
+       ([] (f (g)))
+       ([x] (f (g x)))
+       ([x y] (f (g x y)))
+       ([x y z] (f (g x y z)))
+       ([x y z & args] (f (apply g x y z args)))))
+  ([f g h] 
+     (fn 
+       ([] (f (g (h))))
+       ([x] (f (g (h x))))
+       ([x y] (f (g (h x y))))
+       ([x y z] (f (g (h x y z))))
+       ([x y z & args] (f (g (apply h x y z args))))))
+  ([f1 f2 f3 & fs]
+    (let [fs (reverse (list* f1 f2 f3 fs))]
+      (fn [& args]
+        (loop [ret (apply (first fs) args) fs (next fs)]
+          (if fs
+            (recur ((first fs) ret) (next fs))
+            ret))))))
+
+;; allowing
+(require ‘clojure.string)
+
+(for [f (map #(apply comp+ %)
+             [[keyword name]
+              []
+              [name clojure.string/upper-case]])
+      e '[foo bar]]
+  (f e))
+
+;=> (:foo :bar foo bar "FOO" "BAR")
+</pre>
+<p>I added a function body to <code>comp+</code> handling the case where
+it’s given no function, returning the <code>identity</code> function.
+This let’s me use <code>comp+</code> in more interesting ways without
+requiring that I handle the case of no arguments explicitly and without
+exploding when I don’t.</p>
+<p>Just one of those little things I guess.</p>
+<p>:f</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

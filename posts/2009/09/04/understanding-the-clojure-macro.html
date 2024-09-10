@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>understanding-the-clojure-macro</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p><em>Translations: [<a
+href="http://t100life.blog121.fc2.com/blog-entry-213.html">日本語</a>]</em></p>
+<p>On page 109 of <a href="http://www.paulgraham.com">Paul Graham’s</a>
+<em>ANSI Common Lisp</em> he describes a function <a
+href="http://www.opendylan.org/books/drm/Functional_Operations#HEADING-104-2"><code>compose</code></a>
+taken from the <a href="http://www.opendylan.org">Dylan programming
+language</a>. The function described is very similar to the <a
+href="http://clojure.org/API#toc35"><code>-&gt;</code></a> macro that
+often confuses many a new Clojurian. In order to better understand this
+little nasty, I’ve found it useful to think of it as an arrow indicating
+the flow of data from one function to another. That is, the follow:</p>
+<p><code>(-&gt; (Math/sqrt 25) int list)</code></p>
+<p>Can literally be read:</p>
+<ol type="1">
+<li>Take the result of <code>(Math/sqrt 25)</code></li>
+<li>Feed it into the function <code>int</code></li>
+<li>Feed that result into the function <code>list</code></li>
+</ol>
+<p>Graphically, this can be viewed as:</p>
+<pre><code>(Math/sqrt 25) --5.0--&gt; (int 5.0) --5--&gt; (list 5) 
+=&gt; (5)</code></pre>
+<p>Which expands into the following <a
+href="http://en.wikipedia.org/wiki/S-expression">s-expression</a>:</p>
+<pre><code>(list (int (Math/sqrt 25)))</code></pre>
+<p>When viewed this way, the <code>-&gt;</code> macro can be said to
+“thread” <a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> a sequence of forms into each in
+turn. This threading can be done within any form and is <em>always</em>
+stitched in as the second argument to the outermost s-expression.
+Clojurians will sometimes use the comma <a href="#fn2"
+class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> as
+a visual marker for the stitch point:</p>
+<pre><code>(-&gt; (/ 144 12) (/ ,,, 2 3) str keyword list)
+=&gt; (:2)
+
+(-&gt; (/ 144 12) (* ,,, 4 (/ 2 3)) str keyword (list ,,, :33))
+=&gt; (:32 :33)</code></pre>
+<p>Unfortunately, the documentation for <code>-&gt;</code> does not do
+justice to its power, but hopefully things are a little more clear
+now.</p>
+<p>-m</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Not the <code>java.lang.Thread</code> kind of thread.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Since commas are considered whitespace. The number of
+comma’s used as a marker is a matter of taste.<a href="#fnref2"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

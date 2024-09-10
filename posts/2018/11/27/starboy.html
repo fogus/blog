@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>starboy</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>While listening to <a
+href="https://www.amazon.com/Starboy-Weeknd/dp/B01MPXXBNB/?tag=fogus-20">Starboy
+by The Weekend</a> I’m reminded about some codebases that I have to dive
+into more deeply. When reading codebases, be they for fun or profit, I
+tend to take a systematic approach to exposing them, described as:</p>
+<ul>
+<li><strong>Get it building and running</strong> - not always as easy as
+it should/could be.</li>
+<li><strong>Change code to break it</strong> - Once it’s going I try to
+make changes to understand how and why they break things.</li>
+<li><strong>Understand all comments</strong> - Where applicable.</li>
+<li><strong>Delete all comments</strong> - To avoid biases.</li>
+<li><strong>Rename like mad</strong> - Going over the code I tend to
+rename functions and structures to fit my *current( understanding. This
+is an iterative approach as mu understanding deepens. In good codebases
+my final rename matches closely the original names.</li>
+<li><strong>Draw pictures</strong> - This is an ongoing and also
+iterative process.</li>
+<li><strong>Refactor code</strong> - Once I think I understand what it’s
+doing I try and refactor the code to my understanding. This hearkens
+back to breaking things. :p</li>
+<li><strong>(Re) Add comments</strong> - Comments are added back based
+on the understanding achieved (or not) and modifications made.</li>
+<li><strong>Read, read, read</strong> - Supplemental reading is an
+ongoing act.</li>
+</ul>
+<p>Some great codebases I’ve read and mucked around with include:</p>
+<h3 id="c">C</h3>
+<ul>
+<li><a href="https://sourceforge.net/projects/clipsrules/">CLIPS</a> -
+Expert system shell and programming environment
+<ul>
+<li>Supplemental reading: <em><a
+href="https://www.amazon.com/Expert-Systems-Principles-Programming-Fourth/dp/8131501671/?tag=fogus-20">Expert
+Systems: Principles and Programming</a></em></li>
+</ul></li>
+<li><a href="https://nullprogram.com/blog/2014/01/04/">Emacs</a> - The
+bytecode interpreter is especially interesting</li>
+<li><a href="https://github.com/IoLanguage/io">io</a> - Prototypal
+programming language</li>
+</ul>
+<h3 id="clojure">Clojure</h3>
+<ul>
+<li><a href="https://github.com/clojure/core.logic">core.logic</a> -
+Logic programming library for Clojure &amp; ClojureScript
+<ul>
+<li>Supplemental reading: <em><a
+href="https://www.amazon.com/dp/B07B9SL4LR/?tag=fogus-20">The Reasoned
+Schemer</a></em></li>
+</ul></li>
+</ul>
+<h3 id="pascal">Pascal</h3>
+<ul>
+<li><a
+href="https://www.amazon.com/Structures-Using-Pascal-Aaron-Tenenbaum/dp/0131966685/?tag=fogus-20">The
+data structures book I had 1-million years ago</a></li>
+</ul>
+<h3 id="javascript">JavaScript</h3>
+<ul>
+<li><a
+href="https://github.com/osteele/functional-javascript">Functional
+JavaScript</a> - Oliver Steele’s original functional library for JS.
+<ul>
+<li>Supplemental reading: <em><a
+href="https://www.amazon.com/Functional-JavaScript-Introducing-Programming-Underscore-js/dp/1449360726/?tag=fogus-20">My
+own thing</a></em></li>
+</ul></li>
+<li><a
+href="https://github.com/cognitect-labs/transducers-js">transducers-js</a>
+- Transducers implementation in JS</li>
+</ul>
+<h3 id="lua">Lua</h3>
+<ul>
+<li><a href="https://github.com/bakpakin/Fennel">Fennel</a> - A Lisp
+compiler targeting the Lua runtime</li>
+</ul>
+<h3 id="c-1">C++</h3>
+<ul>
+<li><a href="https://github.com/factor/factor">Factor</a> - The VM for
+Factor is pretty amazing</li>
+</ul>
+<h3 id="java">Java</h3>
+<ul>
+<li><a href="https://github.com/google/guava">Guava</a> - Google’s Java
+libraries
+<ul>
+<li>Supplemental reading: <a
+href="https://github.com/google/guava/wiki/PhilosophyExplained">The
+Guava Philosophy</a></li>
+</ul></li>
+</ul>
+<h3 id="basic">BASIC</h3>
+<ul>
+<li><a href="https://10print.org">10 PRINT</a> - A book about a tiny
+fragment of Commodore 64 BASIC</li>
+</ul>
+<h3 id="rust">Rust</h3>
+<ul>
+<li><a href="https://github.com/phil-opp/blog_os">intermezzOS</a> - A
+small and simple OS kernel.
+<ul>
+<li>Supplemental reading: <a
+href="https://github.com/intermezzos/kernel">The book of the same
+codebase</a></li>
+</ul></li>
+</ul>
+<h3 id="emacs-lisp">Emacs Lisp</h3>
+<ul>
+<li><a
+href="https://github.com/emacs-mirror/emacs/blob/d0e2a341dd9a9a365fd311748df024ecb25b70ec/lisp/emacs-lisp/advice.el">Advice</a>
+- Function advice implementation</li>
+</ul>
+<p>There are countless other interesting codebases to explore and over
+time I’ll point out some more. These should keep us busy for a
+while.</p>
+<p>:F</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

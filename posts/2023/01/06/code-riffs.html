@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>code-riffs</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p><a href="http://blog.fogus.me/wp-content/uploads/2023/01/vs.png"><img src="http://blog.fogus.me/wp-content/uploads/2023/01/vs.png" alt="" width="526" height="611" class="aligncenter size-full wp-image-6877" /></a></p>
+<p>Once upon a time I was deep into the MD/DC/VA area punk scene, and
+believe it or not I played in my share of bands and participated in my
+share of punk shows – both in the crowd and sometimes even on stage. I
+look back on this time fondly, but to be honest I can’t say that I ever
+contributed any song to the universe of music that was worth listening
+to. That said, while I can’t claim to have been a talented song-writer,
+like many aspiring musicians I did discover my fair share of riffs along
+the way.</p>
+<p>A riff is an interesting little musical phrase that one often comes
+across whilst playing around with a guitar in a casual fashion. Very
+often riffs form the seeds of what becomes fully-realized songs.
+Sometimes these songs are good and sometimes they’re not, but in most
+cases they are grown like crystals from the original musical fragment
+found on the fret-board. For musicians, both practicing and aspiring,
+the riff represents a universe of potential out of which any number of
+potential works of musical art may spawn.</p>
+<p>A few years ago I devised a phrase that I called <a
+href="https://blog.fogus.me/2015/02/16/code-painting/">Code Painting</a>
+describing source code that: told a story, was usually not generally
+useful, was beautifully abstract, and created in the spirit of
+exploration. Unlike a code painting, a code riff is more atomic and
+often addresses a singular notion. If I were to characterize the
+attributes of a code riff then perhaps the following will suffice:</p>
+<ul>
+<li>A code riff exists independent to a project narrative</li>
+<li>A code riff need not be useful</li>
+<li>A code riff is often “found” during the act of playful programming
+or sprung forth from one’s mind</li>
+<li>A code riff should be beautiful, abstract, and as amusing if
+possible</li>
+<li>A code riff should invoke <a
+href="https://blog.fogus.me/2013/09/04/a-ha-ha-ha-aah/">Huh? A ha! Ha
+ha!</a> <a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a></li>
+</ul>
+<p>In my time I’ve created my share of code riffs; some that inspired
+something more and some still ripe with potential. If you’re interested
+in some code riffs then a few are available on Github as <a
+href="https://github.com/fogus/tori-lisp">Tori Lisp</a>, <a
+href="https://github.com/fogus/evalive">Evalive</a>, and <a
+href="https://github.com/fogus/unfix">Unfix</a> and additionally the
+<code>break</code> macro in chapter 17 of <a
+href="https://www.amazon.com/Joy-Clojure-Michael-Fogus/dp/1617291412?tag=fogus-20">The
+Joy of Clojure</a>.</p>
+<p>Here’s a Clojure code riff from a presentation that I gave many years
+ago called “The Magnificent Seven”:</p>
+<pre><code>(def NIL ((fn [x y] (if (= x y) x)) = (= = =)))
+
+(def CAR (fn [[h & _]] h))
+(def CDR  (fn [[_ & t]] t))
+
+(def CONS
+  (fn [h t]
+    (fn ([] h)
+        ([_] t))))
+
+(def FIRST (fn [s] (s)))
+(def REST (fn [s] (s NIL)))
+
+(FIRST (CONS 1 (CONS 2 NIL)))
+;;=> 1
+
+(FIRST (REST (CONS 1 (CONS 2 NIL)))
+;;=> 2
+</code></pre>
+<p>Do you have any code riffs to share?</p>
+<p>:F</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Rich Hickey, the creator of <a
+href="http://www.clojure.org">Clojure</a>, is a master of code riffs.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

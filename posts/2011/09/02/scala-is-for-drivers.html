@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>scala-is-for-drivers</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p><em>this post inspired by Volkswagen’s excellent marketing campaign
+‘Drivers Wanted’</em></p>
+<p>An unfortunate meme<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> dogging Scala is the notion that it
+is <a href="#link-removed">a notoriously complicated language</a>. For
+better or worse, I do believe that the lion-share of this general
+perception is fueled by both fear and lack of familiarity. That’s not to
+say that Scala doesn’t have its share of complexities, instead the
+fearful perception doesn’t map to the realities of the language
+experienced after consistent usage. Having said all of that, I think
+it’s important to note that Scala is designed to solve very hard
+problems and because of this there is a definite set of highly abstract
+ideas that, if one is unfamiliar with it or languages like it, possess a
+very sharp learning curve. However, an important point to ponder
+regarding learning curves is this:</p>
+<blockquote>
+<p>The complexity of a language cannot be defined solely in terms of the
+pain felt in the initial stages of learning.</p>
+<p>– me</p>
+</blockquote>
+<p>Let’s try to attach a picture to this idea.</p>
+<h1 id="scalas-cliff-of-insanity">Scala’s cliff of insanity</h1>
+<p>If someone (me again) familiar with both Scala and Java were to
+describe the complexity curve of the <em>former</em> it might look
+something like this:</p>
+<figure>
+<img
+src="http://blog.fogus.me/wp-content/uploads/2011/09/scala-complexity.png"
+title="The Cliff of insanity" alt="scala-cliff" />
+<figcaption aria-hidden="true">scala-cliff</figcaption>
+</figure>
+<p>A description of this image could be described as such:</p>
+<ol type="1">
+<li>The initial smoothness is indicative of a simple, low-ceremony
+<code>"Hello World"</code> example and the fact that it is super-easy to
+write Java-flavored Scala</li>
+<li>The massive spike is indicative of the reality that Scala is a very
+powerful language chock full of powerful abstractions, syntactic
+flexibilities, and paradigm-ness<a href="#fn2" class="footnote-ref"
+id="fnref2" role="doc-noteref"><sup>2</sup></a></li>
+<li>Eventually one comes to learn how the powerful features can be
+properly used and how robust and maintainable Scala code is
+constructed</li>
+<li>However, another spike hits when one learns that the powerful
+abstractions are <a href="https://github.com/scalaz/scalaz">building
+blocks for even more powerful abstractions</a></li>
+<li>Eventually, the complexities of the language itself become second
+nature, make sense in the context of the whole, and stay out of the
+way,<a href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a> leaving one to concentrate on the
+problems at hand</li>
+</ol>
+<p>This complexity curve is indicative of the most powerful programming
+languages.<a href="#fn4" class="footnote-ref" id="fnref4"
+role="doc-noteref"><sup>4</sup></a></p>
+<h1 id="javas-cliff-of-inanity">Java’s cliff of inanity</h1>
+<p>If someone familiar with both Scala and Java were to describe the
+complexity curve of the <em>latter</em> it might look something like
+this:</p>
+<figure>
+<img
+src="http://blog.fogus.me/wp-content/uploads/2011/09/java-complexity.png"
+title="The Cliff of inanity" alt="java-cliff" />
+<figcaption aria-hidden="true">java-cliff</figcaption>
+</figure>
+<p>A description of this image could be described as such:</p>
+<ol type="1">
+<li>The initial smoothness is indicative of a simple, but ceremonious
+<code>"Hello World"</code> example and the fact that Java is designed
+for ease of introduction <a href="#fn5" class="footnote-ref" id="fnref5"
+role="doc-noteref"><sup>5</sup></a></li>
+<li>The moderate spike is indicative of the reality that good
+object-oriented programming is hard</li>
+<li>However, while the complexity curve’s slope decreases, it continues
+to climb. The reason for this is that Java is chock full of incidental
+complexities, language foibles, and type system inconsistencies</li>
+<li>Alas with the help of powerful IDEs, one can eventually come to
+gripes with the foibles. However, the language never gets out of your
+way. There is a definite, <a
+href="http://sites.google.com/site/steveyegge2/language-trickery-and-ejb">tangible
+limit to the abstractions provided by Java</a> and these limitations
+constantly impose additional complexities on the already complex
+problems one is trying to solve</li>
+</ol>
+<p>This complexity curve is indicative of <a
+href="http://www.yesodweb.com/blog/2011/08/perils-partially-powered-languages">partially
+powered programming languages</a>.</p>
+<h1 id="cars">Cars</h1>
+<p>I can’t stand cars. Nothing is more boring to me than car talk. I
+like a car that will get me from here to there with reasonable fuel
+efficiency and safety. That’s it. I can appreciate the beauty and power
+of an Alfa Romeo 8C Competizione, but it doesn’t serve my current
+needs.</p>
+<p><img src="http://blog.fogus.me/wp-content/uploads/2011/09/car-300x220.jpg" alt="The height of enterprise offerings" title="car" width="300" height="220" class="aligncenter size-medium wp-image-3545" /></p>
+<p>However, if I ever have the need for a fast get-away<a href="#fn6"
+class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>
+then my car will fight me at higher-speeds and then eventually simply
+break-down. Clearly my car is not designed to meet the needs of a
+fast-paced environment and because I’ve never had such a need neither am
+I.</p>
+<p>Scala is an Alfa Romeo.</p>
+<p>Drivers wanted.<a href="#fn7" class="footnote-ref" id="fnref7"
+role="doc-noteref"><sup>7</sup></a></p>
+<p>:F</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>FUD?<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><em>My language has more paradigms than yours</em>
+coming soon to a t-shirt near you.<a href="#fnref2"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>That’s not to say that there is no room for improvement
+in Scala’s handling of powerful abstractions. For example, the hoops
+required to facilitate the use of <a
+href="http://debasishg.blogspot.com/2010/06/scala-implicits-type-classes-here-i.html">type
+classes</a> in Scala are extremely cumbersome. Scala would be better
+served by a first-class syntactic treatment of type classes, but I alas
+I have not thought this through to its logical end and am ready to be
+convinced otherwise.<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Some of these powerful programming languages are found
+in my blog post about <a
+href="http://blog.fogus.me/2011/08/14/perlis-languages/">Perlis
+Languages</a>.<a href="#fnref4" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>A alternative, but wholly inflammatory way to describe
+this post can also be stated as: Scala helps programmers solve hard
+programming problems - Java helps human resources solve staffing
+problems. But I thought this might be a little over the top. Funny yes,
+but definitely over the top.<a href="#fnref5" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>No one expects the zombie apocalypse.<a href="#fnref6"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>However, there is a lot of effort spent on the matter of
+Scala’s perception of complexity. I’m of the opinion that those involved
+in its development and marketing should just step back and say “Yeah. So
+what? So is Spring. Programming is hard and only set to get harder and
+Scala can help you meet these growing complexities.” Any time spent on
+the development of Scala that does not directly benefit “drivers” is
+time wasted IMO.<a href="#fnref7" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

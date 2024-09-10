@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>saru-chess-uml-v002</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+I have revised the SaruChess UML! The semester is over and time is
+abundant. The following revisions were made:<BR>
+<OL>
+<LI>
+The packages were folded into the main UML in order to get a better feel
+for how everything fits together.
+</LI>
+<LI>
+The framework classes were color coded baby blue.
+</LI>
+<LI>
+Added the Transposition Table and History classes in order to strengthen
+the search engine.
+</LI>
+<LI>
+Added a Move Sorter, but this was a mistake. It will be removed in the
+next revision. Its functionality is inherent in the Evaluation Engine.
+</LI>
+<LI>
+Plugged in some chess-specific classes.
+</LI>
+<LI>
+Added a Movement class as part of the Piece class. Movement will serve
+to describe how a piece moves. This class may have to be tightly coupled
+with the ChessBoard object, but at the moment I have no idea how to get
+past that.
+</LI>
+<LI>
+Added a Principal variation class.
+</LI>
+</OL>
+<p><BR> <IMG SRC="./images/GameFramework_rev1.gif"><BR> -m</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>clojures-pre-and-post</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>One of the more exciting features of the upcoming Clojure 1.1 release
+is the inclusion of pre and post assertion functions. Some preliminary
+details can be <a href="http://clojure.org/special_forms#toc10">found in
+the Clojure documentation</a>, but I thought I’d quickly cover a simple
+example with potentially far-reaching implications; the case of making
+<code>:post</code> assertions relative to the input argument(s).</p>
+<p>Let’s re-write the simple function <code>constrained-sqr</code> as
+found in the Clojure documentation linked above and re-cast it as
+<code>constrained-fn</code>:</p>
+<pre lang="lisp">
+(defn constrained-fn [f x]
+  {:pre  [(pos? x)]
+   :post [(= % (* 2 x))]}
+  (f x))
+
+(constrained-fn #(* 2 %) 2)
+;=> 4
+(constrained-fn #(float (* 2 %)) 2)
+;=> 4.0
+(constrained-fn #(* 3 %) 2)
+;=> java.lang.Exception: Assert failed: (= % (* 2 x))
+</pre>
+<p>So what have I done? By specifying a <code>:post</code> assertion of
+<code>(= % (* 2 x))</code> I’ve constrained the passed function
+<code>f</code> to be (effectively) a doubling function. I’ve done this
+by constraining the result of <code>constrained-fn</code> relative to
+its input. There is nothing entirely ground-breaking about pre and post
+conditions, but they are surprisingly powerful. By stripping out the
+assertions into a wrapper function I’ve detached some hairy logic from a
+potentially globally useful function and isolated it in an
+<em>aspect</em> (if you will) named <code>constrained-fn</code>. Now we
+could wrap the function <code>f</code> using a different constraining
+function depending on the context in which it is intended to be used;
+for example <code>jimmys-fn</code>, <code>logged-result-fn</code>,
+<code>only-ints-fn</code>, <code>payroll-dept-fn</code>, etc… In fact, I
+like that word <em>aspect</em>; it has a nice ring to it. I wonder if <a
+href="http://people.cs.ubc.ca/~gregor">anyone</a> has <a
+href="http://en.wikipedia.org/wiki/Aspect-oriented_programming">thought</a>
+of that before?</p>
+<p>-m</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

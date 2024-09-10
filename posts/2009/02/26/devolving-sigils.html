@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>devolving-sigils</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>Sigils are little symbols attached to a variable name that provide
+some information regarding its type, scope, or simply marking it as
+different from non-variables. There is very little middle-ground on the
+opinion toward variable <a
+href="http://en.wikipedia.org/wiki/Sigil_(computer_programming)">sigils</a>
+among programmers; you either love them, or you hate them. The
+quintessential language containing sigils is probably Perl, followed by
+BASIC, and more recently Ruby. I pick these three because they use
+sigils for different purposes:</p>
+<ol type="1">
+<li>BASIC <a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> sigils denote datatypes</li>
+</ol>
+<ul>
+<li><code>foo$</code> denotes a variable holding a string</li>
+<li><code>foo%</code> denotes an integer</li>
+</ul>
+<ol start="2" type="1">
+<li>Perl sigils denote a datatype category <a href="#fn2"
+class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a></li>
+</ol>
+<ul>
+<li><code>$foo</code> denotes a scalar type</li>
+<li><code>@foo</code> denotes an array</li>
+<li><code>%foo</code> denotes a hash</li>
+<li><code>&amp;foo</code> denotes a subroutine</li>
+</ul>
+<ol start="3" type="1">
+<li>Ruby sigils denote a variable’s scope <a href="#fn3"
+class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a></li>
+</ol>
+<ul>
+<li><code>$foo</code> denotes a global variable</li>
+<li><code>@foo</code> denotes an instance variable</li>
+<li><code>@@foo</code> denotes a class variable</li>
+</ul>
+<p>I personally like sigils – very much so. However, I tend to prefer
+the types of sigils used by Ruby rather than the finer-grained meaning
+attached to Perl and BASIC sigils (which is also the reason that I
+dislike <a
+href="http://en.wikipedia.org/wiki/Hungarian_notation">Hungarian
+notation</a>). I like being able to read my source and, at a glance,
+soak in the maximum amount of information. Sigils, when used sparingly,
+can provide a tremendous service. However, there is a fine line between
+sigils providing useful information and those akin to <a
+href="http://onestepback.org/index.cgi/Tech/Ruby/LineNoise.rdoc">line-noise</a>.
+My head tends to swim when looking at some <a
+href="http://snippets.dzone.com/tag/perl">Perl code</a> due to the
+presence of sigils, but maybe that’s just me (<a
+href="http://steve.yegge.googlepages.com/ancient-languages-perl">probably
+not</a>). Therefore, when I set out to design <a
+href="/2008/08/19/project-doris/">my own experimental language</a>,
+effective sigils were high on my wish list.</p>
+<h2 id="first-cut">First Cut</h2>
+<p>Since my sandbox programming language <a
+href="http://github.com/fogus/ix/tree/master">Ix</a> is based on the <a
+href="http://clipsrules.sourceforge.net/">CLIPS</a> source base, I
+wholly adopted the CLIPS convention. That is, CLIPS denotes variables
+using by pre-pending <code>?</code> or <code>$?</code> to the front of a
+symbol. By convention, the former was meant to denote a scalar while the
+latter was meant for multifield <a href="#fn4" class="footnote-ref"
+id="fnref4" role="doc-noteref"><sup>4</sup></a> variables, but they
+could both be used interchangeably <a href="#fn5" class="footnote-ref"
+id="fnref5" role="doc-noteref"><sup>5</sup></a>. Therefore, a simple
+reduce function initially looked like this:</p>
+<pre lang="ix">
+fn( reduce
+  [?f $?lst]
+  if(empty?($?lst)
+    call(?f)
+  else
+    call(?f first($?lst)
+            reduce(?f rest($?lst)))))
+
+reduce(_(1 2 3 4 5) +)
+</pre>
+<p>Not too bad, but the sigils clutter up what is effectively a succinct
+function. As an added disadvantage, I decided a long time ago that
+predicate functions in Ix should have a question mark at the end of
+them; therefore, in this small function the question mark has two
+different meanings depending on the context. But even still, I stuck
+with this syntax for months.</p>
+<h2 id="second-cut">Second Cut</h2>
+<p>After writing a pile of code in the first version of Ix, I decided to
+add some syntactic sugar for the <code>(call)</code> function (see its
+usage above). As a result, the code above became:</p>
+<pre lang="ix">
+fn( reduce
+  [?f $?lst]
+  if(empty?($?lst)
+    ?f()
+  else
+    ?f(first($?lst)
+       reduce(?f rest($?lst)))))
+
+reduce(_(1 2 3 4 5) +)
+</pre>
+<p>This looked a little better than the original, but there were a
+couple of issues that stuck with me:</p>
+<ol type="1">
+<li>The <code>$?</code> sigil was still too noisey</li>
+<li>The <code>?f()</code> form is hideous, and <code>$?f()</code> even
+moreso</li>
+<li>The issue of differing meanings for <code>?</code> still
+remained</li>
+</ol>
+<h2 id="third-cut">Third Cut</h2>
+<p>I initially decided to live with issues #2 and #3 and instead remove
+the $? form altogether.</p>
+<pre lang="ix">
+fn( reduce
+  [?f ?lst]
+  if(empty?(?lst)
+    ?f()
+  else
+    ?f(first(?lst)
+       reduce(?f rest(?lst)))))
+
+reduce(_(1 2 3 4 5) +)
+</pre>
+<p>Better? It took me a while to learn to hate this new syntax, but
+eventually I did. While reducing the <code>$?</code> noise, it
+introduced a whole new problem. That is, when calling predicate
+functions, the pattern <code>?(?</code> tended to cause mass confusion
+(at least for me). My mind would often fill in the second question mark
+even in its absence thus turning something like <code>symbol?(x)</code>
+into <code>symbol?(?x)</code>. Why is this a problem instead of and
+outright syntax error? The answer is that symbols in Ix are defined as
+any sequence of characters not starting with a number, and not
+containing a small set of delimiters. <a href="#fn6"
+class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>
+Therefore, in the first call <code>x</code> is a symbol and thus the
+call to <code>symbol?()</code> always evaluates to true. It took me only
+a few frustrating debugging sessions to see the err of my ways.</p>
+<h2 id="today">Today</h2>
+<p>After much despairing over the seeming disparity between wishing to
+keep sigils and requiring the presence of symbols as defined above, I
+hit on a very nice compromise. That is, who’s to say that a sigil
+<strong>must</strong> be a non-alphabetical character (or sequence
+thereof)?</p>
+<pre lang="ix">
+fn( reduce
+  [F Lst]
+  if(empty?(Lst)
+    F()
+  else
+    F(first(Lst)
+      reduce(F rest(Lst)))))
+
+reduce(_(1 2 3 4 5) +)
+</pre>
+<p>So what happened? Simple. Variables are now identified as starting
+with a capital letter. Assuredly, this is nothing new in the history of
+programming language design, but it did solve nicely the issues
+above:</p>
+<ol type="1">
+<li>Less visible noise</li>
+<li>Variables and symbols are clearly delineated</li>
+<li>F() looks much nicer</li>
+<li>There is now only one meaning of <code>?</code></li>
+</ol>
+<p>Of course, the <code>symbol(x)</code> issue now evolved into
+<code>symbol(X)</code> issue, I found that the occurrences of this
+mistake disappeared once the confusing <code>?(?</code> pattern
+disappeared likewise. I think I’ve hit on the right formula for sigils
+in Ix. That is, I’ve reduced the granularity of their meaning to be
+agnostic of type and scope, while at the same time clearly separating
+symbols from variables.</p>
+<p>Sigils are nice; <a
+href="http://books.google.com/books?id=W6IycFk3VZ0C&amp;pg=PA19&amp;lpg=PA19&amp;dq=%22wank+technique%22&amp;source=bl&amp;ots=QjIgLlLwoE&amp;sig=hWaLEGOnYXq_yUucVmYm6E6Mg2w#PPA20,M1">as
+long as they are not abused</a>.</p>
+<p>-m</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Not all dialects use sigils in the same way.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Perl 6 introduces something called a twigil, that is a
+secondary sigil denoting scope<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Ruby symbols are prefixed by the <code>:</code>
+character, but that is the syntax for a symbol literal (thanks <a
+href="http://olabini.com/blog">Ola</a>)<a href="#fnref3"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>A multifield is essentially a list restricted to depth
+1.<a href="#fnref4" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>That is, until the introduction of sequence expansion in
+CLIPS v6.<a href="#fnref5" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Example of valid symbols: foo, b12, +, and
+jfkdashnsadjhio1231231123123@#@#!<span
+class="math inline">$#%#!#@@$</span>#<strong><em>+</em>+<em>+</em></strong>_<em>+</em>++++<a
+href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>a-ha-ha-ha-aah</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>When I first started using Clojure I was often very confused. My
+previous context before finding Clojure was one where things like Java,
+an object-oriented mindset and bang-in-place update models reigned. So,
+as you can imagine, that Clojure took a very different approach to
+modeling time and preferring functional composition seemed to me quite a
+hurdle to jump. However, with some perseverance and free-time little
+things about Clojure gradually started to make sense. For example, when
+I first encountered the <a
+href="http://blog.fogus.me/2009/09/04/understanding-the-clojure-macro/">“threading
+macros”</a> <code>-&gt;</code> and <code>-&gt;&gt;</code> I was
+mystified. I don’t know why. There was simply a blockage for a day and a
+half that I simply couldn’t overcome. However, at the same time I
+learned that in Clojure the comma is considered a whitespace
+character.</p>
+<p><strong>A ha!</strong></p>
+<p>That was it! I instantly understood how I could get over my blockage
+regarding <code>-&gt;</code> and <code>-&gt;&gt;</code>. That is, I
+could just put some commas into the stitch point of the threading macros
+to visually show where the flow was occurring from call to call –
+something like this:<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a></p>
+<pre><code>(-&gt; (/ 144 12) (/ ,,, 2 3) str keyword list)</code></pre>
+<p>But you know what? I did that for about half a day before I stopped
+using it. I didn’t need it any more. I had become enlightened in that
+tiny way.</p>
+<p>Later in my career and long after I had seemingly exhausted my a ha
+moments I had the honor and pleasure of working with <a
+href="http://stuartsierra.com/">Stuart Sierra</a> and <a
+href="https://twitter.com/brentonashworth">Brenton Ashworth</a> on a
+system that would, as it turns out, serve as the spark for some of the
+core thinking in <a href="http://pedestal.io/">Pedestal</a>. During that
+time I was exploring the idea of <a
+href="http://martinfowler.com/eaaDev/EventSourcing.html">event
+sourcing</a> and felt like I was finally starting to get it when Stuart
+and Brenton showed me a part of the system that they were working on
+rehydrate its state based on a stream of sequenced events.</p>
+<p><strong>Ha ha!</strong></p>
+<p>While I had done it before, it was this moment that I really started
+looking at systems, rather than just programming languages and
+applications through a Clojure-focused lens. You see, event sourcing fit
+so neatly with “The Clojure Way” that I should have seen it all along,
+but for whatever reason it didn’t click. I suppose looking back on it I
+must have always known of the fit, but it didn’t click until that
+moment. Programmers, chemists, architects, engineers and physicists
+often have these moments of realization punctuated by a laugh. The
+mechanism is much the same as that of a joke or likewise a Zen story –
+there is a blockage followed by a sudden realization followed by a
+laugh.</p>
+<p>Recently I’ve been working on a project that, to me, is the product
+of some long thought focused through a Clojure lens, the culmination of
+which has transported me into another frame of reference<a href="#fn2"
+class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> for
+systems building. Whether or not what I’ve created is novel is
+irrelevant, I’ve transcended the way that I previously viewed systems –
+there’re no turning back, yet all I did was to run some code, view a
+console message and say <strong>Aah…</strong></p>
+<p>These are the moments that we hope for as programmers. These three
+reactions are why we do what we do.</p>
+<p>:F</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p><em>Interfolation</em> (v) The act of inserting
+<code>,,,</code> into the stitch point of the Clojure threading macro
+for the sake of clarity and/or enlightenment.<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Arthur Koestler in <em><a
+href="http://www.amazon.com/The-Act-Creation-Arthur-Koestler/dp/0330244477/?tag=fogus-20">The
+Act of Creation</a></em> talks about these responses and how they relate
+to an unexpected unification between two different frames of reference.
+It’s a good read. Alan Kay discusses the same ideas when he occasionally
+talks about “something almost new.” The best discussion by Kay along
+these lines is probably <em><a
+href="http://www.youtube.com/watch?v=oKg1hTOQXoY">The computer
+revolution hasn’t happened yet</a></em>.<a href="#fnref2"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

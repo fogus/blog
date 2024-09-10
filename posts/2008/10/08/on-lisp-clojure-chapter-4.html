@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>on-lisp-clojure-chapter-4</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>; As always, I will post when the code is “complete”, but my progress
+can be followed on <a
+href="http://github.com/fogus/polyglot/tree/master/reading/onlisp">Github</a>.
+Also, this post is executable, just copy and paste into a Clojure
+REPL.</p>
+<blockquote>
+<p>Posts in this series: <a
+href="/2008/09/26/on-lisp-clojure-chapter-2/">ch. 2</a>, <a
+href="/2008/10/02/on-lisp-clojure-chapter-2-redux/">ch. 2 redux</a>, <a
+href="/2008/09/30/on-lisp-clojure-chapter-3/">ch. 3</a>, <a
+href="/2008/10/08/on-lisp-clojure-chapter-4/">ch. 4</a>, <a
+href="/2008/10/24/on-lisp-clojure-chapter-5/">ch. 5</a></p>
+</blockquote>
+<p>; pg. 42</p>
+<p>;; PG defines a general find function <code>(find2)</code> that given
+a function and a list, returns both the first matched value and the
+value returned from the matching function. The most direct translation
+to Clojure is:</p>
+;
+<pre lang="lisp">
+(defn findr [f sq]
+  (when (seq sq)
+    (let [value (f (first sq))]
+      (if (nil? value)
+        (recur f (rest sq))
+        [(first sq) value]))))
+
+(defn evenr [elem]
+  (if (even? elem)
+    "is even"))
+
+(findr evenr '(1 13 3 4))
+(findr evenr '(1 13 3 5)) 
+(findr evenr nil) 
+;</pre>
+<p>; pg. 45</p>
+<p>;; L@<span class="citation" data-cites="k">@k</span>: Why rseq not
+lazy.</p>
+<p>;; Clojure really shines with a simple problem like this because it
+will work on lists, vectors, sorted maps, and strings.</p>
+;
+<pre lang="lisp">
+(defn last1 [sq]
+  (last s))
+;</pre>
+;; Test for a sequence of one element ;
+<pre lang="lisp">
+(defn single [sq]
+  (and (seq? sq) (not (rest sq))))
+;</pre>
+<p>;; <code>(append1)</code> seems too complicated. It needs some work,
+but for now it works.</p>
+;
+<pre lang="lisp">
+(defn append1 [sq elem]
+  (if (seq elem)
+    (lazy-cons sq elem)
+    (concat sq (vector elem))))
+;</pre>
+<p>;; It’s generally frowned on to produce side-effects in Clojure along
+the lines of what PG’s <code>(conc1)</code> function does, but if you
+were so inclined it would be done as:</p>
+;
+<pre lang="lisp">
+(defn conc1 [sq elem]
+  (dosync
+   (if (seq? elem)
+     (ref-set sq (lazy-cons @sq elem))
+     (ref-set sq (concat @sq (vector elem))))))
+
+(def x (ref '(4 5 6)))
+@x
+(conc1 x 4)
+@x
+;</pre>
+;
+<pre lang="lisp">
+(defn makelist [elem]
+  (lazy-cons elem '()))
+;</pre>
+<p>; pg. 47</p>
+;
+<pre lang="lisp">
+(defn longer [x y]
+  (let [cmp (fn [x y]
+              (and (seq? x)
+                   (or (nil? y)
+                       (recur (rest x) (rest y)))))]
+    (if (and (seq? x) (seq? y))
+      (cmp x y)
+      (> (count x) (count y)))))
+;</pre>
+<p>;; The <a href="http://clojure.org/api#toc227">list-comprehension</a>
+macro supplied by Clojure provides a powerful way to filter a sequence
+based on a <code>:when</code> or <code>:while</code>. Therefore an
+implementation of the filter function is trivial.</p>
+;
+<pre lang="lisp">
+(defn filtr [f lst]
+  (for [x lst :when (f x)]
+    x))
+
+(filtr even? '(1 2 3 4))
+(filtr even? (range 100000)) 
+(filtr seq? '(1 2 3 (4 5) 6 [7] 8 (9) "10"))
+;</pre>
+<p>;; <code>(group)</code> could stand to be (a lot) more elegant</p>
+;
+<pre lang="lisp">
+(defn group [source n]
+  (if (zero? n) (pr "error: zero length"))
+  
+  (let [t (int (/ (count source) n))
+        remainder (drop (* n t) source)]
+    (lazy-cat 
+     (for [i (range t)]
+       (take n (nthrest source (* i n))))
+     (if (nil? remainder)
+       '()
+       (list remainder)))))
+
+(group '(1 2 3 4 5 6 7) 4)
+(group '(1 2 3 4 5 6 7) 400)
+;</pre>
+<p>; pg. 49</p>
+;
+<pre lang="lisp">
+(defn flatten [x]
+  (if (seq? x)
+    (apply concat (map flatten x))
+    (list x)))
+;</pre>
+<p>;; Clojure provides a powerful library for walking and editing trees
+functionally using a <a
+href="http://www.st.cs.uni-sb.de/edu/seminare/2005/advanced-fp/docs/huet-zipper.pdf">structure
+called a zipper</a>. The library is fairly comprehensive, and its power
+is apparent in a few minutes playtime. There are a couple of missing
+features (outlined below), but overall it makes something like PG’s
+prune function a piece of cake.</p>
+<p>;; One feature missing from the zip library is the ability to create
+a zip structure from any given type of seq-able data structure. That is,
+before you build a zipper you have to know the form of the data so that
+you can call one of <code>(seq-zip)</code>, <code>(vector-zip)</code>,
+or <code>(xml-zip)</code>. This is a minor point overall, but making the
+prune more generic requires some work up front.</p>
+;
+<pre lang="lisp">
+(defn zip-util [root]
+  (if (seq? root)
+    (zip/seq-zip root)
+    (zip/vector-zip root)))
+;</pre>
+<p>;; The prune function itself is taken alomst verbatim from the <a
+href="http://clojure.org/other_libraries">clojure zip examples</a>
+except for a couple minor changes, one of which is to allow a filter
+function to decide the pruning as in “On Lisp” plus a call to
+<code>(zip-util)</code> to handle different types of structures. Another
+useful feature missing from the zip library is a predicate that can be
+used to check if a structure is already a zipper. As it stands trying to
+zip a zipper throws an exception and there was no clear way (that I
+could find) to perform such a check.</p>
+;
+<pre lang="lisp">
+(defn prune [f tree]
+  (loop [loc (zip-util tree)]
+    (if (zip/end? loc)
+      (zip/root loc)
+      (recur
+       (zip/next
+        (if (f (zip/node loc))
+          (zip/remove loc)
+          loc))))))
+;</pre>
+<p>;; PG’s <code>(prune)</code> function works on nodes only, but I
+thought it might be better to work on branches also. Of course, this
+breaks the ability to just send in something like <code>(even?)</code>,
+but I think that is a minor tradeoff.</p>
+;
+<pre lang="lisp">
+(defn node-filter [x]
+  (if (zip/branch? x)
+    nil
+    (even? x)))
+
+(def s '(1 2 (3 (4 5) 6) 7 8 (9)))
+(def v [1 2 [3 [4 5] 6] 7 8 [9]])
+
+(prune node-filter s)
+(prune node-filter v)
+;</pre>
+<p>; pg. 50</p>
+<p>;; PG’s <code>(before)</code> is alomst a direct translation, except
+for one major difference: Clojure does not have default argument values.
+Therefore, one must always pass in a test function to get the same
+effect. I decided to drop the test function <em>for now</em> to simplify
+the function.</p>
+;
+<pre lang="lisp">
+(defn before? [x y sq]
+  (and sq
+       (let [elem (first sq)]
+         (if (= y elem)
+           nil
+           (if (= x elem) 
+             sq
+             (recur x y (rest sq)))))))
+
+(before? 'b 'c '(1 2 a b c))
+(before? 1 'c '(1 2 a b c)) 
+(before? 'a 1 '(1 2 a b c)) 
+
+
+;; This is from CS-101
+(defn member [x sq]
+  (if (seq sq)
+    (if (= x (first sq))
+      sq
+      (recur x (rest sq)))))
+
+(defn after? [x y sq]
+  (let [elem (before? y x sq)]
+    (and elem
+         (member x elem))))
+
+(after? 'b 'c '(1 2 a b c))
+(after? 'c 'a '(1 2 a b c))
+
+
+(defn duplicate? [obj sq]
+  (member obj (rest (member obj sq))))
+
+(duplicate? 'a '(1 2 a b c a d))
+
+;; Needs work
+(defn split-if [f sq]
+  [(for [x sq :when (f x)] x) (for [x sq :when (not (f x))] x)])
+
+(split-if #(= % 5) '(1 2 3 4 5 6 7 8 9 10))
+(split-if #(< % 5) '(1 2 3 4 5 6 7 8 9 10))
+(split-if #(> % 500) '(1 2 3 4 5 6 7 8 9 10))
+(split-if #(if (< % 7) true false) '(1 2 3 4 5 6 7 8 9 10))
+;</pre>
+<p>;; Something to note: Clojure provides shorhand notation for lambda’s
+containing a single call of #(). This notation allows for the passing of
+multiple arguments each accessed via the % operator (e.g. %1 %2
+etc…)</p>
+<p>; pg. 52</p>
+<p>;; Continuing with my abuse of the list-comprehension (only until it
+becomes second nature… any day now), the most function is pretty
+trivial.</p>
+;
+<pre lang="lisp">
+(defn most [f sq]
+    (let [wins (ref (first sq))
+          mx (ref (f @wins))]
+      (doall
+       (for [x (rest sq) :when (> (f x) @mx)]
+         [(dosync (ref-set wins x) (ref-set mx (f x)))]))
+      (list @wins @mx)))
+
+(most count '((1 2 3) (1 2))) 
+(most count '((1 2 3) (1 2 3 4)))
+;</pre>
+<p>;; It’s important to note that the <code>(for)</code> had to be
+wrapped in a <code>(doall)</code> because the former generates a <a
+href="http://clojure.org/sequences#toc43">lazy sequence</a> and will
+only supply the first argument, therefore you’re always going to see the
+first item in the sequence as the answer without the latter. It took me
+a while to track this down. :(</p>
+;
+<pre lang="lisp">
+(defn best [f sq]
+  (let [wins (ref (first sq))]
+    (last
+      (for [x (rest sq) :when (f x @wins)]
+        (dosync (ref-set wins x))))))
+
+(best > '(1 2 3 4 5)) 
+(best > '(1 2 7 4 5))
+(best > nil) 
+;</pre>
+<p>;; But of course, when Rich Hickey looked at my <code>(best)</code>
+function he gave me a virtual pat on the head and hit me with:</p>
+;
+<pre lang="lisp">
+<p>(defn best [f xs</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

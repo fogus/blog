@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>on-lisp-clojure-chapter-2-redux</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<blockquote>
+<p>Posts in this series: <a
+href="/2008/09/26/on-lisp-clojure-chapter-2/">ch. 2</a>, <a
+href="/2008/10/02/on-lisp-clojure-chapter-2-redux/">ch. 2 redux</a>, <a
+href="/2008/09/30/on-lisp-clojure-chapter-3/">ch. 3</a>, <a
+href="/2008/10/08/on-lisp-clojure-chapter-4/">ch. 4</a>, <a
+href="/2008/10/24/on-lisp-clojure-chapter-5/">ch. 5</a></p>
+</blockquote>
+<p>; It seems that my first two chapters were well received, and
+garnered some positive comments and constructive criticisms (except for
+the commenter who talked about viagra and offshore betting). The main
+point made by readers was that my code was not Clojure-esque enough.
+Therefore, I went back to the <a href="http://clojure.org/">online
+documentation</a> and rethought my approach. Therefore, I present some
+refactored functions:</p>
+<p>; pg. 15</p>
+<p>;; It turns out that my original implementation of remove-if would
+trash the stack with very large lists. This can be verified by (on my
+setup at least) with <code>(remove-if even? (range 1000000))</code>.
+After digesting some tips from <a
+href="http://chouser.n01se.net/">Chouser</a>, I chose to rewrite the
+function using <a
+href="http://clojure.org/special_forms#toc10">recur</a> and <a
+href="http://clojure.org/api#toc277">lazy-cons</a>. However, I have to
+admit that the documentation for both was … spartan.</p>
+;
+<pre lang="lisp">
+(defn remove-if [f lst]
+  (if (seq lst) ; idiomatic
+    (if (f (first lst))
+      (recur f (rest lst))
+      (lazy-cons (first lst) (remove-if f (rest lst))))
+    nil))
+
+(remove-if even? (range 1000000)) ; go get some coffee
+; </pre>
+<p>; pg. 24</p>
+<p>;; My initial version of triangle worked fine (with a ‘little’ caveat
+mentioned later). However, it was pointed out to me that performing a
+<code>defn</code> inside of a defn actually binds the inner name in the
+global namespace. Again, using the guidance from <a
+href="http://chouser.n01se.net/">Chouser</a> I was able to fix this
+particular problem. Additionally, the original code blew the stack at
+<code>(triangle 300000)</code> so I once again used recur to avoid that
+situation.</p>
+;
+<pre lang="lisp">
+(defn triangle [n]
+  (let [tri 
+        (fn [c n]
+          (if (zero? n)
+            c
+            (recur (+ n c) (- n 1))))]
+        (tri 0 n)))
+
+(triangle 300000)
+(triangle 3000000)
+(triangle 30000000)
+; </pre>
+<p>; pg. 19</p>
+<p>;; The third lesson that I learned since implementing the initial
+chapter 2 functions was the <a href="http://clojure.org/refs">ref</a>
+element. While my original java.Array hack worked, it didn’t really
+teach me anything about writing Clojure code. Therefore, (thanks again
+to Chouser) I rewrote the <code>make-adderb</code> using a ref and as a
+result, my new function is now thread safe ;). As a side note, the
+documentation for refs is among the most comprehensive. Recommended
+reading.</p>
+;
+<pre lang="lisp">
+(let [n (ref 0)]
+  (defn make-adderb [m]
+    (dosync (ref-set n m))
+    (fn [x & change]
+      (dosync
+       (if change
+         (ref-set n x)
+         (+ (ensure n) x))))))
+
+(def addx (make-adderb 1))
+(addx 3)
+
+(addx 100 true)
+(addx 3)
+; </pre>
+<p>;; I only fixed three of the functions in order to get a feel for the
+newly learned methodologies and constructs. I leave it as an exercise to
+the reader to fix the rest. :p</p>
+<p>As always, I will post when the code is “complete”, but my progress
+can be followed on <a
+href="http://github.com/fogus/polyglot/tree/master/reading/onlisp">Github</a>.</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

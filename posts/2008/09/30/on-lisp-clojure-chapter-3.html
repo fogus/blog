@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>on-lisp-clojure-chapter-3</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>; As always, I will post when the code is “complete”, but my progress
+can be followed on <a
+href="http://github.com/fogus/polyglot/tree/master/reading/onlisp">Github</a>.</p>
+<blockquote>
+<p>Posts in this series: <a
+href="/2008/09/26/on-lisp-clojure-chapter-2/">ch. 2</a>, <a
+href="/2008/10/02/on-lisp-clojure-chapter-2-redux/">ch. 2 redux</a>, <a
+href="/2008/09/30/on-lisp-clojure-chapter-3/">ch. 3</a>, <a
+href="/2008/10/08/on-lisp-clojure-chapter-4/">ch. 4</a>, <a
+href="/2008/10/24/on-lisp-clojure-chapter-5/">ch. 5</a></p>
+</blockquote>
+<p>; Chapter 3 was a relatively short chapter (code-wise). It dealt
+mostly with side-effects and the virtues of a more functional style to
+avoid such evil. Thankfully, Clojure eliminates many of the problems
+outlined by Graham in the way that it prefers immutability and minimizes
+the functions causing side-effects.</p>
+<p>; pg. 29</p>
+<p>; Graham provides an intentionally bad implementation of a reverse
+function that modifies a list in place. To do this in Clojure would
+require some gymnastics and therefore is probably not worth the
+effort.</p>
+<p>; pg. 30</p>
+;
+<pre lang="lisp">
+
+(defn good-reverse [lst]
+  (defn rev [lst acc]
+    (if (nil? lst)
+      acc
+      (rev (rest lst) (cons (first lst) acc))))
+  (rev lst nil))
+
+;</pre>
+<p>; pg. 32</p>
+<p>; Clojure doesn’t provide multiple value bindings in the same way
+that Lisp does. Instead, you can construct a vector of values and then
+deconstruct them easily on the return within a let)</p>
+;
+<pre lang="lisp">
+
+(defn mytrunc [num]
+  [(int num) (- num (int num))])
+
+(let [[int_part frac_part] (mytrunc 26.21875)]
+  (str int_part " and " frac_part))
+
+;</pre>
+<p>; -m</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

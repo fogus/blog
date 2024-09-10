@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>not-enough</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>Let’s start with a premise, indulge me if you please:</p>
+<ul>
+<li>You’re creating a system for some client</li>
+<li>You’re using a dynamic programming language like Clojure, Ruby, Io,
+etc…</li>
+</ul>
+<p>How do you know your system works properly? One answer is that you
+write unit tests. However, as Evan Farrer wrote in his excellent blog
+post, “<a
+href="http://evanfarrer.blogspot.ca/2012/06/unit-testing-isnt-enough-you-need.html?m=1">Unit
+testing isn’t enough. You need static typing too.”</a>. I think this
+he’s absolutely correct; unit testing is not enough. But…</p>
+<h2 id="static-typing-is-not-enough.-you-need-contracts-too.">Static
+typing is not enough. You need contracts too.</h2>
+<p>However, while static typing will catch a very large class of errors
+that you may never discover with unit testing, they will not catch
+everything. There are a certain class of errors that are caused by
+subtle, broken relationships between inputs to any given function or
+method and their results. This is where <a
+href="http://www.github.com/fogus/trammel">contracts can really save
+you</a>.<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a></p>
+<h2
+id="contracts-are-not-enough.-you-need-generative-testing-too.">Contracts
+are not enough. You need generative testing too.</h2>
+<p>But how do you know that your contracts are valid? That is, how do
+you know that you’ve identified them all? Likewise, how do you know that
+the contracts that you’ve specified are consistent? One way of tackling
+this problem is a class of verification where tests are either inferred
+directly from the contract specifications, or you may need to use a
+limits <a
+href="http://www.haskell.org/haskellwiki/Introduction_to_QuickCheck">specification
+language</a> to effectively restate the contracts. In either case the
+intent is to target the assumptions of functions and methods with a mass
+of data inputs.</p>
+<h2
+id="generative-testing-is-not-enough.-you-need-simulation-testing-too.">Generative
+testing is not enough. You need simulation testing too.</h2>
+<p>So you’ve written specifications (or had them inferred) that validate
+that your local assumptions hold true. What about the behavior of the
+system as a whole? It’s unlikely that generative testing will provide
+help there. Instead, another approach may be to create a testing harness
+to simulate parts of your system talking to other parts in different
+aggregations up to the level of the user interacting with the system qua
+system. The power in this approach comes ex post-facto. That is, I
+assume you would collect system activity into some external store that
+is then independently verified for accuracy.</p>
+<h2
+id="simulation-testing-is-not-enough.-you-need-fuzzing-too.">Simulation
+testing is not enough. You need fuzzing too.</h2>
+<p>I hope that you remembered to cover more than the happy path in your
+simulation tests. If not, then you probably missed the opportunity to
+check if your system works in the presence of massive chaos and
+confusion (i.e. the real world). <a
+href="http://en.wikipedia.org/wiki/Fuzzing">Fuzzing</a> should help you
+here.</p>
+<h2 id="fuzzing-is-not-enough.-you-need-luck-too.">Fuzzing is not
+enough. You need luck too.</h2>
+<blockquote>
+<p>In my experience, there is no such thing as luck. – Ben Kenobi</p>
+</blockquote>
+<p>The odd thing about fuzzing is that it may not hit on the magical
+incantation that breaks your system. <a
+href="http://dilbert.com/strips/comic/2001-10-25/">That’s the problem
+with randomness; you can never be sure</a>.</p>
+<h2 id="luck-is-not-enough.-you-need-user-testing-too.">Luck is not
+enough. You need user testing too.</h2>
+<p>What if you created the wrong system? You may have observed every
+step in this post, but what you’ll have created is merely a verifiable
+piece of garbage.</p>
+<p>I hope the intent of my post is clear.</p>
+<p><strong>In software development, no one thing will save your
+ass.</strong><a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a></p>
+<p>This is daunting to say the least. In the face of all of this
+complexity<a href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a> and uncertainty why on earth would
+anyone willingly become a programmer?</p>
+<p>The answer is simple.</p>
+<p>All you need is love.</p>
+<p>Love Driven Development.</p>
+<p>:F</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>The programming language Agda is exploring some
+extremely interesting techniques that may even allow one, with the
+proper encoding, to move many of these contractual consistency checks
+into the realm of static analysis.<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>And sadly, doing all of these things may not save your
+ass either.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>And this is far from a complete list.<a href="#fnref3"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

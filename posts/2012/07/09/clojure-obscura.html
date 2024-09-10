@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>clojure-obscura</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>Below is a list of projects and ideas manifesting in, or discussed in
+relation to, Clojure. The common thread between the items is that they
+represent a different way of thinking about the art of programming in
+Clojure, or otherwise.</p>
+<p>In no particular order.</p>
+<p><strong>Please let me know if I’ve left something out.</strong></p>
+<ul>
+<li>Contracts
+<ul>
+<li><a
+href="http://github.com/clojure/core.contracts">core.contracts</a></li>
+<li><a href="http://github.com/fogus/trammel">Trammel</a></li>
+<li><a
+href="https://github.com/dnaumov/clojure-contracts">clojure-contracts</a></li>
+<li><em>note: work is underway to consolidate these libraries into
+core.contracts</em></li>
+</ul></li>
+<li>Code organization
+<ul>
+<li><a
+href="http://stuartsierra.com/2012/05/16/syntactic-pipelines">Pipelining</a></li>
+<li>Dataflow</li>
+</ul></li>
+<li>Thinking code
+<ul>
+<li><a href="http://github.com/clojure/core.logic">core.logic</a></li>
+<li><a href="https://github.com/hraberg/mimir">production
+systems</a></li>
+<li><a href="http://github.com/clojure/core.unify">core.unify</a></li>
+<li><a href="https://github.com/cgrand/sjacket">Sjacket</a></li>
+</ul></li>
+<li>Play
+<ul>
+<li><a href="http://github.com/overtone/overtone">Overtone</a></li>
+<li><a href="https://github.com/quil/quil">Quil</a></li>
+</ul></li>
+<li>Documentation
+<ul>
+<li>Code reading - <a
+href="http://github.com/fogus/marginalia">Marginalia</a></li>
+<li>API docs <a
+href="http://github.com/weavejester/codox">clojure-docs</a></li>
+<li>Story-telling <a href="http://github.com/fogus/trout">Trout</a></li>
+<li>Literate <a
+href="https://groups.google.com/forum/?fromgroups#!topic/clojure/RgQX_kXzFMM">Clojure
+in small pieces</a></li>
+</ul></li>
+<li>Coding
+<ul>
+<li><a
+href="http://www.chris-granger.com/2012/04/12/light-table---a-new-ide-concept/">Light
+Table</a></li>
+<li><a href="https://github.com/trptcolin/reply">REPL-y</a></li>
+<li><a href="https://github.com/kovasb/session">Session</a></li>
+<li><a
+href="http://blog.fogus.me/2012/03/27/compiling-clojure-to-javascript-pt-3-the-himera-model/">Himera</a></li>
+<li><a href="https://github.com/bodil/catnip">Catnip</a></li>
+</ul></li>
+<li>Dispatch
+<ul>
+<li><a href="http://github.com/clojure/core.match">core.match</a></li>
+<li>Predicate dispatch</li>
+</ul></li>
+<li>Macrology
+<ul>
+<li><a
+href="https://github.com/clojure/tools.macro/blob/master/src/main/clojure/clojure/tools/macro.clj#L202">macrolet</a></li>
+<li><a href="https://github.com/qbg/syntax-rules">hygiene</a></li>
+<li>Piecewise transformation</li>
+</ul></li>
+<li>Clojure compilation and alternative implementations
+<ul>
+<li><a
+href="https://github.com/clojure/clojurescript">-&gt;JavaScript</a></li>
+<li><a
+href="https://github.com/raph-amiard/clojurescript-lua">-&gt;Lua</a></li>
+<li><a href="https://github.com/halgari/clojure-py">on Python</a></li>
+<li><a href="https://github.com/clojure/clojure-clr">on .NET</a></li>
+<li><a href="https://github.com/schani/clojurec">-&gt;C</a></li>
+<li><a
+href="https://github.com/takeoutweight/clojure-scheme">-&gt;Scheme-&gt;C</a></li>
+<li><a href="https://github.com/jspahrsummers/cocoa-clojure">-&gt;ObjC
+via Haskell</a></li>
+<li><a href="https://github.com/fogus/cljv">-&gt;Java</a></li>
+</ul></li>
+<li>Complexity measures
+<ul>
+<li><a href="http://c2.com/doc/SignatureSurvey/">Signature
+survey</a></li>
+<li><a
+href="https://github.com/strangeloop/clojurewest2012-slides/blob/master/Dipert-ProgrammingWithValues.pdf?raw=true">Shapes</a>
+(PDF)</li>
+</ul></li>
+<li>Testing
+<ul>
+<li>Simulation</li>
+<li>pre/post verification</li>
+<li><a
+href="https://github.com/clojure/test.generative">Generative</a></li>
+<li>Datomic query testing</li>
+<li><a href="https://github.com/marick/Midje">Midje</a></li>
+</ul></li>
+<li>Static analysis
+<ul>
+<li><a
+href="https://github.com/frenchy64/typed-clojure">typed-clojure</a></li>
+<li><a href="https://github.com/jonase/kibit/">kibit</a></li>
+</ul></li>
+<li>Out of the Tarpit</li>
+<li>AOP
+<ul>
+<li><a
+href="https://github.com/technomancy/robert-hooke">robert-hooke</a></li>
+<li><a href="https://github.com/fogus/sea-grape">sea-grape</a></li>
+</ul></li>
+</ul>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

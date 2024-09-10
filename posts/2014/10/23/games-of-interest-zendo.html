@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>games-of-interest-zendo</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>I recently held a <a
+href="https://github.com/strangeloop/StrangeLoop2014/wiki/Unsessions#zendo--the-scientific-method-in-a-box">Zendo
+unsession</a> at the 2014 Strange Loop conference in St. Louis and
+described the game as <a
+href="http://nickbentleygames.wordpress.com/2011/11/02/zendo-as-a-tool-for-teaching-the-scientific-method/">the
+scientific method in a box</a>. While perhaps too general, I believed
+that the <a
+href="http://okasaki.blogspot.com/2008/02/games-for-programmers-zendo.html">tech,
+mathematical, and scientific-minded crowd at Strange Loop would
+appreciate the game</a> very much. However, before I talk about the
+unsession, allow me to take a few moments to talk about the game
+itself.</p>
+<h2 id="introduction-to-zendo">Introduction to Zendo</h2>
+<p><a href="http://en.wikipedia.org/wiki/Zendo_(game)">Zendo</a> is a
+game of <a
+href="http://en.wikipedia.org/wiki/Inductive_reasoning">inductive
+logic</a>. One person plays the <em>Master</em> and creates a
+<em>rule</em> that dictates the layout of tiny installments of
+crystalline pyramids or other such trinkets. The other players then
+construct their own arrangements (called <em>koans</em>) in hopes of
+learning which follow the rule (marked in white) and which do not
+(marked in black). Gradually the secret rule is uncovered by the players
+in a cooperative<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> realization of truth.</p>
+<p>For example, the rule that dictates the following arrangements is
+<em>No two pieces can touch.</em></p>
+<figure>
+<img
+src="https://farm4.staticflickr.com/3895/14984591125_560b93ca41_d.jpg"
+alt="koan" />
+<figcaption aria-hidden="true">koan</figcaption>
+</figure>
+<h3 id="preparation">Preparation</h3>
+<ul>
+<li><p>40-50+ building pieces. I prefer <a
+href="http://www.looneylabs.com/looney-pyramids">Looney Pyramids</a>,
+but something like Legos would suffice too. I’ll assume pyramids for the
+purposes of this post.</p></li>
+<li><p>A bunch of stones or other small bits; preferably of three
+different colors. Stones of two colors will be used as “marking stones”
+for the master and “answer stones” for the players, and the third
+colored stones used as “guessing stones.”</p></li>
+</ul>
+<p>The pyramids are placed within reach of all of the players and the
+game is ready to start.</p>
+<h3 id="gameplay">Gameplay</h3>
+<p>The game starts with the Master devising a secret rule such as “a
+koan must contain an orange piece” or “the number of pyramids must be an
+even number.” Devising rules that will not frustrate the players takes
+some practice, so it’s best to start simple<a href="#fn2"
+class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>,
+especially if the other players are new to the game. That said, the
+Master then builds two structures: one that follows the secret rule and
+one that does not. Once done, the game can begin.</p>
+<h4 id="player-turns">Player turns</h4>
+<p>On each turn a player arranges their pyramids into a structure
+(called a “koan”) and says either “master” or “mondo.” By calling
+“master” the player is simply asking the Master to mark if their
+structure follows the secret rule or not. When they call “mondo” they
+are effectively asking for a peer review of their structure. What this
+means is that each player hides either a black or white stone in their
+hand corresponding to whether or not they think the new structure
+follows the rule as they understand it.<a href="#fn3"
+class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> The
+Master also hides a stone and once ready all of the players
+simultaneously reveal their stones. Whomever matches the color of the
+Master’s stone gets a new guessing stone. Before moving to the next
+player’s turn, the current player may choose to spend a guessing stone
+to make a verbal guess at the secret rule.</p>
+<h4 id="ending-the-game">Ending the game</h4>
+<p>If a player guesses the rule correctly on their turn the game is over
+and that player gets a point. However, if the player incorrectly guesses
+then the master must build a contradicting structure. That is, the
+Master must build a structure that simultaneously follows the secret
+rule while also contradicting the player’s guess. If at any time the
+Master is unable to build a contradictory structure then the guessing
+player wins the game and gets a point. For the purposes of Zendo,
+guessing a rule that cannot be disproven is as good as guessing the
+original secret rule.<a href="#fn4" class="footnote-ref" id="fnref4"
+role="doc-noteref"><sup>4</sup></a></p>
+<p>Until a player guesses the secret rule the previously built
+structures should remain on the play area so that players can look them
+over in hopes of discovering the patterns. Zendo is great fun and I’ve
+found it to be a hit amongst scientifically-minded people.<a href="#fn5"
+class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> The
+rules above can’t express the joy of this game, but <a
+href="https://al3x.net/2012/04/09/the-game.html">Alex Payne once wrote
+about Zendo in such a way that more appropriately gives the sense of
+what it’s like to play Zendo</a>.</p>
+<h2 id="a-zendo-session-at-strange-loop-2014">A Zendo session at Strange
+Loop 2014</h2>
+<p>Prior to attending <a
+href="https://thestrangeloop.com/archive/2014">Strange Loop 2014</a> I
+decided to try running a <a
+href="https://github.com/strangeloop/StrangeLoop2014/wiki/Unsessions#zendo--the-scientific-method-in-a-box">Zendo
+unsession</a> one of the nights of the conference. I had ~10 people sign
+up on the conference site and brought enough pyramids sufficient for
+~4-5 groups. My session was due to start at 9pm and due to very slow
+service at a restaurant I arrived about 5 minutes late. The room was
+filled, but I suspected that the previous session had run over. I
+immediately spoke up and asked “how many people are here to discover
+Zendo?” Every single hand went up…</p>
+<p>…</p>
+<p>That is, ~30-35 hands went up.</p>
+<p>…</p>
+<p>I was in trouble.</p>
+<p>Thankfully, with an emphasis on “thank”, a couple (Danielle and
+David) immediately stood up and pulled out a huge stash of pyramids!
+They also knew and loved the game and offered to help. Once we ran
+through the rules, we split up the pyramids, split up the Masters and
+started. Both Danielle and David ran a table each and managed to teach
+their players the traditional Zendo rules as outlined above. However, as
+I was Mastering 3 tables to start<a href="#fn6" class="footnote-ref"
+id="fnref6" role="doc-noteref"><sup>6</sup></a>, I went with a
+simplified version of the rules and jumped from table to table.</p>
+<figure>
+<img
+src="https://farm6.staticflickr.com/5615/15421968577_81202946d9_d.jpg"
+alt="zendo1" />
+<figcaption aria-hidden="true">zendo1</figcaption>
+</figure>
+<p>Zendo was a immediate hit. The players, though most were new to
+Zendo, instantly “got it.” There were constant congratulations on
+finding the rules and echoes of “let’s play another.” I mastered about 9
+games between 3 tables, but soon was able to relax, vet some rules, and
+just sit and play once the other players felt confident to be Master. I
+still jumped from table to table to play a rule or two (and got in ~20
+games by night’s end) but after a while the tables were off and running
+without intervention. It was a thing of beauty.</p>
+<figure>
+<img
+src="https://farm4.staticflickr.com/3933/15421857418_0d8f2da31d_d.jpg"
+alt="zendo2" />
+<figcaption aria-hidden="true">zendo2</figcaption>
+</figure>
+<p>I stayed until the end of the last game … which ended at about 1am.
+That’s 4 hours of Zendo played and enjoyed by 40-50 people (all told),
+many whom were new to the game.</p>
+<figure>
+<img
+src="https://farm4.staticflickr.com/3941/15421981907_706da0c1d7_d.jpg"
+alt="zendo3" />
+<figcaption aria-hidden="true">zendo3</figcaption>
+</figure>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Zendo can be as adversarial or as cooperative as you
+like. I prefer to play in such a way that the players feel like they’re
+all working towards discovery. Whenever I play master I like to
+encourage the players openly discuss their ideas with the other players.
+YMMV<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Looney Labs has a set of <a
+href="http://store.looneylabs.com/Zendo-Beginner-Rule-Cards">Zendo rule
+cards</a> that you can add to any order from their website for free.
+These cards have a nice set of beginner rules.<a href="#fnref2"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Or as they <em>think</em> that they understand it.<a
+href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>I always prefer playing Master because I find building
+the contradicting koans to be an interesting challenge. Likewise, in the
+rare occasion where I’m unable to disprove a guess, it’s always fun to
+discuss with the players afterwards to see if anyone has any ideas how
+it could have been done.<a href="#fnref4" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Looney Labs has a <a
+href="http://www.looneylabs.com/sites/default/files/literature/XendoOverview.pdf">different
+ruleset for Zendo called “Xendo”</a> (PDF) that’s scientifically themed
+rather than of a spiritual nature.<a href="#fnref5"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>I was quickly relieved of one table by <a
+href="http://howardlewisship.com/">Howard Lewis Ship</a>, which was a
+huge help.<a href="#fnref6" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

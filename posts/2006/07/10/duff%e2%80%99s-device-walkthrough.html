@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>duff%e2%80%99s-device-walkthrough</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>
+Duff’s device is <strong>the</strong> classic example of <em>loop
+unrolling</em>. Given a case where one might output a string bytes to a
+port, it would be ideal to be able to reduce the number of loop jumps by
+unrolling the loop to contain n number of outputs to said port where n
+is the length of the byte string. This of course would be impossible in
+a dynamic system where n is not a constant. A typical way to meet in the
+middle between the optimal (but impossible) and heavy (containing a loop
+n/8 times followed by a post-processing n%8 cleanup loop). To make this
+process more efficient, Tom Duff invented the following code snippet
+(lines numbered for easy reference)
+</p>
+<pre>0: int n = (len + 8 - 1) / 8;
+1: switch (len % 8) {
+2:      case 0: do { HAL_IO_PORT = *pSource++;
+3:      case 7: HAL_IO_PORT = *pSource++;
+4:      case 6: HAL_IO_PORT = *pSource++;
+5:      case 5: HAL_IO_PORT = *pSource++;
+6:      case 4: HAL_IO_PORT = *pSource++;
+7:      case 3: HAL_IO_PORT = *pSource++;
+8:      case 2: HAL_IO_PORT = *pSource++;
+9:      case 1: HAL_IO_PORT = *pSource++;
+A:      } while (--n > 0);
+B:  }</pre>
+<p>
+<p>Duff’s Device unrolls the loop 8 times (case 0-7), however it is
+different in that it inlines the post processing loop and makes it
+instead a preprocessing loop. Walking through an example string “Makes
+Sense To Me!” where n == 18 we start on line 0 and get an n of 3. It is
+easy to see that the first time through the loop the switch jumps to
+line 8 and preprocesses the first two bytes (’M’ and ‘a’) and then
+decrementing n (now 2). It then reaches the while at line A and jumps
+back to the to line 2 where its corresponding do statement resides. The
+remainder is trivial in that the do..while executes for the rest of the
+string “kes Sense To Me!” whose length is 16, which of course
+corresponds nicely with the remaining n of 2. There is a bug, in Duff’s
+Device however, but I will leave it to the reader to figure it out
+(<em>hint: what happens to the string “”?</em>).<br /></p>
+-m
+</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

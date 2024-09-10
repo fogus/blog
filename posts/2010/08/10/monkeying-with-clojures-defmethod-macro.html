@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>monkeying-with-clojures-defmethod-macro</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>I’ve at times<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> found the need to use the precise
+match form of Clojure’s multimethod dispatch value. For example:</p>
+<pre><code>(defmulti repeating-mm (juxt first second))
+(defmethod repeating-mm [1 2] [_] (str [1 2]))
+
+(repeating-mm (range 1 10))
+;=&gt; &quot;[1 2]&quot;</code></pre>
+<p><code>repeating-mm</code> works as I would expect, but I never liked
+the need to repeat the <code>[1 2]</code> dispatch value. Instead, I’ve
+often wished for a way to create a binding of the dispatch value itself
+– so I played around with doing just that. My first instinct was to
+create an anaphora for the dispatch value, bound to <code>$</code>,
+ala:</p>
+<pre><code>(defmacro defmethod-anaphoric
+  [multifn dispatch-val &amp; fn-tail]
+  `(. ~(with-meta multifn {:tag &#39;clojure.lang.MultiFn}) 
+      addMethod 
+      ~dispatch-val
+      (let [~&#39;$ ~dispatch-val]
+        (fn ~@fn-tail))))
+
+(defmulti a-mm (juxt first second))
+(defmethod-anaphoric a-mm [1 2] [_] (str $))
+(defmethod-anaphoric a-mm [3 4] [s] (reverse s))
+
+(a-mm [1 2])
+;=&gt; &quot;[1 2]&quot;
+
+(a-mm [3 4])
+;=&gt; (4 3)</code></pre>
+<p>And this works fine. However, using an anaphoric binding is poor form
+and not idiomatic Clojure code (in general). Therefore, it would be
+better to provide some sort of named binding for the dispatch value,
+ala:</p>
+<pre><code>(defmacro defmethod-explicit
+  [multifn dispatch-val &amp; fn-tail]
+  (let [[kw n &amp; body] fn-tail]
+    (if (= :as kw)
+      `(. ~(with-meta multifn {:tag &#39;clojure.lang.MultiFn}) 
+          addMethod 
+          ~dispatch-val 
+          (let [~n ~dispatch-val] (fn ~@body)))
+      `(. ~(with-meta multifn {:tag &#39;clojure.lang.MultiFn}) 
+          addMethod 
+          ~dispatch-val 
+          (fn ~@fn-tail)))))
+
+(defmulti expl-mm (juxt first second))
+(defmethod-explicit expl-mm [1 2] :as dv [_] (str dv))
+(defmethod-explicit expl-mm [3 4] [s] (reverse s))
+
+(expl-mm [1 2])
+;=&gt; &quot;[1 2]&quot;
+
+(expl-mm [3 4])
+;=&gt; (4 3)</code></pre>
+<p>I made the implementation of <code>defmethod-explicit</code>, uhhhh
+explicit, to highlight the differences between the code path with the
+explicit binding of the dispatch value and without. In the case with a
+binding (i.e. <code>:as dv</code>), the multimethod is built using a
+closure over the name <code>dv</code>. In the case without, there is
+only a function.</p>
+<p>I have a bunch of little language hacks like this laying around and
+whenever I create one it never ceases to astonish how maleable Clojure
+(and Lisp in general) can be.</p>
+<p>:f</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>This post inspired by <a
+href="http://cemerick.com/2010/08/02/defrecord-slot-defaults/">Chas
+Emerick’s post on defrecord default slot values</a>.<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

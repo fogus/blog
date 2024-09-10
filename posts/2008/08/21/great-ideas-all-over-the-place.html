@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>great-ideas-all-over-the-place</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<figure>
+<img
+src="http://farm4.static.flickr.com/3133/2785147996_fea180ee84_o.png"
+title="Business man they drink my wine..." alt="mouse" />
+<figcaption aria-hidden="true">mouse</figcaption>
+</figure>
+<p>In developing <a href="/projects/broccoli">Broccoli</a>, I have
+turned up some extremely interesting language design principles that I
+would love to fold into <a
+href="/2008/08/19/project-doris/">Doris</a>:</p>
+<h1 id="clojure">Clojure</h1>
+<h2 id="iterables">Iterables</h2>
+<p><a href="http://clojure.org">Clojure</a> has a <a
+href="http://clojure.org/sequences">notion of sequences</a> that allow
+different data structure to provide access as a logical list. The
+simplest example is to view a string as a sequence of characters where
+typical list operations (e.g. first, rest, cons, etc…) can be performed
+on its elements. I have started working that type of behavior into the
+CLIPS source, but it is slow going as the implementation of multifields,
+fact-bases, strings, and symbols are categorized as discrete types. Once
+I start digging into <a href="/projects/numan/">Numan</a>, I will likely
+add a similar notion of the <a
+href="http://clojure.svn.sourceforge.net/viewvc/clojure/trunk/src/jvm/clojure/lang/ISeq.java?view=markup">ISeq</a>
+interface (with some extensions) to the base object hierarchy.</p>
+<h1 id="javascript">Javascript</h1>
+<h2 id="objects-as-containers">Objects as containers</h2>
+<p>I love the way that Javascript provides a simple mechanism for using
+objects as general-purpose containers. This allows one to add properties
+and functions to an <em>instance</em> at any time during execution.
+CLIPS allows us to add message handlers to <em>classes</em> at any time,
+but class slots (properties) can only be defined at the time of the
+class definition. I feel that providing a similar capability in <a
+href="/projects/numan/">Numan</a> would be an enormous effort, but it is
+worth it.</p>
+<h1 id="clos">CLOS</h1>
+<h2 id="meta-object-protocol">Meta-object protocol</h2>
+<p>CLIPS can be said to have a fairly useful introspective MOP, but i
+have in the past found it disjointed. Aside from the way that
+<code>(defmessage-handler)</code> occurs outside of a class definition,
+COOL has not other real mechanism for providing intercession for
+objects. Likewise, there is an overall lack of intercession capabilities
+in CLIPS. Doris would be nicely served if it offered even a partially
+realized MOP along the lines of CLOS (as introduced in Andreas Paepcke’s
+paper <em><a
+href="http://www-db.stanford.edu/~paepcke/shared-documents/mopintro.ps">User-Level
+Language Crafting - Introducing the CLOS Metaobject
+Protocol</a></em>).</p>
+<p>-m</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

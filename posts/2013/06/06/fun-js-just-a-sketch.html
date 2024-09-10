@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>fun-js-just-a-sketch</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p><em>I’ve written a book entitled <a
+href="http://www.functionaljavascript.com">Functional JavaScript</a> due
+out in print sometime in June 2013. In the book I introduce and explore
+various techniques for writing code in a functional style using the <a
+href="http://www.underscorejs.org">Underscore</a> library. As much as I
+would have loved to delve into the ecosystem of functional JS libraries,
+I didn’t want to distract from the core functional topics in the book.<a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> Therefore, I present a series to
+explore a few of my favorite <a
+href="http://blog.fogus.me/tag/fun.js">functional JavaScript
+libraries</a><a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a> focusing primarily on the feature(s)
+that make them interesting, innovative or unique.[^map]</em></p>
+<p>In this installment I’m just going to sketch a functional JavaScript
+library that does not exist, but that I wish did[^maybe]… for fun I’ll
+call it Undermine.</p>
+<p>I’ll start it like I start all of my JS libraries:</p>
+<pre class="prettyprint">
+var exists = function(x) { return x != null; };
+
+var truthy = function(x) { 
+  return (x !== false) && exists(x); 
+};
+</pre>
+<p>These two functions are just meant to simplify JS truthiness. The
+library itself starts with <code>filter</code>:</p>
+<pre class="prettyprint">
+var _filter = function(fun) {
+  return function(coll) {
+    var results = [];
+    if (coll == null) return results;
+    coll.forEach(function(value, index, list) {
+      if (truthy(fun.call(null, value))) results.push(value);
+    });
+    return results;
+  };
+};
+
+function filter(fun) {
+  var coll = arguments[1];
+
+  if (exists(coll)) return _filter(fun)(coll);
+
+  return _filter(fun);
+}
+</pre>
+<p>… and then <code>map</code>:</p>
+<pre class="prettyprint">
+var _map = function(fun) {
+  return function(coll) {
+    var results = [];
+    if (coll == null) return results;
+    coll.forEach(function(value, index, list) {
+      results.push(fun.call(null, value));
+    });
+    return results;
+  };
+};
+
+function map(fun) {
+  var coll = arguments[1];
+
+  if (exists(coll)) return _map(fun)(coll);
+
+  return _map(fun);
+}
+</pre>
+<p>To see <code>map</code> in action just run the following:</p>
+<pre class="prettyprint">
+function double(n) { return 2*n; }
+ 
+map(double, [1,2,3])
+//=> [2, 4, 6]
+</pre>
+<p>But both <code>filter</code> and <code>map</code> are implemented in
+a funny way. That is, they only return a result if all of the expected
+arguments are given, otherwise they return a closure that expects a
+collection. This is called currying. Let’s see it in action:</p>
+<pre class="prettyprint">
+var doubleAll = map(double);
+ 
+doubleAll([1,2,3]);
+//=> [2, 4, 6]
+</pre>
+<p>Seems pretty straight-forward no? Although I curry these 2-arg
+functions manually, I can write a function to curry 2-arg functions
+automatically:</p>
+<pre class="prettyprint">
+function schonfinkel(fun) {
+  return function(first) {
+    return function(last) {
+      return fun(first, last);
+    };
+  };
+};
+</pre>
+<p>The <code>schonfinkel</code> function curries a function of two
+parameters, from left to right.</p>
+<p>Oh look! Here’s a function:</p>
+<pre class="prettyprint">
+function greaterThan(l, r) {
+  return l > r;
+}
+
+greaterThan(500, 10);
+//=> true
+</pre>
+<p>Here’s a curried version:</p>
+<pre class="prettyprint">
+var maybeGT = schonfinkel(greaterThan);
+</pre>
+<p>And its usage:</p>
+<pre class="prettyprint">
+maybeGT(5)
+//=> function(last) { ... }
+ 
+maybeGT(5)(10000000);
+//=> false
+</pre>
+<p>Whoops. The problem is that the curried application ordering is
+wrong, so let’s create a function to <code>flip</code> the application
+order:</p>
+<pre class="prettyprint">
+function flip(fun) {
+  return function() {
+    return fun.call(null, arguments[1], arguments[0]);
+  };
+}
+</pre>
+<p>And so the new function becomes:</p>
+<pre class="prettyprint">
+var gt = schonfinkel(flip(greaterThan));
+ 
+gt(5)
+//=> function(last) { ... }
+ 
+gt(5)(10000000);
+//=> true
+ 
+gt(5)(1);
+//=> false
+</pre>
+<p>You know what? I forgot <code>reduce</code>. Here it is, following a
+<em>different currying pattern</em>:</p>
+<pre class="prettyprint">
+var _reduce = function(fun, seed, coll) {
+  var acc = seed;
+  coll.forEach(function(value) {
+    acc = fun.call(null, acc, value);
+  });
+  return acc;
+};
+ 
+function reduce(fun) {
+  var count = arguments.length;
+  var seed = arguments[1];
+  var coll = arguments[2];
+  var result;
+ 
+  switch(count) {
+  case 1:
+    result = schonfinkel(_reduce.bind(null, fun));
+    break;
+ 
+  case 2:
+    result = _reduce.bind(null, fun, seed);
+    break;
+ 
+  case 3:
+    result = _reduce(fun, seed, coll);
+    break;
+  }
+ 
+  return result;
+}
+</pre>
+<p><code>reduce</code> is more complicated and inverted compared to
+<code>map</code> and <code>filter</code>, but that’s only because I want
+to show the use of partial application (in the
+<code>result = schonfinkel(_reduce.bind(null, fun))</code> snippet).
+Since <code>reduce</code> assumes that it gets a <code>fun</code> then
+said <code>fun</code> can be partially applied and the resulting
+function from <code>Function#bind</code> Schonfinkeled… I mean curried.
+Partial application is different than currying. A partially applied
+function is always ready to rock, but a curried function keeps returning
+closures until the last arg is given, only then is it executable.</p>
+<p>Let’s see <code>reduce</code> in action:</p>
+<pre class="prettyprint">
+function sum(x,y) { return x + y; }
+ 
+reduce(sum, 0, [1,2,3,4,5]);
+//=> 15
+</pre>
+<p>Seems correct no? What about a curried version:</p>
+<pre class="prettyprint">
+var summate = reduce(sum, 0);
+ 
+summate([1,2,3,4,5]);
+//=> 15
+</pre>
+<p>So what’s the point of all this? The goal in a library like Undermine
+is to strive to facilitate the description of programs as a series of
+actions that should occur. A function that can help execute such a
+series is as follows:</p>
+<pre class="prettyprint">
+var pipeline = function(/*, funs */){
+  var funs = Array.prototype.slice.call(arguments);
+ 
+  return function(seed) {
+    return reduce(function(l,r) { return r(l); },
+                  seed,
+                  funs);
+  };
+};
+</pre>
+<p>That’s a bit subtle, but let’s see it in action:</p>
+<pre class="prettyprint">
+var gimmeTheThingTHETHING = pipeline();
+
+gimmeTheThingTHETHING(5);
+//=> 5
+</pre>
+<p>So a <code>pipeline</code> that’s given nothing returns a function
+that just returns whatever’s given it. What about if
+<code>pipeline</code> is given something?</p>
+<pre class="prettyprint">
+var doubler = pipeline(double);
+
+doubler(5);
+//=> 10
+</pre>
+<p>So the closure returned by <code>pipeline</code> calls the captured
+function argument in the beginning with whatever’s passed into it. What
+about if I supply more functions?</p>
+<pre class="prettyprint">
+var quadrupler = pipeline(double, double);
+
+quadrupler(5);
+//=> 20
+</pre>
+<p>Seems right no? I can now use <code>pipeline</code> to describe a
+sequence of actions to take to perform some task:</p>
+<pre class="prettyprint">
+var tasks = pipeline(
+  map(double)
+  , filter(gt(5))
+);
+ 
+tasks([1,2,3,4,5]);
+//=> [6,8,10]
+</pre>
+<p>The <code>tasks</code> are described as:</p>
+<ol type="1">
+<li>First double everything</li>
+<li>then take everything &gt;5</li>
+</ol>
+<p>And that’s exactly what the code says! Pipelines can also be strung
+together:</p>
+<pre class="prettyprint">
+var moreTasks = pipeline(
+  tasks
+  , reduce(function(x,y) { return x*y }, 1)
+);
+
+moreTasks([1,2,3,4,5]);                                                                                                
+//=> 480  
+</pre>
+<p>Pretty cool huh? That’s all for <a
+href="https://gist.github.com/fogus/5722992">Undermine</a>. There’s more
+stuff like this in my book <a
+href="http://www.amazon.com/Functional-JavaScript-Introducing-Programming-Underscore-js/dp/1449360726/?tag=fogus-20">Functional
+JavaScript</a>.</p>
+<p>Enjoy.</p>
+<p>:F</p>
+<p><em>Thanks to <a
+href="https://twitter.com/segfaultax">Michael-Keith</a> for the idea for
+a better currying approach.</em></p>
+<p>[^map</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>I cover a few in an appendix, but did not go as deeply
+as I would have liked given unlimited time and page count.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Including, but not limited to: <a
+href="http://osteele.com/sources/javascript/functional/">Functional
+JavaScript by Oliver Steele</a>, <a
+href="http://functionaljs.org/">Lemonad</a>, <a
+href="http://reactive-extensions.github.com/RxJS/">RxJS</a>, <a
+href="http://bilby.brianmckenna.org/">Bilby</a>, <a
+href="http://allong.es/">Allong.es</a>, <a
+href="http://d3js.org/">D3</a>, <a
+href="https://github.com/Gozala/reducers">Reducers</a>, <a
+href="https://github.com/documentcloud/underscore-contrib">Underscore-contrib</a>,
+<a href="https://github.com/swannodette/mori">Mori</a> and <a
+href="https://github.com/raimohanska/bacon.js">Bacon.js</a>.<a
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

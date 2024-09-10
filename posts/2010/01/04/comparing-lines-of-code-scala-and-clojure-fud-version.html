@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>comparing-lines-of-code-scala-and-clojure-fud-version</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>A completely tongue in cheek comparison between Scala and Clojure,
+implementing the famous closure test.</p>
+<h1 id="scala-versionlonger">Scala Version<a href="#fn1"
+class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a></h1>
+<pre><code>type Supercalifragilisticexpialidocious = java.lang.Integer
+  
+implicit def Supercalifragilisticexpialidocious2Int(tehThingToConvert:Supercalifragilisticexpialidocious) = {
+  tehThingToConvert.asInstanceOf[Int]
+}
+ 
+trait ClosureTestMixin {
+  def makeAdder(tehAdditionValue:Supercalifragilisticexpialidocious):Function1[Int,Int]
+}
+ 
+class AdderMaker extends ClosureTestMixin {
+  def apply(tehAdditionValue:Supercalifragilisticexpialidocious):Function1[Int,Int] = {
+    new Function1[Int,Int] {
+      def apply(tehOtherAdditionValue:Int):Int = {
+        return tehAdditionValue.$plus(tehOtherAdditionValue.asInstanceOf[Supercalifragilisticexpialidocious])
+      }
+    }
+  }
+  
+  def makeAdder(tehAdditionValue:Supercalifragilisticexpialidocious):Function1[Int,Int] = {
+    return this.apply(tehAdditionValue)
+  }
+}
+
+val tehAdderMakerInstance = new AdderMaker()
+
+val tehAdderPlus10 = tehAdderMakerInstance.makeAdder(10)
+
+tehAdderPlus10.apply(9)
+//=&gt; 19</code></pre>
+<h1 id="clojure-version">Clojure Version</h1>
+<pre><code>(defn mk-adder [x] #(+ % x))
+(def add10 (mk-adder 10))
+(add10 9)
+;=&gt; 19</code></pre>
+<p>To perform this simple exercise the Scala version <em>requires</em><a
+href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a> 29 lines and ~960 characters! The
+Clojure version on the other hand requires only 3 lines and 64
+characters.</p>
+<p>Need I say more?<a href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a></p>
+<p>-m</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Any suggestions for making this longer?<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Nope, not at all.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Just in case there was <em>any</em> ambiguity – the
+Scala version was intentionally obfuscated for chuckles. For a much more
+eloquent <a
+href="http://codemonkeyism.com/scala-vs-clojure-flawed-loc-comparison/">rebutal
+of flawed LOC comparisions</a> read Stephan Schmidt’s latest post on the
+subject.<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

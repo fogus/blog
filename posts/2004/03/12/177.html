@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>177</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p><b>It’s alive… ALIVE!</b> <br />Not really, but it does learn. <br />
+<br />Over the past few days I have been working moderately in getting
+my Go5 learning element up and working, and today I confidently exclaim
+success (<a href="../files/javadoc/index.html">Javadocs found here</a>).
+The learning engine is based on the Specialization/Generalization
+(candidate elimination) algorithm. Essentially, it learns by observing
+positive and negative examples and inferring from them the information
+that is important for classifying similar examples in the future. I
+won’t go into the implementation of the algorithm itself at this time (I
+defer that until the paper is completed), however I will give an example
+of how it works.<br />
+<br /> <br />Envision a scenario where I go to my local comic shop
+searching for any Cerebus books in near mint condition only. This shop
+is run entirely by robots that use the candidate elimination algorithm
+to help customers find what they are looking for. All comics at the shop
+have the following attributes: Title, Number, Price, Format, Condition,
+and of course its desirability. In order for the clerk robot to figure
+out what I’m looking for using the candidate elimination algorithm, it
+needs to juggle two sets, G and S. G refers to the most general search
+criteria, while S refers to the most refined. Using the CE algorithm,
+the learning element is considered to have figured out what I’m looking
+for when S and G are the same.<br />
+<br /> <br />Starting off with the comic [Cerebus, 100, $5, TPB, NM]
+which I accept as desirable: <code> <br />Generalization initialized to
+[[?v, ?v, ?v, ?v, ?v]] <br />Specialization initialized to [[Cerebus,
+100, $5, TPB, NM]]</code> <br /> <br />As you can see, G is filled
+entirely with variables and means that based on it, I am looking for
+anything. S on the other hand is set to the example itself, which means
+that I may be looking only for this precise comic. <br /> <br />The
+robot then pulls out another comic [Cerebus, 200, $3, Pamphlet, VF],
+which I do not like:<code> <br />G = [[?v, 100, ?v, ?v, ?v], [?v, ?v,
+$5, ?v, ?v], [?v, ?v, ?v, TPB, ?v], [?v, ?v, ?v, ?v, NM]] <br />S =
+[[Cerebus, 100, $5, TPB, NM]]</code> <br /> <br />The G set grows
+because it is trying to move toward the S set (which was the only
+acceptable comic at this point). <br /> <br />The robot then pulls out
+another comic [Cerebus, 200, $5, Reprint, NM], which I accept:<code>
+<br />G = [[?v, ?v, $5, ?v, ?v], [?v, ?v, ?v, ?v, NM]] <br />S =
+[[Cerebus, ?v, $5, ?v, NM]]</code> <br /> <br />The G set this time
+shrinks because the latest comic only matches in two places ($5 and NM)
+with the S set. The S set on the other hand starts moving towards the G
+set by substituting variables for attributes that were unmatched to the
+latest acceptable comic (100 to 200 and TPB to Reprint). <br />
+<br />Another comic is presented [FromHell, 1, $5, TPB, NM], and is
+absolutely unacceptable:<code> <br />G = [[Cerebus, ?v, $5, ?v, ?v],
+[Cerebus, ?v, ?v, ?v, NM]] <br />S = [[Cerebus, ?v, $5, ?v, NM]]</code>
+<br /> <br />Again, the S and G sets converge closer to one another.
+<br /> <br />Finally, a comic is presented [Cerebus, 150, $4, TPB, NM],
+and is acceptable:<code> <br />G = [[Cerebus, ?v, ?v, ?v, NM]] <br />S =
+[[Cerebus, ?v, ?v, ?v, NM]]</code> <br /> <br />This final comic
+provides a eureka moment for the robot because it has finally figured
+out that I am looking for NM Cerebus books – all other attributes are
+irrelevant.<br />
+<br /> <br />This process will provide the core of the Go5 program. Wish
+me luck. <br /> <br />-m <br /></p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

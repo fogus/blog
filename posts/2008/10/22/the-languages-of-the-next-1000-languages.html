@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>the-languages-of-the-next-1000-languages</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>The next 1000 languages will most likely be dynamic, or declarative,
+or pure, but most certainly increasingly functional, with type
+inference, or pattern matching, or algebraic data types, but most
+certainly a rich set of concurrent primitive and/or models… or more
+likely a combination of some or all of those things. The real question
+is, what languages will the next 1000 languages be written in? There was
+a time that the first and final answer to this question was C, but today
+there are a few more viable options. It’s a good time to be a
+polyglot.</p>
+<h1 id="java">Java</h1>
+<p>There is little doubt that the JVM is king right now as the chosen
+platform for some truly exciting langdev projects. From <a
+href="http://www.clojure.org">Clojure</a> (<a
+href="http://blog.fogus.me/tag/clojure/">my current favorite</a>), to <a
+href="http://www.scala-lang.org">Scala</a> (<a
+href="http://blog.fogus.me/2008/10/20/groovin-with-scala/">a recent
+addition to my workplace</a>), to <a
+href="http://jruby.codehaus.org/">JRuby</a>, to <a
+href="http://www.jython.org/Project/">Jython</a>, to <a
+href="http://www.mozilla.org/rhino/">Rhino</a>, to <a
+href="http://groovy.codehaus.org/">Groovy</a>, to <a
+href="http://www.beanshell.org/">Beanshell</a>, to <a
+href="http://sisc-scheme.org/">SISC</a>, to <a
+href="http://nice.sourceforge.net/">Nice</a>, to <a
+href="http://www.fandev.org/">Fan</a>, the JVM is hot stuff, and
+deservingly so; it’s a beautiful piece of sofware. That is, it is a
+beautiful piece of software, for running Java. In order to get all of
+these other (dynamic) languages to run on top of a system that is geared
+toward running a static (not in the <a
+href="http://www.pphsg.org/cdsmith/types.html">type-system sense</a>)
+codebase many hairy tricks are employed. However, there is a light at
+the end of the tunnel in the form of the <a
+href="http://en.wikipedia.org/wiki/Da_Vinci_Machine">Da Vinci
+Machine</a> project that is working toward making the JVM a viable
+target for dynamic languages. I fully expect a flood of new languages
+will be built on the JVM after the Da Vinci changes take effect (there
+have recently been some talk about <a
+href="http://blog.headius.com/2008/09/first-taste-of-invokedynamic.html">what
+InvokeDynamic tastes like</a>).</p>
+<h1 id="javascript">Javascript</h1>
+<p>You may think this is an odd inclusion to this list, but with the
+release of the <a href="http://code.google.com/p/v8/">V8</a> engine by
+Google it’s an obvious one. That is, the V8 engine compiles JavaScript
+directly to the host machine code on the fly offering native speeds –
+big win. Javascript has closures, and apparently one can make anything
+out of them, so in theory multi-paradigm support is feasible.
+(<em>tangent: so does Lisp, and it baffles me that there are not 20,000
+languages, much less 2, that target it</em>). A potential fly in the
+ointment is that the <a
+href="http://lambda-the-ultimate.org/node/3047">EMCAScript committee
+decided to ignore TCO</a>, but they may regret that decision sooner
+rather than later…</p>
+<p>… or not. The state of affairs in compilers targeting Javascript is
+lacking with only a handful of original languages like <a
+href="http://common-lisp.net/project/parenscript/">Parenscript</a>, <a
+href="http://haxe.org/doc/intro">Haxe</a>, and <a
+href="http://milescript.org/">Milescript</a>. The rest of the efforts
+fall into two categories: 1) DSLs targeting AJAX apps or 2) existing
+languages with toy Javascript compilers (i.e. <a
+href="http://rb2js.rubyforge.org/">Ruby</a>, <a
+href="http://hop.inria.fr/usr/local/share/hop/weblets/home/articles/scheme2js/article.html">Sheme</a>,
+<a href="http://www.squeaksource.com/ST2JS/">Smalltalk</a>, and <a
+href="http://haskell.org/haskellwiki/Yhc/Javascript/Brief_overview">Haskell</a>
+to name a few). I think that if I were to start (yet) another project,
+Javascript would be my host language. I really think that you can
+<strong>currently</strong> go a long way with writing a js core for a
+declarative language and compiling its clauses into Javascript. Speaking
+of host, I didn’t even mention the extremely strange parasitic language
+<a href="http://lambda-the-ultimate.org/node/2477">OMeta</a>, but that
+is for another day. Javascript, is a radical choice given that it really
+was meant as an embedded document language, so some work needs to be
+done to make it a true compilation target.</p>
+<h1 id="c">C#</h1>
+<p>There are currently three big players currently on the .NET platform:
+<a
+href="http://www.codeplex.com/Wiki/View.aspx?ProjectName=IronPython">Iron
+Python</a>, <a href="http://www.ironruby.net/">Iron Ruby</a>, and the
+exciting <a
+href="http://research.microsoft.com/fsharp/fsharp.aspx">F#</a>. Of
+course, this does not include C# itself, VB.NET, ASP.NET, etc… However,
+aside from this core of big languages, there are very few additional
+language projects going on. Of course there is <a
+href="http://boo.codehaus.org/">Boo</a>, <a
+href="http://www.artima.com/weblogs/viewpost.jsp?thread=166952">Cat</a>,
+<a href="http://cobra-language.com/">Cobra</a>, and even <a
+href="http://www.scala-lang.org/node/168">Scala</a>, but the pickings
+are slim. Why is this? Who knows. Perhaps it has to do with the fact
+that many .NET developers are weekday warriors and simply are not
+interested in the platform outside of it facilitating their ability to
+draw a paycheck. Likewise, perhaps the FOSS community inevitably sees
+.NET as evil and is avoiding it. Maybe it has to do with the fact that
+dynamic languages are not fully supported, although that has not seemed
+to hurt the JVM (note: the <a
+href="http://blogs.sun.com/jrose/entry/bravo_for_the_dynamic_runtime">Dynamic
+Language Runtime</a> is working to fix this). It could be that the .NET
+platform is already loaded with languages (although they mostly seem to
+be different faces on C#). My guess is that the answer lies in some
+combination of the above. Whatever the reason(s), my guess is that
+eventually people will start targeting the CLR/DLR. Actually, most
+languages will likely target both the CLR/DLR and the JVM.</p>
+<h1 id="others">Others?</h1>
+<p>I predict that in the future people will compile all languages into
+quadruples which will then be converted to all necessary bytecodes.</p>
+<p>No?</p>
+<p>Yeah, I do not believe that either, but there may be an interesting
+PhD thesis in their somewhere…</p>
+<p>or not.</p>
+<h2 id="c-1">C</h2>
+<p>Of course people will still create languages using C; I’m not insane.
+However, it’s monopoly is forever broken.</p>
+<h2 id="perl">Perl</h2>
+<p>There is this strange language called <a
+href="http://perl6.cz/wiki/Perl_6_and_Parrot_links">Perl</a> that has
+apparently been around for a little while now and supposedly there is
+this really cool VM called <a
+href="http://www.parrotcode.org/">Parrot</a> that it will run on that
+supports dynamic languages out of the box. However, both are somewhat
+vapor-ish, but all of the propaganda coming out of the Perl camps are
+exciting, if not <a href="http://www.pugscode.org/">weird</a>.</p>
+<h2 id="erlang">Erlang</h2>
+<p>So apparently <a href="http://www.erlang.org/">Erlang</a> runs on top
+of its own VM and supposedly there are one or two languages out there
+targeting it, but I have a hard time believing that trend will expand
+any time soon. However, (and I speak from now actual knowledge) the big
+win is that presumably the Erlang VM provides concurrency operations,
+which, unless you’ve lived under a rock, is the wave of the future (and
+all futures both past and present).</p>
+<h2 id="future-language-x">Future Language X</h2>
+<p>As cool as Java, Javascript, C#, and Perl6 are (will be), some other
+language and/or VM will come along that is built around solving the
+problems that new language implementers are currently struggling with
+and a bunch of languages will be written in it… it happens every
+time.</p>
+<p>-m</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

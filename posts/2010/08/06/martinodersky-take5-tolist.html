@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>martinodersky-take5-tolist</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>Dr. Martin Odersky, the lead designer/developer of the <a
+href="http://scala-lang.org">Scala Programming Language</a>, Generic
+Java, and Pizza requires no introduction, but the motivation for this
+micro-interview does. That is, there is an unfortunate view in some
+circles that sees the existence of Scala and Clojure as somehow being at
+odds. In chatting with Dr. Odersky it is my hope to dispel the notion
+that there is a need for ill-will. I would like to quote Brenton
+Ashworth, as he sets the tone nicely:</p>
+<blockquote>
+<p>We should choose languages based on how accurately they allow us to
+think about the problems we are trying to solve. – <a
+href="http://blog.fogus.me/2010/08/03/take-5-brenton-ashworth/">Brenton
+Ashworth</a></p>
+</blockquote>
+<p>Not only is the mutual existence of Scala and Clojure important, it
+is indeed absolutely vital. As it happens, Clojure more closely fits the
+shape of my own thoughts and ways of working, but Scala serves as muse
+for a great minds like <a href="http://www.codecommit.com/blog/">Daniel
+Spiewak</a> and <a href="http://jonasboner.com/">Jonas Bonér</a>. I
+could continue along this train of thought, but I think that Dr. Odersky
+makes a better point than I could.</p>
+<h3 id="in-order-for-scala-to-win-does-clojure-need-to-lose">In order
+for Scala to “win”, does Clojure need to “lose”?</h3>
+<p>No, this is silly. Let’s be realistic. Functional programming is
+still <a
+href="http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html">far
+from being mainstream</a>. A lot of hard work is needed to get it there.
+And infighting will just damage the adoption of functional programming
+as a whole. By contrast, any win of a functional language in an
+enterprise raises the credibility of all other functional languages.
+<strong>We should help each other, not fight each other</strong>.<a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a></p>
+<h3 id="what-are-your-thoughts-about-clojure">What are your thoughts
+about Clojure?</h3>
+<p>I have not programmed in Clojure. From what I can see it is a very
+well put together language, that brings the power of Lisp to the JVM in
+a practical package. There are things we liked so much in Clojure that
+we copied<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a> them, for instance the data
+structures for sequences and <a
+href="https://lampsvn.epfl.ch/trac/scala/ticket/1509">hash-tries</a>. I
+believe there are, and will be, many other areas of fruitful
+cross-pollination<a href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a>.</p>
+<h3
+id="both-clojure-and-scala-are-clearly-influenced-by-haskellhaskell-mlml-chris-okasakiokasaki-and-phil-bagwellbagwell.-however-are-there-common-influences-that-might-not-be-as-apparent">Both
+Clojure and Scala are clearly influenced by <a
+href="http://github.com/clojure/clojure/blob/a1eff35124b923ef8539a35e7a292813ba54a0e0/src/clj/clojure/core_deftype.clj#L398">Haskell</a>,
+<a
+href="http://books.google.com/books?id=B_QZqFmG-vQC&amp;pg=PA314&amp;lpg=PA314&amp;dq=ml+reference+types&amp;source=bl&amp;ots=0gtl5QyJb-&amp;sig=AlQnUGruRERehJLUSH4XQVDs2wg&amp;hl=en&amp;ei=BBNcTJWFJMH48Abb69jlAg&amp;sa=X&amp;oi=book_result&amp;ct=result&amp;resnum=3&amp;ved=0CBwQ6AEwAg#v=onepage&amp;q=ml%20reference%20types&amp;f=false">ML</a>,
+<a
+href="http://github.com/clojure/clojure/blob/a1eff35124b923ef8539a35e7a292813ba54a0e0/src/jvm/clojure/lang/PersistentQueue.java">Chris
+Okasaki</a>, and <a
+href="http://github.com/clojure/clojure/blob/master/src/jvm/clojure/lang/PersistentHashMap.java">Phil
+Bagwell</a>. However, are there common influences that might not be as
+apparent?</h3>
+<p>Erlang was the template after which <a
+href="http://www.scala-lang.org/node/242">Scala’s actor’s library</a>
+was modeled and it might have influenced Clojure’s agents as well. Lisp,
+Scheme and Prolog had some indirect influences to Scala. But the tricky
+part of any language design in Scala is really getting the static types
+right, so in that sense Haskell, SML, OCaml and F# had a stronger
+influence. Then of course there’s Java which as the primary host
+language influences what’s possible in Scala and Clojure to no small
+degree.</p>
+<h2
+id="rich-hickey-is-as-well-read-in-the-academic-papers-as-anyone-but-its-scala-that-has-gained-the-perception-as-an-academic-language.-why-do-you-think-that-has-happened">Rich
+Hickey is as well-read in the academic papers as anyone, but it’s Scala
+that has gained the perception as an “academic language”. Why do you
+think that has happened?</h2>
+<p>I think it’s mostly people who want to put Scala down making that
+comment. They take my <a
+href="http://www.epfl.ch/index.fr.html">EPFL</a> affiliation and the
+papers<a href="#fn4" class="footnote-ref" id="fnref4"
+role="doc-noteref"><sup>4</sup></a> we publish as an excuse to attach
+that label to the language. What’s funny is that often senior industrial
+Scala programmers get also accused as being academic. All this is rather
+ironical because Scala is foremost an industrial language<a href="#fn5"
+class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>
+with many well known companies using it. By contrast it’s much less
+taught at universities than Haskell or Lisp, let alone Java!</p>
+<h2
+id="ive-found-many-scala-and-haskell-programmers-who-posses-an-extremely-acute-sense-of-humor.-is-it-static-typing-that-attracts-these-minds-or-does-it-create-them">I’ve
+found many Scala and Haskell programmers who posses an extremely acute
+sense of humor. Is it static typing that attracts these minds, or does
+it create them?</h2>
+<p>Maybe it’s the creative pauses forced on them when they wait for the
+type-checker to finish ;-)</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Emphasis mine.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>A comment by Daniel Spiewak clarifies this point and
+leds us to <a href="https://lampsvn.epfl.ch/trac/scala/ticket/3724">an
+interesting ticket</a>.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>I think that it would be wonderful to explore the ideas
+in Jonas Boner’s <a href="http://akkasource.org/">Akka</a> Actor
+framework.<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>A recent gem being <em><a
+href="http://lamp.epfl.ch/~imaier/pub/DeprecatingObserversTR2010.pdf">Deprecating
+the Observer Pattern</a></em> (PDF)<a href="#fnref4"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>I am giving a talk at <a
+href="http://cufp.org/">CUFP</a> about my own experience using Scala in
+industry.<a href="#fnref5" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

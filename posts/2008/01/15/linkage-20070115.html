@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>linkage-20070115</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p><a href="http://charleschilders.com/toka.html">Toka</a><br/>
+<a href="http://wiki.laptop.org/go/Inferno">Inferno on the
+OLPC</a><br/></p>
+<p><code> #include &lt;iostream&gt; #include &lt;typeinfo&gt;</p>
+<p>template&lt;class X&gt; class Reduced { public:
+        typedef X value; };</p>
+<p>template&lt;class X,class Y&gt; class cons
+        : public Reduced&lt;cons&lt;typename X::value,Y&gt; &gt; { };</p>
+<p>class K         : public Reduced&lt;K&gt; { }; class S
+        : public Reduced&lt;S&gt; { };</p>
+<p>template&lt;class X,class Y&gt; class cons&lt;cons&lt;K,X&gt;,Y&gt;
+        : public Reduced&lt;X&gt; { };</p>
+<p>template&lt;class X,class Y,class Z&gt; class cons&lt;cons&lt;cons&lt;S,X&gt;,Y&gt;,Z&gt;
+        : public Reduced&lt;cons&lt;cons&lt;X,Z&gt;,cons&lt;Y,Z&gt; &gt; &gt; { };</p>
+<p>template&lt;class X,class Y = typename X::value&gt; class FixedPoint
+        : public Reduced&lt;typename FixedPoint&lt;Y,typename Y::value&gt;::value&gt; { };</p>
+<p>template&lt;class X&gt; class FixedPoint&lt;X,X&gt;
+        : public Reduced&lt;X&gt; { };</p>
+<p>using std::cout; using std::endl;</p>
+<p>int main() {         //         // Run SSSK. Should output SK(SK)
+        //
+        cout &lt;&lt; typeid(FixedPoint&lt;cons&lt;cons&lt;cons&lt;S,S&gt;,S&gt;,K&gt; &gt;::value).name() &lt;&lt; endl &lt;&lt; endl;</p>
+<p>        return 0; }
+</code>(<a href="http://homepage.mac.com/sigfpe/Computing/sk.html">link</a>)<br/></p>
+<a href="http://www.railsenvy.com/2007/2/28/rails-caching-tutorial">Rails
+Caching</a><br/>
+<blockquote>
+Loading up a cached webpage can not only save us from having to do ANY
+database queries, it can even allow us to serve up websites without
+touching our Ruby on Rails Server. Sounds kinda magical doesn’t it? Keep
+on reading for the good stuff.
+</blockquote>
+<a href="http://www.cs.sfu.ca/~cameron/Teaching/384/99-3/smlisp.html">Small
+Lisp</a><br/>
+<blockquote>
+The S-expression is the only data type of Small Lisp, so how do we
+represent truth values? Using the symbolic atoms T and F for true and
+false, respectively! (Common Lisp users, note that NIL does not
+represent false in Small Lisp.)
+</blockquote>
+<p><a href="http://www.kenzerco.com/aces_n_eights/">Aces and Eights
+RPG</a><br/></p>
+<p><a href="http://www.ngine.de/index.jsp?pageid=4176">XP on a USB
+stick</a><br/></p>
+<p><a href="http://innig.net/software/ruby/closures-in-ruby.rb">Closures
+in Ruby</a><br/></p>
+<p>-m</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

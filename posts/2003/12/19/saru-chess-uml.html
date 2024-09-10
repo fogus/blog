@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>saru-chess-uml</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>This is my first hack at a new structure for the next generation of
+my chess software, Saru Chess. The design is object oriented (although
+the precise development language has not been closen – Java? ObjectiveC?
+C++?), which is a departure from my older C implementation. The diagrams
+below were put together pretty quickly in order to establish a quick and
+dirty domain model to work from. The UML below represents the generic
+‘’game’’ framework on which the chess engine will be built. The
+rationale is that this framework will also be used in future projects
+including: Saru Shogi, Saru Go, Saru Checkers, and Connect 4ogus V.2.
+Notice, the Intelligence interface associated with the ComputerPlayer
+object. The Intelligence module will be my attempt to introduce learning
+and pattern matching to my already strong chess engine (the old C
+version that is).<BR> <BR> <IMG SRC="./images/GameFramework.gif"><BR>
+<IMG SRC="./images/SearchFramework.gif">
+<IMG SRC="./images/EventsFramework.gif">
+<IMG SRC="./images/BooksFramework.gif"><BR> <BR> -m</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

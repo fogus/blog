@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>why-clojure-doesnt-need-invokedynamic-but-it-might-be-nice</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p><em>this is the third entry in an n-part <a
+href="http://blog.fogus.me/tag/clj-compilation">series explaining the
+compilation techniques of Clojure</a>.[^cng]</em></p>
+<p>There was an interesting <a
+href="http://groups.google.com/group/clojure/browse_frm/thread/d66af49bef572e8a">discussion
+about invokedynamic on the Clojure mailing list</a> focused on the need
+for and potential benefits of <a
+href="http://jcp.org/en/jsr/detail?id=292">invokedynamic</a>. Granted
+this topic is often quite technical, so I suppose that it’s
+understandable that confusion and disagreement would arise. However, the
+general tone of the thread and the <a
+href="http://news.ycombinator.com/item?id=2928285">ensuing Internet
+discussion</a> was that Clojure didn’t need invokedynamic. This is
+technically true, but there is a distinct difference between
+<em>need</em> and <em>benefit</em>. This post will hopefully clarify the
+current state of affairs regarding just how invokedynamic can benefit,
+and also hurt, Clojure on the JVM.</p>
+<h1 id="why-clojure-might-not-need-invokedynamic">Why Clojure might not
+need invokedynamic</h1>
+<p><a
+href="http://groups.google.com/group/clojure/tree/browse_frm/thread/d66af49bef572e8a/84595d95fef714cb?rnum=11&amp;_done=%2Fgroup%2Fclojure%2Fbrowse_frm%2Fthread%2Fd66af49bef572e8a%3F#doc_dd82cc60855b1ca3">Tal
+Liron</a> provided a very nice summary of the reasons that invokedynamic
+might be unnecessary for Clojure. I highly suggest you read his
+assessment as I will only summarize some high points here and in the
+next section, offering corrections where his thesis differs from the
+realities of the invokedynamic story for Clojure.</p>
+<h3 id="java-interop">Java Interop</h3>
+<p>Let’s take a look at the first potential use of invokedynamic for
+Clojure, interop calls. As you may know, Clojure allows one to call Java
+class methods directly as below:</p>
+<pre><code>(defn at [s] (.charAt s 1))
+(at &quot;abc&quot; 1)
+;=&gt; \b</code></pre>
+<p>However, the call above is problematic in that the compiler cannot
+resolve the class of the <code>charAt</code> method so an expensive
+route through reflection must take place at runtime. Unfortunately for
+us, though <a
+href="http://java.sun.com/products/hotspot/whitepaper.html">some common
+paths through reflection are indeed optimized</a> by the <a
+href="http://www.oracle.com/technetwork/java/hotspotfaq-138619.html">JVM
+HotSpot</a>, we wouldn’t want to hang our hat on that fact. Would it be
+possible therefore to use invokedynamic instead of the reflective call?
+Probably. However, it’s worth noting that through compile-time type
+inferencing, most interop calls are emitted in the most efficient ways
+possible. In fact, most of the interop calls in Clojure are compiled in
+the same way that Java itself is compiled. For those times as above when
+the Clojure compiler in unable to infer the correct target type, then
+Clojure provides type hinting to help the compiler along:</p>
+<pre><code>(defn at [^String s] (.charAt s 1))</code></pre>
+<p>Like many Lisps, Clojure is built around the principle that one
+should write the code correctly first and then only add adornments later
+when speed is needed. That is not to say that there is no place for a
+scenario whereby invokedynamic is used instead of reflection in the
+non-inferred case, but the presence of type hinting makes that scenario
+less than urgent and definitely not compelling enough to consider it a
+worthwhile venture on its own. I would imagine that time would be better
+spent implementing more comprehensive type inferencing. This is a clear
+win that would benefit many codebases quickly, with none of the
+downsides listed in the last section of this post.</p>
+<h3 id="multimethods">Multimethods</h3>
+<p>Clojure has a multimethod function type that provides runtime dynamic
+dispatch of a named function to a set of unique implementations based on
+the result of a separate dispatch function. A simple example is
+below:</p>
+<pre><code>(defmulti say-count count)
+(defmethod say-count 0 [_] &quot;Zero&quot;)
+(defmethod say-count 1 [_] &quot;One&quot;)
+(defmethod say-count :default [_] &quot;A Bunch&quot;)
+
+(say-count [1 2 3])
+;=&gt; A Bunch</code></pre>
+<p>As you might see, the multimethod <code>say-count</code> is defined
+to dispatch based on the result of the interceding function
+<code>count</code>. When <code>count</code> returns <code>0</code> the
+specific method associated with that value is invoked. For every call to
+a multimethod<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> its dispatch method is called. This
+is a potential bottleneck, but what you give up in speed you gain in
+flexibility. But does it need to be this way? Can invokedynamic help
+alliviate this tradeoff? The answer as it turns out is similar to
+interop’s answer. How invokedynamic can help multimethods escapes me,
+although they do have a PIC-like doo-dad (technical term) under the hood
+– so the jury is still out here.</p>
+<h1 id="how-invokedynamic-can-help-clojure">How invokedynamic can help
+Clojure</h1>
+<p><em>a nice source of core knowledge on this section is this <a
+href="http://blogs.oracle.com/jrose/entry/dynamic_invocation_in_the_vm">treatment
+of dynamic invocation on the JVM by John Rose</a></em></p>
+<p>Before any discussion about how invokedynamic can help begins, it’s
+critical to understand what it provides. In a nutshell, invokedynamic
+provides the raw material for building efficient <a
+href="http://c2.com/cgi/wiki?PolymorphicInlineCaches">polymorphic inline
+caches</a> that are subject to finer grained HotSpot optimizations. At
+the moment Clojure and JRuby (and others for sure) build those PICs from
+“something else” (technical term). However, as I will discuss regarding
+Vars next, invokedynamic’s benefits are not limited to the case where
+one might find a PIC.</p>
+<p>Much of the following is covered by the eminent <a
+href="http://groups.google.com/group/clojure/tree/browse_frm/thread/d66af49bef572e8a/3a21f40138f22c0d?rnum=21&amp;_done=%2Fgroup%2Fclojure%2Fbrowse_frm%2Fthread%2Fd66af49bef572e8a%3F#doc_63423c53208effdf">Paul
+Stadig in the original thread</a>, but I’ll provide an overview
+below.</p>
+<h3 id="def">def</h3>
+<p>At the core of Clojure’s dynamic heart is the Var. At it’s most
+boiled (i.e. before taking into account dynamic or thread-local
+bindings), a Var is a single point of mutability that holds a value or
+function. Clojure as a Lisp is predicated on the ability to change a
+function definition at any time. In production this explicit function
+redefinition is not used very much, but at the REPL, Clojure’s
+interactive console, this capability is used to great effect in
+incrementally building a solution and in-place sanity checking
+(i.e. REPL-based testing).</p>
+<p>To provide this level of flexibility Clojure establishes a level of
+indirection.<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a> Specifically, all function lookups
+through a Var occur, at the lowest level, through an atomic volatile.<a
+href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a> This happens every time that a
+function bound using the <code>def</code>/<code>defn</code> special
+forms is called. This indirection is not amenable to HotSpot
+optimizations.</p>
+<p>This is a great place for invokedynamic, especially during production
+scenarios where the root value of Vars remain stable. That is,
+invokedynamic would eliminate the volatile lookup on every call and
+likely lead to HotSpot inlining. From another perspective, the JVM
+provides a way to change out class implementations on the fly via
+something called safepoints. This implementation swapping is analogous,
+if not a mirror of, the swapping of Var root bindings. Safepoints are
+intuitively viewed as stable execution points where interrupts can be
+utilized to save JVM state, thus allowing magic (technical term) to
+happen safely and atomically. At the moment, invokedynamic is the
+<em>only</em> path to safepoints for the JVM language implementor. It
+would be awesome (technical term) to have a direct path to safepoints,
+but I digress.</p>
+<h3 id="protocols">protocols</h3>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Actually there is more to it than this as there are also
+dynamic hierarchies that are (potentially) traversed on each multimethod
+calls.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The root-level indirection through a volatile is not the
+same as dynamic binding. The latter is another level of indirection for
+Vars marked as <code>^:dynamic</code>.<a href="#fnref2"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>However, some Var root values not marked as
+<code>^:dynamic</code> can be directly linked, but this occurs at the
+caller’s site and is not a property of Var’s themselves.<a
+href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

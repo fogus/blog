@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>in-the-shadow-of-john-mccarthy</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>John McCarthy was a genius of the highest order. Much is known about
+his contribution to Lisp as its inventor, but he was also the mind
+behind much of early AI research, the progenitor of much of computer
+chess, and the initiator of time-sharing. As a Lisp advocate I have many
+thanks due to John McCarthy and it saddens me that I will never have the
+chance to give them. However, like many geniuses McCarthy was surrounded
+by likewise brilliant creators and thinkers. This post is devoted to
+some of the brilliant minds that influenced, provoked, and in one case
+defied McCarthy for the betterment of the early LISP history spawning
+the Lisp world that we now enjoy. So goes the history of monumental
+minds that their likewise monumental shadow engulfs those whose help was
+critical to the larger historical significance.</p>
+<h2 id="steve-russell">Steve Russell</h2>
+<p>That Steve Russell created the first LISP evaluator is fairly well
+known, so to include his name on this list is questionable. However,
+it’s important to note that has it not been for his effort the history
+of LISP as a language might have never occurred and if it had then it
+would have manifested very differently. In early 1959, Steve Russell
+took the theoretical idea that was LISP devised by his employer John
+McCarthy and hand-compiled the “Universal LISP Function” to operate on
+the IBM 704. In a survey of one, I suppose the lesson is to never listen
+to your boss.</p>
+<p>The implementation was novel in that it utilized the machine
+capabilities to maximum effect. However, unbeknownst to Russell, and
+early decision would “haunt” LISP even up to today:</p>
+<blockquote>
+<p>Because of an unfortunate temporary lapse of inspiration, we couldn’t
+think of any other names for the 2 pointers in a list node than
+“address” and “decrement,” so we called the functions CAR for “Contents
+of Address of Register” and CDR for “Contents of Decrement of
+Register.”</p>
+</blockquote>
+<p>As a contributor to <a href="http://clojure.org">Clojure</a> it
+always brings a smile to my face when people deride its lack of
+<code>car</code> and <code>cdr</code>. What seems a priceless nostalgic
+gem to some is but the leavings from a lack of inspiration some 50+
+years ago.</p>
+<h2 id="dan-edwards">Dan Edwards</h2>
+<p>Dan Edwards (gc) during June/July of 1959 wrote the garbage collector
+that would serve up to the 1.5 release of LISP. (McCarthy 1962)
+According to McCarthy, the garbage collector worked as such:</p>
+<blockquote>
+<p>At any given time only a part of the memory reserved for list
+structures will actually be in use for storing S-expressions. The
+remaining registers (in our system the number, initially, is
+approximately 15,000) are arranged in a single list called the
+free-storage list. A certain register, FREE, in the program contains the
+location of the first register in this list. When a word is required to
+form some additional list structure, the first word on the free-storage
+list is taken and the number in register FREE is changed to become the
+location of the second word on the free-storage list. No provision need
+be made for the user to program the return of registers to the
+free-storage list.</p>
+</blockquote>
+<p>Edwards, Michael Levin, and Hart (below) also proved the equivalency
+between the alpha-beta and minimax search algorithms, (Edwards 1961)
+that was also overshadowed by McCarthy given that he seemingly <a
+href="http://www-formal.stanford.edu/jmc/slides/wrong/wrong-sli/wrong-sli.html">invented
+alpha-beta out of thin air in 1955</a>.</p>
+<h2 id="timothy-hart">Timothy Hart</h2>
+<p>Macros are a ubiquitous element for any Lisp language in use today,
+but the fact is that they were not part of the early LISP
+implementations. Instead, LISP macros were invented years after
+Russell’s first implementation by Hart and were described in a scrawled
+3-page document called <em>MACRO Definitions for LISP</em> published as
+an MIT memo. (Hart 1963) This short but epic document described an
+extension to the <a
+href="http://fogus.me/static/preso/magnificent7/#slide10">original
+seven-function LISP <code>eval</code></a> that looked effectively like
+the following:</p>
+<pre><code>((eq (caar expr) (quote macro))
+ (cond
+   ((eq (cadar expr) (quote lambda))
+    (eval (eval (car (cdddar expr))
+                (cons (list (car (caddar expr)) 
+                            (cadr expr)) 
+                      binds))
+          binds))))</code></pre>
+<p>I’ve extended <a
+href="https://github.com/fogus/lithp/blob/master/src/core.lisp#L107">my
+Lithp interpreter with Hart-style macros</a> if you’d like to play with
+such a beast.</p>
+<h2 id="nathaniel-rochester-and-herbert-gelernter">Nathaniel Rochester
+and Herbert Gelernter</h2>
+<p>It’s hard to imagine how Rochester, the creator of the first
+assembler, could be overshadowed by McCarthy, but from a LISP
+perspective he certainly is. The influence of Rochester and Gelernter
+are likely deeper than I know, but in one instance theirs is a negative
+influence. That is, McCarthy at one point was considering an extended
+version of Fortran with list processing capabilities for his AI
+research, of which such a system was developed by Rochester and
+Gelernter. However, McCarthy realized that such a library did not
+adequately serve his needs which led him to explore the creation of a
+language more suited to his AI explorations and LISP was the result.</p>
+<h2 id="alan-r.-kotok">Alan R. Kotok</h2>
+<p>Alan Kotok, one of the designers of the PDP-10 was driven to design a
+machine that could effectively host a LISP system. The PDP-10 is, at its
+core, is built with an eye toward LISP. Indeed, the 36-bit word size is
+there because LISP implementations benefited from two 18-bit pointers
+per word (the elements of a cons cell). It’s unclear how the PDP-10
+influenced LISP, if at all,<a href="#fn1" class="footnote-ref"
+id="fnref1" role="doc-noteref"><sup>1</sup></a> but I thought that this
+was a great story and a preview of the Lisp Machines that would come
+years later.</p>
+<h2 id="others-and-inaccuracies">Others and Inaccuracies?</h2>
+<p>Did I misrepresent something here? Please let me know.</p>
+<p>Additionally, there are many others involved with the early days of
+LISP whose contributions were not easy to find, including:</p>
+<ul>
+<li>Paul W. Abrahams</li>
+<li>Robert K. Brayton</li>
+<li>Saul Goldberg</li>
+<li>David Luckham</li>
+<li>Michael Levin</li>
+<li>More…</li>
+</ul>
+<p>If you have any information about these pioneers, or are the pioneers
+themselves, then please comment here with pointers to more information
+and I will add it to the main post body.</p>
+<h2 id="references">References</h2>
+<ul>
+<li>Dan Edwards and Timothy Hart. 1961. <em><a
+href="http://dspace.mit.edu/handle/1721.1/6098">The Alpha-Beta
+Heuristic</a></em>.</li>
+<li>Dan Edwards. <em><a
+href="ftp://publications.ai.mit.edu/ai-publications/pdf/AIM-019.pdf">The
+LISP II Garbage Collector</a></em> (PDF).</li>
+<li>Timothy Hart and Michael Levin. <em><a
+href="http://dspace.mit.edu/handle/1721.1/6111">MACRO Definitions for
+LISP</a></em></li>
+<li>John McCarthy, Paul W. Abrahams, Daniel J. Edwards, Timothy P. Hart,
+and Michael Levin. 1962. <em><a
+href="http://www.amazon.com/o/asin/0262130114?tag=fogus-20">LISP 1.5
+Programmer’s Manual</a></em>.</li>
+</ul>
+<p>:F</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Much of the early AI work, done with Lisp, was hosted on
+the PDP-10, so I imagine there must have been some level of
+bidirectional influence.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>announcing-ring-clj-params</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<h1 id="what-is-it">What is it?</h1>
+<p>A <a href="https://github.com/mmcgrana/ring">Ring</a> middleware that
+augments :params according to a parsed <a
+href="http://clojure.org">Clojure</a> data literal request body.</p>
+<h2 id="where-is-it">Where is it?</h2>
+<p><a href="https://github.com/fogus/ring-clj-params"
+class="uri">https://github.com/fogus/ring-clj-params</a></p>
+<h2 id="usage">Usage</h2>
+<h3 id="leiningen">Leiningen</h3>
+<p>In your <code>:dependencies</code> section add the following:</p>
+<pre><code>[ring-clj-params &quot;0.1.0&quot;]</code></pre>
+<h3 id="ring">Ring</h3>
+<p>To use this middleware using Ring and <a
+href="https://github.com/weavejester/compojure">Compojure</a>, create a
+new Leiningen project with a <code>project.clj</code> file of the
+form:</p>
+<pre><code> (defproject awesomeness &quot;0.0.1&quot;
+   :description &quot;&quot;true power awesomeness
+   :dependencies [[org.clojure/clojure &quot;1.3.0&quot;]
+                  [ring &quot;1.0.2&quot;]
+                  [compojure &quot;1.0.1&quot;]
+                  [ring-clj-params &quot;0.1.0&quot;]]
+   :main awesome-app)</code></pre>
+<p>Next, create a file in <code>src</code> called
+<code>my_awesome_service.clj</code> with the following:</p>
+<pre><code>(ns my-awesome-service
+  (:use compojure.core)
+  (:use ring.middleware.clj-params))
+
+(defn generate-response [data &amp; [status]]
+  {:status (or status 200)
+   :headers {&quot;Content-Type&quot; &quot;application/clojure&quot;}
+   :body (print-str data)})
+  
+(defroutes handler
+  (GET &quot;/&quot; []
+       (generate-response {:hello :cleveland}))
+
+  (PUT &quot;/&quot; [name]
+       (generate-response {:hello name})))
+
+(def app
+  (-&gt; handler
+      wrap-clj-params))</code></pre>
+<p>And finally, create another file in <code>src</code> named
+<code>awesome_app.clj</code> with the following:</p>
+<pre><code>(ns awesome-app
+  (:use ring.adapter.jetty)
+  (:require [my-awesome-service :as awe]))
+
+(defn -main
+  [&amp; args]
+  (run-jetty #&#39;awe/app {:port 8080}))</code></pre>
+<h3 id="testing">Testing</h3>
+<p>Run this app in your console with <code>lein run</code> and test with
+<code>curl</code> using the following:</p>
+<pre><code>$ curl -X GET http://localhost:8080/
+
+#=&gt; {:hello :cleveland}                               
+
+$ curl -X PUT -H &quot;Content-Type: application/clojure&quot; \ 
+  -d &#39;{:name :barnabas}&#39; http://localhost:8080/
+
+#=&gt; {:hello :barnabas}%  </code></pre>
+<p>The Clojure <code>*eval-read*</code> functionality is turned off and
+trying to use it will result in a server-side exception thus resulting
+in an empty response for the eval form; such as:</p>
+<pre><code>$ curl -X PUT -H &quot;Content-Type: application/clojure&quot; \ 
+  -d &#39;{:name #=(+ 1 2)}&#39; http://localhost:8080/ 
+
+#=&gt; ...</code></pre>
+<p>I’m currently only supporting data literals for Clojure versions 1.3
+and below. Support for later versions (including <a
+href="http://dev.clojure.org/display/design/Tagged+Literals">tagged
+literal support</a>) is planned.</p>
+<h2 id="acknowledgments">Acknowledgments</h2>
+<p>Thanks to <a href="http://markmcgranaghan.com/">Mark McGranaghan</a>
+for his work on Ring and <a
+href="https://github.com/mmcgrana/ring-json-params">ring-json-params</a>
+on which this project was based. Also thanks to <a
+href="https://twitter.com/#!/craigandera">Craig Andera</a> for reminding
+me about <code>*read-eval*</code>. Finally, thanks to <a
+href="http://thinkrelevance.com">Relevance</a> for allowing me the time
+to work on such projects during work hours.</p>
+<p>:F</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

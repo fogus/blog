@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>map-as-homoiconic-basis</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>While throwing out the idea in the title <a
+href="http://twitter.com/fogus/status/2789832163">as a Twitter post</a>,
+I was surprised at the seeming interest. Therefore, in hopes to open up
+a discussion, here is how I would envision a programming language
+homoiconic on maps. <em>(note: Slava Pestov of <a
+href="http://factorcode.org">Factor</a> fame provided a link to a
+language named <a href="http://will.thimbleby.net/misc">Misc</a> that
+implements this idea in some way, but having not looked at it yet any
+similarities are incidental)</em></p>
+<p>I have been turning these ideas over in my mind for a while, and
+actually started toward an implementation named <a
+href="http://github.com/fogus/jaka/tree">Jaka</a>, but any such
+implementation has to wait its turn in my ever-deepening queue.</p>
+<p>Things to note: {}<br />
+: map literal syntax</p>
+<dl>
+<dt>()</dt>
+<dd>
+tuple literal syntax
+</dd>
+<dt>||</dt>
+<dd>
+set literal syntax
+</dd>
+<dt>[]</dt>
+<dd>
+list literal syntax
+</dd>
+<dt>foo</dt>
+<dd>
+a symbol
+</dd>
+<dt>“foo”</dt>
+<dd>
+a string
+</dd>
+<dt>foo =&gt; bar</dt>
+<dd>
+a pair
+</dd>
+<dt>:.</dt>
+<dd>
+a block (similar to progn)
+</dd>
+<dt>=</dt>
+<dd>
+bind
+</dd>
+<dd>
+
+</dd>
+<dd>
+merge
+</dd>
+<dt>&lt;~</dt>
+<dd>
+merge bind
+</dd>
+<dt>?</dt>
+<dd>
+property query
+</dd>
+<dt>foo(42)</dt>
+<dd>
+symbol followed by a tuple is a function call
+</dd>
+<dt>foo.fun()</dt>
+<dd>
+call a method
+</dd>
+<dt>foo fun()</dt>
+<dd>
+call a method
+</dd>
+<dt>$</dt>
+<dd>
+similar to <code>this</code> or <code>self</code>
+</dd>
+<dt>foo {}</dt>
+<dd>
+function followed by map is same as foo({})
+</dd>
+<dt>foo:.</dt>
+<dd>
+function followed by a block is same as foo(:.)
+</dd>
+</dl>
+<p>[sourcecode lang=“js” gist=“153045”] def foo = {} // start with an
+empty map foo.n = 42 // put a property foo.z = 0<br />
+foo?n // does foo have property n? foo.n // lookup property n</p>
+<p>def bar = {|| =&gt; [print(“Hello Cleveland”)]} bar() // prints Hello
+Cleveland bar.|| // returns <code>[print("Hello Cleveland")]</code>
+bar?() // accepts zero args? bar.||.first() // returns the symbol
+<code>print</code></p>
+<p>def baz = {|| =&gt; [print($.n)]} baz() // returns notset baz.n = 138
+// sets property <code>n</code> baz() // prints 138</p>
+<p>def qux = {||=&gt; baz.||} // grab function body qux() // returns
+object notset qux &lt;~ foo // foo has <code>n</code> qux() // prints 42
+qux.n = baz.n // set qux.n to baz.n qux() // prints 138 qux &lt;~ {|x|
+=&gt; [<br />
+print($.n - x) // merge arity1 fun ]} qux(100) // prints 38</p>
+<p>qux &lt;~ {|x| =&gt; [<br />
+{|y| =&gt; [x + y]} ]} // merge arity1 fun</p>
+<p>def frob = {} frob &lt;~ { || =&gt; [print(“arity0”)] |x| =&gt;
+[print(“arity1”)] |x y| =&gt; [print(“arity2”)] } frob() // prints
+“arity0” frob(2) // prints “arity1” frob(3 4) // prints “arity2”</p>
+<p>def add2 = qux(2)<br />
+add2 // Lexical closure add2.|_| // returns list <code>[$.x + y]</code>
+add2?x // false - <code>x</code> is closed add2(10) // returns 12</p>
+<p>/** Multimethods **/ def mm = multimethod // prototypal defmulti
+object mm.on // default dispatch function mm.on // {|<em>| =&gt;
+[_.class]} mm.on?Object // has a method for Object? true mm.on.Object //
+{|</em>| =&gt; [_]} mm.on.Object = method {|<em>| =&gt; [_.str()]}
+mm(42) // returns “42” mm.on.Number = method {|</em>| =&gt; [_ + 2)]}
+mm(10) // returns 12 mm([1 2]) // returns “[1 2]” mm.on.List = method
+{|<em>| =&gt; </em>.length()} mm([1 2]) // returns 2 [/sourcecode]</p>
+<p>Thoughts?</p>
+<p>-m</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

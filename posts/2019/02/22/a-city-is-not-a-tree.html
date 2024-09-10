@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>a-city-is-not-a-tree</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>While reading <a
+href="https://www.patternlanguage.com/archive/cityisnotatree.html">Christopher
+Alexander’s amazing essay “A City is Not a Tree”</a> I was reminded of a
+page in one of my old notebooks. On that page I had taken some notes on
+some amazing computer science (and related) dissertations that might
+form the basis for a personal program design gestalt.<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p><img src="http://blog.fogus.me/wp-content/uploads/2019/01/IMG_0996-300x171.jpg" alt="" width="300" height="171" class="aligncenter size-medium wp-image-6507" /></p>
+<p>In this post I’ll mention each paper that I wrote and provide a
+little context for my choice and add a little motivation.</p>
+<h2 id="constraint-programming">Constraint programming</h2>
+<p>“<a href="https://apps.dtic.mil/dtic/tr/fulltext/u2/a096556.pdf">The
+Definition and Implementation of a Computer Programming Language Based
+on Constraints</a>” By Guy Steele</p>
+<h4 id="follow-up-reading-viewing">follow-up reading / viewing</h4>
+<ul>
+<li><a
+href="https://www.cs.cmu.edu/Groups/AI/lang/scheme/code/csp/0.html">Scheme
+code implementing the constraint language in the paper</a></li>
+<li><a
+href="https://github.com/joyofclojure/book-source/tree/master/src/clj/joy/logic">Constraint
+logic examples</a> presented in <a
+href="http://www.joyofclojure.com">The Joy of Clojure</a> 2nd
+edition</li>
+<li><a
+href="http://www.amazon.com/Building-Problem-Solvers-Artificial-Intelligence/dp/0262061570/?tag=fogus-20">Building
+Problem Solvers</a> by Forbus and de Kleer – <em>a great book that I’ve
+been slowly working my way through for a couple of years.</em></li>
+<li><a href="http://dl.acm.org/citation.cfm?id=359136">Algorithm = Logic
++ Control</a> by Robert Kowalski</li>
+<li><a href="http://dspace.mit.edu/handle/1721.1/6311">Constraints</a>
+by Steele and Sussman</li>
+<li><a
+href="http://www.infoq.com/presentations/We-Really-Dont-Know-How-To-Compute">We
+Really Don’t Know How To Compute!</a> – a talk by Gerald J. Sussman at
+the 2011 Strange Loop conference that builds on all of the ideas in
+Steele’s original and also the “Constraints” paper.</li>
+</ul>
+<h2 id="actors">Actors</h2>
+<p>“<a href="http://dspace.mit.edu/handle/1721.1/6952">ACTORS: A Model
+of Concurrent Computation in Distributed Systems</a>” by Gul Agha</p>
+<p>This was perhaps the work that built on the previous 14 years of
+Actor theory and formalized it into a practical and workable model of
+computation.</p>
+<h4 id="follow-up-reading-viewing-1">follow-up reading / viewing</h4>
+<ul>
+<li><a href="http://worrydream.com/refs/Hewitt-ActorModel.pdf">A
+Universal Modular Actor Formalism for Artificial Intelligence</a></li>
+<li><a href="https://dspace.mit.edu/handle/1721.1/57710">Semantics of
+communicating parallel processes.</a> by Irene Greif</li>
+<li><a href="http://www.erlang.se/publications/bjarnelic.pdf">Early
+history of Erlang</a> by by Bjarne Däcker</li>
+</ul>
+<h2 id="continuations">Continuations</h2>
+<p>“<a
+href="https://www2.ccs.neu.edu/racket/pubs/dissertation-clements.pdf">Portable
+and high-level access to the stack with Continuation Marks</a>” by John
+Clements</p>
+<p>This is a generalization of continuations to provide a way to store
+tagged marks in each continuation frame. This is a bit nuanced, but I
+learned a lot about “classic” continuations by seeing this contrasting
+approach.</p>
+<h4 id="follow-up-reading-viewing-2">follow-up reading / viewing</h4>
+<ul>
+<li><a
+href="http://docs.racket-lang.org/reference/contmarks.html">Racket’s
+continuation marks</a></li>
+<li><a
+href="https://axisofeval.blogspot.com/2012/08/continuation-marks.html">Axis
+of Eval on CoMs</a></li>
+</ul>
+<h2 id="internet-of-things">Internet of Things</h2>
+<p>“<a
+href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.157.8954">Programming
+Memory-Constrained Networked Embedded Systems</a>” by Adam Dunkels</p>
+<p>I read this a long time ago most because I was interested in the idea
+that someone had developed a fairly modern operating system and TCP
+stack on the classic Commodore 64. While this was not the progenitor of
+the “Internet of Things” meme, it went well with (at the time) my
+exposure to the beginnings of IoT as a stand-alone movement, stemming
+from what was the seeds of sensor network simulation techniques.</p>
+<h4 id="follow-up-reading-viewing-3">follow-up reading / viewing</h4>
+<ul>
+<li><a
+href="https://ieeexplore.ieee.org/document/1367266">Contiki-alightweightandflexible
+operating system for tiny networked sensors</a></li>
+<li><a
+href="https://www.technologyreview.com/s/404694/etc-bill-joys-six-webs/">Bill
+Joy’s Six Webs</a></li>
+</ul>
+<h2 id="shrdlu">SHRDLU</h2>
+<p>“<a
+href="http://hci.stanford.edu/winograd/shrdlu/AITR-235.pdf">Procedures
+as a representation for data in a computer program for understanding
+natural language</a>”</p>
+<p>One of my summer projects in college<a href="#fn2"
+class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> was
+to pick a famous paper and implement the system described therein. My
+choice (with some prompting from my professor) was a “Blocks World”
+program that, given an abstract representation of stacked colored
+blocks, took English-language commands to manipulate the blocks. The
+program was written in <a href="http://www.xlisp.org">XLISP</a> and
+while it did understand a limited subset of English, the language that
+it understood was more Zork-like than anything else. For a grad school
+project I further built on that codebase by wiring in <a
+href="http://www.clipsrules.net">CLIPS</a> and allowing the
+specification of a goal state, after which the program would solve the
+required steps to reach that goal.</p>
+<h4 id="follow-up-reading-viewing-4">follow-up reading / viewing</h4>
+<ul>
+<li><a
+href="https://www.amazon.com/Understanding-Natural-Language-Terry-Winograd/dp/0127597506/?tag=fogus-20">Understanding
+Natural Language</a> by Terry Winograd</li>
+</ul>
+<p>Speaking of CLIPS…</p>
+<h2 id="production-rules">Production Rules</h2>
+<p>“<a
+href="http://reports-archive.adm.cs.cmu.edu/anon/scan/CMU-CS-79-forgy.pdf">On
+the efficient implementation of production systems</a>” by Charles
+Forgy</p>
+<p>My undergrad and graduate focus was on expert systems design and
+development<a href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a> so needless to say this paper was
+kinda the whizz for me.</p>
+<h4 id="follow-up-reading-viewing-5">follow-up reading / viewing</h4>
+<ul>
+<li><a
+href="https://www.researchgate.net/publication/222465509_RETE_A_fast_algorithm_for_the_many_patternmany_object_pattern_match_problem">Rete:
+A Fast Algorithm for the Many Pattern/Many Object Pattern Match
+Problem</a> by Charles Forgy – <em>I’m very familiar with the Rate
+algorithm and a couple of its implementations in CLIPS and OPS5. Indeed,
+I’ve poured over this paper more than any other in my life as I’ve
+implemented Rete my fair share of times in various languages.</em></li>
+<li><a
+href="https://www.amazon.com/Expert-Systems-Principles-Programming-Fourth/dp/0534384471/?tag=fogus-20">Expert
+Systems Principles Programming</a></li>
+<li><a
+href="https://www.amazon.com/Jess-Action-Java-Rule-Based-Systems/dp/1930110898/?tag=fogus-20">Jess
+in Action</a> – <em>IMO the best book ever published by
+Manning</em></li>
+<li><a href="https://leanpub.com/readevalprintlove004">A teeny tiny
+production rules system in Clojure</a></li>
+</ul>
+<h2 id="fexprs">fexprs</h2>
+<p>“<a
+href="http://www.wpi.edu/Pubs/ETD/Available/etd-090110-124904/">Fexprs
+as the basis of Lisp function application; or, $vau: the ultimate
+abstraction</a>” by John Shutt</p>
+<p>It was long into my life as a Lisp adherent that I learned about
+fexprs, which have a long history in LISP. Simply put (nearly to the
+point of libel) fexprs are functions that do not evaluate their
+arguments. For a long time fexprs were a dead branch of the Lisp family
+lineage, but Shutt’s paper gives them the thorough and respectful
+treatment that they deserve.</p>
+<h4 id="follow-up-reading-viewing-6">follow-up reading / viewing</h4>
+<ul>
+<li><a
+href="http://www.softwarepreservation.org/projects/LISP/book/LISP%201.5%20Programmers%20Manual.pdf">The
+LISP 1.5 Programmer’s Manual</a></li>
+<li><a href="https://www.dreamsongs.com/Files/HOPL2-Uncut.pdf">The
+Evolution of Lisp</a> by Steele and Gabriel</li>
+<li><a
+href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.44.9264">The
+theory of fexprs is trivial</a> by Wand</li>
+</ul>
+<h2 id="contracts">Contracts</h2>
+<p>“[Behavioral Software Contracts</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>A topic for another day… but Alexander’s work is as good
+a summary as any I suppose.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>My college had a summer program for its computer science
+department where students could work full-time with a local tech company
+and also work on a summer-long project. I learned a tremendous amount
+during this time and am still influenced by those lessons even today.<a
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>A decidedly unfashionable branch of Ai these days…
+though I’ve often found that most systems that I consult for could use
+an expert system or have a “ad-hoc, informally-specified, bug-ridden,
+slow implementation of” an expert system embedded within. Even in the
+face of the fact that I rarely do active expert systems development, the
+processes of expert system design still influence the way that I do
+greenfield systems development.<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

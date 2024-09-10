@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>moleskine-notes-for-july-2008</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<h1 id="java-left-fold">Java left fold</h1>
+<p>Using <a
+href="http://projects.workingmouse.com/public/functionaljava/trunk">Functional
+Java</a></p>
+<pre><code>public static &lt;A, B&gt; A fold(F&lt;A, F&lt;B, A&gt;&gt; f, A z, Iterable&lt;B&gt; xs) {
+  A p = z;
+  for (B x : xs) {
+      p = f.f(p).f(x);
+  }
+  return p;
+}</code></pre>
+<h1 id="a-regex">A Regex</h1>
+<p>Match username (min 3, max 16, aAzZ_09) /<a href="#fn1"
+class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a>{3,16}$/</p>
+<h1 id="langs">Langs</h1>
+<ul>
+<li>D</li>
+<li>OCaml</li>
+<li>Ruby</li>
+<li>Scheme (on tap)</li>
+<li>Corba</li>
+<li>Haskell</li>
+<li>ML</li>
+</ul>
+<p>Popes scare me worse than clowns.</p>
+<h1 id="broccoli">Broccoli</h1>
+<ul>
+<li>Predicate functions end in ?</li>
+<li>underscore is a scope var lookup</li>
+<li>Function overloading</li>
+<li>Varargs</li>
+<li>OO is message based</li>
+</ul>
+<h2 id="conventions">Conventions</h2>
+<ul>
+<li><code>ClassName</code></li>
+<li><code>method_name</code></li>
+<li><code>_scalar_variable</code></li>
+<li><code>__collection_variable</code></li>
+<li><code>predicate?</code></li>
+<li><code>!undefine</code></li>
+<li><code>CONSTANT</code></li>
+<li>Block-level elements (e.g. fundef, flow ctrl) enclosed in curly
+brackets <code>{}</code></li>
+<li>Fact base views (e.g. rule LHS, bulk facts) enclosed in square
+brackets <code>[]</code></li>
+<li>Function calls enclosed in parens <code>()</code></li>
+</ul>
+<p>Some of the conventions are enforced by the language, others are
+merely standards.</p>
+<h1 id="tech-books">Tech Books</h1>
+<ol type="1">
+<li>The Pencil: A History of Design and Circumstance</li>
+<li>The Design of Everyday Things</li>
+<li>The Codebreakers: The Story of Secret Writing</li>
+<li>Longitude: The True Story of a Lone Genius Who Solved the Greatest
+Scientific Problem of His Time</li>
+<li>The Making of the Atomic Bomb</li>
+</ol>
+<h1 id="charles-h.-moore">Charles H. Moore</h1>
+<blockquote>
+<p>Yes indeed, I write Forth code every day. It is a joy to write a few
+simple words and solve a problem. As brain exercise it far surpasses
+cards, crosswords or Sudoku; and is useful.</p>
+</blockquote>
+<h1 id="prologlispprologlisp-insanity">Prolog/Lisp/Prolog/Lisp
+Insanity</h1>
+<p>Using <a href="http://www.gprolog.org/">GNU Prolog</a></p>
+<pre><code>eval(X,O) :- defined(X,A), eval(A,O).
+eval([X|T],O) :- defined(X,A), eval([A|T],O).
+
+eval(X,X) :- number(X); X = t ; X = [].
+
+eval([quote,X],X).
+eval([lambda|X],[lambda|X]).
+eval([define,X,Y],t) :- \+ defined(X,_), asserta(defined(X,Y)).
+
+eval([cond],_) :- !, fail.
+eval([cond,[H,A]|_],Z) :- eval(H,O), \+ O = [],!, eval(A,Z).
+eval([cond,_|T],Z) :- eval([cond|T],Z),!.
+    
+eval([F|A],X) :- eval_list(A,Ae), apply(F,Ae,X),!.
+
+eval_list([],[]).
+eval_list([H|T],[Ho|To]) :- eval(H,Ho), eval_list(T,To).
+
+apply(add,[X,Y],Z) :- Z is X + Y.
+apply(add,[X,Y|T],Z) :- I is X + Y, apply(add,[I|T],Z).
+
+apply(mul,[X,Y],Z) :- Z is X * Y.
+apply(mul,[X,Y|T],Z) :- I is X * Y, apply(mul,[I|T],Z).
+
+apply(sub,[X,Y],Z) :- Z is X - Y.
+apply(div,[X,Y],Z) :- Z is X / Y.
+
+apply(mod,[X,Y],Z) :- Z is X mod Y.
+apply(pow,[X,Y],Z) :- Z is X ** Y.
+
+apply(eq,[X,Y],t) :- X = Y.
+apply(eq,[X,Y],[]) :- \+ X = Y.
+
+apply(atom,[X],t) :- number(X);atom(X); X = [].
+apply(atom,[[_|_]],[]).
+
+apply(cons,[X|[Y]],[X|Y]).
+apply(car,[[X|_]],X).
+apply(cdr,[[_|T]],T).
+
+apply([lambda,[],E],[],O) :- eval(E,O).
+apply([lambda,[A|Ta],E],[L|Tl],O) :- subst(A,[quote,L],E,E2), apply([lambda,Ta,E2],Tl,O).
+
+subst(_,_,[],[]).
+subst(A,B,[A|T],[B|L]) :- subst(A,B,T,L).
+subst(A,B,[H|T],[H2|L]) :- subst(A,B,H,H2),subst(A,B,T,L).
+subst(A,B,A,B).
+subst(_,_,X,X).
+
+% gprolog
+:- predicate_property(defined,dynamic).
+% swi prolog
+:- dynamic defined/2.
+
+defined(_,[]) :- !,fail.
+
+
+lisp([
+    [define,null,[lambda,[x],[eq,x,[quote,[]]]]],
+    [define,and,[lambda,[x,y],[cond,[x,[cond,[y,t],[t,[quote,[]]]]],[t,[quote,[]]]]]],
+    [define,not,[lambda,[x],[cond,[x,[quote,[]]],[t,t]]]],
+    [define,append,[lambda,[x,y],[cond,[[null,x],y],[t,[cons,[car,x],[append,[cdr,x],y]]]]]],
+    [define,list,[lambda,[x,y],[cons,x,[cons,y,[quote,[]]]]]],
+    [define,pair,[lambda,[x,y],[cond,[[and,[null,x],[null,y]],[quote,[]]],[[and,[not,[atom,x]],[not,[ato
+        m,y]]],[cons,[list,[car,x],[car,y]],[pair,[cdr,x],[cdr,y]]]]]]],
+    [define,assoc,[lambda,[x,y],[cond,[[eq,x,[car,[car,y]]],[car,[cdr,[car,y]]]],[t,[assoc,x,[cdr,y]]]]]
+    ],
+    [define,evcon,[lambda,[c,a],[
+        cond,[[eval,[caar,c],a],[eval,[cadar,c],a]],[t,[evcon,[cdr,c],a]]
+    ]]],
+    [define,eval,[lambda,[e,a],[
+        cond,
+        [[atom,e],[assoc,e,a]],
+        [[atom,[car,e]],[cond,
+        [[eq,[car,e],[quote,quote]],[cadr,e]],
+        [[eq,[car,e],[quote,atom]],[atom,[eval,[cadr,e],a]]],
+        [[eq,[car,e],[quote,eq]],[eq,[eval,[cadr,e],a],[eval,[caddr,e],a]]],
+        [[eq,[car,e],[quote,car]],[car,[eval,[cadr,e],a]]],
+        [[eq,[car,e],[quote,cdr]],[cdr,[eval,[cadr,e],a]]],
+        [[eq,[car,e],[quote,cons]],[cons,[eval,[cadr,e],a],[eval,[caddr,e],a]]],
+        [[eq,[car,e],[quote,cond]],[evcon,[cdr,e],a]],
+        [t,[eval,[cons,[assoc,[car,e],a],[cdr,e]],a]]
+    ]],
+    [[eq,[caar,e],[quote,label]],
+    [eval,[cons,[caddar,e],[cdr,e]],[cons,[list,[cadar,e],[car,e]],a]]
+    ],
+    [[eq,[caar,e],[quote,lambda]],
+    [append,[pair,[cadar,e],[evlis,[cdr,e],a]],a]
+    ]]]],
+    [define,evlis,[lambda,[m,a],[
+        cond,[[null,m],[quote,[]]],[t,[cons,[eval,[car,m],a],[evlis,[cdr,m],a]]]
+    ]]],
+    [define,cadr,[lambda,[x],[car,[cdr,x]]]],
+    [define,caddr,[lambda,[x],[car,[cdr,[cdr,x]]]]],
+    [define,cadar,[lambda,[x],[car,[cdr,[car,x]]]]],
+    [define,caddar,[lambda,[x],[car,[cdr,[cdr,[car,x]]]]]]
+]).
+
+load :- lisp(X), eval_list(X,_)
+
+paren(&quot;(&quot;).
+paren(&quot;)&quot;).
+
+digit(&quot;0&quot;) --&gt; &quot;0&quot;.
+digit(&quot;1&quot;) --&gt; &quot;1&quot;.
+digit(&quot;2&quot;) --&gt; &quot;2&quot;.
+digit(&quot;3&quot;) --&gt; &quot;3&quot;.
+digit(&quot;4&quot;) --&gt; &quot;4&quot;.
+digit(&quot;5&quot;) --&gt; &quot;5&quot;.
+digit(&quot;6&quot;) --&gt; &quot;6&quot;.
+digit(&quot;7&quot;) --&gt; &quot;7&quot;.
+digit(&quot;8&quot;) --&gt; &quot;8&quot;.
+digit(&quot;9&quot;) --&gt; &quot;9&quot;.
+
+space(&quot; &quot;) --&amp;gt; &quot; &quot;.
+space(&quot;\t&quot;) --&amp;gt; &quot;\t&quot;.
+space(&quot;\n&quot;) --&amp;gt; &quot;\n&quot;.
+
+identifier_char(X) :-
+    \+ space(X, _, _),
+    \+ paren(X),
+    \+ digit(X, _, _).
+
+ws --&amp;gt; space(_).
+ws --&amp;gt; space(_), ws.
+ows --&amp;gt; space(_), ows.
+ows --&amp;gt; [].
+
+program([H|T]) --&amp;gt; sexp(H), ows, program(T).
+program([H]) --&amp;gt; sexp(H).
+
+sexp(L) --&amp;gt; &quot;(&quot;, ows, sexp_list(L), ows, &quot;)&quot;.
+sexp([]) --&amp;gt; &quot;(&quot;, ows, &quot;)&quot;.
+sexp_list([H|T]) --&amp;gt; (sexp(H); atom(H)), ws, sexp_list(T).
+sexp_list([H]) --&amp;gt; sexp(H); atom(H).
+
+atom(A) --&amp;gt; identifier(A) ; number(A).
+
+identifier(I) --&amp;gt; [A], { identifier_char([A]) }, id_list(L), { atom_codes(I, [A|L]) }.
+id_list([H|T]) --&amp;gt; [H], { identifier_char([H]) }, id_list(T).
+id_list([]) --&amp;gt; [].
+
+number(N) --&amp;gt; n_list(L), { number_codes(N, L) }.
+n_list([H|T]) --&amp;gt; digit([H]), n_list(T).
+n_list([H]) --&amp;gt; digit([H]).</code></pre>
+<h1 id="dyna-fgets">Dyna-fgets</h1>
+<pre><code>/*
+ * rfgets.c
+ * dynamically allocating fgets
+ * daniel.fischer at iitb.fraunhofer.de
+ */
+
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+
+enum { RFGETS_CHUNK_SIZE = 32 };
+
+static char *rfg(FILE *f, size_t n)
+{
+    char b[RFGETS_CHUNK_SIZE + 1], *const e = b + sizeof b - 2, *p;
+    size_t x;
+    /* store &#39;\0&#39; in the second-to-last character of b */
+    *e = &#39;\0&#39;;
+    /* read into b */
+    if (!fgets(b, sizeof b, f))
+        return 0;
+    /* check for an incomplete line */
+    if (*e != &#39;\0&#39; &amp;&amp; *e != &#39;\n&#39; &amp;&amp; (p = rfg(f, n + (x = sizeof b - 1))))
+        return memcpy(p - x, b, x);
+    /* this is the end of the line (or EOF); allocate a buffer for the line */
+    else if ((p = malloc(n + (x = strlen(b) + 1))))
+        return memcpy(p + n, b, x);
+    else
+        return 0;
+}
+
+char *rfgets(FILE *f)
+{
+    return rfg(f, 0);
+}
+
+int main(void)
+{
+    char *line;
+    for (; line = rfgets(stdin); free(line))
+        printf(&quot;&gt;&gt;%s&lt;&lt;\n&quot;, line);
+    if (!feof(stdin))
+        puts(&quot;Error?&quot;);
+    return 0;
+}</code></pre>
+<h1 id="low-power-pc">Low-power PC</h1>
+<ol type="1">
+<li>[AMD Geode LX 800 Nano ITX Motherboard/CPU Combo $154][mobo]</li>
+<li>[512MB 200-pin SO-DIMM DDR-400 $20][dimm]</li>
+<li>[4GB compact flash card $14][flash]</li>
+<li>[12vdc AC/DC external wall wart $18][ac]</li>
+</ol>
+<h1 id="broccoli-adoption">Broccoli Adoption</h1>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>a-zA-Z0-9_<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

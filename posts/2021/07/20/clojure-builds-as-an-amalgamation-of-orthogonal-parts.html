@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>clojure-builds-as-an-amalgamation-of-orthogonal-parts</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<h1 id="tools.build">tools.build</h1>
+<p>The Clojure Core team recently released a new Clojure library, <a
+href="https://github.com/clojure/tools.build">tools.build</a>, that is a
+culmination of thought around batteries-included build support for
+Clojure projects. I won’t go into detail around the history and contents
+of the library in this post because much of that is found elsewhere,
+including the <a
+href="https://clojure.org/news/2021/07/09/source-libs-builds">announcement
+post</a>, the <a
+href="https://clojure.org/guides/tools_build">tools.build guide</a>, and
+the <a href="https://clojure.github.io/tools.build">tools.build API
+docs</a>. Instead, I’ll walk through adding tools.build support to a
+simple project that currently uses <a
+href="https://leiningen.org">Leiningen</a> for building and talk a
+little about how tools.build goes about the same tasks in a different
+way.</p>
+<p>The project that I’ll work with is a small personal project called <a
+href="https://github.com/fogus/reinen-vernunft">reinen-vernunft</a> and
+it’s build needs are appropriate for the gentle introduction herein.</p>
+<h2 id="building-is-a-matter-of-orthogonal-parts">Building is a matter
+of orthogonal parts</h2>
+<p>The batteries-included build story for Clojure is composed of an
+amalgam of complementary pieces, including: <a
+href="https://github.com/clojure/tools.deps.alpha">tools.deps</a> with
+deps.edn, <a href="https://clojure.org/reference/deps_and_cli">Clojure
+CLI</a>, and <a
+href="https://github.com/clojure/tools.build">tools.build</a>.
+Therefore, enabling building in <a
+href="https://github.com/fogus/reinen-vernunft">reinen-vernunft</a> will
+require thinking about how these parts work in conjunction. However, to
+start let me show the existing project.clj file:</p>
+<pre><code>;; project.clj
+(defproject fogus/reinen-vernunft &quot;0.1.1-SNAPSHOT&quot;
+  :description &quot;Code conversations in Clojure regarding the application 
+                of pure search, reasoning, and query algorithms.&quot;
+  :url &quot;https://github.com/fogus/reinen-vernunft&quot;
+  :license {:name &quot;Eclipse Public License&quot;
+            :url &quot;http://www.eclipse.org/legal/epl-v10.html&quot;}
+  :dependencies [[org.clojure/clojure &quot;1.11.0-alpha1&quot;]
+                 [org.clojure/core.unify &quot;0.5.7&quot;]
+                 [evalive &quot;1.1.0&quot;]]
+  :profiles {:dev {:dependencies [[datascript &quot;1.2.2&quot;]]}})</code></pre>
+<p>This is as bare-bones for a project file as you can create but there
+are some interesting things to understand if you want to explore how to
+perform the same tasks as Leiningen with tools.build.</p>
+<h3 id="dependencies-declaration">Dependencies declaration</h3>
+<p>First, and likely most importantly is the <code>:dependencies</code>
+section of the project file. Clojure provides a way to similarly
+describe the same set of dependencies using the deps.edn format and
+indeed, the same set as follows:</p>
+<pre><code>;; deps.edn
+:deps  {org.clojure/core.unify {:mvn/version &quot;0.5.7&quot;}
+        evalive/evalive        {:mvn/version &quot;1.1.0&quot;}}</code></pre>
+<p>This is a subsection of the total deps.edn file posted out of context
+so to see how it fits into the structure you can look at the <a
+href="https://github.com/fogus/reinen-vernunft/blob/main/deps.edn">reinen-vernunft
+deps.edn file</a>. However, you can see that the declaration of
+dependencies for Leiningen and Clojure is pretty close. The map-based
+version in deps.edn allows for different types of specifications be they
+artifact based, Git based, or local libraries but I won’t go into those
+details in this post <a
+href="https://clojure.org/guides/deps_and_cli">but that information is
+available on the clojure.org site</a>. One point of interest is that the
+dependency coordinate for the <a
+href="https://github.com/fogus/evalive">Evalive library</a> was prefixed
+in the deps.edn case and not in the project.clj case. While both will
+allow unqualified library declarations for now, the tools.deps library
+will issue a warning should your own projects declare them as
+dependencies – rest assured, the author of Evalive has been sacked.</p>
+<p>To find those listed dependencies, Leiningen looks in a few select
+locations by default: the local Maven repository, Maven Central, and
+Clojars to name the most popular options. The tools.deps library also
+looks in these places and will download the artifacts into the local
+Maven repository as expected. Finally, local source is a dependency also
+and Leiningen looks in the <code>src</code> directory by default and so
+does tools.deps, but my personal preference is to declare the source
+path explicitly – YMMV:</p>
+<pre><code>;; deps.edn
+:paths [&quot;src&quot;]</code></pre>
+<h3 id="building">Building</h3>
+<p>Now that I have dependencies in place I’d like to build an artifact
+of my own for reinen-vernunft, specifically a jar file containing the
+Clojure source files for the project. First, I’d like to specify a
+<code>build</code> alias in the deps.edn file that pulls in the
+tools.build library as a dependency in the <code>:aliases</code> map as
+such:</p>
+<pre><code>;; deps.edn
+:build {:deps {io.github.clojure/tools.build 
+               {:git/tag &quot;v0.1.3&quot; :git/sha &quot;688245e&quot;}}
+        :ns-default build}</code></pre>
+<p>This is a Git based dependency scoped under the <code>:build</code>
+alias that points to a specific Git repository tag and short SHA.
+However, now that I’ve pulled in that dependency how do I do anything?
+The tools.build library provides a set of functions and utilities that
+allow builds to be described as code. Indeed, a file named build.clj
+serves as this program and starts by pulling in the tools.build api:</p>
+<pre><code>;; build.clj
+(ns build
+  (:require [clojure.tools.build.api :as b]))</code></pre>
+<p>Where Leiningen’s project.clj declares its configuration parameters
+as syntax in the <code>defproject</code> form, tools.build parameters
+are just vars in code:</p>
+<pre><code>;; build.clj
+(def lib &#39;fogus/reinen-vernunft)
+(def version (format &quot;0.1.%s&quot; (b/git-count-revs nil)))
+(def target-dir &quot;target&quot;)
+(def class-dir (str target-dir &quot;/&quot; &quot;classes&quot;))
+(def jar-file (format &quot;%s/%s-%s.jar&quot; target-dir (name lib) version))
+(def src [&quot;src/clj&quot;])
+(def basis (b/create-basis {:project &quot;deps.edn&quot;}))</code></pre>
+<p>These vars describe various things, including version numbers built
+from calculated Git revisions, class target paths, Jar file names, and
+useful build configuration. To create a build target function in the
+build.clj file is as simple as writing a function, in this case
+<code>clean</code> that takes a map argument (although ignored in this
+case), that calls out to the tools.build API task functions:</p>
+<pre><code>;; build.clj
+(defn clean
+  &quot;Delete the build target directory&quot;
+  [_]
+  (println (str &quot;Cleaning &quot; target-dir))
+  (b/delete {:path target-dir}))</code></pre>
+<p>This <code>clean</code> target is ready to run using the Clojure CLI
+by issuing the following command at your command prompt:</p>
+<pre><code>$ clj -T:build clean
+Cleaning target</code></pre>
+<p>While not earth-shattering, the <code>clean</code> target is useful
+when you’re working on a project and need to clean existing artifacts
+before building them anew. Indeed, one such artifact is a Jar file that
+for reinen-vernunft means an archive of the name specified by the
+<code>jar-file</code> var and containing the source specified with the
+<code>src</code> var. A <code>jar</code> target would need to do the
+following tasks:</p>
+<ul>
+<li>Create a pom file</li>
+<li>Copy source to an intermediate location</li>
+<li>Archive the contents of the intermediate location</li>
+</ul>
+<p>The implementation is as follows:</p>
+<pre><code>;; build.clj
+(defn jar
+  &quot;Create the jar from a source pom and source files&quot;
+  [_]
+  (b/write-pom {:class-dir class-dir
+                :lib lib
+                :version version
+                :src-pom &quot;pom.xml&quot;
+                :basis basis
+                :src-dirs src})
+  (b/copy-dir {:src-dirs src
+               :target-dir class-dir})
+  (b/jar {:class-dir class-dir
+          :jar-file jar-file}))</code></pre>
+<p>This <code>jar</code> target function is fairly straight-forward in
+that it: 1) writes a pom to target dir, 2) copies src files target dir,
+and 3) archives these files into a JAR file. One interesting aspect of
+the <code>jar</code> target is that it uses a source pom as the base for
+the new pom. This is the prefered way to seed a pom with metadata about
+a project that in Leiningen often stands as <code>defproject</code>
+parameters. Specifically, the <code>:description</code> and
+<code>:license</code> fields in the project.clj file shown in the
+beginning of this post become XML elements in the source pom.xml fed
+into the <code>b/write-pom</code> task:</p>
+<pre><code>;; pom.xml</code></pre>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

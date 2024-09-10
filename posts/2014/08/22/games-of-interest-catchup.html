@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>games-of-interest-catchup</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p><a href="http://nickbentleygames.wordpress.com/">Nick Bentley</a>’s
+<a href="http://boardgamegeek.com/boardgame/68199/catchup">Catchup</a>
+is a game that I’ve only recently played, but that has captured my
+imagination in a big way. If you’ve read this blog for any significant
+amount of time then you might have noticed that I like to talk about <a
+href="http://blog.fogus.me/tag/langdev/">programming languages and the
+process of creating them</a>. With this in mind it should come as no
+surprise that the reason that I admire the game Catchup is that
+Mr. Bentley has written quite extensively about its <a
+href="http://nickbentleygames.wordpress.com/tag/catchup/">design,
+creation, and evolution</a>. Indeed, most of his thoughts about game
+design, with some surgical use of <a
+href="http://en.wikipedia.org/wiki/Sed">sed</a>, could effectively
+stand-in for discussions on programming language design. <a
+href="http://blog.fogus.me/2014/04/19/emergence-and-quality/">I’ve talk
+about this kind of synchronicity before</a>, but no where is it more
+apparent than in Bentley’s writing.<a href="#fn1" class="footnote-ref"
+id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>In a nutshell, Catchup is the epitome of elegance in game design.
+It’s a medium-weight game of abstract strategy meaning that it’s not as
+complicated as Chess or Go, but it’s got more to offer than say Connect
+4, Dots and Boxes, or even <a
+href="http://boardgamegeek.com/boardgame/38545/kamisado">Kamisado</a>
+(IMO). I’ve fallen for Catchup in a big way, and I want to share this
+joyful game with you.</p>
+<p>That said, it’s probably worth talking a little about how to play the
+game. I’ve found it very easy to teach, so allow me to try here.</p>
+<figure>
+<img
+src="https://farm6.staticflickr.com/5551/14702128440_ccd76aed4c_d.jpg"
+title="image courtesy of Nick Bentley" alt="catchupinaction" />
+<figcaption aria-hidden="true">catchupinaction</figcaption>
+</figure>
+<p><em>Caveat emptor: I am a rank beginner at Catchup. My goal with this
+post is to expose a great game and hope others find it compelling enough
+to explore themselves.</em></p>
+<h2 id="what-you-need-to-play">What you need to play</h2>
+<p>You can print out a <a
+href="http://www.boardgamegeek.com/filepage/80305/redesigned-ketchup-board">Catchup
+board with a scoring track</a> or just use the iOS app (discussed
+later). If you go with the meatspace board then you’ll need some small
+Go stones or beads of two different colors, 30 of one color and 31 of
+the other.</p>
+<h2 id="rules">Rules</h2>
+<p>Catchup is a connection game of majority control on a hexhex5
+board[^5] (see the image above) with a very simple set of rules:</p>
+<ol type="1">
+<li>The first player of the game places 1 stone</li>
+<li>On each subsequent turn a player can place 1 or 2 stones</li>
+<li>If the size of their largest group grows or becomes the largest
+group on the board as a result of their placement(s) then the other
+player may place up to 3 stones on the next turn</li>
+</ol>
+<p>When the board is full the game ends.</p>
+<p>And that’s it!</p>
+<p><em>note: The image above has a scoring track around the game board
+that’s used to track the size of the largest group for each
+player.</em></p>
+<h3 id="winning">Winning</h3>
+<p>The player with the largest group at the end wins. If there’s a tie
+for the largest group then the next largest determines the winner, or
+the next largest if again there’s a tie, all the way down to the final
+group.<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a> Ties in Catchup are not
+possible.</p>
+<figure>
+<img
+src="https://farm4.staticflickr.com/3865/14702198928_b1c1808782_d.jpg"
+title="image courtesy of Ludocracy Now" alt="catchupangle" />
+<figcaption aria-hidden="true">catchupangle</figcaption>
+</figure>
+<p>Amazingly this simple ruleset belies the fact that the game is quite
+deep. In my plays so far at the tabletop and on the phone/tablet have
+revealed hints of <a
+href="http://boardgamegeek.com/boardgame/4112/hex">Hex</a> and <a
+href="http://www.amazon.com/Mudcrack-Y-Craige-Schensted/dp/091101408X/?tag=fogus-20">Y</a>
+with a similar feel to the timing tension that I get when playing <a
+href="http://www.amazon.com/GMT-Games-0012-Battle-Line/dp/B00153TYIU/?tag=fogus-20">Battle
+Line</a>.</p>
+<blockquote>
+<p>Should I connect now? If I don’t I might get cut off there… But if I
+do I’ll reveal my plan…</p>
+</blockquote>
+<p>Good fun.</p>
+<h2 id="catchup-in-your-devices">Catchup in your devices</h2>
+<p>Lately I’ve been playing Catchup on my phone against people around
+the world (full disclosure, I appear to be the worst player in the
+world). Early this month an adaptation of <a
+href="https://itunes.apple.com/us/app/catchup-abstract-strategy/id718429890?uo=4&amp;mt=8&amp;at=10lazE">Catchup
+was released for iOS systems</a> for $1.99. The app looks like this on
+my phone:</p>
+<figure>
+<img src="http://cf.geekdo-images.com/images/pic2088819.png"
+alt="catchupios" />
+<figcaption aria-hidden="true">catchupios</figcaption>
+</figure>
+<p>One of the cool things about this app is that it will adjust its own
+skill level to match your play. That is, at the beginning it plays very
+poorly, but after a few wins it’s quite challenging. Indeed, I’ve
+plateaued a bit at level 13 and bounce back and forth between 12 and 13.
+This is fine by me because it allows me to always play an AI at my
+level. This is a nice feature given that Catchup itself does not have an
+obvious handicapping mechanism like Go. I suppose that one could lay
+extra stones in the beginning, but I suspect the nature of the game
+would change too much for that to be viable.</p>
+<p>This adjusting skill feature is almost worth the price alone given
+that, in my experience, most game apps have three settings: stoopid,
+laughable, and impossible.</p>
+<h2 id="simple-strategies-and-observations">Simple strategies and
+observations</h2>
+<p>While I mentioned that Catchup doesn’t have a natural handicapping
+mechanism, it does have a… ah hem… catch up mechanism. That is, the rule
+that allows someone to place three stones instead of two allows the
+trailing player to get close to the leader quicker than the leader can
+widen the gap. If this is done properly then a player can intentionally
+trail right up to a critical moment where they can pull ahead for the
+lead. This is easier said than done. The whole game is a delicate
+balance between trailing and embiggening (a technical term that I just
+made up) groups. I still haven’t quite figured it out. I played the
+designer once and he made it look super easy, but that’s how those
+things go I suppose.</p>
+<p>That said, there are basic patterns that help to maximize your group
+growth potential while also minimizing your opponent’s. They are as
+follows:</p>
+<figure>
+<img
+src="https://farm4.staticflickr.com/3866/14971842466_c4c8f6dfe6_o_d.png"
+title="image courtesy of Nick Bentley" alt="fork" />
+<figcaption aria-hidden="true">fork</figcaption>
+</figure>
+<figure>
+<img
+src="https://farm4.staticflickr.com/3900/14808293047_3d88936053_o_d.png"
+title="image courtesy of Nick Bentley" alt="knife" />
+<figcaption aria-hidden="true">knife</figcaption>
+</figure>
+<figure>
+<img
+src="https://farm6.staticflickr.com/5558/14808136049_e8b91e5450_o_d.png"
+title="image courtesy of Nick Bentley" alt="sandwich" />
+<figcaption aria-hidden="true">sandwich</figcaption>
+</figure>
+<figure>
+<img
+src="https://farm4.staticflickr.com/3924/14994458332_8317ee5fb8_o_d.png"
+title="image courtesy of Nick Bentley" alt="wrap" />
+<figcaption aria-hidden="true">wrap</figcaption>
+</figure>
+<p>The designer, Nick Bentley has written more information about <a
+href="http://www.boardgamestrategies.com/blog/gamename/catchup/">basic
+Catchup strategies</a> than I can include here.</p>
+<h2 id="finis">Finis</h2>
+<p>Catchup, unlike <a
+href="http://blog.fogus.me/2014/05/07/games-of-interest-homeworlds/">Homeworlds
+before</a> is a game with very simple rules that work together towards
+deeper implications. I suppose you could say that it’s a “1-minute to
+learn, a lifetime to master” kind of games, but that’s not to imply that
+it requires a lifetime of study to master like Chess and Go. Instead,
+it’s a relatively new game, so its depths have yet been plumbed. This is
+an exciting opportunity from my perspective. It certainly doesn’t hurt
+that Catchup is a beautiful idea.</p>
+<p>Consider trying it out.</p>
+<figure>
+<img
+src="http://a1.mzstatic.com/us/r30/Purple5/v4/5e/ce/ac/5eceac58-3182-5d1f-577b-7475726dd93e/mzl.pxvtkygs.175x175-75.jpg"
+alt="ios" />
+<figcaption aria-hidden="true">ios</figcaption>
+</figure>
+<p><a href="https://itunes.apple.com/us/app/catchup-abstract-strategy/id718429890?mt=8&uo=4" target="itunes_store" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/htmlResources/assets/en_us//images/web/linkmaker/badge_appstore-lrg.png) no-repeat;width:135px;height:40px;@media only screen{background-image:url(https://linkmaker.itunes.apple.com/htmlResources/assets/en_us//images/web/linkmaker/badge_appstore-lrg.svg);}"></a></p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Others of particular note in this vein are <a
+href="http://www.cameronius.com/">Cameron Brown</a>, <a
+href="http://boardgamegeek.com/boardgamedesigner/47001/luis-bolanos-mures">Luis
+Bolaños Mures</a>, and <a href="http://mindsports.nl/">Christian
+Freeling</a>.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>This is known as a “<a
+href="http://nickbentleygames.wordpress.com/2014/07/21/how-a-fractal-tiebreak-made-catchup-deeper/">fractal
+tiebreaker</a>” and it’s used in another interesting game [Ingenious<a
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

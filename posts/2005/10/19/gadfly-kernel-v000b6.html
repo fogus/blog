@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>gadfly-kernel-v000b6</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>
+Over the past week I have found some insane motivation for working on my
+OS kernel. In the past, I have developed my bootloader and a simple
+kernel entry point, but progress since that point has been scarce. Over
+the past few weeks however, I have managed to incorporate a hardware
+abstraction layer (HAL), kprint functions, hardware assisted random
+number generation, and a partial port to PowerPC. Specifically, the
+progress timeline looks something like this:
+</p>
+<p>
+<strong>Version 0.00a0 (x86)</strong><br /> Created bootloader hook into
+kmain<br /> Created memcpy and memset functions<br /> Created Ant build
+script
+</p>
+<p>
+<strong>Version 0.00a6 (x86)</strong><br /> Created preliminary HAL
+hooks for text video access including hadrware cursor control, clear
+screen, and putc<br /> Built kernel-level putc calling HAL_putc and test
+calls<br /> Created std_args macros
+</p>
+<p>
+<strong>Version 0.00a9 (x86)</strong><br /> Created preliminary kprintf
+handling %s, %c, and %% flags<br /> Put together the first cut HAL
+prototypes for interrupts, memory, cpu, and crypt
+</p>
+<p>
+<p><strong>Version 0.00b4 (x86)</strong><br /> Added kprintf handling
+for %d, %i, %u, and %x<br /></p>
+Added HAL_get_entropy method to the HAL_crypt interface to retrieve
+hardware entropy<br /> Started on first-cut memory allocator
+</p>
+<p>
+<strong>Version 0.00b6 (x86/ppc)</strong><br /> Created first-cut at ppc
+bootloading using an explicit load from OpenFirmware. The base kernel
+runs, but I have not filled in the video HAL operations, so it is a bit
+of a hack at the moment
+</p>
+<p>
+<strong>Upcomming Version Todo</strong><br /> Finish kmalloc and
+kfree<br /> Implement a kernel-level entropy pool and access
+functions<br /> Get the full HAL ported to ppc
+</p>
+<p>
+If anyone is interested in checking out the latest version, then email
+me and I will send a disc image.
+</p>
+<p>
+-m
+</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>compiling-clojure-to-javascript-pt1</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<h2 id="compiling-clojure-to-javascript-pt.-1-of-n">Compiling Clojure to
+Javascript pt. 1 of n</h2>
+<p><em>this is the first entry in an n-part <a
+href="http://blog.fogus.me/tag/clj-compilation">series explaining the
+techniques and design principles of ClojureScript</a>. translations: [<a
+href="http://ykomatsu.akaumigame.org/compiling-clojure-to-javascript-pt1-ja.html">日本語</a>]</em></p>
+<p><a href="http://blog.fogus.me/wp-content/uploads/2011/07/random-image-from-library-of-congress.jpeg"><img src="http://blog.fogus.me/wp-content/uploads/2011/07/random-image-from-library-of-congress-300x262.jpg" alt="" title="clojurescript is better than an epic beard" width="300" height="262" class="aligncenter size-medium wp-image-3363" /></a></p>
+<p>Over the past couple of months I’ve been working with the <a
+href="http://clojure.com">Clojure/core</a> and <a
+href="https://github.com/clojure/clojurescript/contributors">friends</a>
+to develop <a
+href="https://github.com/clojure/clojurescript">ClojureScript</a> – a
+new Clojure compiler targeting JavaScript. This post is about a couple
+of the approaches that we’ve taken and the practical use of the <a
+href="http://code.google.com/closure/compiler/">Google
+Clo<strong>S</strong>ure compiler</a>.</p>
+<p>Given the arity overloaded function below:</p>
+<pre><code>(fn
+ ([t] t)
+ ([x y] y)
+ ([a b &amp; zs] b))</code></pre>
+<p>The Clo<strong>j</strong>ureScript compiler currently compiles it
+into something<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> like this:</p>
+<pre><code>(function() {
+ var foo = null;
+ var foo__5675 = function(t) {
+   return t
+ };
+ var foo__5676 = function(x, y) {
+   return y
+ };
+ var foo__5677 = function(a, b, zs) {
+   zs = Array.prototype.slice.call(arguments, 2);
+   return b
+ };
+ foo = function(a, b, zs) {
+   switch(arguments.length) {
+     case 1:
+       return foo__5675.call(this, a);
+     case 2:
+       return foo__5676.call(this, a, b);
+     default:
+       return foo__5677.apply(this, arguments)
+   }
+   throw&quot;Invalid arity: &quot; + arguments.length;
+ };
+ return foo
+})();</code></pre>
+<p>This is perfectly legal Javascript code, and as a nice bonus is
+fairly performant. However, the Clo<strong>j</strong>ureScript compiler
+<code>cljsc</code> provides an <a
+href="https://github.com/clojure/clojurescript/wiki/Quick-Start">optional
+pass</a> that compiles the generated JavaScript to JavaScript using the
+<a href="http://code.google.com/closure/compiler/">Google
+Clo<strong>s</strong>ure compiler</a>.<a href="#fn2"
+class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> The
+code that comes out of this second pass is really pretty cool:</p>
+<pre><code>(function() {
+ var d = null, c = function(b, a) {
+   Array.prototype.slice.call(arguments, 2);
+   return a
+ };
+ return function(b, a) {
+   switch(arguments.length) {
+     case 1:
+       return b;
+     case 2:
+       return a;
+     default:
+       return c.apply(this, arguments)
+   }
+   throw &quot;Invalid arity: &quot; + arguments.length;
+ }
+})();</code></pre>
+<p>Notice that the two helper functions <code>foo__5676</code> and
+<code>foo__5677</code> are now inlined. Google’s
+Clo<strong>s</strong>ure compiler is a true optimizing compiler
+providing powerful dead-code elimination. In fact, on its highest
+optimization setting, the Clo<strong>s</strong>ure compiler actually
+generates the following for the definition above:</p>
+<pre><code>// intentionally blank</code></pre>
+<p>Why? Because the original function is never actually called. In the
+words of Rich Hickey:</p>
+<blockquote>
+<p>Party!</p>
+</blockquote>
+<h2 id="lets-not-get-crazy-though">Let’s not get crazy though</h2>
+<p>The Clo<strong>s</strong>ure compiler is very powerful, but some
+choices in the way that Clo<strong>j</strong>ure compiles were chosen so
+as not to rely too heavily on its optimizations. For example, we could
+use a common trick for compiling <code>let</code> blocks
+(<code>let</code> is a structure that provides lexical bindings),
+namely, to convert:</p>
+<pre><code>(let [a 1 b 2 a b] a)</code></pre>
+<p>Into:</p>
+<pre><code>(function() {
+  return (function foo__2313 (a) {
+    return (function foo__2314 (b) {
+      return (function foo__2315 (a) {
+        return a;
+      }(b));
+    }(2));
+  }(1));
+})();</code></pre>
+<p>and let Google’s Clo<strong>s</strong>ure compiler transform that
+into something like the following:</p>
+<pre><code>(function() {
+  var a = 1;
+  var b = 2;
+  return b;
+})();</code></pre>
+<p>But instead, Clo<strong>j</strong>ure’s compiler uses renaming to
+simulate lexical bindings and generates something like the
+following:</p>
+<pre><code>(function (){
+  var a__847 = 1;
+  var b__848 = 2;
+  var a__849 = b__848;
+
+  return a__849;
+})();</code></pre>
+<p>Where Clo<strong>j</strong>ure’s compiler can optimize without
+performing whole-program analysis and dead-code elimination it will.</p>
+<h2 id="wholly-pragmatic">Wholly Pragmatic</h2>
+<p>Clojure is doggedly pragmatic in the way that it defers to the JIT
+for runtime performance and also in its superior Java interop.
+ClojureScript is likewise pragmatic in that it <a
+href="https://github.com/clojure/clojurescript/wiki/Google-Closure">leverages</a>
+the <a href="http://code.google.com/closure/">Google Closure tools</a>
+for its implementation and minification strategy. For any platform that
+Clojure targets now and in the future, the question will always be
+asked: <em>where are the libraries</em>? There were many potential
+choices for ClojureScript, but Closure, while not perfect, was the best
+match given the <a
+href="https://github.com/clojure/clojurescript/wiki/Rationale">motivating
+forces behind ClojureScript</a>.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>So what is the advanced compilation output<a href="#fn3"
+class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>
+from Google’s Clo<strong>s</strong>ure compiler for the last
+snippet?</p>
+<pre><code>2</code></pre>
+<p>Party indeed.</p>
+<p>:F</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>All caveats apply. The generated code samples are
+subject to change over time, but I hope the point is clear
+nonetheless.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Closure? Is there no better name for Google to have
+chosen?<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Actually, in a statement context, of which I will talk
+about in a later post, the code <code>(let [a 1 b 2 a b] a)</code> again
+compiles to <code>//nothingness</code>, but I hope the point is clear
+nonetheless.<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

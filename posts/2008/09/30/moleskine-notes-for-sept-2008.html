@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>moleskine-notes-for-sept-2008</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<h1 id="dsl">DSL</h1>
+<ol type="1">
+<li>Language describing a scanner</li>
+<li>Language to create Word of Dog parser</li>
+</ol>
+<h1 id="goals-for-2009">Goals for 2009</h1>
+<ol type="1">
+<li>Emacs proficiency</li>
+<li>Read at least one Jane Austen novel</li>
+</ol>
+<h1 id="polyglot-projects">Polyglot projects?</h1>
+<p>1802 emulator Maze generator WFE Elite Trader dnd</p>
+<h1 id="testing-haikeeba-3">Testing Haikeeba 3</h1>
+<pre lang="scala">
+import fogus.haikeeba.core._
+val mv = Move.construct().from('d',2).to('d',4).build()
+mv.getFrom() == 51
+mv.getTo() == 35
+</pre>
+<h1 id="ix-features">Ix Features?</h1>
+<ul>
+<li>Traits (because sometimes inheritence is not what you want)</li>
+</ul>
+<h1 id="books">2009 Books</h1>
+<ul>
+<li>Dostoyevsky</li>
+<li>Steinbeck</li>
+<li>Orlando</li>
+<li>Beowulf</li>
+<li>Lord of the Flies</li>
+<li>“White Line Fever” by Lemmy</li>
+<li>Lem</li>
+<li><a href="">Paradigms of AI</a></li>
+<li><a href="">SICP</a></li>
+<li><a href="">Code Gen in Action</a></li>
+<li><a href="">Programming in Scala</a></li>
+</ul>
+<pre lang="ix">
+var $s <- new FooClass
+
+or
+
+var $s <- FooClass.new
+
+$s.func( list( a b c))
+</pre>
+<h1 id="restful-cmx">RESTful CMX</h1>
+<p>Stores comic archives, but provides different views into them.</p>
+<p>/cmx/ /cmx/company/{company}/{line}/{title}/{vol}/{num}/{page}
+/cmx/timeline/{year}/^company line above /cmx/talent/{author}/{year}/^
+company line above /cmx/talent/{penciler}/{year}/^ company line
+above</p>
+<h2 id="examples">examples</h2>
+<p>/cmx/dc/vertigo/Animal+Man/v1/1/15/ shows page 15 of Animal Man,
+vol. 1</p>
+<h2 id="navigation">Navigation</h2>
+<h3 id="cmx">/cmx/</h3>
+<p>Shows {company, timeline, talent} set</p>
+<h3 id="cmxcompany">/cmx/company/</h3>
+<p>Shows a list of the companies</p>
+<h3 id="cmxtimeline">/cmx/timeline/</h3>
+<p>Shows a list of years</p>
+<h3 id="cmxtalent">/cmx/talent/</h3>
+<p>Shows a list of authors/pencilers grouped by role</p>
+<h1 id="scala-odds">Scala Odds</h1>
+<pre lang="scala">
+val odds = (1 to 10).filter(_ % 2 != 0)
+</pre>
+<h1 id="classical-music">Classical Music</h1>
+<ol type="1">
+<li>Jasha Heifetz</li>
+<li>Glen Gould 80-cd boxed set</li>
+<li>Mozart piano sonata no. 14 - no. 17</li>
+<li>Cesar Franck</li>
+<li>Edward Elgar Sonata for violin and piano in E minor, Op82</li>
+<li>Rachmaninov symphony no.2</li>
+</ol>
+<pre lang="ix">
+fn foo || <- {
+   out( got " " _s crlf)
+}
+</pre>
+<h1 id="y-combinator-in-scala">Y-combinator in Scala</h1>
+<pre lang="scala">
+case class B[F,T](c: B[F, T] => (F => T)) extends (B[F, T] => (F => T)) {
+    def apply(b: B[F, T]) = c(b);
+}
+
+def Y[F, T] = (f: (F => T) => F => T) =>
+  B[F, T](x => f(x(x)(_)))(B(x => f(x(x)(_))))
+</pre>
+<p>-m</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

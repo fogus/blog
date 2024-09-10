@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>an-introduction-to-deep-code-walking-macros-with-clojure</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>With the release of the <a
+href="https://github.com/clojure/core.async">core.async</a> library the
+Clojure community has been exposed to the joys[^0] of <a
+href="http://swannodette.github.io/2013/07/12/communicating-sequential-processes/">Communicating
+Sequential Processes</a> and <a
+href="https://github.com/clojure/core.async/blob/master/examples/walkthrough.clj">Go-style
+asynchronousity</a> <a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a>. While this is all very exciting and
+new for the Clojure community at-large, a likewise interesting aspect of
+core.async’s release has been exposed – deep code-walking macros – a
+subject I will give an overview of herein.<a href="#fn2"
+class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>In chapter 17 of <em><a href="http://www.joyofclojure.com/">The Joy
+of Clojure</a></em> we show an example of a macro called
+<code>defformula</code> that allows you to define spreadsheet-like cells
+in Clojure using <a
+href="http://blog.fogus.me/2011/09/23/clojurescript-watchers-and-validators/">watchers</a>.
+For that example we intentionally required that the formulas defined be
+preceded by a binding vector, like so:</p>
+<pre class="prettyprint clojure">
+(defformula avg [at-bats ab hits h]
+  (float (/ @hits @at-bats)))
+</pre>
+<p>This allowed us to tie formula-internal variable names with existing
+reference types without requiring our implementation to garner the ties
+programmatically. The point of that section had to do with <a
+href="http://en.wikipedia.org/wiki/Observer_pattern">the Observer
+Pattern</a>, so we didn’t want to clutter the discussion with other
+concerns. However, we can use the same example to illustrate deep
+code-walking macros (DCWM) and doing so will lead to a different
+implementation. For this post I’ll talk about only two types<a
+href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a> of DCWMs, namely: additive
+transformers and in-place transformers.</p>
+<h2 id="deep-walking-for-additive-transforms">Deep walking for additive
+transforms</h2>
+<p>The <code>defformula</code> macro in <a
+href="http://www.joyofclojure.com">The Joy of Clojure</a> was indeed an
+additive transformer. That is, the macro took an expression and
+augmented it with additional stuff, specifically calls to
+<code>add-watch</code>. However, having the binding vector allowed us to
+assume reference type dereferencing forms (things like
+<code>@foo</code>). However, if I want to infer dereferencing forms
+within an expression then I will need to dive into it and find them. To
+do that I’d first like to have a function <code>deref-form?</code> that
+takes something and checks if it’s a dereferencing form, implemented
+below:</p>
+<pre class="prettyprint clojure">
+(ns formulas 
+  (:require [clojure.walk :as walk]))
+
+(defn deref-form? [form]
+  (boolean
+    (when (seq? form)       ;; <1>                                                                                       
+      (let [[op & _] form]
+        (and
+         op
+         (symbol? op)
+         (or                 ;; <2>                                                                                      
+          (= op 'deref)
+          (= op 'clojure.core/deref)))))))
+</pre>
+<ol type="1">
+<li>Only work on seqs</li>
+<li>Check for <code>deref</code> calls</li>
+</ol>
+<p>You’ll notice that the <code>deref-form</code> assumes that the
+<code>form</code> given is a read-expanded dereferencing form rather
+than a <a href="http://clojure.org/reader">reader-macro</a> for
+(i.e. <code>(deref foo)</code> rather than <code>@foo</code>). Given
+that assumption, it’ll work as follows:</p>
+<pre class="prettyprint clojure">
+(deref-form? 42)
+;;=> false
+
+(deref-form? [deref :foo])
+;;=> false
+
+(deref-form? (quote (deref foo)))
+;;=> true
+
+(deref-form? `(deref foo))
+;;=> true
+</pre>
+<p>Seems right. Now that I can identify a dereferencing form I’d like to
+dive into an expression and gather up all of the names that serve as the
+target in said dereferencing forms. The function to do this very task
+named <code>find-derefs</code> is implemented below:</p>
+<pre class="prettyprint clojure">
+(defn find-derefs [expr]
+  (if (coll? expr)
+    (->> expr
+         walk/macroexpand-all  ;; <1>                                                                                  
+         (tree-seq coll? seq)  ;; <2>                                                                                  
+         (filter deref-form?)  ;; <3>                                                                                  
+         (map second)          ;; <4>                                                                                  
+         set)                  ;; <5>                                                                                  
+    #{}))
+</pre>
+<ol type="1">
+<li>Expand all sub-forms</li>
+<li>Build a seq of all composite forms</li>
+<li>Take only the <code>deref</code> forms</li>
+<li>Take only their operands</li>
+<li>Make a set out of them</li>
+</ol>
+<p>You’ll notice that with the use of <code>walk/macroexpand-all</code>
+I can ensure that any nested <code>@foo</code>s are turned into the
+equivalent <code>(clojure.core/deref foo)</code> calls. This lets me
+build up a set of the embedded dereferenced targets in expressions:</p>
+<pre class="prettyprint clojure">
+(find-derefs :a)
+;;=> #{}
+
+(find-derefs 42)
+;;=> #{}
+
+(find-derefs [])
+;;=> #{}
+
+(find-derefs '(inc @c1))
+;;=> #{c1}
+
+(find-derefs '[{:foo @bar, :baz [@quux]}])
+;;=> #{quux bar}
+</pre>
+<p>The <code>find-derefs</code> function basically builds the
+information that the binding form in JoC provided explicitly. Now that I
+can get at the names embedded in an expression, I can now implement a
+macro to build spreadsheet-like formulas whose values are dependent on
+the embedded references within:</p>
+<pre class="prettyprint clojure">
+(defmacro formula [expr]
+  `(let [formula#   (agent ~expr)               ;; <1>                                                               
+         update-fn# (fn [key# ref# o# n#]       ;; <2>                                                               
+                      (send formula#
+                            (fn [_#] ~expr)))]
+     (doseq [r# ~(find-derefs expr)]            ;; <3>
+       (add-watch r#                            ;; <4>
+         :update-formula
+         update-fn#))
+
+     formula#))
+</pre>
+<ol type="1">
+<li>Set the Agent’s initial value based on result of the formula</li>
+<li>Build a function to update the Agent with the new formula
+calculation</li>
+<li>For every internal dereference in <code>expr</code>…</li>
+<li>… build a call setting a watcher that updates the formula value on
+change</li>
+</ol>
+<p>The body of a <code>formula</code> is just an expression that depends
+on zero or more embedded dereferences. Not only does
+<code>formula</code> deeply walk the expression to find the
+dereferences, but it also augments a normal call to <code>agent</code>
+(holding the result of the formula) with calls to <code>add-watch</code>
+on the embedded (i.e. its dependents) reference types that automatically
+update the <code>formula</code>’s value whenever any of its dependents
+change. That is, rather than just define an Agent that holds the result
+of some expression like <code>(agent (float (/ @hits @at-bats)))</code>
+the <code>formula</code> macro builds something like the following:</p>
+<pre class="prettyprint clojure">
+(let* [formula (agent (float (/ (deref hits) 
+                                (deref at-bats))))
+       update-fn (fn [key ref o n]
+                   (send formula
+                     (fn [_]
+                       (float (/ (deref hits) 
+                                 (deref at-bats))))))]
+   (doseq [r #{hits at-bats}]
+     (add-watch r :update-formula update-fn))
+
+   formula)
+</pre>
+<p>That’s quite a transformation! Because of this transformation
+<code>formula</code> allows you to do the following:</p>
+<pre class="prettyprint clojure">
+(def hits (ref 25))
+(def at-bats (ref 100))
+
+(def avg (formula (float (/ @hits @at-bats))))
+
+@avg
+;;=> 0.25
+</pre>
+<p>As shown, the <code>avg</code> formula holds the result of the
+division of the numbers stored in the Refs <code>hits</code> and
+<code>at-bats</code>. What is so cool about DCWMs is that they
+<strong>allow me to define rich semantics</strong> for the simple
+<code>formula</code> expression and augment it with spreadsheet-like
+capabilities:</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>And the <a
+href="http://martintrojer.github.io/clojure/2013/07/07/coreasync-and-blocking-io/">misconceptions
+of asynchronous APIs</a>.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>If you’ve ever watched my <a
+href="http://www.youtube.com/watch?v=0JXhJyTo5V8">Macronomicon talk</a>
+and wondered what the heck my koan in the beginning meant then this post
+is a hint.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>The amazing book <em><a
+href="http://www.amazon.com/Let-Over-Lambda-Doug-Hoyte/dp/1435712757?tag=fogus-20">Let
+Over Lambda</a></em> talks about these types of DCWMs in depth, and much
+much more (although he doesn’t use the same terminology).<a
+href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

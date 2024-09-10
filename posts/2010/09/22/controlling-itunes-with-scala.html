@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>controlling-itunes-with-scala</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>A while back I came across an interesting snippet of Clojure code<a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> controlling iTunes. I played around
+with it and eventually morphed it into the code posted on my <a
+href="http://twitter.com/learnclojure/status/25020783577"><span
+class="citation" data-cites="learnclojure">@learnclojure</span></a>
+account. This morning I came across a similarly themed post about <a
+href="http://blog.getintheloop.eu/2010/9/22/calling-applescript-from-scala/">Scala’s
+interaction with Applescript</a> and it inspired me to create the
+following:</p>
+<p>[sourcecode lang=“scala” gist=“591683”]object iTunes { val mgr = new
+ScriptEngineManager val engine = mgr.getEngineByName(“AppleScript”)</p>
+<p>def apply(cmd:String) = { this.engine.eval(“tell application "iTunes"
+to” + cmd) this }</p>
+<p>def ?() = this(“pause”)</p>
+<p>def !() = this(“play”)</p>
+<p>def -&gt;|() = this(“next track”)</p>
+<p>def |&lt;-() = this(“previous track”) }</p>
+<p>iTunes ? iTunes ! iTunes -&gt;| iTunes |&lt;- [/sourcecode]</p>
+<p>They can also be composed as <code>iTunes.-&gt;|().?</code>. Nothing
+ground-breaking of course, but the next step is to create a complete
+iTunes DSL with command compositions allowing things like fast-forward,
+rewind, jumping to time segments, moving around by time increments, etc.
+Hopefully someone else has/will done/do this for me.</p>
+<p>:f</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>I have looked deeply, but cannot find the original
+author. If you know then please relay.<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

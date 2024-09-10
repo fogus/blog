@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>kays-8</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>From Alan Kay on the <a
+href="http://vpri.org/mailman/listinfo/fonc">fonc mailing list</a>
+(circa March 2012):</p>
+<blockquote>
+<p>… since meeting <a href="http://www.papert.org/">Seymour</a> and
+starting to think about children and programming, there were eight
+systems that I thought were really nifty and cried out to be unified
+somehow:</p>
+<ol type="1">
+<li>Joss <a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a></li>
+<li>Lisp <a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a></li>
+<li>Logo <a href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a> which was originally a unification
+of Joss and Lisp, but I thought more could be done in this
+direction).</li>
+<li>Planner <a href="#fn4" class="footnote-ref" id="fnref4"
+role="doc-noteref"><sup>4</sup></a> a big set of ideas (long before
+Prolog) by Carl Hewitt for logic programming and “pattern directed
+inference” both forward and backwards with backtracking)</li>
+<li>Meta II <a href="#fn5" class="footnote-ref" id="fnref5"
+role="doc-noteref"><sup>5</sup></a> a super simple meta parser and
+compiler done by Val Schorre at UCLA ca 1963</li>
+<li>IMP <a href="#fn6" class="footnote-ref" id="fnref6"
+role="doc-noteref"><sup>6</sup></a> perhaps the first real extensible
+language that worked well – by Ned Irons (CACM, Jan 1970)</li>
+<li>The Lisp-70 Pattern Matching System <a href="#fn7"
+class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> by
+Larry Tesler, et al, with some design ideas by me</li>
+<li>The object and pattern directed extension stuff I’d been doing
+previously with the Flex Machine and afterwards at SAIL that also was
+influenced by Meta II <a href="#fn8" class="footnote-ref" id="fnref8"
+role="doc-noteref"><sup>8</sup></a></li>
+</ol>
+<p>One of the schemes was to really make the <a
+href="http://vimeo.com/27860102">pattern matching parts of this “work
+for everything”</a> that eventually required “invocations and binding”.
+This was doable semantically but was a bear syntactically because of the
+different senses of what kinds of matching and binding were intended for
+different problems. This messed up the readability and desired “simple
+things should be simple”.</p>
+<p>Examples I wanted to cover included simple translations of languages
+(<a href="http://www.snowcrest.net/donnelly/piglatin.html">English to
+Pig Latin</a>, English to French, etc. some of these had been done in
+Logo), the Winograd robot block stacking and other examples done with
+Planner, the making of the language the child was using, message sending
+and receiving, extensions to Smalltalk-71, and so forth.</p>
+<p>I think today the way to try to do this would be with a much more
+graphical UI than with text – one could imagine tiles that would specify
+what to match, and the details of the match could be submerged a
+bit.</p>
+<p>More recently, both <a href="http://tinlizzie.org/ometa/">OMeta</a>
+and several of <a href="http://piumarta.com/software/peg/">Ian’s
+matchers</a> can handle multiple kinds of matching with binding and do
+backtracking, etc., so one could imagine a more general language that
+could be based on this.</p>
+<p>On the other hand, trying to stuff 8 kinds of language ideas into one
+new language in a graceful way could be a siren’s song of a goal.</p>
+<p>Still ….</p>
+<p>Cheers,</p>
+<p>Alan</p>
+</blockquote>
+<p>You could spend months surveying the contents of this post by Kay and
+build a dissertation (or four) on a deep dive.</p>
+<p>Enjoy!</p>
+<p>:F</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>The <a
+href="http://www.rand.org/pubs/research_memoranda/2006/RM5220.pdf">JOSS
+Primer</a> (pdf)<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Stuff that <a href="http://blog.fogus.me/tag/lisp/">I’ve
+written about Lisp</a><a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>The book <a
+href="http://history.dcs.ed.ac.uk/archive/docs/ArtificialIntelligence/art.html">To
+Artificial Intelligence</a> uses Logo extensively. I enjoyed Papert’s <a
+href="http://www.amazon.com/Mindstorms-Children-Computers-Powerful-Ideas/dp/0465046746/?tag=fogus-20">Mindstorms:
+Children, Computers, And Powerful Ideas</a> in college.<a href="#fnref3"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>The key resources are Hewitt’s <a
+href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.80.756&amp;rep=rep1&amp;type=pdf">PLANNER:
+A Language for Proving Theorems in Robot</a> and Sussman and Winograd’s
+<a href="http://hdl.handle.net/1721.1/5833">Micro-planner Reference
+Manual</a>.<a href="#fnref4" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>A <a
+href="http://www.bayfronttechnologies.com/metaii.html">META II
+compiler</a><a href="#fnref5" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>The original <a
+href="http://pdp-10.trailing-edge.com/decuslib10-03/index.html">PDP-10
+IMP source code</a>.<a href="#fnref6" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>The <a
+href="http://ijcai.org/Past%20Proceedings/IJCAI-73/PDF/073.pdf">LISP-70
+Pattern Matching System</a> (pdf)<a href="#fnref7" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Kay’s original <a
+href="http://www.mprove.de/diplom/gui/kay68.html">FLEX – A flexible
+extendable language</a> is the best reference that I know. Also of
+interest is Kay’s original idea for “Simulation LOGO”. I don’t know very
+much about it, but if someone were to jump on fonc and ask, they might
+just get an answer. :-)<a href="#fnref8" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

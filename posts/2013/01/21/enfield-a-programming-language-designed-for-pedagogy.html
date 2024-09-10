@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>enfield-a-programming-language-designed-for-pedagogy</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>Today I would like to introduce an idea that I’ve been playing around
+with as a thought experiment for years, but that has finally become a
+reality. Imagine a programming language designed specifically for
+teaching young computer science students a solid foundation in sound
+computer science topics as well as practical techniques useful in
+creating rock-solid industrial systems. Below, I’ll outline the features
+of Enfield.[^1]</p>
+<p><a href="http://blog.fogus.me/2013/01/21/enfield-a-programming-language-designed-for-pedagogy/enfield/" rel="attachment wp-att-5022"><img src="http://blog.fogus.me/wp-content/uploads/2013/01/enfield-150x150.jpg" alt="enfield" width="150" height="150" class="aligncenter size-thumbnail wp-image-5022" /></a></p>
+<p><em>the Enfield logo</em></p>
+<h2 id="syntax">Syntax</h2>
+<p>To start, I’m strong believer that when learning new, and at times
+complex topics it’s outright detrimental to overload students with
+frivolous syntax rules. Therefore, Enfield is designed with minimal
+syntax rules and what’s more minimal than a Lisp like syntax. An example
+function definition in Enfield is as follows:</p>
+<pre><code>(define (fibo number)
+  (letrec ([f (lambda (number n i)
+                (if (&lt;= number 0)
+                    i   
+                    (f (- number 1) 
+                       (+ n i) 
+                       n)))])
+    (f number 1 0)))
+
+(fibo 500)
+
+;=&gt; 1394232245616978801397
+    2438287040728395007025
+    6587697307264108962948
+    3255716228632906915576
+    58876222521294125</code></pre>
+<p>There are a few interesting points about this snippet:</p>
+<ol type="1">
+<li>A Lisp syntax</li>
+<li>Bignums</li>
+<li>Tail-recursion</li>
+<li>Lexical scope</li>
+</ol>
+<p>In each case a pedagogist can take the opportunity to deeply explore
+these important topics. However, focusing again on syntax for a moment,
+while I do think that a simplified syntax is best, it’s important to
+allow maximum flexibility. It would be nice for Enfield to provide
+macros in additional to lexer and parser hooks (another chance to dive
+deeply here) in order to form the syntax to one’s will, allowing a <a
+href="http://docs.racket-lang.org/algol60/index.html">multitude of
+syntactic forms</a>. One interesting possibility, and one that I think
+is sorely lacking from CS education, is a special form of Enfield that
+allows a student to <a
+href="http://docs.racket-lang.org/scribble/index.html">write essays in a
+textual language containing embedded source code</a>. Too often
+<strong>CS education focuses on mathematical formalisms and code to the
+dismissal of the spoken and written word</strong> – Enfield can
+help!</p>
+<h2 id="essential-building-blocks">Essential building blocks</h2>
+<p>Key to any college programming course is that the language of choice
+provide the essential building blocks of computation. Ideally, an
+introductory course would require students to not only learn a language,
+but to also create an interpreter for a subset of the language using the
+language itself. Enfield should therefore provide a set of basic
+building blocks useful for building Enfield in Enfield. Features such as
+metaprogramming, code as data, concurrency primitives, continuations and
+parsing libraries are just a few that would allow a deep understanding
+of not only Enfield, but language design and implementation in the
+abstract.</p>
+<h2 id="a-plethora-of-libraries">A plethora of libraries</h2>
+<p>While it’s a great idea to keep the syntax and logical footprint of
+Enfield small, in no way should the language be minimal in it
+possibilities. A language for learning should provide a large spectrum
+of possibility, from offering easy <a
+href="http://matt.might.net/articles/compiling-up-to-lambda-calculus/">exploration
+of the untyped lambda calculus</a> to first-class access to <a
+href="https://github.com/farr/PLT-Racket-Linear-Algebra-Bindings">performant
+linear algebra libraries</a> via its packed offerings, <a
+href="http://planet.racket-lang.org/">package repositories</a> and <a
+href="https://github.com/languages/Racket">popular source
+repositories</a>.</p>
+<h2 id="hardcore-ide">Hardcore IDE</h2>
+<p>A first-class IDE is essential to the learning process. As amazing
+IDEs like <a href="http://www.lispworks.com/">LispWorks</a>, <a
+href="http://reference.wolfram.com/mathematica/tutorial/UsingANotebookInterface.html">Mathematica
+Notebooks</a> and <a
+href="http://www.cincomsmalltalk.com/main/">ObjectStudio</a> have shown,
+there is amazing potential in a programming environment tightly
+integrated with the language on which it operates. A Enfield IDE should
+have the standard fare, including: breakpoints, value inspection, import
+resolution, expression evaluation and all of the other features found in
+modern IDEs. Additionally, a first-class graphical capability allowing
+students to plot graphs and <a
+href="http://en.wikipedia.org/wiki/File:Drracket.png">explore the shape
+of algorithmic execution</a> are key.</p>
+<p><a href="http://blog.fogus.me/2013/01/21/enfield-a-programming-language-designed-for-pedagogy/dr/" rel="attachment wp-att-4976"><img src="http://blog.fogus.me/wp-content/uploads/2013/01/dr-150x150.jpg" alt="dr" width="225" height="225" class="aligncenter size-thumbnail wp-image-4976" /></a></p>
+<p><em>An illustration of a ‘hypothetical’ IDE session of a student
+creating a Tetris game</em>.</p>
+<p>There is a lot to learn from new IDEs technologies like <a
+href="http://www.chris-granger.com/2012/04/12/light-table---a-new-ide-concept/">Light
+Table</a> in developing a Enfield IDE.</p>
+<h2 id="a-plethora-of-paradigms">A plethora of paradigms</h2>
+<p>While Enfield supports functional styles, and any curriculum should
+use it as the primary focus, it should also support numerous
+paradigms.</p>
+<h3 id="query-languages-and-logic">Query languages and logic</h3>
+<p>Logic programming languages should be readily available or easily
+made using Enfield. Ideally a curriculum built around Enfield would
+include sections on <a
+href="http://planet.racket-lang.org/package-source/dfriedman/miniKanren.plt/1/1/doc.txt">miniKanren</a>
+(supplemented with appropriate <a
+href="http://www.amazon.com/The-Reasoned-Schemer-Daniel-Friedman/dp/0262562146/?tag=fogus-20">miniKanren
+literature</a>, <a
+href="http://docs.racket-lang.org/racklog/">Prolog</a>, <a
+href="http://planet.racket-lang.org/package-source/sweeney/sqlid-helper.plt/1/0/htmldocs/scheme-pg.html">SQL</a>
+and <a
+href="http://planet.racket-lang.org/display.ss?package=datalog.plt&amp;owner=jaymccarthy">Datalog</a>.
+A solid foundation in logical thinking and declarative programming is
+key for any computer scientist.</p>
+<h3 id="oop">OOP</h3>
+<p>In addition to covering the standard academic topics such as
+functional programming, logic and continuations, Enfield should allow
+industry-proven object-oriented techniques. A simple example might look
+as follows:</p>
+<pre><code>(define animal-interface (interface () say))
+  
+(define cat% (class* object% (animal-interface)
+               (super-new)
+               (define/public (say)
+                 (display &quot;meeeeew!&quot;))))
+ 
+(define tom (new cat%))
+(send tom say)
+;; meeeeew!</code></pre>
+<p>This is a work in progress.</p>
+<h3 id="metal">Metal</h3>
+<p>Lest I be accused of favoring high-level programming over bare metal
+techniques, I should say that every programmer should have exposure to
+low-level programming. Ideally Enfield would have a first-class <a
+href="http://docs.racket-lang.org/foreign/index.html">FFI</a> used to
+access C-level libraries created by the students. A different world
+unfolds when one needs to manage memory manually and tweak algorithms to
+their utmost to milk every last bit of speed. Enfield should facilitate
+that experience rather than deny.</p>
+<h3 id="other-paradigms">Other paradigms</h3>
+<p>In addition to the paradigms above, Enfield should also support
+others including, but not limited to: <a
+href="http://planet.racket-lang.org/display.ss?package=prometheus.plt&amp;owner=daedalus">prototype-based
+object programming</a> (sample below), <a
+href="http://docs.racket-lang.org/frtime/index.html">dataflow</a>,
+imperative and <a
+href="http://planet.racket-lang.org/display.ss?package=riot.plt&amp;owner=gcr">parallel
+programming</a>.</p>
+<pre><code>(define-object account (*the-root-object*)
+  (balance set-balance! 0)
+  ((payment! self resend amount)
+   (self &#39;set-balance!
+         (+ (self &#39;balance)
+            amount))))
+
+(define a1 (account &#39;clone))
+(define a2 (account &#39;clone))
+
+(a1 &#39;payment! 100)
+(a2 &#39;payment! 200)
+
+(a1 &#39;balance)
+;; =&gt; 100
+
+(a2 &#39;balance)
+;; =&gt; 200</code></pre>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

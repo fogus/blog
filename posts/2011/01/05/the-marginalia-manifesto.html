@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>the-marginalia-manifesto</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p><em><a href="https://github.com/fogus/marginalia">source</a></em>,
+<em><a href="http://fogus.me/fun/marginalia/">official site</a></em>,
+<em><a href="http://fogus.me/fun/marginalia/">example output</a></em>,
+<em><a
+href="https://github.com/fogus/marginalia/wiki">guide</a></em></p>
+<h2 id="the-importance-of-documentation">The importance of
+documentation</h2>
+<p>In late 2010 I was motivated by posts by <a
+href="http://tom.preston-werner.com/2010/08/23/readme-driven-development.html">Tom
+Preston-Werner</a>, <a
+href="https://github.com/raganwald/homoiconic/blob/master/2010/11/docco.md">Reginald
+Braithwaite</a>, and <a
+href="http://luigimontanez.com/2010/reading-code-is-good-writing-documentation-is-better/">Luigi
+Montanez</a> to create a Clojure clone of the excellent <a
+href="http://jashkenas.github.com/docco/">Docco</a> documentation
+generator written in <a
+href="http://jashkenas.github.com/coffee-script/">CoffeeScript</a>. The
+byproduct of this motivation was <a
+href="https://github.com/fogus/marginalia">Marginalia</a>. The goal of
+Marginalia was to create a full-blown <a
+href="http://www.literateprogramming.com/">literate programming</a>
+system<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> with Docco-esque functionality as a
+way-station along the way.</p>
+<blockquote>
+<p>No one will give a crap about your crap if your documentation is
+crap</p>
+<p>– fogus</p>
+</blockquote>
+<p>I have a very strong opinion regarding the importance of clear and
+complete documentation. My reaction to poorly documented code, products,
+and services is visceral to the point that I often refuse to release
+even the most humble library without code comments, examples, tests,
+invariant definitions, a logo, and an “official website”.
+<strong>However</strong>, time is not always on my side for personal
+projects, so I am constantly looking for ways to minimize the amount of
+work required to generate well-documented software without sacrificing
+quality. Marginalia is a step in that direction. However, I piddled
+around with a comment parser and created the code that builds a tree of
+code-lines associated with comment lines. Having scratched that
+particular itch I then took a detour into researching literate
+programming proper, leaving behind a half-baked mess.</p>
+<h2 id="enter-zachary-kim">Enter Zachary Kim</h2>
+<p>You may already know <a href="http://zacharykim.com/">Zachary Kim</a>
+as the creator of the excellent <a
+href="http://clojuredocs.org/">ClojureDocs</a> website; an invaluable
+resource for finding Clojure API examples. Zachary resurrected my
+original source for Marginalia and single-handedly molded it into a tool
+worth using. Marginalia would be nothing without his vision and
+hard-work. I would also like to thank <a
+href="http://ninjudd.com/">Justin Balthrop</a> and <a
+href="http://formpluslogic.blogspot.com/">Brenton Ashworth</a> for their
+support and code contributions.</p>
+<p><em>If you find Marginalia useful (or even just cool), then please do
+visit <a href="http://clojuredocs.org/">ClojureDocs</a> and donate some
+of your time to enhance its existing examples and/or fill in the holes
+as you find them.</em></p>
+<h2 id="current-features">Current features</h2>
+<p>Before I dive into a diatribe, I’ll take a moment to go over some of
+the details of Marginalia. You can always see the current state of the
+<a href="http://fogus.me/fun/marginalia/">output of Marginalia</a>. A
+high-level features list currently stands at:</p>
+<ul>
+<li>HTML generation from Clojure source</li>
+<li>Markdown support within comments and docstrings</li>
+<li>Latex formatting support (via <a
+href="http://www.mathjax.org/">MathJax</a>)</li>
+<li>Leiningen and Cake support</li>
+</ul>
+<h2 id="usage">Usage</h2>
+<p>Currently Marginalia can be used in a number of ways as described
+below. In either case, the output document will be generated in
+<code>$PWD/doc/uberdoc.html</code>.</p>
+<h3 id="command-line">Command line</h3>
+<p>You can download the <a
+href="https://github.com/downloads/fogus/marginalia/marginalia-0.3.2-standalone.jar">Marginalia
+0.3.2 jar including packaged dependencies from Github</a>.</p>
+<p>Running Marginalia given the jar file linked above is as easy as:</p>
+<pre><code>java -jar marginalia-0.3.2-standalone.jar</code></pre>
+<p>This will search the <code>$PWD</code> for a <code>src</code>
+directory which it will then traverse looking for Clojure source files
+to parse and generate documentation for. Marginalia also takes specific
+locations and files to generate docs for:</p>
+<pre><code>java -jar marginalia-0.3.2-standalone.jar &lt;files...&gt;</code></pre>
+<p>Arguments can be specific files or directories.</p>
+<h3 id="leiningen">Leiningen</h3>
+<p>To use Marginalia in your own projects simply add the following to
+your <code>project.clj</code> file in the <code>:dev-dependencies</code>
+section:</p>
+<pre><code>[marginalia &quot;0.3.2&quot;]</code></pre>
+<p>After executing <code>lein deps</code> you can generate your complete
+source documentation with the following command:</p>
+<pre><code>lein marg</code></pre>
+<p>More information regarding usage scenarios (e.g. Cake support,
+programmatic use, etc.) will be provided on the <a
+href="http://fogus.me/fun/marginalia">official Marginalia
+website</a>.</p>
+<h2 id="todo-features">TODO features</h2>
+<p>Marginalia is useable today, but more work is needed. At the moment
+the parser is based entirely on regular expressions and as a result
+might miss some documentation in code with non-standard formatting.
+Fixing the parser is the most glaring need, but other notable plans
+include:</p>
+<ul>
+<li>Paragraph anchors</li>
+<li>Smart code-parser</li>
+<li>Modularized documents</li>
+<li>Maven support</li>
+<li>Alternative output formats</li>
+<li>Special handling of <code>:pre</code> and <code>:post</code></li>
+<li>Plugins</li>
+</ul>
+<p>Now that you know something about Marginalia, why should you want to
+use it?</p>
+<h2 id="a-new-way-to-think-about-programs">A new way to think about
+programs</h2>
+<p>What if your code and its documentation were one and the same?</p>
+<p>Much of the philosophy guiding literate programming is the
+realization of the answer to this question. However, if literate
+programming stands as a comprehensive programming methodology at one of
+end of the spectrum and no documentation stands as its antithesis, then
+Marginalia falls somewhere between. That is, you should always aim for
+comprehensive documentation, but the shortest path to a useful subset is
+the commented source code itself.</p>
+<h2 id="the-art-of-marginalia">The art of Marginalia</h2>
+<p>If you’re fervently writing code that is heavily documented, then
+using Marginalia for your Clojure projects is as simple as running it on
+your codebase. However, if you’re unaccustomed to documenting your
+source, then the following guidelines<a href="#fn2" class="footnote-ref"
+id="fnref2" role="doc-noteref"><sup>2</sup></a> will help you make the
+most out of Marginalia for true-power documentation:</p>
+<ul>
+<li>Start by running Marginalia against your code</li>
+<li>Cringe at the sad state of your code commentary</li>
+<li>Add docstrings and code comments<a href="#fn3" class="footnote-ref"
+id="fnref3" role="doc-noteref"><sup>3</sup></a> as appropriate (I find
+smallish functions with descriptive names and comprehensive docstrings
+to be ideal – very often docstrings will be longer than the code they
+describe)</li>
+<li>Generate the documentation again</li>
+<li>Read the resulting documentation</li>
+<li>Make changes to code and documentation so that the “dialog” flows
+sensibly</li>
+<li>Repeat the previous 3 steps until complete</li>
+</ul>
+<p>Following the steps outlined will work to make your code not only
+easier to follow – it will make it better. The very process of using
+Marginalia will help<a href="#fn4" class="footnote-ref" id="fnref4"
+role="doc-noteref"><sup>4</sup></a> to crystalize your understanding of
+problem and its solution(s). The quality of the prose in your
+documentation will often reflect the quality of the code itself thus
+highlighting problem areas. The elimination of problem areas will
+solidify your code and its accompanying prose. Marginalia provides a
+virtuous circle spiraling inward toward maximal code quality.</p>
+<p>:F</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>While a worthy goal initially, it has since been
+superseded by the <a
+href="http://groups.google.com/group/clojure/browse_frm/thread/664a1d305f32ab90">excellent
+work by Tim Daly</a> of which I hope to contribute ideas, code, and
+documentation.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>These guidelines are a mixture of my own process and
+those outlined by Reginald Braithwaite regarding Docco.<a href="#fnref2"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>A proliferation of regular comments
+(i.e. <code>; this kind</code>) within the body of Clojure functions can
+be a “smell”. If you find yourself with a mess of comments, take a step
+back and see how the surrounding context can be broken out into separate
+functions, each with its own docstring.<a href="#fnref3"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Code documentation will help crystalize your
+understanding, but other factors are equally important in squaring the
+circle of software complexity.<a href="#fnref4" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

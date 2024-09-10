@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>_-count-common-lisp-count-clojure</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>There has been <a
+href="http://arcanesentiment.blogspot.com/2011/04/clojure-is-almost-as-big-as-common-lisp.html">some
+talk about the number of forms available in Clojure compared to Common
+Lisp</a>. I find this line of thought puzzling. This is the same line of
+thinking that has been thrown at Common Lisp for ages – and the argument
+grows no more valid over time.<a href="#fn1" class="footnote-ref"
+id="fnref1" role="doc-noteref"><sup>1</sup></a> The only reason that we
+can have such a discussion is because forms and functions in Common Lisp
+and Clojure are countable in the first place. How do you measure the
+size of a language’s conceptual model? Is the Var or the function the
+right currency with which to tally language size? If so, then how many
+Vars are Java’s checked exceptions worth?</p>
+<p><a href="http://thinking-forth.sourceforge.net/">A well-formed Forth
+program consists of hundreds of special-purpose words</a>, but no one
+would say that Forth is a bloated language. Instead, it’s important to
+know that a language should always have the right number of forms and
+functions to be properly expressive. Should Clojure eliminate useful
+functions for the sake of Var count? Who pays the bill in that case?
+Well, of course, the Clojure programmer does.
+<img src="http://images.fogus.me/blog/toomanynotes.png" style="float: left; padding: 2em;"/>
+It’s simple to write many of Clojure’s core functions, so why do we need
+most of them? We can instead force the programmer to write and re-write
+common functions over and over again. This is a Scheme perspective.
+Clojure is not Scheme.</p>
+<p>Any function, form, or Var in Clojure’s distribution is there for two
+reasons: 1) it is useful and 2) it provides abstraction.<a href="#fn2"
+class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>
+Rich is very thoughtful<a href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a> in including or excluding new
+features into the language. In the war between practicality and purity
+in Clojure’s offerings, it’s the former that wins.<a href="#fn4"
+class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+<p>Clojure has <em>the right number of Vars</em>™ to provide an
+expressive programming experience. No less.</p>
+<p>:f</p>
+<p><em>thanks to Michael Patterson, Edmund Jackson, fossi, and Pepijn de
+Vos for reading a draft of this post and providing feedback.</em></p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>I’ve often found that people rallying against Common
+Lisp’s “bloat” fail (or refuse) to recognize that the language was
+designed to allow the programmer to do <em>anything</em> not simply the
+<em>right</em> thing (as defined by the language designers). It’s doubly
+perplexing when <a href="http://www.loper-os.org/?p=374">advocates of
+Common Lisp, who should know better</a>, point their gnarled fingers at
+Clojure’s supposed “bloat”.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Abstraction takes the typical cognitive form that we’re
+all familiar with, but it also helps to abstract performance
+characteristics. This distinction is the subject of another post. ;-)<a
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>I find myself using this word a lot these days.<a
+href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>It’s even better when a nice balance can be found, which
+Clojure strives for.<a href="#fnref4" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

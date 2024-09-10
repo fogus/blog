@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>our-industry-needs-more</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>A few weeks ago I tweeted:</p>
+<blockquote>
+<p>Every programmer should create, at least once: OS, editor, database,
+roguelike, interpreter, compiler and robot.</p>
+<p>https://twitter.com/fogus/status/268736490836750337</p>
+</blockquote>
+<p>Yesterday a lovely post was released by <a
+href="http://gusc.lv/2012/11/im-writing-my-own-os/">an adventurous
+programmer Gusts Kaksis who hopes to create an operating system</a> from
+scratch. Much to my chagrin, the discussion over at <a
+href="http://news.ycombinator.com/item?id=4833218">Hacker News was quite
+negative</a>.<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> However, a nice comment was added to
+the thread that summarizes my thoughts exactly:</p>
+<blockquote>
+<p>Our discipline needs more people who have dared to write an OS from
+scratch, not fewer.</p>
+<p>http://news.ycombinator.com/item?id=4834302</p>
+</blockquote>
+<p>In fact, I wouldn’t stop at the OS. Instead I would advocate most, if
+not all, of the following:</p>
+<h2 id="operating-system">Operating system</h2>
+<p>There is <a href="http://fogus.me/thunks/osdev.html">no need to
+create an entire</a> operating system, but it would behoove us to learn
+more about the needs of a machine at its lowest levels. Perhaps a
+kernel, some boot code, a HAL, a memory manager or process scheduler
+would suffice. The point is that we should learn what it means to true
+operate at the level of bare metal.</p>
+<h2 id="text-editor">Text editor</h2>
+<p>Many programmers spend a vast majority of their time on the confines
+of some IDE of some sort. Very often the IDE is nothing but a glorified
+text editor. As a result we often <a
+href="http://blog.fogus.me/2008/07/23/confessions-of-a-textual-loser/">take
+our editing environments for granted</a>, but to create one from scratch
+covers a vast swath of computing topics.</p>
+<h2 id="database">Database</h2>
+<p>Many of you have probably already created some sort of in-memory
+database for a project or ten, but those can hardly be called databases.
+Why not try to create a database that provides efficient storage,
+querying and run time optimization techniques?</p>
+<h2 id="game">Game</h2>
+<p>In my original tweet I mentioned a roguelike, but that was simply my
+own bias leaking out. In reality the field of game development is
+cyclopean in its coverage so to create any specific type of game is
+likely to only scratch the surface of the programming depth required.
+However, to pick a certain type of game and run with it is fun and
+provides a deeper appreciation for what it takes to bring something to
+market that requires technicality, an exquisite attention to detail and
+a strong design sense.</p>
+<h2 id="interpreter">Interpreter</h2>
+<p>It’s not as important to design a new programming language as it to
+gain an appreciation of what it takes to build one. The easiest first
+step in language creation is to build an interpreter…</p>
+<h2 id="compiler">Compiler</h2>
+<p>The next step is to build a compiler. I would advise starting with a
+simple Pascal variant requiring only a single compilation pass and then
+moving on to more complex languages with ambiguities in syntax and
+semantics. For bonus points, throw in a VM and/or an assembler.</p>
+<h2 id="robot">Robot</h2>
+<p>My final suggestion is to actually build a robot. This is similar to
+the OS task except even deeper in that the design and creation of
+hardware and software is required. There is nothing like debugging with
+an oscilloscope, and doing so makes you wish for something as
+sophisticated as <code>printf</code>. Performing the robot task can be a
+stand in for all of the other tasks if done properly, but really I view
+it as a culminating event.</p>
+<p>What’s the point of all this? <a
+href="http://jasonrudolph.com/blog/2011/08/09/programming-achievements-how-to-level-up-as-a-developer/">Education
+and betterment, nothing more</a>.<a href="#fn2" class="footnote-ref"
+id="fnref2" role="doc-noteref"><sup>2</sup></a> The goals of a list such
+as this is <em>never</em> the artifacts, although if you create
+something amazing along the way then all the better for us!</p>
+<p>Does our industry need more text editors or operating systems? That’s
+debatable.<a href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a> However, our industry definitely
+needs more people willing to work hard to sharpen their craft, not
+fewer.</p>
+<p>What do you think? Is your list different? Feel free to post a
+comment below or email me in my inbox at <img
+src="http://fogus.me/images/addy.png" alt="email" />.</p>
+<p>:F</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Don’t let the bastards grind you down Gusts!<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>In a perfect world we would have covered all of these
+topics in our undergrad computer science curriculum.<a href="#fnref2"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>I fall on the side of the fence that says the world
+needs vastly more of each of the things mentioned. Mountains more.<a
+href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

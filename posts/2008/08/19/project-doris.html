@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>project-doris</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<figure>
+<img
+src="http://farm4.static.flickr.com/3288/2778330731_6510c01109_o.png"
+title="Ix Robot Go!" alt="ix" />
+<figcaption aria-hidden="true">ix</figcaption>
+</figure>
+<h1 id="project-doris">Project Doris</h1>
+<p>Project Doris is actually the name of a programming language –
+actually it’s three programming languages. I suppose some explanation is
+in order.</p>
+<h2 id="a-history-of-project-doris">A History of Project Doris</h2>
+<p>It’s probably wise to begin at the beginning. Right after obtaining
+my <a href="http://www.smcm.edu">undergraduate degree</a>, I obtained
+work as a programmer for a <a href="http://www.dcscorp.com">medium-sized
+company</a> located in Lexington Park, MD. My task for this company was
+to create an expert system that was able to best <a
+href="http://www.aaai.org/Library/IAAI/2005/iaai05-002.php">determine
+the loading of navy aircraft and their sequence of release</a>, which
+apparently is still a living entity, although my initial version is
+probably long gone (which looking back is probably a good thing). Being
+an expert system, it was natural that the source code be written in the
+<a href="http://clipsrules.sourceforge.net">CLIPS programming
+language</a>. Having no prior experience with CLIPS, it made very little
+sense to me at first, yet I was not to be detered. In order to make an
+attempt to wrap my head around the CLIPS language I decided to go into
+the C source and muck it up in order to make it look more akin to <a
+href="http://www.stat.uiowa.edu/~luke/xls/xlsinfo/xlsinfo.html">something
+that I was already accustomed to</a>. Overall my efforts were useful for
+learning the internals and function of CLIPS, but it was essentially
+throw-away code as the requirement was to write the system in
+CLIPS-proper (seriously, this was an <em>actual</em> requirement for
+some strange reason). Sadly, the originally modified source was left on
+my computer when I left that particular company (the first time) and is
+likely lost to the dustbin of history. However, the bug for modification
+has struck again and Project Doris is the attempt to reuse some of the
+same ideas that I originally had coupled with some new ideas that I have
+germinated in my mind since.</p>
+<h2 id="so-what-the-heck-is-project-doris">So what the heck is Project
+Doris?</h2>
+<p>Aside from being an homage to <a
+href="http://www.flickr.com/photos/fogus/2112947183/in/set-72157603478752122">my
+lovely grandmother</a> (RIP), I suppose you could call Project Doris a
+modernization of CLIPS, but even that would be too presumptuous. In
+reality, it is the creation of four programming languages (plus some
+other stuff) using the CLIPS source code as the base.</p>
+<h2 id="four-languages-wtf">Four Languages?!? WTF?</h2>
+<p>I know what you’re thinking, “does the world really need” another
+programming language, much less four more?” My answer to you my friends
+is and emphatic <strong>YES</strong>. The world not only needs four
+more, but it needs <em>forty-thousand</em> more. That is, the
+programming landscape would be much richer if programmers took some time
+and designed their own little <a
+href="http://en.wikipedia.org/wiki/Domain-specific_programming_language">DSLs</a>
+and hacked-up programming languages.</p>
+<h2 id="you-arrogant-bastard">You arrogant bastard!</h2>
+<p>Again, I know what your next reaction might be: “So you think you can
+do better with CLIPS than Gary Riley, Brian Dantes, Brian Donnell, Frank
+Lopez, and NASA?”</p>
+<p>My answer is a high-pitched <sub>no</sub>. but you see, my goal is
+not to make a better version of CLIPS, it only to see how far the
+original source can be stretched and mangled. I do not wish to usurp
+CLIPS; in fact, I would be quite shocked (and awed) if anyone but myself
+ever used anything that comes out of Project Doris. I am a true believer
+in the CLIPS language, but I am more of a believer in the idea of taking
+someone else’s idea and taking stuff away until it is awesome. CLIPS is
+20 some-odd years old and has an established user base who are happy
+with it the way it is (not that 20 some-odd years of history much allows
+for much change in the language itself). Besides, using the CLIPS source
+as the base allows me to leverage existing code – who has time to write
+a garbage collector, parser, and Rete implementation? Not me.</p>
+<h1 id="common-ground">Common Ground</h1>
+<p>There will be some common functionality between the three
+sub-languages that comprise Doris, some of which have not yet been
+decided. However, the current list of common parts is as follows.</p>
+<h2 id="has">Has</h2>
+<h3 id="blocks">Blocks</h3>
+<p>In the olden days, my initial implementation of a block structure was
+simply syntactic sugar for the <code>(progn)</code> function. This may
+or may not be the way to go moving forward, but in any case I like the
+idea of passing code blocks around. This is not the same as a Ruby block
+but instead a nameable set of actions that can be applied at certain
+points and which can access the current lexical scope. In addition,
+parametrized blocks would provide a general closure mechanism.</p>
+<h3 id="modules">Modules</h3>
+<p>The base CLIPS module system will primarily be used as a packaging
+mechanism for packaging libraries. The fact-base partitioning capability
+that the <code>(defmodule)</code> constructs has always provided a
+powerful mechanism and will largely remain unchanged. I plan to extend
+the base capability by providing aliasing.</p>
+<h3 id="lists">Lists</h3>
+<p>The fundamental data structure shared between languages will be none
+other than the truty list. CLIPS itself has a scaled-back version of the
+list called a multifield which simply put can be thought of as a
+single-level list (i.e. no embedded lists). Multifields are fine and
+good, but I need to be able to store any structure in a list, including
+lists. Therefore, with a little bit of effort I was able to get true
+lists working. Lists in Doris are not like classic Lisp lists in that
+they are built up as pairs, but are instead backed by arrays.</p>
+<h2 id="privative">Privative</h2>
+<h3 id="globals">Globals</h3>
+<p>It is ashamed that after years of being bitten by global variables
+that languages are still being created that provide them.</p>
+<h1 id="broccoli">Broccoli</h1>
+<h3 id="functions">Functions</h3>
+<p>I have been working on a language called <a
+href="http://www.earthvssoup.com/projects/broccoli">Broccoli</a>
+(previously Vodka) for quite some time now, but the <a
+href="http://www.earthvssoup.com/2007/11/23/lithp-v001/">original
+interpreter was written in Python</a>. Sometime about 4 months ago I
+decided to use the CLIPS source as the basis for Broccoli and it turned
+out to work quite well. There are some major differences in that there
+is no real support for anonymous functions, but I believe that I have a
+way to hack that into the CLIPS interpreter. Over the past 4 months I
+have made quite a few changes to the CLIPS source and what remains is
+vaguely recognizable as being rooted in CLIPS.</p>
+<h3 id="anonymous-functions">Anonymous functions</h3>
+<p>One aspect that I have always felt was missing (and is actually
+discouraged) from CLIPS was that of anonymous functions. There is
+support for indirectly calling functions by using the
+<code>(funcall)</code> function with a symbol corresponding to the name
+of an existing function, but it would be nice to eliminate this extra
+step in many cases. It is often appropriate, desirable, and <a
+href="http://www.jquery.com">beautiful</a> to chain functions together,
+and this can be elegantly done by simply allowing the creation of
+anonymous functions within certain language constructs. The precise
+mechanism behind implementing this is only a vague and cloudy mess in
+the back of my mind at the moment. It seems that the most difficult
+aspect would be the disposal of the anonymous functions as they drop out
+of scope, but perhaps an <code>(undeffunction)</code> call can be bound
+to the internal anonymous symbolic name, but the implications of this
+are yet to be determined.</p>
+<h1 id="ix">Ix</h1>
+<h3 id="rule-based">Rule based</h3>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

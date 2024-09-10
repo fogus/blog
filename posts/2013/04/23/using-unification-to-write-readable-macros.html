@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>using-unification-to-write-readable-macros</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>In my <a
+href="https://github.com/clojure/core.contracts">core.contracts</a> code
+I’ve experimented with using unification to aide read- and
+re-readability in my macros. Often I’ve found that I’ll hit a wall when
+returning to a macro that I wrote long ago. A mass of documentation
+often helps, but I wanted something more. I think I’ve found it… or at
+least the beginnings of ‘it’.<a href="#fn1" class="footnote-ref"
+id="fnref1" role="doc-noteref"><sup>1</sup></a> Observe the following
+macro:<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a></p>
+<pre><code>(defn- build-contract-body
+  [[args cnstr descr :as V]]
+  (unify/subst     
+   &#39;(?PARMS
+     (let [ret ?PRE-CHECK]
+       ?POST-CHECK))
+
+   {&#39;?ARGS       args
+    &#39;?F          &#39;f
+    &#39;?PARMS      (vec (list* &#39;f args))
+    &#39;?MSG        descr
+    &#39;?PRE-CHECK  (build-condition-body 
+                   {:pre (:pre cnstr)}   
+                   &#39;(apply ?F ?ARGS) 
+                   &quot;Pre-condition failure: &quot;)
+    &#39;?POST-CHECK (build-condition-body 
+                   {:post (:post cnstr)} 
+                   &#39;ret 
+                   &quot;Post-condition failure: &quot;)}))</code></pre>
+<p>This macro builds a data-structure that corresponds to a function
+body useful for tracking pre- and post-condition constraint failures.
+You’ll see that the meat of the macro is simply:</p>
+<pre><code>&#39;(?PARMS
+   (let [ret ?PRE-CHECK]
+     ?POST-CHECK))</code></pre>
+<p>My approach uses unification (<code>subst</code> from the <a
+href="https://github.com/clojure/core.unify">core.unify</a> library) to
+fill in the body variables <code>?PARMS</code>, <code>?PRE-CHECK</code>
+and <code>?POST-CHECK</code> with further data structures. Specifically,
+the structures to fill are provided in a bindings map to
+<code>subst</code> and built directly or via another macro shown
+below:</p>
+<pre><code>(defn- build-condition-body
+  [constraint-map body prefix-msg]
+  (unify/subst
+   &#39;(try
+      ((fn []
+         ?CNSTR
+         ?BODY))
+      (catch AssertionError ae
+        (throw (AssertionError. (str ?PREFIX ?MSG \newline (.getMessage ae))))))
+
+   {&#39;?CNSTR  constraint-map
+    &#39;?PREFIX prefix-msg
+    &#39;?BODY   body}))</code></pre>
+<p>Using this method allows me to effectively draw a picture of the
+data<a href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a> structure representing a function
+body and fill in the required values via substitution. I need to explore
+this deeper, so buyer beware, but I like the initial findings.</p>
+<p>:F</p>
+<p><em>originally posted on <a href="https://coderwall.com/fogus">my
+coderwall profile</a></em></p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>I hesitate to say that ‘it’ is the ever-elusive <a
+href="http://blog.fogus.me/2012/07/06/this-plt-life-self-documenting-code/">self-documenting
+code</a>.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>I was considering expanding on this theme in the <a
+href="http://www.joyofclojure.com/buy">2nd edition of the Joy of
+Clojure</a>, but decided against it.<a href="#fnref2"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>It’s a poor man’s RHS of a <code>define-syntax</code>
+(maybe) so maybe someone should just create a <code>define-syntax</code>
+library. (cough cough)<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

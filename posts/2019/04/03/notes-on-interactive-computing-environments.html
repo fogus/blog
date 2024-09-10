@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>notes-on-interactive-computing-environments</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>In the pantheon of my personal favorite books on computing, <em><a
+href="https://www.amazon.com/Interactive-Programming-Environments-David-Barstow/dp/0070038856/?tag=fogus-20">Interactive
+Programming Environments</a></em> by Barstow[^bar], Shrobe, and
+Sandewall places somewhere in the proverbial chancel.</p>
+<p><a href="https://www.amazon.com/Interactive-Programming-Environments-David-Barstow/dp/0070038856/?tag=fogus-20"><img src="http://blog.fogus.me/wp-content/uploads/2019/04/IPE-201x300.jpg" alt="" width="201" height="300" class="aligncenter size-medium wp-image-6549" /></a></p>
+<p>The book covers a wide range of topics from Lisp Machines, Smalltalk,
+Pascal, OOP, UNIX, AI, and intelligent agents but the common thread is
+this:</p>
+<p><em>Your programming environments should be an active partner in the
+act of creating systems.</em></p>
+<p>This post contains notes on some of the points along this vector with
+some jumping-off points for further exploration and research.</p>
+<h2 id="moore-and-forth">Moore and Forth</h2>
+<p><em>Programming a Problem-Oriented Language</em> by Charles Moore (<a
+href="http://www.forth.org/POL.pdf">PDF</a>) is Chuck Moore’s thesis on
+Forth and its design and core philosophy. The genesis of the language
+stems from a simple premise:</p>
+<blockquote>
+<p>I’ve written many programs over the years. I’ve tried to write good
+programs, and I’ve observed the manner in which I write them rather
+critically. My goal has been to decrease the effort required and
+increase the quality produced.</p>
+</blockquote>
+<p>Moore’s motivations culminated in the Forth programming language,
+which in turn led to the term “problem-oriented-language.” The basic
+idea is that a programming language should facilitate the construction
+of programs by allowing you to build in layers, where each layer is a
+specialized language for building the layer above it. Certainly the book
+dives deeper into matters such as simplicity, YAGNI, bootstrapping, and
+the like, but the core idea of <em>problem-orientation</em> is the key
+take away.</p>
+<h2 id="fundament">Fundament</h2>
+<p>Moore’s work encourages the creation of the entire programming stack,
+but there are varying levels at which an interactive environment can
+evolve up from. For example, one of my attempts at the IPE idea built on
+the Java Virtual Machine and its included graphical interface APIs. The
+idea was to build a tool that I could explore Java APIs with in an
+interactive manner. However, to do that I had to build a total
+environment for building scratchpads for exploration.</p>
+<p><img src="http://blog.fogus.me/wp-content/uploads/2019/04/Screen-Shot-2019-04-02-at-1.38.02-PM-150x150.png" alt="" width="150" height="150" class="aligncenter size-thumbnail wp-image-6564" /></p>
+<p>I got it into a good place eventually, but the increased capabilities
+of the <a href="https://www.bluej.org">BlueJ</a> environment convinced
+me to end development. Later I worked on various IPEs hosted on
+platforms varying from <a href="http://www.clipsrules.net">CLIPS</a>, to
+<a href="https://github.com/alepharchives/ordoemacs">Emacs</a>, to <a
+href="https://web.archive.org/web/20130420043846/http://le-trombone.livejournal.com/182656.html">Emacs
+in CLIPS</a>, to JavaScript. I learned a lot along the way, but never
+felt that I had even scratched the surface of finding an environment
+that helped me to explore.</p>
+<h2 id="work-for-the-next-10-years">Work for the next 10 years</h2>
+<p>Any work in IPEs is likely to require a huge amount of effort and
+brain-power to crack. Indeed, you could expect to spend the next
+10-years just gaining a deep understanding of the problem space and
+contributing to the rich landscape. Even after the 10-years are spent
+the expected likelihood is that any artifacts created along the way are
+likely to find little to no usage or to be obviated by something else
+entirely. Enormous amounts of effort went into systems such as <a
+href="http://www.softwarepreservation.org/projects/LISP/interlisp_family/">Interlisp</a>,
+<a
+href="https://www.amazon.com/Dreaming-Code-Programmers-Transcendent-Software/dp/1400082471?tag=fogus-20">Project
+Chandler</a>, Backus’ <a href="https://prog21.dadgum.com/14.html">FP</a>
+<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a>, the <a
+href="https://people.cs.clemson.edu/~mark/330/eagle.html">Data General
+Eclipse MV/8000</a>, and <a href="http://xanadu.com">Xanadu</a> and
+every one of them are relegated to the dustbin of computing history.
+It’s difficult to start a project that most likely will merely provide
+footnotes to the next generation of proposed solutions.</p>
+<p>So it goes.</p>
+<h2 id="bootstrapping">Bootstrapping</h2>
+<p><a
+href="https://www.amazon.com/Smalltalk-80-Interactive-Programming-Environment-Addison-Wesley/dp/0201113724/?tag=fogus-20">Smalltalk</a>
+is a great example of a system that evolved via bootstrapping new
+iterations using previous versions of itself. Alan Kay talks about this
+as the ideal for Smalltalk development for much of its early life in his
+<a href="https://www.youtube.com/watch?v=oKg1hTOQXoY&amp;t=3490s">famous
+OOPSLA 1997 talk</a>. The whole talk is an amazing repository of wisdom
+that hasn’t yet been truly tapped for inspiration.</p>
+<p><img src="http://blog.fogus.me/wp-content/uploads/2019/04/TheBlueBook-227x300.jpg" alt="" width="227" height="300" class="aligncenter size-medium wp-image-6570" /></p>
+<p>That said, while Smalltalk itself moved away from the meta-language
+bootstrapping model with the development of Smalltalk-80, the early
+principles are foundational. The seminal book <em><a
+href="https://www.amazon.com/Smalltalk-80-Language-Implementation-Adele-Goldberg/dp/0201113716/?tag=fogus-20">Smalltalk-80:
+The Language and Its Implementation</a></em> captures the gestalt of the
+early days by including the source code for a <a
+href="http://www.mirandabanda.org/bluebook/">VM for the language
+described in the book using the language described in the book</a>. The
+ideal outlined by early Smalltalk implementations (and <a
+href="https://wiki.squeak.org/squeak">Squeak</a>) is an ideal that IPEs
+should strive for. That is, the purpose of an Interactive Programming
+Environment should not be to provide a solution, but instead to provide
+a set of ideas useful for exploring higher-level ideas better than those
+provided in the base environment.</p>
+<h2 id="emacs">Emacs</h2>
+<p>These days the closest thing that I have to a powerful IPE in my life
+is the Emacs text editor. In addition to my place for writing blog
+posts, Emacs is also my programming environment, idea scratchpad,
+TODO-list manager, a source control interface, and occasionally a <a
+href="https://www.masteringemacs.org/article/fun-games-in-emacs">game
+system</a>. Emacs is extended with the Emacs Lisp programming language
+and provides a set of abstractions around working with text buffers. The
+act of extending Emacs is a bit of black magic, but at least <a
+href="https://www.amazon.com/Writing-GNU-Emacs-Extensions-Customizations-ebook/dp/B0043M56SW?tag=fogus-20">one
+interesting manual for writing extensions</a> has been written.</p>
+<h2 id="a-total-head-space">A total head-space</h2>
+<p><a href="http://www.dougengelbart.org/content/view/155/87/">Douglas
+Englebart’s NLS</a> was a total collaborative environment meant to
+enable its users to engage in “knowledge work.” The idea was to provide
+a repository for knowledge, tools for collaboration, idea capture, and
+discovery. However, NLS was not just a set of software tools, instead it
+was an environment that ensconced the knowledge worker.</p>
+<p><img src="http://blog.fogus.me/wp-content/uploads/2019/04/enviboard-300x170.jpg" alt="" width="300" height="170" class="aligncenter size-medium wp-image-6574" /></p>
+<p>From the now ubiquitous mouse to the chorded keyboard, the NLS
+workspace was designed as a phase-1 stage in moving towards
+human-machine co-evolution. Perhaps the ideal for IPEs is not just a
+software concern but instead a total headspace. There was a popular
+trend in software writing tools that promised immersive environments
+(see <a
+href="http://www.hogbaysoftware.com/products/writeroom">Writeroom</a>
+and <a href="https://gottcode.org/focuswriter/">FocusWriter</a> for
+examples), but they stopped at the screen. Perhaps something akin to <a
+href="https://www.youtube.com/watch?v=zdLAM-wChxY">Dan Price’s Hobbit
+home</a>, a hideaway van, or perhaps [Bruce Hauman</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p><a href="https://twitter.com/alandipert?lang=en">Alan
+Dipert</a> introduced me to the FP language and I’ve studied it on and
+off for the past few years. It never fails to surprise. His passion for
+topics such as I’m outlining in this post is/was infectious and he’s
+probably forgotten more about the subject than I’ve ever known.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

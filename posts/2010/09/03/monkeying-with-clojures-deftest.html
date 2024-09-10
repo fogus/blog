@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>monkeying-with-clojures-deftest</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>Say you have a namespace <code>a</code> that needs to be tested: <a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a></p>
+<pre><code>(ns a)
+(defn ^{:private true} foo [] 42)</code></pre>
+<p>Using Clojure’s <code>clojure.test</code> libs you might think it
+would be as simple as the following:</p>
+<pre><code>(ns b
+  (:use [clojure.test :only [deftest is]]))
+
+(deftest test-foo
+  (is (= 42 (a/foo))))
+; java.lang.IllegalStateException: var: #&#39;a/foo is not public</code></pre>
+<p>Whoops! That function <code>a/foo</code> is private and not readily
+available to call. Now there are a number of ways to get at that
+function to test it, but the shortest path is the following:</p>
+<pre><code>(deftest test-foo
+  (is (= 42 (#&#39;a/foo))))
+
+(test-ns &#39;b)
+; Testing b
+;=&gt; {:test 1, :pass 1, :fail 0, :error 0}</code></pre>
+<p>So using the <code>#'</code> reader macro we can resolve the
+<code>a/foo</code> var directly, but what if there was a way to declare
+a test that specifically for testing private vars:</p>
+<pre><code>(defmacro defprivatetest
+  [name [local-name private-name] &amp; body]
+  (when *load-tests*
+    `(def ~(vary-meta name 
+                      assoc 
+                      :test `(let [~local-name (resolve &#39;~private-name)] 
+                               (fn [] ~@body)))
+        (fn [] (test-var (var ~name))))))</code></pre>
+<p>This is almost exactly like the implementation of
+<code>clojure.test/deftest</code> except that it allows for a single
+named binding that is resolved to a function (private or not) in another
+namespace, like so:</p>
+<pre><code>(defprivatetest test-a
+  [foo a/foo]
+  (is (= 42 (foo))))
+
+(test-ns &#39;b)
+;=&gt; {:test 1, :pass 1, :fail 0, :error 0}</code></pre>
+<p>Granted this is a lot of work just to avoid <code>#'</code>, but this
+is much more flexible in the face of change.</p>
+<p>I leave it to the reader to change the implementation to allow
+multiple bindings.</p>
+<p>:f</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>This post is much ado about nothing, but I thought I’d
+push it into the ether while everyone else is distracted by <a
+href="http://clojure-conj.org/">Clojure Conj</a>.<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

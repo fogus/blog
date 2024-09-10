@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>take-7-david-nolen</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p><a href="http://dosync.posterous.com">David Nolen</a> is the lead
+developer of the <a href="http://www.shiftspace.org">ShiftSpace
+project</a> and is a Clojure / Javascript / <a
+href="http://www.squeak.org/">Squeak</a> / Haskell / C / Objective-C
+developer who recently <a
+href="http://dosync.posterous.com/22397098">made waves</a> with his
+series of posts <a
+href="http://dosync.posterous.com/clojure-nodejs-and-why-messaging-can-be-lame">comparing</a>
+<a href="http://nodejs.org/">node.js</a> and the <a
+href="http://github.com/ztellman/aleph">Aleph</a> library. David fights
+the good fight on <a
+href="http://news.ycombinator.com/user?id=swannodette">Hacker News</a>
+and provides the world with source code beauty<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> on
+<a href="http://github.com/swannodette">Github</a> under his alter ego
+Swannodette.</p>
+<p><em><a href="http://blog.fogus.me/tag/take">(take…</a> is an on-going
+series of micro-interviews focused on interesting Clojurians.</em></p>
+<h3 id="what-led-you-to-clojure">What led you to Clojure?</h3>
+<p>I never went to school<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a> for computer science and my first
+degree is in film - focusing on experimental practice. I got interested
+in utilizing computers for non-utilitarian purposes so I studied New
+Media at New York University and got back into programming. Right before
+I started my second degree I read the <a
+href="http://mitpress.mit.edu/sicp/full-text/book/book.html">Structure
+and Interpretation of Computer Programs</a>. At the time I thought that
+Object Oriented programming was the coolest. I was shocked to find that
+not only could you easily design an OO system in Scheme, but, even more
+incredibly, you could write a working Scheme evaluator in Scheme with a
+very small amount of code. That sealed my appreciation of Lisp.</p>
+<p>In grad school I did a lot of Java, C, C++, and Objective-C
+programming. To say I didn’t enjoy it would be a lie. But I was also
+interested in the web and in particular, Google Maps. For me that was a
+big shock because they had written the frontend all in JavaScript - that
+“toy language”.</p>
+<p>I got hired in 2005 by Princeton University to work on a U.S. Census
+project for the Phildelphia-New Jersey-New York metropolitan area. I
+wrote a lot of JavaScript. The things that you could do easily with
+JavaScript shocked me and recalled my experience with Scheme.</p>
+<p>I still write a lot of JavaScript, but I like hacking on creative
+personal projects that involve graphics and audio and JavaScript is just
+too slow. So is Python and Ruby. But I’d become too accustomed to the
+flexibility and expressive power of JavaScript to want to go back to
+Java, C, or C++.</p>
+<p>One day, bored, I was looking at Alioth benchmarks and was surprised
+that Common Lisp performed so well. So I spent a summer playing around
+with SBCL and understanding CL style macros. Suffice to say my mind was
+blown.</p>
+<p>But I found CL to be just as complicated as C++ if not more so.
+JavaScript and C had both instilled in me an appreciation for minimalist
+languages. By chance I stumbled across Clojure - I read over the website
+and watched the <a href="http://clojure.blip.tv/">amazing talks by Rich
+Hickey</a><a href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a>. I decided to give it a shot and
+it’s been my personal language of choice since.</p>
+<h3 id="can-you-share-your-favorite-code-snippet">Can you share your
+favorite code snippet?</h3>
+<p>Snippets are like puzzle pieces. Alone they intriguing but ultimately
+useless.</p>
+<h3
+id="does-bruce-almighty-take-place-in-the-same-universe-as-evan-almighty">Does
+<em>Bruce Almighty</em> take place in the same universe as <em>Evan
+Almighty</em>?</h3>
+<p>No idea.</p>
+<h3 id="is-programming-an-art">Is programming an art?</h3>
+<p>If anyone says something is an art it’s already too late - art is not
+a thing, it’s a discussion. That perspective is good enough for <a
+href="http://en.wikipedia.org/wiki/Lawrence_Weiner">Lawrence Weiner</a>
+- a well known conceptual artist, and good enough for me. Anybody that
+says otherwise is either willfully ignorant or invested in the snoozy
+power politics of high art culture.</p>
+<p>Art and language are the original open source as far as I’m concerned
+(all the negative connotations that this analogy might insinuate do
+apply).</p>
+<p>To address the question more directly, I do think most programming
+belongs to craft. You could say that about most forms of drawing. That
+is, only a very few number of people actually want to make Art with
+computers. Most people are trying to pay the bills, feed the kids, and
+have an all around good time from the fruit of their hacking labors.</p>
+<h3
+id="ive-often-seen-you-posting-in-favor-of-clojure-in-hacker-news.-how-would-you-classify-the-general-view-of-clojure-there">I’ve
+often seen you posting in favor of Clojure in Hacker News. How would you
+classify the general view of Clojure there?</h3>
+<p>Hacker News is Lisp and language enthusiast friendly. But I think the
+number of HN readers actually using Lisp are a distinct minority. At the
+same time, Clojure is now on the radar for a lot of them and that is a
+good thing. And I think if Lisp ever had a chance at the mainstream, <a
+href="http://blog.fogus.me/2009/02/06/yegge-clojure-arc-and-lolita-or-days-of-future-past/">Clojure
+is it</a>.</p>
+<p>However, I think Clojure’s success on HN is largely predicated on
+it’s applicability to building websites and webservices. So as the body
+of literature on using Clojure for web development grows, I think we’ll
+see more of the HN readership actually trying it out for real projects
+and I have a sneaking suspicion they’ll even enjoy it.</p>
+<h3 id="how-would-you-describe-the-state-of-clojure-in-ny">How would you
+describe the state of Clojure in NY?</h3>
+<p>A small, enthusiastic community that has a lot of room to grow. The
+more adventurous hackers from the Ruby, JavaScript, Java, Python, Scala
+communities come to the meetups. The next NYC Clojure Meetup will be at
+Google which is exciting for the obvious reasons.</p>
+<h3
+id="which-of-criterion-collection-box-art-cover-do-you-find-most-pleasing-lk-here">Which
+of Criterion Collection box art cover do you find most pleasing? <a
+href="http://www.unstage.com/2010/06/saturday-design-inspiration-50-examples-of-criterion-box-art/">L@<span
+class="citation" data-cites="k">@k</span> here</a></h3>
+<p>That’s like being in a candy store. I can’t pick just one.<a
+href="#fn4" class="footnote-ref" id="fnref4"
+role="doc-noteref"><sup>4</sup></a></p>
+<p>:f</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>I am personally enamored with his <a
+href="http://github.com/swannodette/clj-cont">Clojure continuations
+library</a>.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>My wife and I have been putting aside money for our
+kids’ college, but as time passes I beging to wonder if the face of
+hugher education will look completely different in 15 years. I hope
+so.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Those Blip.tv videos are a (the?) primary source of
+Clojure enthusiasm – especialy in its first 2 years. They are a
+brilliant marketting vehicle for the language and other language
+designers would be smart to follow a similar model.<a href="#fnref3"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>I like the Onibaba cover. Great cover for a great
+film.<a href="#fnref4" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

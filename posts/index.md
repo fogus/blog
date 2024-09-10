@@ -1,3 +1,8 @@
+---
+title: "Send More Paramedics"
+author: "Fogus"
+---
+
 λ λ λ
 
 * 2024-08-19 08:47:13: [On method values, part 1](/2024/08/19/on-method-values-part-1/)

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>41</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<b>On G5</b> <br /> <br />While saving up for a G5 I have been
+intensively researching the capabilities of the new Apple systems. For a
+while I was wavering when the Athlon Fx was released, but that moment
+has passed. There has been a lot of controversy about the 64-bitness of
+the new G5 coupled with the Panther OSX release. Delving deeper into the
+matter reveals that the application space on the G5 runs in 32-bit mode
+to ensure backward compatibility. In other words, the applications are
+using a 32-bit address space. Other than this fact, the G5 is a true
+64-bit processor in every respect. Being 64-bit is not the greatest
+aspect of the new G5 systems. In fact, the overall architecture changes,
+more pipeline stages, faster floating point operations, much faster bus,
+and faster memory controller are the true wins. The 64-bit architecture
+in itself is not dog food however. In fact, the number of approximate
+instructions per 64-bit operation between the G4 and G5 are striking:
+<br /> <br />
+<table width="33%">
+<br />
+<tr>
+<td>
+<b>Operation</b>
+</td>
+<td>
+<b>G4</b>
+</td>
+<td>
+<b>G5</b>
+</td>
+</tr>
+<tr>
+<td>
+load/store
+</td>
+<td>
+2
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td>
+add,sub,neg
+</td>
+<td>
+2
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td>
+and,or,xor,not
+</td>
+<td>
+2
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td>
+multiply
+</td>
+<td>
+6
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td>
+compare
+</td>
+<td>
+1 to 12
+</td>
+<td>
+1
+</td>
+<pre><code>&lt;/tr&gt;   &lt;tr&gt;        &lt;td&gt;shifts&lt;/td&gt; &lt;td&gt;5 to 14&lt;/td&gt; &lt;td&gt;1&lt;/td&gt; &lt;/tr&gt;   &lt;tr&gt;        &lt;td&gt;divide&lt;/td&gt; &lt;td&gt;&gt;100&lt;/td&gt; &lt;td&gt;1&lt;/td&gt;    &lt;/tr&gt;   &lt;tr&gt;        &lt;td&gt;sqrt&lt;/td&gt; &lt;td&gt;&gt;20&lt;/td&gt; &lt;td&gt;1&lt;/td&gt;   &lt;/tr&gt;   &lt;tr&gt;        &lt;td&gt;long-&gt;double&lt;/td&gt; &lt;td&gt;&gt;50&lt;/td&gt; &lt;td&gt;3&lt;/td&gt;   &lt;/tr&gt;   &lt;tr&gt;        &lt;td&gt;double-&gt;long&lt;/td&gt; &lt;td&gt;&gt;50&lt;/td&gt; &lt;td&gt;3&lt;/td&gt;   &lt;/tr&gt;&lt;/table&gt;</code></pre>
+<p><br /> <br />Amazing huh? Likewise, floating point operations have
+been showing 100% speedups over G4 implementations. Because the G4 was a
+32-bit architecture, any 64-bit operation had to be split into two
+32-bit units, operated upon, and combined again. This may not speed up
+your dragging and dropping (yet), but for workstation-esque tasks it
+will provide a world of difference at a similar or fraction of the cost
+of many comparable offerings from
+<a href="http://www.sgi.com/workstations/fuel/">SGI</a>,
+<a href="http://www-1.ibm.com/servers/eserver/pseries/hardware/workstations/">IBM</a>,
+<a href="http://www.alienware.com/system_pages/roswell_Intel.aspx">Alienware</a>,
+<a href="http://www.sun.com/desktop/workstation/sunblade2000/">Sun</a>,
+and <a href="http://www.hp.com/workstations/itanium/index.html">HP</a>.
+If you’re looking for a huge boast over the G4 in number crunching, then
+by all means consider the G5; you will not be ripped off – it’s a
+workstation at a high-end desktop price. However, for general usage I
+would suggest going with the G4 based lines still available (and
+dropping in price daily). I myself am going with the G5 because I can
+use a speed boost in FP and long operations, and if I can’t then I will
+invent something that will. <br /> <br />-m <br /></p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

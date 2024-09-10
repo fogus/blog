@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>10-haskell-one-liners-to-impress-your-friends</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<p>Following the meme (<a
+href="http://solog.co/47/10-scala-one-liners-to-impress-your-friends/">scala</a>,
+<a
+href="http://programmingzen.com/2011/06/02/10-ruby-one-liners-to-impress-your-friends/">ruby</a>,
+<a
+href="http://freegeek.in/blog/2011/06/10-clojure-one-liners/">clojure</a>,
+<a
+href="http://codeblog.dhananjaynene.com/2011/06/10-python-one-liners-to-impress-your-friends/">python</a>,
+<a
+href="http://willwhim.wordpress.com/2011/06/02/fsharp-one-liners-to-impress-your-friends/">f#</a>,
+<a
+href="http://ricardo.cc/2011/06/02/10-CoffeeScript-One-Liners-to-Impress-Your-Friends.html">coffeescript</a>,
+<a href="https://gist.github.com/1004837">c#</a>)</p>
+<p><em>I would truly appreciate feedback from people whom actually know
+Haskell. As you may notice below, my grasp is not yet strong.</em></p>
+<h2 id="multiple-each-item-in-a-list-by-2">Multiple Each Item in a List
+by 2</h2>
+<pre><code>map (*2) [1..10]</code></pre>
+<h2 id="sum-a-list-of-numbers">Sum a List of Numbers</h2>
+<pre><code>foldl (+) 0 [1..1000]
+
+-- or better
+
+sum [1..1000]</code></pre>
+<h2 id="verify-if-exists-in-a-string">Verify if Exists in a String</h2>
+<pre><code>import Data.List
+let wordlist = [&quot;monad&quot;, &quot;monoid&quot;, &quot;Galois&quot;, &quot;ghc&quot;, &quot;SPJ&quot;]
+let tweet = &quot;This is an example tweet talking about SPJ interviewing with Galois&quot;
+
+or $ map (flip isInfixOf tweet) wordlist
+
+-- or better
+
+any (flip isInfixOf tweet) wordlist</code></pre>
+<h2 id="read-in-a-file">Read in a File</h2>
+<pre><code>fileText &lt;- readFile &quot;data.txt&quot;
+
+let fileLines = lines fileText
+
+-- or better
+
+let fileLines = fmap lines $ readFile &quot;data.txt&quot;</code></pre>
+<h2 id="happy-birthday-to-you">Happy Birthday to You!</h2>
+<pre><code>mapM_ putStrLn [&quot;Happy Birthday &quot; ++ (if x == 3 then &quot;dear NAME&quot; else &quot;to You&quot;) | x &lt;- [1..4]]</code></pre>
+<h2 id="filter-list-of-numbers">Filter list of numbers</h2>
+<pre><code>let (passed, failed) = partition (&gt;60) [49, 58, 76, 82, 88, 90]</code></pre>
+<h2 id="fetch-and-parse-an-xml-web-service">Fetch and Parse an XML web
+service</h2>
+<p><em>this example needs the <code>curl</code> and <code>xml</code>
+packages. see <a
+href="http://book.realworldhaskell.org/read/installing-ghc-and-haskell-libraries.html">RWH</a>
+for info on installing them</em></p>
+<pre><code>import Network.Curl
+import Text.XML.Light
+import Control.Monad
+
+let results = liftM parseXMLDoc $ liftM snd (curlGetString &quot;http://search.twitter.com/search.atom?&amp;q=haskell&quot; [])
+
+-- or better 
+
+Control.Applicative
+let results = parseXMLDoc . snd &lt;$&gt; curlGetString &quot;http://search.twitter.com/search.atom?&amp;q=haskell&quot; []</code></pre>
+<h2 id="find-minimum-or-maximum-in-a-list">Find minimum (or maximum) in
+a List</h2>
+<pre><code>foldl1 min [14, 35, -7, 46, 98]
+foldl1 max [14, 35, -7, 46, 98]
+
+-- or better
+
+minimum [14, 35, -7, 46, 98] 
+maximum [14, 35, -7, 46, 98]</code></pre>
+<h2 id="parallel-processing">Parallel Processing</h2>
+<p><em>this example needs the <code>parallel</code> package.</em></p>
+<pre><code>import Control.Parallel
+import Control.Parallel.Strategies
+
+parMap rseq (*2) [1..100]</code></pre>
+<h2 id="prime-number-generation">Prime number generation</h2>
+<pre><code>let pgen (p:xs) = p : pgen [x|x &lt;- xs, x `mod` p &gt; 0]
+
+take 40 (pgen [2..])</code></pre>
+<p>:F</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

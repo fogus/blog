@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>191</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<b>AL Park Effects (Runs)</b> <br /><font size=-1> <br />
+<table width="75%" border="1" cellspacing="1" cellpadding="2">
+<caption align="left">
+<b>AL</b>
+</caption>
+<thead align="center">
+<tr bgcolor="#CFCFFF">
+<td width="25%">
+<font color="#ffffff">Team</font>
+</td>
+<td width="10%">
+<font color="#ffffff">Offense</font>
+</td>
+<td width="10%">
+<font color="#ffffff">2002</font>
+</td>
+<td width="10%">
+<font color="#ffffff">Pitching</font>
+</td>
+<td width="10%">
+<font color="#ffffff">2002</font>
+</td>
+<td width="14%">
+<font color="#ffffff">off vs lgAvg</font>
+</td>
+<td width="14%">
+<font color="#ffffff">def vs lgAvg</font>
+</td>
+</tr>
+</thead>
+<tr align="right">
+<td align="left">
+Kansas City Royals
+</td>
+<td>
+1.113
+</td>
+<td>
+<font color="#808080">1.113</font>
+</td>
+<td>
+1.121
+</td>
+<td>
+<font color="#808080">1.122</font>
+</td>
+<td>
+-4.2
+</td>
+<td>
++1.6
+</td>
+</tr>
+<tr align="right">
+<td align="left">
+Texas Rangers
+</td>
+<td>
+1.092
+</td>
+<td>
+<font color="#808080">1.100</font>
+</td>
+<td>
+1.100
+</td>
+<td>
+<font color="#808080">1.107</font>
+</td>
+<td>
+-3.8
+</td>
+<td>
+-12.5
+</td>
+</tr>
+<tr align="right">
+<td align="left">
+Boston Red Sox
+</td>
+<td>
+1.056
+</td>
+<td>
+<font color="#808080">.968</font>
+</td>
+<td>
+1.060
+</td>
+<td>
+<font color="#808080">.968</font>
+</td>
+<td>
++15.0
+</td>
+<td>
++4.6
+</td>
+</tr>
+<tr align="right">
+<td align="left">
+Toronto Blue Jays
+</td>
+<td>
+1.048
+</td>
+<td>
+<font color="#808080">.990</font>
+</td>
+<td>
+1.051
+</td>
+<td>
+<font color="#808080">.989</font>
+</td>
+<td>
++9.4
+</td>
+<td>
+-0.3
+</td>
+</tr>
+<tr align="right">
+<td align="left">
+Minnesota Twins
+</td>
+<td>
+1.021
+</td>
+<td>
+<font color="#808080">.974</font>
+</td>
+<td>
+1.022
+</td>
+<td>
+<font color="#808080">.972</font>
+</td>
+<td>
+-0.9
+</td>
+<td>
++9.4
+</td>
+</tr>
+<tr align="right">
+<td align="left">
+Chicago White Sox
+</td>
+<td>
+1.001
+</td>
+<td>
+<font color="#808080">1.030</font>
+</td>
+<td>
+1.000
+</td>
+<td>
+<font color="#808080">1.032</font>
+</td>
+<td>
++1.7
+</td>
+<td>
++8.6
+</td>
+</tr>
+<tr align="right">
+<td align="left">
+Tampa Bay Devil Rays
+</td>
+<td>
+.991
+</td>
+<td>
+<font color="#808080">.983</font>
+</td>
+<td>
+.991
+</td>
+<td>
+<font color="#808080">.982</font>
+</td>
+<td>
+-9.0
+</td>
+<td>
+-9.6
+</td>
+</tr>
+<tr align="right">
+<td align="left">
+New York Yankees
+</td>
+<td>
+.981
+</td>
+<td>
+<font color="#808080">.967</font>
+</td>
+<td>
+.980
+</td>
+<td>
+<font color="#808080">.965</font>
+</td>
+<td>
++13.7
+</td>
+<td>
++8.5
+</td>
+</tr>
+<tr align="right">
+<td align="left">
+Seattle Mariners
+</td>
+<td>
+.974
+</td>
+<td>
+<font color="#808080">.945</font>
+</td>
+<td>
+.973
+</td>
+<td>
+<font color="#808080">.941</font>
+</td>
+<td>
++4.7
+</td>
+<td>
++16.8
+</td>
+</tr>
+<tr align="right">
+<td align="left">
+Baltimore Orioles
+</td>
+<td>
+.959
+</td>
+<td>
+<font color="#808080">.959</font>
+</td>
+<td>
+.956
+</td>
+<td>
+<font color="#808080">.958</font>
+</td>
+<td>
+-2.7
+</td>
+<td>
+-8.3
+</td>
+</tr>
+<tr align="right">
+<td align="left">
+Cleveland Indians
+</td>
+<td>
+.951
+</td>
+<td>
+<font color="#808080">1.022</font>
+</td>
+<td>
+.947
+</td>
+<td>
+<font color="#808080">1.022</font>
+</td>
+<td>
+-8.4
+</td>
+<td>
+-3.1
+</td>
+</tr>
+<tr align="right">
+<td align="left">
+Detroit Tigers
+</td>
+<td>
+.946
+</td>
+<td>
+<font color="#808080">.944</font>
+</td>
+<td>
+.941
+</td>
+<td>
+<font color="#808080">.939</font>
+</td>
+<td>
+-22.2
+</td>
+<td>
+-25.4
+</td>
+</tr>
+<tr align="right">
+<td align="left">
+Oakland Athletics
+</td>
+<td>
+.937
+</td>
+<td>
+<font color="#808080">1.034</font>
+</td>
+<td>
+.932
+</td>
+<td>
+<font color="#808080">1.036</font>
+</td>
+<td>
++5.3
+</td>
+<td>
++12.4
+</td>
+</tr>
+<tr align="right">
+<td align="left">
+Anaheim Angels
+</td>
+<td>
+.929
+</td>
+<td>
+<font color="#808080">.970</font>
+</td>
+<td>
+.925
+</td>
+<td>
+<font color="#808080">.968</font>
+</td>
+<td>
++1.3
+</td>
+<td>
+-2.7
+</td>
+</tr>
+</table>
+<p><br /></font> <br />-m <br /></p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

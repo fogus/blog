@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>moleskine-notes-for-june-2008</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<h1 id="lambda-c">Lambda C++</h1>
+<pre>
+\#define Lambda(args, ret, body) \
+  class MakeName(__Lambda__) { \
+    public: ret operator() args { body; }}
+
+Lambda((int a, int b), int, return a+b) foo;
+cout << "foo(1,2) is " << foo(1, 2) << endl;
+
+/** Recursive lambda **/
+Lambda((int n), int, 
+       if( n <= 0) 
+         return 1; 
+       else
+         return n * (*this)(n - 1)) fact;
+
+/** Mega-example **/
+template<class T> struct pair { T fst, snd; };
+
+typedef 
+Lambda((int x),
+    struct xv: public pair<int>
+    { xv(void) { fst=0; snd=0; }
+      xv(const int a, const int b) { fst = a; snd = b; }};
+      pair<xv> cache;
+      int do_cache(const xv prev, const xv curr)
+      {
+         if( curr.fst > cache.snd.fst )
+         { cache.fst = prev; cache.snd = curr; }
+         return curr.snd;
+      }
+      int,
+      if( x == 1 ) return 1;
+      if( x == 2 ) return 1;
+      if( x == cache.fst.fst ) return cache.fst.snd;
+      if( x == cache.snd.fst ) return cache.snd.snd;
+      if( x == (cache.snd.fst + 1) )
+         return do_cache(cache.snd, xv(x,cache.fst.snd + cache.snd.snd));
+      const int vp = (*this)(x-1);
+      return do_cache(xv(x-1,vp), xv(x,vp+(*this)(x-2)))) fib;
+    template<class T> void print_every_other(const int n)
+    {
+        T closure;
+        cout << closure(1);
+        for(register int i=3; i<=n; i+=2)
+            cout << " " << closure(i);
+        cout << endl;
+    }
+    main() {
+        print_every_other<fib>(11);
+    }
+</pre>
+<h1 id="some-tab">Some Tab</h1>
+<pre>
+INTRO
+e-|------------------------------------------|
+B-|------------------------------------------|
+G-|--7--7--7--7-7-7-7-7--7--7--7--7-7-7-7-7--|
+D-|--7--7--7--7-7-7-7-7--7--7--7--7-7-7-7-7--|
+A-|--5--5--5--5-5-5-5-5--5--5--5--5-5-5-5-5--|
+E-|------------------------------------------|
+
+VERSE (PART1)              (PART2)
+e-|------------------|------------------------------------------|
+B-|------------------|------------------------------------------|
+G-|--------5---------|-7--7--7--7-7-7-7-7--7--7--7--7-7-7-7-7---|
+D-|--7--7--5---5-5-5-|-7--7--7--7-7-7-7-7--7--7--7--7-7-7-7-7---|
+A-|--7--7--3---5-5-5-|-5--5--5--5-5-5-5-5--5--5--5--5-5-5-5-5---|
+E-|--5--5------3-3-3-|------------------------------------------|
+
+
+CHORUS
+e-|-----------------------------------------------|
+B-|-----------------------------------------------|
+G-|--9--9-9-----------6-6/7-7-7-7--6-6/7-7-7-7----|
+D-|--9--9-95-5-5-5-5--6-6/7-7-7-7--6-6/7-7-7-7----|
+A-|--7--7-75-5-5-5-5--4-4/5-5-5-5--4-4/5-5-5-5----|
+E-|--------3-3-3-3-3------------------------------|
+
+AFTER CHORUS
+e-|-----------------------------------------------|
+B-|-----------------------------------------------|
+G-|--9--9-9---------------------------------------|
+D-|--9--9-95--------------------------------------|
+A-|--7--7-75--------------------------------------|
+E-|--------3--------------------------------------|
+           ^let ring and pick slide until verse begins again
+
+Song Structure
+~~~~~~~~~~~~~~
+INTRO
+Spirits fly high, but they die so easily
+^VERSE1 ^VERSE2
+ I cry when they do
+^VERSE1
+  Young energy, that flame inside seems so Free, Yeah,
+^VERSE2
+ can i rely on you?
+^VERSE1
+ I feel the years pass through me,
+^CHORUS
+ Keep my soul awake,
+^CHORUS
+ Don't wanna lose that feeling,
+^CHORUS
+ Keep my soul awake.
+^CHORUS
+ Keep my soul awake.
+^CHORUS
+AFTER CHORUS
+Don't let it slide, we all grow up so quickly.
+^VERSE1  ^VERSE2
+ Hang on to what's inside
+^VERSE1
+ So young at heart, just take your time,
+^VERSE2
+ There's no hurry,
+ don't want to lose my mind.
+^VERSE1
+ I feel the years pass through me,
+^CHORUS
+ Keep my soul awake,
+^CHORUS
+ Don't wanna lose that feeling,
+^CHORUS
+ Keep my soul awake.
+^CHORUS
+ Keep my soul awake.
+^CHORUS
+</pre>
+<h1 id="read-file-in-one-java-line">Read File in one Java line</h1>
+<p>String file = new Scanner( new File( “test.txt” ) ).useDelimiter(
+“\Z” ).next();</p>
+<h1 id="kick-ass-js-toolkit">Kick-ass js Toolkit</h1>
+<ol type="1">
+<li><a href="http://jquery.com">jquery</a></li>
+<li><a href="http://taffydb.com">Taffy DB</a></li>
+<li><a href="http://jquery.com/demo/grey">Greybox-redux</a></li>
+<li><a href="http://ui.jquery.com">jquery UI</a></li>
+<li><a href="http://code.google.com/p/js2-mode">js2-mode.el</a></li>
+<li><a href="http://noteslog.com/chili">Chilli source
+highlighter</a></li>
+<li><a href="http://code.google.com/p/simile-widgets">Simile
+Timeline</a></li>
+<li><a href="http://code.google.com/p/dragtable">dragtable</a></li>
+<li><a
+href="http://www.beatniksoftware.com/erjs/index.html">Erlang-in-js</a></li>
+<li><a
+href="http://www.neilmix.com/2007/02/07/threading-in-javascript-17">Thread.js</a></li>
+<li><a href="http://ejohn.org/blog/processingjs">Processing.js</a></li>
+</ol>
+<h2 id="y-combinator-in-js">Y-Combinator in js</h2>
+<pre>
+// The Y combinator, applied to the factorial function
+
+function factorial(proc) {
+    return function (n) {
+        return (n <= 1) ? 1 : n * proc(n-1);
+    }
+}
+
+function Y(outer) {
+    function inner(proc) {
+        function apply(arg) {
+            return proc(proc)(arg);
+        }
+        return outer(apply);
+    }
+    return inner(inner);
+}
+
+print("5! is " + Y(factorial)(5));
+</pre>
+<h1 id="thoughts-on-gor">Thoughts on gor</h1>
+<p>[object-relational impedance mismatch][ormimp]</p>
+<h1 id="transgressional-fiction">Transgressional Fiction</h1>
+<ul>
+<li>William S. Burroughs Naked Lunch, Junkie</li>
+<li>Hubert Selby Jr. Last Exit to Brooklyn, Requiem for a Dream</li>
+<li>Emile Zola<br />
+</li>
+<li>Fyodor Dostoyevsky</li>
+<li>Knut Hamsun Hunger</li>
+<li>Gordon Lish</li>
+<li>Henry Miller Tropic of Cancer, Tropic of Capricorn</li>
+<li>Alan Ginsberg</li>
+<li>J.G. Ballard Crash</li>
+<li>Kathy Acker</li>
+<li>Charles Bukowski</li>
+<li>Douglas Coupland Generation X</li>
+<li>Bret Easton Ellis American Psycho, Lunar Park</li>
+<li>Irvine Welsh Trainspotting</li>
+<li>Chuck Palahniuk Choke, Fight Club</li>
+<li>Craig Clevenger The Contortionist’s Handbook</li>
+<li>Luke Rhinehart Dice Man</li>
+<li>Georges Bataille</li>
+</ul>
+<p>Splatterpunk - Clive Barker Books of Blood - Craig Spector The Light
+at the End - David Schow The Kill Riff - Joe R. Lansdale The
+Nightrunners - Rex Miller Slob - Kathe Koja The Cipher - Jack Ketchum
+Off Season</p>
+<h2 id="writing-tips-from-chuck-palahniuk">Writing tips from Chuck
+Palahniuk</h2>
+<p>Number One: Two years ago, when I wrote the first of these essays it
+was about my “egg timer method” of writing. You never saw that essay,
+but here’s the method: When you don’t want to write, set an egg timer
+for one hour (or half hour) and sit down to write until the timer rings.
+If you still hate writing, you’re free in an hour. But usually, by the
+time that alarm rings, you’ll be so involved in your work, enjoying it
+so much, you’ll keep going. Instead of an egg timer, you can put a load
+of clothes in the washer or dryer and use them to time your work.
+Alternating the thoughtful task of writing with the mindless work of
+laundry or dish washing will give you the breaks you need for new ideas
+and insights to occur. If you don’t know what comes next in the story…
+clean your toilet. Change the bed sheets. For Christ sakes, dust the
+computer. A better idea will come.</p>
+<p>Number Two: Your audience is smarter than you imagine. Don’t be
+afraid to experiment with story forms and time shifts. My personal
+theory is that younger readers distain most books - not because those
+readers are dumber than past readers, but because today’s reader is
+smarter. Movies have made us very sophisticated about storytelling. And
+your audience is much harder to shock than you can ever imagine.</p>
+<p>Number Three: Before you sit down to write a scene, mull it over in
+your mind and know the purpose of that scene. What earlier set-ups will
+this scene pay off? What will it set up for later scenes? How will this
+scene further your plot? As you work, drive, exercise, hold only this
+question in your mind. Take a few notes as you have ideas. And only when
+you’ve decided on the bones of the scene - then, sit and write it. Don’t
+go to that boring, dusty computer without something in mind. And don’t
+make your reader slog through a scene in which little or nothing
+happens.</p>
+<p>Number Four: Surprise yourself. If you can bring the story - or let
+it bring you - to a place that amazes you, then you can surprise your
+reader. The moment you can see any well-planned surprise, chances are,
+so will your sophisticated reader.</p>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>
