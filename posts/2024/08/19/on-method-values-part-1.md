@@ -1,18 +1,28 @@
+---
+title: "On method values, part 1"
+author: "Fogus"
+date: "2024.08.19"
+---
+
 Prior to [discovering Clojure back in 2007](https://blog.fogus.me/2007/10/24/linkage-20071024/), I was a full-time Java programmer. This was long before method handles, method references, lambda expressions, and invokedynamic, so viewing Java through a functional programming lens was not second-nature to me. Regardless, during my early Clojure explorations I fully expected code like the following to "just work":
 
+```clojure
     (defn up-all [strings]
       (map .toUpperCase strings))
     ;; Unable to resolve symbol: .toUpperCase
+```
 
 That is, I[^cdevs] fully expected Clojure to recognize that `.toUpperCase` referred to the instance method `String.toUpperCase` as a value, and infer how to "do the right thing" with it for each element in the `strings` collection handled by `map` even though Clojure could never know what it might hold. 
 
 Of course, it eventually occurred to me that the actual way to do what I wanted was to wrap the method call in a function instead:
 
+```clojure
     (defn up-all [strings]
       (map (fn [s] (.toUpperCase s)) strings))
     
     (up-all ["a" "b" "c"])
     ;;=> ["A" "B" "C"]
+```
 
 Once I learned of this fact, I put it into my tool-belt and moved on. But I could have asked the question of why it didn't work as I expected and even at that early time I think that Clojure could have supported it... almost.
 
@@ -22,7 +32,6 @@ Once I learned of this fact, I put it into my tool-belt and moved on. But I coul
 > Follow along with this post using the 1.12.0 release candidate run with the following Clojure CLI 1-liner:
 > 
 > clj -Sdeps '{:deps {org.clojure/clojure {:mvn/version "1.12.0-rc1"}}}'
-
 
 ## Why Method Values
 
@@ -34,6 +43,7 @@ Clojure provides a hinting syntax that adds metadata to applicable syntactic ele
 
 The function example above is flawed in a way that becomes evident with the addition of a line of code:
 
+```clojure
     (set! *warn-on-reflection* true)
     
     (defn up-all [strings]
@@ -42,26 +52,32 @@ The function example above is flawed in a way that becomes evident with the addi
     
     (up-all ["a" "b" "c"])
     ;;=> ["A" "B" "C"]
-
+```
 
 The problem is that Clojure cannot resolve which class the `.toUpperCase` method belongs to until using reflection at run time to determine the type of its argument. Reflection is a wonderful tool for [interactive programming](https://blog.fogus.me/2022/11/10/the-one-about-lisp-interactivity/) but it's slower than direct invocation that you get with resolved methods using type hints:
 
+```clojure
     (map (fn [s] (.toUpperCase ^String s)) ["a" "b" "c"])
     ;;=> ["A" "B" "C"]
+```
 
 ### Loss of type generality
 
 Manual hinting is a fine way to help Clojure resolve method contexts, but using type hinting reduces the generality of a function. This becomes more clear with the following example:
 
+```clojure
     (defn absv [^long n] (Math/abs n))
     
     (map absv [-1 -2 3])
     ;;=> [1 2 3]
+```
 
 The `absv` function[^absv] works fine for longs, but does not generalize to doubles because of the manual hinting:
 
+```clojure
     (map absv [-1.1 -2.45 3.14159])
     ;;=> [1 2 3]
+```
 
 [^absv]: The `absv` function above is illustrative for this post only... use the Clojure core function `abs` instead. :)
 
@@ -83,13 +99,17 @@ Therefore, we moved to what we called "qualified methods", which is an expansion
 
 Importantly, Clojure already knew how to resolve class names in symbol prefixes, so moving to this cleaner syntax allowed us to leverage existing code-paths. This allowed us to double down on providing strong feature semantics using existing support. Additionally, having the prefix class in hand for all three cases allows Clojure to use it as essential method resolution contexts, even in invocations:
 
+```clojure
     (map (fn [s] (String/.toUpperCase s)) ["a" "b" "c"])
     ;;=> ["A" "B" "C"]
+```
 
 The implications for supporting qualified methods naturally led to an elegant implementation approach that I'll discuss in the next post. But for now it's worth noting that by moving to this syntax for instance methods required some extra consideration. That is, circumstances can arise where the qualifying class in a qualified instance method call can contradict the type of the target object, for example:
 
+```clojure
     (map (fn [s] (String/.toUpperCase ^Object s)) ["a" "b" "c"])
     ;;=> ["A" "B" "C"]
+```
 
 For qualified instance method calls, it made sense to always use the qualifying class for the purpose of resolving the instance method to invoke. 
 
@@ -105,8 +125,10 @@ The different ways to refer to the instance method `Double/.isNaN` and the stati
 
 We already saw how to use type hints to resolve the `.toUpperCase` method. So it felt natural to add a new kind of metadata to help resolve method values. That is, any qualified method with a metadata mapping of the keyword `:param-tags` to a vector of zero or more legal type hints will signal to Clojure the desired overload and arity of the method to use in the generated function call. We added a shorthand for this metadata using a new metadata syntax `^[... tag hints ...]` for it:
 
+```clojure
     ^[long] Math/abs
     ;; resolves to only the static method taking 1 primitive long
+```
 
 This is analogous to the `:tag` metadata, and any legal `:tag` value is legal inside of the param-tags vector. Further, we also allow the special hint `_` in the param-tags vector that signals a kind of "any type" in that place of the signature. Further, the param-tag metadata provides arity declaration by default. These capabilities allow programmers to param-tags to convey their intent for a specific arity and the minimum types to resolve to a single method signature. Opting into this intentional specification means that any existing ambiguity is an error condition.
 
@@ -116,6 +138,7 @@ As you might guess, sometimes NO param-tags might be enough to disambiguate a me
 
 However, Clojure has always used surrounding context to help resolve interop calls. We realized that qualified method invocations could leverage not only their qualifying class for resolution context, but also the mechanisms for leveraging type flow to resolve type overloads. Take the following example:
 
+```clojure
     (defn bat-file? [filename & {loc :loc}]
       (let [ext "bat"
             fnm (if loc 
@@ -125,6 +148,7 @@ However, Clojure has always used surrounding context to help resolve interop cal
     
     (bat-file? "AUTOEXEC.BAT")
     ;;=> true
+```
 
 The `bat-file?` function uses both qualifying class information and also type flow information to resolve the method calls within:
 
