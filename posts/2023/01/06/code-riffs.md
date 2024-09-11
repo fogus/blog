@@ -22,7 +22,8 @@ In my time I've created my share of code riffs; some that inspired something mor
 
 Here's a Clojure code riff from a presentation that I gave many years ago called "The Magnificent Seven":
 
-<pre><code>(def NIL ((fn [x y] (if (= x y) x)) = (= = =)))
+```clojure
+(def NIL ((fn [x y] (if (= x y) x)) = (= = =)))
 
 (def CAR (fn [[h & _]] h))
 (def CDR  (fn [[_ & t]] t))
@@ -40,7 +41,7 @@ Here's a Clojure code riff from a presentation that I gave many years ago called
 
 (FIRST (REST (CONS 1 (CONS 2 NIL)))
 ;;=> 2
-</code></pre>
+```
 
 Do you have any code riffs to share?
 
