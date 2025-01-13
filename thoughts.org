@@ -1,0 +1,23 @@
+#+title: blog.fogus.me thoughts
+#+author: Fogus
+
+* Thoughts
+** Goal
+
+Move from a self-hosted Wordpress instance with a MySQL backend to a statically generated site.
+
+** TODOs
+*** DONE Export existing post entries
+*** DONE Extract post bodies into markdown files in dirs according to original blog url
+*** DONE Dir walker to generate html files from markdown
+*** DONE Pull in images for most recent posts
+*** DONE Use text-mode css as default style
+*** DONE Get feedback from small group
+*** TODO Pull in best things/stuff 2024 post
+*** TODO Generate index page from EDN file
+*** TODO Generate feed.xml from EDN file
+*** TODO Write blog meta-post announcing these changes
+*** TODO Move old blog into temp space
+*** TODO Move in static pages
+*** TODO .htaccess to serve feed xml from https://blog.fogus.me/feed/
+

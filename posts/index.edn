@@ -1,0 +1,45 @@
+^{:max-entries 5}
+{:title "Send More Paramedics"
+ :link "https://blog.fogus.me/feed/"
+ :description "λ λ λ"
+ :copyright "2024-2025 Fogus"
+ :entries [
+           {:title "On method values, part 1"
+            :link "https://blog.fogus.me/2024/08/19/on-method-values-part-1/"
+            :category ["clojure" "interop"]
+            :pubDate "2024-08-19T13:32:42.00Z"
+            :description "Prior to discovering Clojure back in 2007, I was a full-time Java programmer. This was long before method handles, method references, lambda expressions, and invokedynamic, so viewing Java through a functional programming lens was not second-nature to me. Regardless, during my early Clojure explorations I fully expected code like the following to &#8220;just work&#8221;..."}
+
+           {:title "The Elusive Computer KAMAS Report Volume 2"
+            :link "https://blog.fogus.me/2024/08/07/the-elusive-computer-kamas-report-volume-2/"
+            :category ["kamas" "retrocomputing"]
+            :pubDate "2024-08-07T15:44:49.00Z"
+            :description "The Internet Archive currently has digital copies of almost every KAMAS Report, except for vol 2. KAMAS was (is?) early outliner software originally written for the Kaypro line of computers running CP/M. I previously wrote about KAMAS in my 8-bit Spirituals post and have looked for vol. 2 ever since to no avail..."}
+
+           {:title "The Elusive Computer Monograph Number 11"
+            :link "https://blog.fogus.me/2024/05/28/the-elusive-computer-monograph-number-11/"
+            :category ["books" "research"]
+            :pubDate "2024-05-28T19:15:39.00Z"
+            :description "Starting in the late-1960s/early-1970s Elsevier and McDonald teamed up to print a series of computing books under the series &#8220;Computer Monographs&#8220;. I&#8217;ve read a couple and they were both well-written and likely ahead of their time. While looking deeper into the series I learned that 26 volumes in the series were printed, however..."}
+
+           {:title "Notes from Underground: Software Tardigrades"
+            :link "https://blog.fogus.me/2024/03/08/notes-from-underground-software-tardigrades/"
+            :category ["notes"]
+            :pubDate "2024-03-08T19:14:05.00Z"
+            :description "Cryptobiosis is a peculiar state of biological organization Automatic bug repair and LLMs Tardigrades and foreign DNA Sussman&#8217;s &#8220;Evolvability and Robust Design&#8221; and the Art of the Propagator. Also look at Sussman and Hanson&#8217;s book Software Design for Flexibility: How to Avoid Programming Yourself into a Corner..."}
+
+           {:title "The best things and stuff of 2023"
+            :link "https://blog.fogus.me/2023/12/18/the-best-things-and-stuff-of-2023/"
+            :category ["me" "best-of" "stuff" "books" "music" "programming"]
+            :pubDate "2023-12-18T14:28:47.00Z"
+            :description ""}
+           
+           #_{:title ""
+              :link ""
+              :category []
+              :pubDate ""
+              :description ""}
+
+
+
+           ]}

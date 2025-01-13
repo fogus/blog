@@ -1,5 +1,7 @@
 {:paths ["src"]
  :resources ["posts" "pages"]
- :deps {org.clojure/clojure {:mvn/version "1.11.1"}
-        com.kiranshila/cybermonday {:mvn/version "0.6.215"}}
+ :deps {org.clojure/clojure {:mvn/version "1.12.0"}
+        com.kiranshila/cybermonday {:mvn/version "0.6.215"}
+        hiccup/hiccup {:mvn/version "1.0.5"}
+        clj-rss/clj-rss {:mvn/version "0.4.0"}}
  :aliases {}}
