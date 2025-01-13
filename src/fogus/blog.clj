@@ -26,7 +26,7 @@
     {:path (path-parts d)
      :filename (filename-part d)}))
 
-(def raw-paths (dirtree "posts"))
+(def raw-paths (explode-path "posts"))
 
 (defn- process-paths [paths]
   (map explode-path paths))
@@ -47,6 +47,10 @@
          io/file
          .mkdirs)))
 
+(def all-paths
+  (-> paths
+      unique-paths))
+
 (defn- prep-output-dir [paths]
   (let [res (doall (map create-dir all-paths))]
     {:dirs-created (count (filter true? res))
@@ -57,10 +61,6 @@
   
   
   (dirtree "posts")
-
-  (def all-paths
-    (-> paths
-        unique-paths))
 
   (count paths)
 
