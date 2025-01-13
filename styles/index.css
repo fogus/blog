@@ -4,10 +4,10 @@
   --font-family: "JetBrains Mono", monospace;
   --line-height: 1.20rem;
   --border-thickness: 2px;
-  --text-color: #000;
-  --text-color-alt: #666;
-  --background-color: #fff;
-  --background-color-alt: #eee;
+  --text-color: #fff;
+  --text-color-alt: #aaa;
+  --background-color: #000;
+  --background-color-alt: #111;
 
   --font-weight-normal: 500;
   --font-weight-medium: 600;
@@ -23,10 +23,10 @@
 
 @media (prefers-color-scheme: light) {
   :root {
-    --text-color: #fff;
-    --text-color-alt: #aaa;
-    --background-color: #000;
-    --background-color-alt: #111;
+    --text-color: #000;
+    --text-color-alt: #666;
+    --background-color: #fff;
+    --background-color-alt: #eee;
   }
 }
 
@@ -129,6 +129,16 @@ sub {
   display: inline-block;
   margin: 0;
   vertical-align: sub;
+  line-height: 0;
+  width: calc(1ch / 0.75);
+  font-size: .75rem;
+}
+
+sup {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  vertical-align: super;
   line-height: 0;
   width: calc(1ch / 0.75);
   font-size: .75rem;
