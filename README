@@ -1,4 +1,4 @@
-find ./posts -name "*.md" -exec sh -c 'pandoc -s --css https://blog.fogus.me/styles/reset.css --css https://blog.fogus.me/styles/index.css -A https://blog.fogus.me/styles/footer.html -B https://blog.fogus.me/styles/header.html -o "${1%.md}.html" "$1"' _ {} \;
+find ./posts -name "*.md" -exec sh -c 'pandoc -s --css https://blog.fogus.me/styles/reset.css --css https://blog.fogus.me/styles/index.css -A https://blog.fogus.me/styles/footer.html -B https://blog.fogus.me/styles/header.html -H styles/meta.html -o "${1%.md}.html" "$1"' _ {} \;
 
-pandoc -s --css https://blog.fogus.me/styles/reset.css --css https://blog.fogus.me/styles/index.css -A https://blog.fogus.me/styles/footer.html -B https://blog.fogus.me/styles/header.html -o F.html F.md
+pandoc -s --css https://blog.fogus.me/styles/reset.css --css https://blog.fogus.me/styles/index.css -A https://blog.fogus.me/styles/footer.html -B https://blog.fogus.me/styles/header.html -H styles/meta.html -o F.html F.md
 
