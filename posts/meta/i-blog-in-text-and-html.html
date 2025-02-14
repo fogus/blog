@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Fogus" />
+  <title>I Blog in Text, You Read in Text || HTML</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+  <link rel="alternate" type="application/rss+xml" title="Send More Paramedics RSS Feed" href="https://blog.fogus.me/feed/" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<header id="title-block-header">
+<h1 class="title">I Blog in Text, You Read in Text || HTML</h1>
+<p class="author">Fogus</p>
+<p class="date">2025.02.14</p>
+</header>
+<p>Inspired by <a href="https://misc.l3m.in/txt/raw_txt.txt">“I blog
+with raw txt”</a> and <a
+href="https://devpoga.org/i-blog-with-raw-html/">“I blog in raw
+HTML”</a>…</p>
+<p>The blog you’re reading was rendered at some point in the past as
+HTML (maybe) but it was written in text with a dash of Markdown flavor
+(maybe). However, if you’d like to read the original text version, then
+go up to the location bar in the browswer and replace the “/” or “html”
+part of the URL with “.md” and hit enter.<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> I
+recently replaced a borked Wordpress instance that I maintained for 10+
+years with a Bash script that calls out to Pandoc and renders my text as
+HTML while also inserting some fragments along the way for header and
+footer glue.</p>
+<p>What I do is write a new post into a subdirectory in my blog
+directory and run:<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a></p>
+<pre><code>find ./posts/&lt;thedir&gt; -name &quot;*.md&quot; -exec sh -c &#39;pandoc -s \\
+--css https://blog.fogus.me/styles/reset.css \\
+--css https://blog.fogus.me/styles/index.css \\
+-A https://blog.fogus.me/styles/footer.html \\
+-B https://blog.fogus.me/styles/header.html \\
+-H styles/meta.html -o &quot;${1%.md}.html&quot; &quot;$1&quot;&#39; _ {} \;</code></pre>
+<p>I then run a fragment of Clojure code that slurps that filename and
+title from the new file and adds a new entry into an index.md file and a
+feed.xml file. I then run a similar command as above on the index.md
+file and upload all of the new files to my server.</p>
+<p>At serve time I have a rewrite rule on a request URL and tries to
+find an HTML file at that address. If one exists then it serves it. If
+it doesn’t then it tries to find a .md file and serve it. If it doesn’t
+find that then it looks for a .txt file or a .org file as a last resort.
+This seems a bit fiddly and I agree that it is, but it gives me the
+control that I want and is 100x times less fiddly than the Wordpress
+instance turned out to be – and I consider that a win.</p>
+<p>-fogus</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>If that didn’t work then try “.txt” or “.org”.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The command for and org-mode file is slightly different
+and there is no such command for raw text files.<a href="#fnref2"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2025 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

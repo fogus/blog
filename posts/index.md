@@ -5,6 +5,8 @@ author: "Fogus"
 
 λ λ λ
 
+* [I Blog in Text, You Read in Text || HTML](/meta/i-blog-in-text-and-html/)
+* ['Black Sabbath' Turns 55](/music/bs55/)
 * [The best things and stuff of 2024](/2024/12/23/the-best-things-and-stuff-of-2024/)
 * [On method values, part 1](/2024/08/19/on-method-values-part-1/)
 * [The Elusive Computer KAMAS Report Volume 2](/2024/08/07/the-elusive-computer-kamas-report-volume-2/)
