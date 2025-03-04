@@ -1,3 +1,9 @@
+---
+title: "10 Technical Papers Every Programmer Should Read (At Least Twice)"
+author: "Fogus"
+date: "2011.09.08"
+---
+
 *Let me preface this post by saying that no programmer **should** feel compelled to read any of these papers. I list them because I think that they provide a breadth of information that is generally useful and interesting from a computer science perspective.  What you do with that information is your prerogative, including ignoring it completely.  Instead, learn what you think is important for what you need to accomplish your job, education, interests, etc.*
 
 Inspired by a fabulous post by [Michael Feathers along a similar vein](http://web.archive.org/web/20121024173845/http://blog.objectmentor.com/articles/2009/02/26/10-papers-every-programmer-should-read-at-least-twice), I've composed this post as a sequel to the original.  That is, while I agree almost wholly with Mr. Feather's[^writing] choices, I tend to think that his choices are design-oriented[^design] and/or philosophical.  In no way, do I disparage that approach, instead I think that there is room for another list that is more technical in nature, but the question remains, where to go next?  In this post I will offer some guidance based on my own readings.  The papers chosen herein are not intended to act as a C.S. hall of fame, but instead hope to accomplish the following:
@@ -9,12 +15,14 @@ Inspired by a fabulous post by [Michael Feathers along a similar vein](http://we
 
 Because of these constraints I will have missed some great papers, but for the most part I think this list is solid.  Please feel free to disagree and offer alternatives in the comments.
 
+[^writing]: Apart from a spectacular ear for music, Mr. Feathers is also a fount of wisdom, including this gem from the linked post: "When I first started writing, one of the pieces of advice that I heard was that you should always imagine that you are writing to a particular person."
 
+[^design]: Design is a vastly overloaded term, but it’s the best word that I can think of. Suggestions for something better?
 
 A Visionary Flood of Alcohol
 -----------------------------
 
-#### Fundamental Concepts in Programming Languages [(link to paper)](https://github.com/papers-we-love/papers-we-love/blob/master/plt/fundamental-concepts-in-programming-languages.pdf?raw=true)
+#### Fundamental Concepts in Programming Languages [(link to paper)](https://github.com/papers-we-love/papers-we-love/blob/master/plt/fundamental-concepts-in-programming-languages.pdf)
 **by Christopher Strachey**
 
 Quite possibly the most influential set of lecture notes in the history of computer science.  Left and Right-values, Parametric and Ad-hoc polymorphism were all defined in this paper.  Much of the content may already occupy your mind, but the sheer weight of the heady topics assembled in one place is stunning to observe.
@@ -26,7 +34,7 @@ Quite possibly the most influential set of lecture notes in the history of compu
 I found this paper extremely lucid on the advantages of functional programming with the added advantage of showing off examples of beautiful code.  There are seemingly an infinite number of papers on the topic of laziness with streams and generators, but I've yet to find a better treatment.  Finally, I've always been partial to [Reginald Braithwaite's "Why Why Functional Programming Matters Matters"](http://weblog.raganwald.com/2007/03/why-why-functional-programming-matters.html) as a complement to this paper.
 
 
-#### An Axiomatic Basis for Computer Programming [(link to paper)](https://github.com/papers-we-love/papers-we-love/blob/master/comp_sci_fundamentals_and_history/axiomatic-basis-computer-programming.pdf?raw=true)
+#### An Axiomatic Basis for Computer Programming [(link to paper)](https://github.com/papers-we-love/papers-we-love/blob/master/comp_sci_fundamentals_and_history/axiomatic-basis-computer-programming.pdf)
 **by C. A. R. HOARE**
 
 I came to this paper late in my career, but when I finally found it I felt like I had been hit by a bus.  At the core of the paper lies the following assertion:
@@ -65,23 +73,49 @@ I had originally thought to list Milner's *A Theory of Type Polymorphism in Prog
 
 It's become a cliche to recommend McCarthy's seminal paper introducing LISP.  I will not count this toward the target of 10, but I would be remiss to excluse it because it's a great read that is nicely supplemented with the study of [a simple implementation of McCarthy's original specification](http://fogus.me/fun/lithp).[^lisp]
 
+[^lisp]: A have some ideas for a Lisp-centric essential papers list also, but have not yet formalized the content.
 
 The Machinery for Change
 ------------------------
 
-#### Predicate Dispatch: A Unified Theory of Dispatch [(link to paper)](https://github.com/papers-we-love/papers-we-love/blob/master/plt/predicate-dispatching.pdf?raw=true)
+#### Predicate Dispatch: A Unified Theory of Dispatch [(link to paper)](https://github.com/papers-we-love/papers-we-love/blob/master/plt/predicate-dispatching.pdf)
 **by Michael Ernst, Craig Kaplan, and Craig Chambers**
 
 Describes a method for dispatching functions based not on a static set of rules, but instead as the traversal of a decision tree that could be built at compile-time and extended incrementally at runtime.  What this means is that dispatch is controlled and adapted based on an open set of conditions describing the rules of dispatch.  This stands opposed to the current popular trend of languages whose dispatch is hard-coded and not open for extension at all.
 
 
-#### Equal Rights for Functional Objects or, The More Things Change, The More They Are the Same [(link to paper)](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.23.9999)
+#### Equal Rights for Functional Objects or, The More Things Change, The More They Are the Same [(link to paper)](https://github.com/fogus/papers-i-love/blob/master/languages-paradigms/Baker-Equal_Rights_for_Functional_Objects.pdf)
 **by Henry G. Baker**
 
 At the heart of Clojure and ClojureScript's implementation is `#equiv` that is in turn based off of Henry Baker's `egal` operator introduced in this paper.  Briefly, equality in Clojure is defined by equality of value, which is facilitated by pervasive immutability.  Equality in the presence of mutability has no meaning.
 
 
-#### Organizing Programs Without Classes [(link to paper)](http://bibliography.selflanguage.org/_static/organizing-programs.pdf)
+#### Organizing Programs Without Classes [(link to paper)](https://github.com/fogus/papers-i-love/blob/master/languages-paradigms/Ungar-Organizing_Programs_Without_Classes.pdf)
 **by David Ungar, Craig Chambers, Bay-wei Chang, and Urs Hölzle**
 
-The greatest crime perpetrated in the name of JavaScript is the propensity for every framework, library, and trifle uses the prototypal inheritance capabilities of the language to implement class-based inheritance.  [I propose that this behavior stunts the power of JavaScript](http://blog.fogus.me/2010/12/20/self/).  However, the class-based mentality is pervasive, and is only likely to grow stronger as JavaScript moves toward "modernized" data-modeling techniques.  Having said that, [I love the prototypal model](http://www.infoq.com/resource/articles/the-joy-of-clojure/en/resources/JoyofClojureCH09.pdf).  It's flexibility and simplicity is astounding, and this paper[^self
+The greatest crime perpetrated in the name of JavaScript is the propensity for every framework, library, and trifle uses the prototypal inheritance capabilities of the language to implement class-based inheritance.  [I propose that this behavior stunts the power of JavaScript](http://blog.fogus.me/2010/12/20/self/).  However, the class-based mentality is pervasive, and is only likely to grow stronger as JavaScript moves toward "modernized" data-modeling techniques.  Having said that, [I love the prototypal model](http://www.infoq.com/resource/articles/the-joy-of-clojure/en/resources/JoyofClojureCH09.pdf).  It's flexibility and simplicity is astounding, and this paper[^self] will show how it can be leveraged for practical purposes. While a design oriented paper, I think that the knowledge is contrary enough to pop-programming to warrant inclusion. Self is a fascinating language on its own merit, but especially in that its influence[^smalltalk] on modern dynamic languages is growing ever more pervassive.
+
+[^self]: It was difficult picking a paper from the treasure-trove that is the comprehensive list of Self publications. These papers represent the vanguard of performance in dynamic languages.
+
+[^smalltalk]: Although Self does not hold a monopoly on dynamic performance revolutions. Smalltalk implementations have also driven innovation in said space, and a taste for this influence is found in Efficient Implementation of the Smalltalk-80 System by Peter Deutsch and The Design and Evaluation of a High Performance Smalltalk System by David Ungar.
+
+I’ve Seen the Future, Brother: It is Murder
+-------------------------------------------
+
+#### Dynamo: Amazon’s Highly Available Key-value Store[^huh] [(link to paper)](https://github.com/fogus/papers-i-love/blob/master/datastores/Amazon-Dynamo_Amazons_Highly_Available_Key-Value_Store.pdf)
+**by Giuseppe DeCandia, Deniz Hastorun, Madan Jampani, Gunavardhan Kakulapati, Avinash Lakshman, Alex Pilchin, Swaminathan Sivasubramanian, Peter Vosshall and Werner Vogels**
+
+It’s rare for a paper describing a system in active production to influence the state of research in any industry, and especially so in computing. Papers describing thought-stuff are pure and elegant while “real-world” systems tend to be ugly, hackish, and brutish, even if they are rock-solid otherwise. The case of Dynamo is quite different. That is, the system itself is based on simple principles and solves a hard problem, highly available and fault-tolerant online database storage, in an elegant way. Dynamo was not a new idea, but this paper is necessity as we move forward into the age of Big Data.
+
+[^huh]: The Dynamo paper is probably the most controversial choice for this list, so if it bothers you then perhaps Software Transactional Memory by Nir Shavit and Dan Touitou would suffice as an alternative. I was bouncing back and forth between these choices and only settled on Dynamo in the spirit of controversy. ;-)
+
+#### Out of the Tar Pit [(link to paper)](https://github.com/fogus/papers-i-love/blob/master/design/Moseley-Out_of_the_Tarpit.pdf)
+**by Ben Moseley and Peter Marks**
+
+Now we reach my favorite paper of the bunch – one that I try to read and absorb every 6 months (give or take). The gist is that the primary sources of complexity in our programs are caused by mutable state. With that as the premise, the authors build the idea of “functional relational programming” that espouses minimizing mutable state, moving whatever remains into relations, and then manipulating said relations using a declarative programming language. Simple right? Well, yes it is simple; and that’s what makes it so difficult.
+
+This list should be a good start, but where to go next? My personal approach is summarized simply as: follow the bibliographies. If you like any of these papers then look at their bibliographies for other papers that sound interesting and read those too. Likewise, you can use services like Citeseer and the ACM Digital Library to backtrace citations.
+
+Happy reading.
+
+:F
