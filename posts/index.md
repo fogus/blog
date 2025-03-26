@@ -5,6 +5,7 @@ author: "Fogus"
 
 λ λ λ
 
+* [A Guest Post at Wormwoodania](/2025/03/26/corvine-research-pt1/)
 * [I Blog in Text, You Read in Text || HTML](/meta/i-blog-in-text-and-html/)
 * ['Black Sabbath' Turns 55](/music/bs55/)
 * [The best things and stuff of 2024](/2024/12/23/the-best-things-and-stuff-of-2024/)
@@ -22,4 +23,4 @@ author: "Fogus"
 * [The best things and stuff of 2021](/2021/12/27/the-best-things-and-stuff-of-2021/)
 * [Thunks -- a place to think through ideas still forming](/2021/11/19/thunks-a-place-to-think-through-ideas-still-forming/)
 * [Clojure builds as an amalgamation of orthogonal parts](/2021/07/20/clojure-builds-as-an-amalgamation-of-orthogonal-parts/)
-* [Clojure Core](/2021/01/15/clojure-core/)
+

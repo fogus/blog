@@ -20,6 +20,17 @@ xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
   1	</sy:updateFrequency>
   <generator>me.fogus/feed.clj</generator>
   <item>
+    <title>A Guest Post at Wormwoodania</title>
+    <link>https://blog.fogus.me/2025/03/26/corvine-research-pt1/</link>
+    <dc:creator><![CDATA[fogus]]></dc:creator>
+    <pubDate>Wed, 26 Mar 2025 07:51:09 +0000</pubDate>
+    <category><![CDATA[me]]></category>
+    <category><![CDATA[non-fiction]]></category>
+    <guid isPermaLink="false">https://blog.fogus.me/2025/03/26/corvine-research-pt1.html</guid>
+    <description><![CDATA[As an attempt to branch out with my writing, I've taken to working on various fiction and non-fiction pieces...]]></description>
+  </item>
+  
+  <item>
     <title>I Blog in Text, You Read in Text || HTML</title>
     <link>https://blog.fogus.me/meta/i-blog-in-text-and-html/</link>
     <dc:creator><![CDATA[fogus]]></dc:creator>
@@ -87,19 +98,6 @@ xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
     
     
     
-  </item>
-  <item>
-    <title>The Elusive Computer Monograph Number 11</title>
-    <link>https://blog.fogus.me/2024/05/28/the-elusive-computer-monograph-number-11/</link>
-    
-    <dc:creator><![CDATA[fogus]]></dc:creator>
-    <pubDate>Tue, 28 May 2024 19:15:39 +0000</pubDate>
-    <category><![CDATA[computing]]></category>
-    <category><![CDATA[books]]></category>
-    <category><![CDATA[Research]]></category>
-    <guid isPermaLink="false">https://blog.fogus.me/?p=6952</guid>
-
-    <description><![CDATA[Starting in the late-1960s/early-1970s Elsevier and McDonald teamed up to print a series of computing books under the series &#8220;Computer Monographs&#8220;. I&#8217;ve read a couple and they were both well-written and likely ahead of their time. While looking deeper into the series I learned that 26 volumes in the series were printed, however I cannot [&#8230;]]]></description>
   </item>
 </channel>
 </rss>
