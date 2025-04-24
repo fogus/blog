@@ -5,6 +5,7 @@ author: "Fogus"
 
 λ λ λ
 
+* [An Appearance on Apropos](/2025/04/23/apropos-me/)
 * [A Guest Post at Wormwoodania](/2025/03/26/corvine-research-pt1/)
 * [I Blog in Text, You Read in Text || HTML](/meta/i-blog-in-text-and-html/)
 * ['Black Sabbath' Turns 55](/music/bs55/)

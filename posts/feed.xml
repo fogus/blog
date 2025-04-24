@@ -20,6 +20,18 @@ xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
   1	</sy:updateFrequency>
   <generator>me.fogus/feed.clj</generator>
   <item>
+    <title>An Appearance on Apropos</title>
+    <link>https://blog.fogus.me/2025/04/23/apropos-me/</link>
+    
+    <dc:creator><![CDATA[fogus]]></dc:creator>
+    <pubDate>Wed, 23 Apr 2025 19:44:49 +0000</pubDate>
+    <category><![CDATA[computing]]></category>
+    <category><![CDATA[podcast]]></category>
+    <category><![CDATA[clojure]]></category>
+    <guid isPermaLink="false">https://blog.fogus.me/2025/04/23/apropos-me.html</guid>
+    <description><![CDATA[I was fortunate to appear on the April 22, 2025 episode of the Apropos podcast...]]></description>
+  </item>
+  <item>
     <title>A Guest Post at Wormwoodania</title>
     <link>https://blog.fogus.me/2025/03/26/corvine-research-pt1/</link>
     <dc:creator><![CDATA[fogus]]></dc:creator>
@@ -79,22 +91,6 @@ xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
     <guid isPermaLink="false">https://blog.fogus.me/?p=6957</guid>
 
     <description><![CDATA[Prior to discovering Clojure back in 2007, I was a full-time Java programmer. This was long before method handles, method references, lambda expressions, and invokedynamic, so viewing Java through a functional programming lens was not second-nature to me. Regardless, during my early Clojure explorations I fully expected code like the following to &#8220;just work&#8221;: (defn [&#8230;]]]></description>
-    
-    
-    
-  </item>
-  <item>
-    <title>The Elusive Computer KAMAS Report Volume 2</title>
-    <link>https://blog.fogus.me/2024/08/07/the-elusive-computer-kamas-report-volume-2/</link>
-    
-    <dc:creator><![CDATA[fogus]]></dc:creator>
-    <pubDate>Wed, 07 Aug 2024 15:44:49 +0000</pubDate>
-    <category><![CDATA[computing]]></category>
-    <category><![CDATA[kamas]]></category>
-    <category><![CDATA[retrocomputing]]></category>
-    <guid isPermaLink="false">https://blog.fogus.me/?p=6955</guid>
-
-    <description><![CDATA[The Internet Archive currently has digital copies of almost every KAMAS Report, except for vol 2. KAMAS was (is?) early outliner software originally written for the Kaypro line of computers running CP/M. I previously wrote about KAMAS in my 8-bit Spirituals post and have looked for vol. 2 ever since to no avail. If anyone [&#8230;]]]></description>
     
     
     
