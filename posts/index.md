@@ -5,6 +5,7 @@ author: "Fogus"
 
 λ λ λ
 
+* [Arities as pseudo-protocol](/clojure/arities-as-proto/)
 * [An Appearance on Apropos](/2025/04/23/apropos-me/)
 * [A Guest Post at Wormwoodania](/2025/03/26/corvine-research-pt1/)
 * [I Blog in Text, You Read in Text || HTML](/meta/i-blog-in-text-and-html/)
@@ -17,7 +18,6 @@ author: "Fogus"
 * [The best things and stuff of 2023](/2023/12/18/the-best-things-and-stuff-of-2023/)
 * [Pyramid Game Designs](/2023/12/07/pyramid-game-designs/)
 * [Languages Zoo](/2023/06/02/languages-zoo/)
-* [RIP, Prince Joli Quentin Kansil](/2023/04/10/rip-prince-joli-quentin-kansil-jan-27-1943-mar-27-2023/)
 * [Code Riffs](/2023/01/06/code-riffs/)
 * [The best things and stuff of 2022](/2022/12/13/the-best-things-and-stuff-of-2022/)
 * [The one about Lisp interactivity](/2022/11/10/the-one-about-lisp-interactivity/)

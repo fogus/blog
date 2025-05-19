@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Fogus" />
+  <title>Arities as pseudo-protocol</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+  <link rel="alternate" type="application/rss+xml" title="Send More Paramedics RSS Feed" href="https://blog.fogus.me/feed/" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<header id="title-block-header">
+<h1 class="title">Arities as pseudo-protocol</h1>
+<p class="author">Fogus</p>
+<p class="date">2025.04.23</p>
+</header>
+<h1 id="arities-as-pseudo-protocol">Arities as pseudo-protocol</h1>
+<p>Recently the Clojure team released an alpha version of the core.async
+library that includes a new library named <a
+href="https://clojure.github.io/core.async/flow-guide.html">Flow</a>.
+While the new functionality is amazing and is already inspiring devs to
+use it, this post is not about Flow. Instead, I’d like to talk about a
+small part of the Flow API where process behavior is implemented in
+terms of <a
+href="https://clojure.github.io/core.async/flow-guide.html">step-fns</a>.
+Simply put, step-fns are functions of four arities, where each arity is
+called at key points in the life-cycle of a process to provide
+configuration information or perform behaviors.</p>
+<p>The four arities are as follows:</p>
+<ul>
+<li>0 Describe the step-fn by returning a data-structure describing its
+boundaries</li>
+<li>1 Returns the initialization state for the enclosing process given
+compatible arguments</li>
+<li>2 Called every time a life-cycle transition occurs with a state and
+transition key and returns an updated state</li>
+<li>3 Called in a loop for every message received by the enclosing
+process with a state, input, and message and returns a tuple of the
+transformed state and a map o receivers -&gt; messages</li>
+</ul>
+<p>For more information, see the <a
+href="https://clojure.github.io/core.async/flow-guide.html">official
+Flow guide</a>.</p>
+<p>Long-time Clojure programmers will immediately wonder why the
+function arity approach is used in lieu of a protocol such as the
+following:</p>
+<pre><code>(defprotocol StepFn
+  (describe [_])
+  (init [_ arg-map])
+  (transition [_ state trans])
+  (transform [_ state input msg]))</code></pre>
+<p>Clojure devs are accustomed to defining protocols for just such
+occasions, and indeed a protocol would have worked for step-fns also. As
+always, there are trade-offs for choosing one approach over another, so
+I’ll talk about that. But first, I would like to invite the reader to
+squint their eyes a bit and see the lines between the two blur.</p>
+<h2 id="bags-of-names-and-bags-of-numbers">Bags of names and bags of
+numbers</h2>
+<p>The protocol <code>StepFn</code> above defined a set of functions.
+Each function in the set defines two things that define how a protocol
+dispatches on its target: name + arity. On the other hand, a function
+alone defines a set of arities alone. That is, Clojure dispatches to the
+function body associated with the arity corresponding to the arguments
+count. These are different, but are similar in ways that choosing a
+protocol over function arities is worth some careful consideration.</p>
+<p>Rather than outlining the motivations for using protocols, I’ll defer
+to the <a href="https://clojure.org/reference/protocols">existing
+protocols documentation</a> as a guide. Instead, I’d like to talk about
+the benefits of using an arity pseudo-protocol.</p>
+<h2 id="benefits-of-arity-dispatch">Benefits of arity dispatch</h2>
+<p>To avoid burying the lede, let me just enumerate the primary benefits
+of leveraging function arity in a Clojure API:</p>
+<ul>
+<li>fn-punning</li>
+<li>Hot reloading</li>
+<li>Good names</li>
+<li>Composition</li>
+</ul>
+<p>As a Lisp programmer, I value <a
+href="https://blog.fogus.me/2022/11/10/the-one-about-lisp-interactivity.html">interactivity</a>
+in my development process very highly in my hierarchy of developer
+needs. Flow facilitates interactivity by leveraging <a
+href="https://clojure.org/reference/vars">Var</a> Var fn-punning. A Var
+is a reference to a value within a context – usually a namespace. If the
+value held in the Var is a function, then we can call the Var itself as
+a function and it will delegate the call down to the function that it
+holds. This is one form of fn-punning in Clojure. The benefit of this
+form is that we can use the Var as a stand-in for a step-fn in flow and
+if we later redefine the function that the Var holds then the process
+calling it will automatically get the new behavior. Another practical
+benefit is that when errors occur we will get better names in the error
+output if Vars are used instead of functions. Certainly the message
+<code>Execution error (ArithmeticException) at user/flub</code> looks
+much better than
+<code>Execution error (ArithmeticException) at user/eval141$fn</code>.
+Finally, while it’s not likely to be a major win for step-fns in Flow,
+function composition allows users to augment behaviors in ad hoc
+ways.</p>
+<h2 id="downsides-of-arity-dispatch">Downsides of arity dispatch</h2>
+<p>Aside from the fact that leveraging arity dispatch is an under
+utilized technique,<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> there is one big downside of using
+that technique. That is, because a function only defines its dispatch on
+a set of numbers (arities), if you ever need more functionality that
+clashes with an existing arity then you’re in the soup. Additionally, by
+attaching expected behavior to arities, you lose the descriptive benefit
+that the names in a protocol provide.</p>
+<blockquote>
+<p>Familiarity is half of popularity</p>
+<p>– Alison Frane</p>
+</blockquote>
+<p>As with anything in programming, choosing one approach over another
+requires an analysis of the trade-offs. Both protocol dispatch and arity
+dispatch are tools with upsides and downsides and while the former
+covers many cases that the latter does, there are some compelling
+reasons to choose a function instead.</p>
+<p>:F</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Although, the technique is also used in the <a
+href="https://clojure.org/reference/transducers#_creating_transducers">transducers
+API</a> and the benefits of function composition dominates those of hot
+reloading and fn-punning.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2025 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

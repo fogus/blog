@@ -20,6 +20,18 @@ xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
   1	</sy:updateFrequency>
   <generator>me.fogus/feed.clj</generator>
   <item>
+    <title>Arities as pseudo-protocol</title>
+    <link>https://blog.fogus.me/clojure/arities-as-proto/</link>
+    
+    <dc:creator><![CDATA[fogus]]></dc:creator>
+    <pubDate>Mon, 19 May 2025 11:44:49 +0000</pubDate>
+    <category><![CDATA[computing]]></category>
+    <category><![CDATA[core.async.flow]]></category>
+    <category><![CDATA[clojure]]></category>
+    <guid isPermaLink="false">https://blog.fogus.me/clojure/arities-as-proto.html</guid>
+    <description><![CDATA[Whereby I talk about an under-appreciated technique in Clojure where function arities serve as a pseudo-protocol...]]></description>
+  </item>
+  <item>
     <title>An Appearance on Apropos</title>
     <link>https://blog.fogus.me/2025/04/23/apropos-me/</link>
     
@@ -75,25 +87,6 @@ xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
     <guid isPermaLink="false">https://blog.fogus.me/?p=6968</guid>
 
     <description><![CDATA[Great things and people that I discovered, learned, read, met, etc. in 2024. No particular ordering is implied. Not everything is new. also: see the lists from 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011 and 2010 Great posts &#124; articles &#124; talks read/watched ELITE: The game that couldn&#8217;t be [&#8230;]]]></description>
-    
-    
-    
-  </item>
-  <item>
-    <title>On method values, part 1</title>
-    <link>https://blog.fogus.me/2024/08/19/on-method-values-part-1/</link>
-    
-    <dc:creator><![CDATA[fogus]]></dc:creator>
-    <pubDate>Mon, 19 Aug 2024 13:32:42 +0000</pubDate>
-    <category><![CDATA[computing]]></category>
-    <category><![CDATA[clojure]]></category>
-    <category><![CDATA[interop]]></category>
-    <guid isPermaLink="false">https://blog.fogus.me/?p=6957</guid>
-
-    <description><![CDATA[Prior to discovering Clojure back in 2007, I was a full-time Java programmer. This was long before method handles, method references, lambda expressions, and invokedynamic, so viewing Java through a functional programming lens was not second-nature to me. Regardless, during my early Clojure explorations I fully expected code like the following to &#8220;just work&#8221;: (defn [&#8230;]]]></description>
-    
-    
-    
   </item>
 </channel>
 </rss>

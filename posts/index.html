@@ -12,8 +12,11 @@
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
     ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
       width: 0.8em;
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
@@ -23,9 +26,6 @@
   <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
   <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
   <link rel="alternate" type="application/rss+xml" title="Send More Paramedics RSS Feed" href="https://blog.fogus.me/feed/" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <div id="header">
@@ -40,6 +40,8 @@
 </header>
 <p>λ λ λ</p>
 <ul>
+<li><a href="/clojure/arities-as-proto/">Arities as
+pseudo-protocol</a></li>
 <li><a href="/2025/04/23/apropos-me/">An Appearance on Apropos</a></li>
 <li><a href="/2025/03/26/corvine-research-pt1/">A Guest Post at
 Wormwoodania</a></li>
@@ -63,9 +65,6 @@ things and stuff of 2023</a></li>
 <li><a href="/2023/12/07/pyramid-game-designs/">Pyramid Game
 Designs</a></li>
 <li><a href="/2023/06/02/languages-zoo/">Languages Zoo</a></li>
-<li><a
-href="/2023/04/10/rip-prince-joli-quentin-kansil-jan-27-1943-mar-27-2023/">RIP,
-Prince Joli Quentin Kansil</a></li>
 <li><a href="/2023/01/06/code-riffs/">Code Riffs</a></li>
 <li><a href="/2022/12/13/the-best-things-and-stuff-of-2022/">The best
 things and stuff of 2022</a></li>
