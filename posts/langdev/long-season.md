@@ -1,8 +1,12 @@
-# The long season of langdev
+---
+title: "The long season of langdev"
+author: "Fogus"
+date: "2025.08.19"
+---
 
 The book *[The Burning World](https://www.isfdb.org/cgi-bin/title.cgi?186731)* by [J.G. Ballard](https://www.isfdb.org/cgi-bin/ea.cgi?259) is a post-apocalyptic science fiction tale about the near complete dissipation of water from the surface of the Earth.
 
-![The Burning World](bw.jpg)
+<img src="bw.jpg" alt="The Burning World" width="245" height="407">
 
 The now defunct blog [Strange Words had a beautiful description of The Burning World](https://web.archive.org/web/20070814105750/http://www.strangewords.com/archive/burning.html) that I think is apt as a TL;DR of this post:
 
@@ -57,7 +61,7 @@ In other word, the waves are arriving further apart. The next langdev season may
 
 [Philip K. Dick](https://www.isfdb.org/cgi-bin/ea.cgi?23)’s science fiction novel *[Time Out of Joint](https://www.isfdb.org/cgi-bin/title.cgi?9502)* presents a world where the familiar reality begins to peel away, revealing that the supposed infinite abundance was in fact a constructed illusion.
 
-![Time Out of Joint](tooj.png)
+<img src="tooj.png" alt="Time Out of Joint" width="245" height="407">
 
 Over the many years, programming language development has seen very few paradigmatic shifts. Instead, new languages tend to mix and match feature-sets to solve particular programming problems.[^sometimes] You can only mix and match so much before you run into a "narcissism of small differences" problem: 
 
@@ -66,22 +70,23 @@ Over the many years, programming language development has seen very few paradigm
 - compiled vs. interpreted
 - pure vs. impure
 
-What remains are increasingly niche or baroque extensions. Dependent types, effect systems, linear logic — important, but not the kind of broad paradigms that change the computing landscape. That said, scarcity itself can be inspirational. Today is not the first day where we thought that the well had run dry and it will not be the last. It's very common for computerists to think that we've explored all of the combinations, and so far these claims have been proven wrong.
+What remains are increasingly niche or baroque extensions. Dependent types, effect systems, linear logic are all interesting and important, but not the kind of broad paradigms that change the computing landscape. That said, scarcity itself can be inspirational. Today is not the first day where we thought that the well had run dry and it will not be the last. It's very common for computerists to think that we've explored all of the combinations, and so far these claims have been proven wrong.
 
 [^sometimes]: Though sometimes languages are made by haphazard mixing just to see what happens -- which can be very fun. But sometimes those languages gain popularity!
 
 ## The cyclic nature of programming language developments
 
 The idea that programming language developments ebb and flow over time seems highly plausible. It would be interesting to explore the history of programming language development to identify trends to see if history provides any insight about where we currently stand. At a quick glance, big langdev changes do seem to cluster:
+
 - the 1950s and 60s saw the birth of "foundational" languages Lisp, Fortran, ALGOL, COBOL
 - the 1970s birthed "systems" languages like C, Smalltalk, ML, Prolog
 - the 1980s and 90s scaled the problem back to "scripting" languages Perl, Ruby, Java, Python, JavaScript
 
-That said, a deeper analysis of this type would be clouded by confounding variables. The most confounding of them all is that it would be extremely difficult to know how the state of the computing industry itself at any given time affects langdev trends. I suspect that there would be no way to separate langdev from the economic, cultural, and technological forces of its time. We live in a very specific computation world, and any next game-changing programming language will grow from it. The gains from 2002-2013 were significant and saw adoption of functional programming, type inference, concurrency models, gradual typing, hygienic macros, meta-programming, and immutability. The soil from which new languages will grow is only just being fertilized with big ideas from those very languages like null safety, pattern matching, async/await, data-driven design, and higher-kinded types. Big ideas take time to... well... take.
+That said, a deeper analysis of this type would be clouded by confounding variables. The most confounding of them all is that it would be extremely difficult to know how the state of the computing industry itself at any given time affects langdev trends. I suspect that there would be no way to separate langdev from the economic, cultural, and technological forces of its time. We live in a very specific computation world, and any next game-changing programming language will grow from it. The langdev landscape circa 2002-2013 were significant and saw adoption of functional programming, type inference, concurrency models, gradual typing, hygienic macros, meta-programming, and immutability. The soil from which new languages will grow is only just being fertilized with big ideas from those very languages like null safety, pattern matching, async/await, data-driven design, and higher-kinded types. Big ideas take time to... well... take.
 
 ## Higher expectations on new languages
 
-New programming languages today are born into a world of heightened expectations. It’s not enough to have an elegant syntax or a clever type system. To be taken seriously, a new language is expected to ship with:
+New programming languages today are born into a world of heightened expectations. It’s not enough to have an elegant syntax or a clever type system. To be taken seriously, a new language is expected to ship with a complex set of "batteries included":
 
 - Cloudiness: concurrency primitives, deployment workflows, tooling for cloud systems
 - IDEness: language servers, auto-completion, syntax highlighting, debugging support, creature comforts and ergonomics
@@ -89,11 +94,11 @@ New programming languages today are born into a world of heightened expectations
 
 And none of these "batteries" tackle the AI problem confronting potential new languages. That is, LLMs can’t generate code effectively in novel languages, creating a self-reinforcing "runaway leader" problem. Popular programming languages get more training data, which makes them more useful with LLMs, which in turn makes them even more popular. I fear that the future of programming may look like Python or Javascript.
 
-In the 1970s, you could launch a new language with a whitepaper and a compiler. In 2025, you need an integrated product, a narrative, and enough momentum to bootstrap an ecosystem and on top of that a huge corpus of code that can only be created through sustained use. Modern langdev is daunting to say the least.
+<img src="plt_related_injuries_and_deaths-2.jpeg" alt="PLT Related Deaths faux book" width="245" height="407">
+
+In the 1970s, you could launch a new language with a paper and a maybe a compiler and/or interpreter. In 2025, you need an integrated product, a narrative, and enough momentum to bootstrap an ecosystem and on top of that a huge corpus of code that can only be created through sustained use. Modern langdev is daunting to say the least.
 
 ## Where do languages go from here?
-
-<img src="plt_related_injuries_and_deaths-2.jpeg" alt="PLT Related Deaths faux book" width="245" height="407">
 
 - Languages could be shaped by physical and purpose-specific constraints once again. Tomorrow’s interesting languages may target IoT, SBCs, edge devices, Blockchain, GPUs, and let's not forget that the world still runs on microcontrollers.
 - Python is the lingua franca of AI, which means it’s the lingua franca of LLM-generated code. Eventually Python will force LLMs to eat their own tail, but more immediate an over-reliance on AI-generated code will expose inherent weaknesses in the technology. We're seeing real problems with an increased lack of rigor and there are novel problems that LLMs simply cannot solve. These short-comings are opportunities.
