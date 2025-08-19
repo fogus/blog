@@ -105,3 +105,5 @@ In the 1970s, you could launch a new language with a paper and a maybe a compile
 - Future innovations may look more like a new operating environment with integrated semantics across distributed systems, or programmable infrastructure that blurs the line between language and runtime.
 
 In recent years we’ve seen some interesting new languages crop up like [Mojo](https://www.modular.com/mojo), [Vale](https://vale.dev/), [Carbon](https://github.com/carbon-language), [Gleam](https://gleam.run/)  that experiment at these edges. It remains to be seen if these languages are tomorrow's languages.
+
+:F

@@ -5,6 +5,7 @@ author: "Fogus"
 
 λ λ λ
 
+* [The long season of langdev](/langdev/long-season/)
 * [Arities as pseudo-protocol](/clojure/arities-as-proto/)
 * [An Appearance on Apropos](/2025/04/23/apropos-me/)
 * [A Guest Post at Wormwoodania](/2025/03/26/corvine-research-pt1/)

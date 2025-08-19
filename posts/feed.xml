@@ -20,6 +20,17 @@ xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
   1	</sy:updateFrequency>
   <generator>me.fogus/feed.clj</generator>
   <item>
+    <title>The long season of langdev</title>
+    <link>https://blog.fogus.me/langdev/long-season/</link>
+    
+    <dc:creator><![CDATA[fogus]]></dc:creator>
+    <pubDate>Tue, 19 Aug 2025 12:44:49 +0000</pubDate>
+    <category><![CDATA[computing]]></category>
+    <category><![CDATA[langdev]]></category>
+    <guid isPermaLink="false">https://blog.fogus.me/langdev/long-season.html</guid>
+    <description><![CDATA[Whereby I talk about programming language development and why, and where it might go...]]></description>
+  </item>
+  <item>
     <title>Arities as pseudo-protocol</title>
     <link>https://blog.fogus.me/clojure/arities-as-proto/</link>
     
