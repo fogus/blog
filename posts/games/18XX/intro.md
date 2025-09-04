@@ -4,9 +4,6 @@ author: "Fogus"
 date: "2025.09.04"
 ---
 
-
-# 18XX: A System of Systems
-
 Prior to COVID I had a fairly regular game group that focused almost entirely on playing economic train games known as "18XX".[^cubes] There is no single game called "18XX" and the term is used to describe a family of games that generally involve participating in and manipulating a stock market, managing a portfolio, building train networks, and guiding the operations of train companies. The 18XX family began in 1974 with [Francis Tresham](https://en.wikipedia.org/wiki/Francis_Tresham_(game_designer))’s [1829](https://boardgamegeek.com/boardgame/1823/1829), a pioneering design that was followed up 12-years later by the cutthroat [1830: The Game of Railroads and Robber Barons](https://boardgamegeek.com/boardgame/421/1830-railways-and-robber-barons).[^pc1830] In the decades since, dozens of designers have created hundreds of variants and expansions and even today there are still publishers releasing new 18XX games. Why has this niche family spawned so many titles over nearly five decades? The reason is that the underlying 18XX framework is a modular, interlocking system that leaves vast room for innovation in its levers, constraints, and feedback loops. In this post I'll talk about the 18XX subsystems and briefly how they interact, with a couple of brief sidelines into specifics, to try and paint a picture about the robustness of the common mechanics.
 
 ![Some of Tresham's 18XX games](18xx00.jpg "Some of Francis Tresham's 18XX games")
