@@ -5,6 +5,7 @@ author: "Fogus"
 
 λ λ λ
 
+* [18XX: A System of Systems](/games/18XX/intro.html)
 * [The long season of langdev](/langdev/long-season/)
 * [Arities as pseudo-protocol](/clojure/arities-as-proto/)
 * [An Appearance on Apropos](/2025/04/23/apropos-me/)

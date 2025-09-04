@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Fogus" />
+  <title>18XX: A System of Systems</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+  <link rel="alternate" type="application/rss+xml" title="Send More Paramedics RSS Feed" href="https://blog.fogus.me/feed/" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<header id="title-block-header">
+<h1 class="title">18XX: A System of Systems</h1>
+<p class="author">Fogus</p>
+<p class="date">2025.09.04</p>
+</header>
+<h1 id="xx-a-system-of-systems">18XX: A System of Systems</h1>
+<p>Prior to COVID I had a fairly regular game group that focused almost
+entirely on playing economic train games known as “18XX”.<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
+There is no single game called “18XX” and the term is used to describe a
+family of games that generally involve participating in and manipulating
+a stock market, managing a portfolio, building train networks, and
+guiding the operations of train companies. The 18XX family began in 1974
+with <a
+href="https://en.wikipedia.org/wiki/Francis_Tresham_(game_designer)">Francis
+Tresham</a>’s <a
+href="https://boardgamegeek.com/boardgame/1823/1829">1829</a>, a
+pioneering design that was followed up 12-years later by the cutthroat
+<a
+href="https://boardgamegeek.com/boardgame/421/1830-railways-and-robber-barons">1830:
+The Game of Railroads and Robber Barons</a>.<a href="#fn2"
+class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> In
+the decades since, dozens of designers have created hundreds of variants
+and expansions and even today there are still publishers releasing new
+18XX games. Why has this niche family spawned so many titles over nearly
+five decades? The reason is that the underlying 18XX framework is a
+modular, interlocking system that leaves vast room for innovation in its
+levers, constraints, and feedback loops. In this post I’ll talk about
+the 18XX subsystems and briefly how they interact, with a couple of
+brief sidelines into specifics, to try and paint a picture about the
+robustness of the common mechanics.</p>
+<figure>
+<img src="18xx00.jpg" title="Some of Francis Tresham&#39;s 18XX games"
+alt="Some of Tresham’s 18XX games" />
+<figcaption aria-hidden="true">Some of Tresham’s 18XX games</figcaption>
+</figure>
+<h2 id="each-game-is-three-sub-games">Each Game is Three Sub-games</h2>
+<p>Every 18XX balances to varying degrees three sub-games:</p>
+<ol type="1">
+<li><em>A stock market game</em> - buy, sell, and manipulate shares</li>
+<li><em>A network game</em> - lay track, connect cities, run trains</li>
+<li><em>A technology race</em> - buy, upgrade, and obsolete trains (and
+other game-specific techs)</li>
+</ol>
+<p>These are three loosely coupled modules with tight feedback loops.
+Output from one is input to the others and back again.</p>
+<p>The progression of 18XX games is clocked by alternating phases:</p>
+<ul>
+<li><em>Operating Rounds</em> (OR) - when players, on behalf of their
+companies, build or upgrade track or stations, buy or sell trains, and
+run trains on the tracks for (hopefully) profit, and choose to pay or
+withhold dividends to stockholders</li>
+<li><em>Stock Rounds</em> (SR) - when players buy or sell shares in
+companies, and float new companies</li>
+</ul>
+<p>While the general flavor of most 18XX ORs and SRs are the same,
+there’s <a
+href="http://www.fwtwr.com/18xx/rules_difference_list/contents.htm">a
+lot of room for nuance</a> that each game in the family utilizes in
+unique ways. For example, there are often limits on dumping stock, but
+1830 eschews limits allowing the president of a train company to empty
+its coffers, sell its trains, and then dump stock, assigning one of the
+minority shareholders as the new president and on the hook for covering
+all mandatory costs.</p>
+<h2 id="sub-games-as-feedback-loops">Sub-games as Feedback Loops</h2>
+<p>One of the genre’s most interesting properties is how the sub-games
+feed each other.</p>
+<ul>
+<li><em>Network –&gt; Stock</em>: Build a great route, run a profitable
+train, your company’s share price rises</li>
+<li><em>Stock –&gt; Technology</em>: Force a rival to buy an expensive
+train early, their treasury empties, delaying track upgrades and
+stations</li>
+<li><em>Technology –&gt; Network</em>: Permanent trains enable long
+routes, making certain tiles, stations, and connections more
+valuable</li>
+</ul>
+<figure>
+<img src="18xx03.jpg" title="Harzbahn 1873 tracks and mines"
+alt="Harzbahn 1873 tracks and mines" />
+<figcaption aria-hidden="true">Harzbahn 1873 tracks and
+mines</figcaption>
+</figure>
+<p>In any game, players can interact with and intervene in this feedback
+loop to influence the thrust of the game. Often these interventions are
+intractable in their long-term effects, which adds uncertainty into a
+system that is usually open to complete observation.</p>
+<h2 id="high-information-butterfly-effects">High Information, Butterfly
+Effects</h2>
+<p>In general, the information available to 18XX players within a game
+is open for all to see and reason about. Players can see the map, the
+stock prices, the train roster, (usually) other players’ holdings, and
+random effects are very rare once games have started. For the most part,
+18XX games are calculable given the information available to all of the
+players.</p>
+<p>In practice however, small nudges in one element of an 18XX can cause
+rippling, “<a
+href="https://en.wikipedia.org/wiki/Butterfly_effect">butterfly
+effects</a>.” A few examples are:</p>
+<ul>
+<li>A missing tile in the manifest, or a blocking station token can
+force costly detours or shut out players from map regions</li>
+<li>A price token pinned to a ledge on the stock chart can blunt the
+rise or fall of that stock’s value</li>
+<li>Careless par price selection can ripple effects throughout the
+course of an entire game</li>
+<li>The priority deal that (defining who gets first action in a SR) can
+motivate company gutting and stock-dumping</li>
+<li>Train “rusting” usually triggers when certain newer model comes into
+play, wiping old models out of the game, flipping a company from one
+that reaps healthy revenue to an insolvent one</li>
+</ul>
+<p>The examples above are only a few examples of the kinds of knobs that
+18XX designers play with, making 18XX games fun laboratories for
+studying deterministic chaos. While the rules of any given game are
+fixed, emergent behavior and butterfly effects beget depth of
+possibility and play.</p>
+<h2 id="four-strategic-archetypes">Four Strategic Archetypes</h2>
+<p>Across its many variants, 18XX offers <a
+href="https://kanga.nu/~claw/blog/posts/2013/08/03/game-observances/structural-analysis/">four
+broad games</a> inside the game:<a href="#fn3" class="footnote-ref"
+id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<ol type="1">
+<li><em>Run Good Companies</em> - shepherd one or two firms from humble
+beginnings to efficient networks, permanent trains, and stable
+dividends</li>
+<li><em>Find the Free Money</em> - dividends from others’ companies,
+government subsidies, or other windfalls that require no operational
+risk</li>
+<li><em>Put Things Together</em> - mergers, synergies, the compounding
+effect of route-building plus stock play</li>
+<li><em>Timing / Brinkmanship Games</em> - buy/sell at the right
+instant, lay a critical tile before a train rush, pull your stock price
+off of a ledge before manipulating its price, upgrade trains just ahead
+of a rusting event or to trigger one</li>
+</ol>
+<p>The best 18XX tend to mix and match all of the archetypes to varying
+degrees. These archetypes are further enhanced with mechanics that add
+tactical depth to the strategic mix like train availability/obsolescence
+tempo, high or low income, track tile mix, importance of dividends, full
+vs. incremental capitalization schemes, stock shenanigans of various
+flavors, types of liabilities, and portfolio composition to name only a
+few.</p>
+<h2 id="finance-vs.-engineering">Finance vs. Engineering</h2>
+<p>The innumerable ways to mix the strategic archetypes with tactical
+considerations provide fertile ground for vastly different game
+experiences, but still 18XX games tend toward two broad categorizations:
+finance games or engineering games. Finance games tend to be driven by
+market participation and manipulation, while engineering games tend to
+reward building good companies and train networks. Finance games tend to
+view company control as a lever for gaining wealth, while engineering
+games view control as an opportunity for building something lasting.
+This distillation suffers from over-simplification, but the distinction
+becomes apparent through experience. Some players prefer finance games
+over engineering games<a href="#fn4" class="footnote-ref" id="fnref4"
+role="doc-noteref"><sup>4</sup></a>, but both styles offer immense
+capacity for strategic depth. Of course, the best games offer a mix of
+the two and designers turn the dial between speculative arbitrage and
+infrastructure optimization to find the right mix.</p>
+<figure>
+<img src="18xx01.jpg" title="A game of 1830" alt="1830" />
+<figcaption aria-hidden="true">1830</figcaption>
+</figure>
+<p>Sticking with the original designs from Francis Tresham, 1830 is
+absolutely a finance game while 1829 and the 1825 series are more in the
+engineering camp.</p>
+<h2 id="the-appeal-of-18xx-as-a-game-system">The Appeal of 18XX as a
+Game System</h2>
+<p>For over 50 years game designers have been drawn to the 18XX family.
+As a game design dabbler (at best) myself, I can speak to the attributes
+that appeal to me.</p>
+<h3 id="interlocking-state-machines">Interlocking state machines</h3>
+<p>ORs and SRs advance the game like clock ticks, but player actions
+affect shared state along multiple dimensions. Designing a game that
+offers butterfly effects while remaining a compelling experience is
+exceedingly difficult without careful consideration and a lot of
+testing.<a href="#fn5" class="footnote-ref" id="fnref5"
+role="doc-noteref"><sup>5</sup></a></p>
+<h3 id="constraint-driven-design">Constraint-driven design</h3>
+<p>While 18XX games are considered some of the most complicated tabletop
+games in general, the set of core game mechanics is small compared to
+other games typically considered complex (e.g. wargames). Finding
+something new and compelling within a constrained set of mechanisms
+motivates creativity.</p>
+<h3 id="emergent-complexity">Emergent complexity</h3>
+<p>Deterministic rules somehow yield unpredictable play, making the
+space of game possibilities exponential on the interactions in the
+rules. But, the more you play, the more clearly you see the little
+decision points where the entire game might proceed differently. 18XX
+rewards deep familiarity and has unlimited potential for lifelong
+exploration.</p>
+<h3 id="a-deeply-social-game">A Deeply Social Game</h3>
+<p>The same rules support an infinite variety of play styles, which can
+shift from game to game and as a playgroup becomes more versed in any
+given game. 18XX games are notoriously long, ranging from 4-12+ hours in
+length. A lot can happen in 12 hours, so the game should motivate a
+group of players to want to spend so much time together.</p>
+<h2 id="where-to-find-18xx-games">Where to Find 18XX Games</h2>
+<p>While 18XX remains a niche sub-genre of tabletop gaming, a few
+publishers have kept the family alive and evolving. Keep in mind that
+historically 18XX games were handmade and notoriously expensive and
+difficult to find, with long production cycles. However, in recent years
+a couple of companies have produced titles that have injected copies
+into the tabletop game market at lower price points and readily
+available.</p>
+<ul>
+<li><a href="https://all-aboardgames.com/">All-Aboard Games</a> has
+helped reinvigorated the 18XX market by injecting new titles into the
+space and making long out-of-print classics available again</li>
+<li><a href="https://www.gmtgames.com/">GMT Games</a> is a relatively
+large company that offers a solid suite of 18XX games</li>
+<li><a href="https://goldenspikegames.com/">Golden Spike Games</a> still
+follows the handmade production model on an extended time-frame, but not
+like the years-long duration of now defunct publishers</li>
+<li><a href="https://www.grandtrunkgames.com/">Grand Trunk Games</a>
+offers the Shikoku 1889 game that is a spiritual successor to the
+classic 1830</li>
+<li><a href="https://www.lonnygames.com/">Lonny Games</a> is a European
+18XX designer and publisher who makes some of the best train games
+available today</li>
+<li><a href="https://www.lookout-spiele.de/en/games.php">Lookout
+Games</a> publishes some of the most well-known tabletop games, and also
+offers a good number of 18XX games online and in local game stores</li>
+<li><a href="https://18xx-marflow-games.de/">Marflow games</a> is
+another European designer and publisher who creates quirky (in a good
+way) 18XX games</li>
+<li><a href="https://groups.io/g/WinsomeGames/topics">Winsome Games</a>
+is the home of John Bohrer and friends’ boutique train game designs,
+with a smattering of 18XX designs in the stable. These are <em>very</em>
+short-run productions and hard to get</li>
+</ul>
+<p>Finally, the <a href="https://18xx.games/">18xx.games</a> site
+provides a bunch of titles for online live and asynchronous play modes.
+I haven’t yet played any games there, but many 18XX players love the
+site.</p>
+<p>It’s worth noting that not all 18XX games are about trains, but they
+all display 18XX-ness as described in this post to the degree that makes
+them 18XX games. For example, the game <a
+href="https://boardgamegeek.com/boardgame/76417/poseidon">Poseidon</a>
+is an 18XX game where nations replace companies ships replace trains,
+and trade routes replace tracks.</p>
+<figure>
+<img src="18xx02.jpg" title="Poseidon 18XX game"
+alt="Poseidon 18XX game" />
+<figcaption aria-hidden="true">Poseidon 18XX game</figcaption>
+</figure>
+<p>Hopefully, I’ve told you enough to motivate you to look deeper at
+this lovely tabletop gaming niche.<a href="#fn6" class="footnote-ref"
+id="fnref6" role="doc-noteref"><sup>6</sup></a> I’ve found that people
+who appreciate systems-level thinking are drawn to 18XX games, but there
+are deeply social aspects that can draw others as well. I won’t lie
+however, these are not games for everyone. You must be prepared to spend
+a whole day at the gaming table, especially in the first few matches of
+any given 18XX game. Also, some of the games are highly contentious
+which is a turn-off for some. But if you’re looking for a set of games
+that can entertain you for the rest of your life then you can’t do much
+better than 18XX.</p>
+<p>:F</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>We also often played cube-rails games, which is a topic
+for another day.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>1830 also had an <a
+href="https://en.wikipedia.org/wiki/1830:_Railroads_%26_Robber_Barons">MS-DOS
+version</a> that had surprisingly strong computer players.<a
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>While my post is designed to give a quick overview, if
+you’re interested in diving deeply into the nuances of 18XX then <a
+href="https://kanga.nu/~claw/blog/">J.C. Lawrence’s blog is a
+masterclass</a>.<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>For my money I tend to lean towards engineering games.<a
+href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Talking to great 18XX players is a humbling experience
+for a dabbler like myself. Some of the best can read a rule-set and
+instantly see the implications of the sub-game interactions whereas I
+need to play some number of times before the same realization clicks… if
+at all.<a href="#fnref5" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>A few of my favorites that are readily available
+include: <a
+href="https://www.lookout-spiele.de/en/games/1830re.html">1830:
+Railroads and Robber Barons</a>, <a
+href="https://www.gmtgames.com/p-847-1846-the-race-to-the-midwest-1846-1935-2nd-printing.aspx">1846:
+The Race to the Midwest</a>, <a
+href="https://all-aboardgames.com/products/1849">1849: The Game of
+Sicilian Railways</a>, and <a
+href="https://all-aboardgames.com/products/international-harzbahn-1873">Harzbahn
+1873</a>.<a href="#fnref6" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2025 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>
