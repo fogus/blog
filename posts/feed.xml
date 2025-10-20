@@ -12,12 +12,22 @@ xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
   <atom:link href="https://blog.fogus.me/feed/" rel="self" type="application/rss+xml" />
   <link>https://blog.fogus.me</link>
   <description>λ λ λ</description>
-  <lastBuildDate>Fri, 14 Feb 2025 08:26:59 +0000</lastBuildDate>
+  <lastBuildDate>Mon, 20 Oct 2025 07:26:59 +0000</lastBuildDate>
   <language>en-US</language>
-  <sy:updatePeriod>
-  hourly	</sy:updatePeriod>
-  <sy:updateFrequency>1</sy:updateFrequency>
+  <sy:updatePeriod>hourly</sy:updatePeriod>
+  <sy:updateFrequency>12</sy:updateFrequency>
   <generator>me.fogus/feed.clj</generator>
+  <item>
+    <title>The Bird-Poker Deck</title>
+    <link>https://blog.fogus.me/games/bird-poker.html</link>
+    
+    <dc:creator><![CDATA[fogus]]></dc:creator>
+    <pubDate>Mon, 20 Oct 2025 08:47:49 +0000</pubDate>
+    <category><![CDATA[games]]></category>
+    <category><![CDATA[design]]></category>
+    <guid isPermaLink="false">https://blog.fogus.me/games/bird-poker.html</guid>
+    <description><![CDATA[Whereby I talk about a truncated pack of playing cards called the Bird-Poker deck...]]></description>
+  </item>
   <item>
     <title>18XX: A System of Systems</title>
     <link>https://blog.fogus.me/games/18XX/intro.html</link>

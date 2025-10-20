@@ -5,6 +5,7 @@ author: "Fogus"
 
 λ λ λ
 
+* [The Bird-Poker Deck](/games/bird-poker/)
 * [18XX: A System of Systems](/games/18XX/intro.html)
 * [The long season of langdev](/langdev/long-season/)
 * [Arities as pseudo-protocol](/clojure/arities-as-proto/)
@@ -24,6 +25,6 @@ author: "Fogus"
 * [The best things and stuff of 2022](/2022/12/13/the-best-things-and-stuff-of-2022/)
 * [The one about Lisp interactivity](/2022/11/10/the-one-about-lisp-interactivity/)
 * [The best things and stuff of 2021](/2021/12/27/the-best-things-and-stuff-of-2021/)
-* [Thunks -- a place to think through ideas still forming](/2021/11/19/thunks-a-place-to-think-through-ideas-still-forming/)
-* [Clojure builds as an amalgamation of orthogonal parts](/2021/07/20/clojure-builds-as-an-amalgamation-of-orthogonal-parts/)
+
+
 
