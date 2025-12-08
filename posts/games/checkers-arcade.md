@@ -380,5 +380,7 @@ Cannons fire a projectile along either of its two directions either 2 or 3 squar
 
 That's a good set of games to get you started. There are many more games designed with the simple Checkers board in mind, and some of the best that I'm familiar with are: [Dipole](https://boardgamegeek.com/boardgame/29491/dipole), [Byte](https://boardgamegeek.com/boardgame/19360/byte), [Nubia](https://boardgamegeek.com/boardgame/148669/nubia), and [Network](https://boardgamegeek.com/boardgame/35465/network). These games stretch the imagination far beyond standard checkers and give families a way to play something fresh without spending more than pocket change. If you have your own variants or know of other games that fit the strict 8×8-and-12-discs constraint, suggestions are welcomed.
 
+*[I also have a print-friendly version of the Checkers Arcade manual available for download.](https://github.com/fogus/blog/blob/main/posts/games/checkers-arcade-fogus.pdf).*
+
 :F
 

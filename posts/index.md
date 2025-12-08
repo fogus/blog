@@ -5,6 +5,7 @@ author: "Fogus"
 
 λ λ λ
 
+* [Checkers Arcade](/games/checkers-arcade/)
 * [The Bird-Poker Deck](/games/bird-poker/)
 * [18XX: A System of Systems](/games/18XX/intro.html)
 * [The long season of langdev](/langdev/long-season/)

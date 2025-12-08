@@ -19,6 +19,18 @@ xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
   <generator>me.fogus/feed.clj</generator>
   <item>
     <title>The Bird-Poker Deck</title>
+    <link>https://blog.fogus.me/games/checkers-arcade.html</link>
+    
+    <dc:creator><![CDATA[fogus]]></dc:creator>
+    <pubDate>Mon, 08 December 2025 08:07:49 +0000</pubDate>
+    <category><![CDATA[games]]></category>
+    <category><![CDATA[abstract]]></category>
+    <category><![CDATA[game system]]></category>
+    <guid isPermaLink="false">https://blog.fogus.me/games/checkers-arcade.html</guid>
+    <description><![CDATA[Whereby I talk about turning a common American Checkers set into an "arcade" for deep games of abstract strategy.]]></description>
+  </item>
+  <item>
+    <title>The Bird-Poker Deck</title>
     <link>https://blog.fogus.me/games/bird-poker.html</link>
     
     <dc:creator><![CDATA[fogus]]></dc:creator>
