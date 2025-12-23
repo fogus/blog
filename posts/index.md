@@ -5,6 +5,7 @@ author: "Fogus"
 
 λ λ λ
 
+* [The best things and stuff of 2025](/2025/12/23/the-best-things-and-stuff-of-2025/)
 * [Checkers Arcade](/games/checkers-arcade/)
 * [The Bird-Poker Deck](/games/bird-poker/)
 * [18XX: A System of Systems](/games/18XX/intro.html)
@@ -25,7 +26,7 @@ author: "Fogus"
 * [Code Riffs](/2023/01/06/code-riffs/)
 * [The best things and stuff of 2022](/2022/12/13/the-best-things-and-stuff-of-2022/)
 * [The one about Lisp interactivity](/2022/11/10/the-one-about-lisp-interactivity/)
-* [The best things and stuff of 2021](/2021/12/27/the-best-things-and-stuff-of-2021/)
+
 
 
 

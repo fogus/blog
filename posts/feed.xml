@@ -18,6 +18,17 @@ xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
   <sy:updateFrequency>12</sy:updateFrequency>
   <generator>me.fogus/feed.clj</generator>
   <item>
+    <title>The Best Things and Stuff of 2025</title>
+    <link>https://blog.fogus.me/2025/12/23/the-best-things-and-stuff-of-2025.html</link>
+    
+    <dc:creator><![CDATA[fogus]]></dc:creator>
+    <pubDate>Tue, 23 December 2025 08:17:49 +0000</pubDate>
+    <category><![CDATA[computing]]></category>
+    <category><![CDATA[best-things]]></category>
+    <guid isPermaLink="false">https://blog.fogus.me/2025/12/23/the-best-things-and-stuff-of-2025.html</guid>
+    <description><![CDATA[Whereby I talk about my favorite media/people/ideas that I encountered for the first time in 2025.]]></description>
+  </item>
+  <item>
     <title>The Bird-Poker Deck</title>
     <link>https://blog.fogus.me/games/checkers-arcade.html</link>
     
@@ -117,19 +128,6 @@ xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
     <category><![CDATA[music]]></category>
     <guid isPermaLink="false">https://blog.fogus.me/music/bs55.html</guid>
     <description><![CDATA[The very first album that I can recall listening to, Black Sabbath’s self-titled debut that defined a genre, was released 55 years ago on February 13, 1970.]]></description>
-  </item>
-  <item>
-    <title>The best things and stuff of 2024</title>
-    <link>https://blog.fogus.me/2024/12/23/the-best-things-and-stuff-of-2024/</link>
-    
-    <dc:creator><![CDATA[fogus]]></dc:creator>
-    <pubDate>Mon, 23 Dec 2024 14:00:58 +0000</pubDate>
-    <category><![CDATA[me]]></category>
-    <category><![CDATA[best of]]></category>
-    <category><![CDATA[juxt]]></category>
-    <guid isPermaLink="false">https://blog.fogus.me/?p=6968</guid>
-
-    <description><![CDATA[Great things and people that I discovered, learned, read, met, etc. in 2024. No particular ordering is implied. Not everything is new. also: see the lists from 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011 and 2010 Great posts &#124; articles &#124; talks read/watched ELITE: The game that couldn&#8217;t be [&#8230;]]]></description>
   </item>
 </channel>
 </rss>
