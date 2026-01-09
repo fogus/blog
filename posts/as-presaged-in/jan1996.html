@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Fogus" />
+  <title>As presaged in January 1996</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+  <link rel="alternate" type="application/rss+xml" title="Send More Paramedics RSS Feed" href="https://blog.fogus.me/feed/" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<header id="title-block-header">
+<h1 class="title">As presaged in January 1996</h1>
+<p class="author">Fogus</p>
+<p class="date">2026.01.09</p>
+</header>
+<p>2026 marks the 30th year since I got my first paying job in
+computing. I was still in college at the time, and so without much
+money, and decided to put some feelers out to a few department heads at
+my college to see if any professors wanted help with getting their
+course materials up onto something called the “World Wide Web.”
+Amazingly, there was one physics professor who reached out expressing
+interest and after meeting he agreed to pay me minimum wage<a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> to help him design and create a
+web-page for his courses.<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a> In a fit of nostalgia, I’ve decided
+to look back at the computing industry from that time period to see what
+it was like, and how it’s changed since. I may make this a regular
+feature, so I’ll likely touch on a lot of the nuance that I skip below.
+That said, I’ll just read and see what pops into my head.</p>
+<h2 id="byte-magazine-january-1996">Byte Magazine, January 1996</h2>
+<p>The <a
+href="https://archive.org/details/1982-10-byte-magazine-october-1-byte-magazine-21533/199601_Byte_Magazine_Vol_21-01_Worlds_Fastest_Computers/page/4/mode/2up">January
+1996 issue of Byte</a> interestingly enough has a surprising amount of
+information on Linux, although I shouldn’t be too surprised since my
+school had a dedicated Linux lab that I used exclusively since it was
+usually empty. That said, most of the framing around Linux in this issue
+centers on its UNIX nature.<a href="#fn3" class="footnote-ref"
+id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<p>One of the more interesting articles to look back on in this issue is
+titled “How the Web Will Change Computing” and is written by Steven
+Vaughan-Nicols and Rachel Schmutter. The article focuses a lot of
+attention on Netscape Navigator 2.0 and its latest feature to support
+the “dynamic interpreted” Java programming language. The thinking at the
+time was that the browser was the new operating system, and so Netscape
+was positioned as a platform to host an entire corporate software suite.
+Indeed, the professional version of the browser sold for $79 USD<a
+href="#fn4" class="footnote-ref" id="fnref4"
+role="doc-noteref"><sup>4</sup></a> and provided WYSIWYG HTML authoring
+tools and a word-processor. As a budding software developer in 1996 I
+can recall that the “suite” model was ‘the future’ of software
+(Netscape, Lotus Notes, Delrina, etc.) and that model influenced my own
+thinking for a large chunk of my career. Interestingly, while Java is
+mentioned as a powerful extension to Netscape 2.0.<a href="#fn5"
+class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> The
+Netscape article was prescient on a number of points, and missed the
+mark on others.</p>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 8%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr>
+<th>Point</th>
+<th>Verdict</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Browsers as OS</td>
+<td>practically correct</td>
+<td>While “OS” was too much, there are many businesses that do 100% of
+their work in browser tabs or in apps written with <a
+href="https://www.electronjs.org/">Electron</a>. Modern OSes are kernels
+for the web.</td>
+</tr>
+<tr>
+<td>Java in the browser</td>
+<td>big swing and miss</td>
+<td>It looked that way for a while, but Java never lived up to the hype
+in the browser.</td>
+</tr>
+<tr>
+<td>Suites model of software</td>
+<td>mixed</td>
+<td>Suites exist, but most of our software has moved to modular
+ecosystems communicating over web APIs.</td>
+</tr>
+<tr>
+<td>Thin clients</td>
+<td>mostly correct</td>
+<td>My favorite professor at the time was a huge proponent of thin
+clients, and the ubiquity of the cloud and edge computing proved him
+(mostly) right.</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="https://www.datomic.com/">Datomic</a> peer model is an
+interesting contravention to the ubiquity of thin clients. The January
+1996 world viewed network bandwidth as the bottleneck and so it made
+sense (in hindsight) to predict that software should move to the server.
+However, Datomic is built with the assumption that network latency is
+the bottleneck instead and so (simplifying here) pulls a bunch of data
+to build local indexes, which allowing queries to run without the need
+for network hops. That said, even Datomic offers a client for
+applications that would benefit from it.</p>
+<p>I want to talk a little bit more about the suites-view that infected
+the 1996 computing landscape and how it was congruous to a push for
+thin-clients. You see, at the time, pushing for software to adhere to a
+suites model led to a crisis of “bloatware” that brought even beefy
+desktop systems to a crawl.<a href="#fn6" class="footnote-ref"
+id="fnref6" role="doc-noteref"><sup>6</sup></a> It was untenable to
+force customers to upgrade to top-end systems and companies were loath
+to cut features or offer lite versions of their software in fear of
+undercutting their own products. A promising solution seemed to be thin
+clients, since you could beef up the server systems to run bloatware,
+and the desktop only needed to draw pixels and chat over the network.
+This could work for some applications and in specialized networks, but
+thin clients were not a blanket solution because bandwidth was still a
+bottleneck in general in 1996, thin clients were also prone to crawling.
+So while my professor (and the industry) were right that think-clients
+were the future, they hit a wall in those early days because
+applications had to do a bunch of tricks to avoid chatty connections,
+which sacrificed interactivity. It was a mess. It wasn’t until the
+bottleneck switched from the size of the pipe to the speed of light (so
+to speak) that thin clients found widespread utility… it only too 20
+years or so for infrastructure to get there.</p>
+<p>This issue of Byte also had a cover story on “The World’s Fastest
+Computers” that had information about supercomputers, MFLOPS, parallel
+processing, and all of that garbage.<a href="#fn7" class="footnote-ref"
+id="fnref7" role="doc-noteref"><sup>7</sup></a> These kinds of articles
+were crack to a younger me,<a href="#fn8" class="footnote-ref"
+id="fnref8" role="doc-noteref"><sup>8</sup></a> but almost all of the
+actual gains in computing power since 1996 have been horizontal rather
+than vertical. Ironically, the article hypes up the future of
+super-powered general purpose computers, but doesn’t even realize that
+it’s looking at the tail-end of that paradigm.</p>
+<p>So it goes.</p>
+<p>:F</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>At the time minimum wage was $4.25 an hour, which for
+someone taking in negative thousands of dallars a year seemed like a
+bonanza.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>My development environment (my IDEEEEK so to speak) at
+the time was essentially a text editor and a prayer. There were no
+frameworks and no best practices and every bit of knowledge that I had
+was spelunked from “view source.”<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>At the time, the larger computing industry considered
+Linux (if they considered it at all) as a kind-of diet-UNIX, rather than
+as the monster that would eventually “diet” on the computing industry.<a
+href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>These days, the idea of paying $79 for a browser is
+inconceivable.<a href="#fnref4" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>JavaScript is not mentioned at all! I’m certain that it
+would have been supported in 2.0, but mentioning it didn’t even rise to
+the level of afterthought at that time.<a href="#fnref5"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Every software box had a “System Requirements” box that,
+more often than not, were outright lies.<a href="#fnref6"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>This wasn’t unique to Byte, so i don’t want to appear to
+pick on them. The whole job of reporting on computing, now and then, is
+to breathlessly report on what appears to be the pinnacle of computing’s
+trajectory, which is perpetually happening right now.<a href="#fnref7"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>1996 me would have never imagined that I would own a
+supercomputer, and even carry it around in my pocket.<a href="#fnref8"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2025 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>
