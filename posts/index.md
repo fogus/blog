@@ -5,7 +5,7 @@ author: "Fogus"
 
 λ λ λ
 
-* [As Presaged in January 1996](/as-presaged/jan96.html)
+* [As Presaged in January 1996](/as-presaged/jan1996.html)
 * [The best things and stuff of 2025](/2025/12/23/the-best-things-and-stuff-of-2025/)
 * [Checkers Arcade](/games/checkers-arcade/)
 * [The Bird-Poker Deck](/games/bird-poker/)
