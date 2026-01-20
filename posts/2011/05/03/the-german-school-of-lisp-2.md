@@ -1,3 +1,9 @@
+---
+title: "The German school of Lisp"
+author: "Fogus"
+date: "2011.05.03"
+---
+
 The German school of Lisp is described by [Kazimir Majorinc](http://kazimirmajorinc.blogspot.com/2011/04/one-picolisp-snippet.html) as a Spartan movement[^mini] in Lisp implementation.  But let me be clear, the Lisps in question are not toys like the one's littering the Lisp landscape (including [my own](http://github.com/fogus/lithp)). Likewise, these Lisps are not libraries nor are they full-blown development ecosystems.  
 
 Let's explore these distinctions for just a moment to clarify my meaning.
@@ -64,4 +70,26 @@ Pico Lisp is, in my opinion, the most interesting entry in a family of *really r
 
 #### [Wasp Lisp](http://sites.google.com/site/waspvm/)
 
-Wasp Lisp is a small Scheme inspired by Erlang with lightweight cooperative threads, communication via channels, and an implementation of [MOSREF
+Wasp Lisp is a small Scheme inspired by Erlang with lightweight cooperative threads, communication via channels, and an implementation of [MOSREF](http://bc.tech.coop/blog/061119.html).  This latter feature is fairly interesting in that it allows one to create a network of "drone" Wasp VMs that can receive secure snippets of code from a remote console for execution.
+
+## What is Fluchtpunkt?
+
+Fluchtpunkt Lisps are...
+
+1. **Focused**: Uncompromising in their vision
+2. **Spartan**: Devoid of the seemingly unnecessary comforts found in many modern languages
+3. **Controversial**: Not always by design, but often because of their design
+4. **Fun**
+
+:F
+
+
+[^overt]: However, toy and Ur-Lisps are practical insomuch as the act of implementing them is good programming practice.
+
+[^fexprs]: Regardless of the chances of bringing a libel suit on myself, I will say that fexprs are effectively runtime macros. 
+
+[^mul]: Well, you could also use `(mul 4 (atan 1))` if you didn't care about precision. :p
+
+[^mini]: I intentionally avoid the word "minimal" in this post.  Spartan is Mr. Majorinc's word, and I think it is more appropriate.
+
+[^patt]: I miss pattern matching.  `clojure.core.match`, wherefore art thou?
