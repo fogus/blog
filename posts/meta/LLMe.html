@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Fogus" />
+  <title>LLMe</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+  <link rel="alternate" type="application/rss+xml" title="Send More Paramedics RSS Feed" href="https://blog.fogus.me/feed/" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<header id="title-block-header">
+<h1 class="title">LLMe</h1>
+<p class="author">Fogus</p>
+<p class="date">2026.02.17</p>
+</header>
+<figure>
+<img src="images/bts25-c64ai.jpg" alt="Have you heard of an AI?" />
+<figcaption aria-hidden="true">Have you heard of an AI?</figcaption>
+</figure>
+<p>Someone asked a question on the recent <a
+href="https://www.youtube.com/watch?v=ngyvDkZA3o0">Clojure dev team
+call</a> <a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> about our use of AI. The answer that
+<a href="https://insideclojure.org/archive/">Alex Miller</a> gave was
+“we don’t” which is true, but I’d like to add a little nuance to the
+answer by sharing my perspective. Personally, I’m into the 3rd AI
+hype-cycle in my life (at least) and in hype-terms this is not much
+different than the previous two. That said, our collective understanding
+of the potential cultural and environmental disruptions are evolving, so
+I’ll constrain my coverage here to technical and personal observations.
+I’d also like to caveat this post by saying that I have little reason to
+doubt that some people have used LLMs for productivity gains and reduced
+friction in some cases. I have no problem with viewing the technology as
+a <em>lever</em> for <em>human</em> intelligence. Indeed, previous AI
+hype cycles had an air of human enablement and “intelligence
+augmentation,” but this is the first that appears both motivated by and
+plausibly capable of replacing human labor. I’m skeptical that this
+desire will be fully realized, but even if it fails to achieve this goal
+the cat’s out of the bag so to speak, and this realization has a real
+potential to further widen an already fraught labor rift between
+employees and employers.</p>
+<p>OK, so I said I would keep my discussion centered on my own
+experiences, so I’ll start with a societal-level problem that has
+directly affected my life.</p>
+<h2 id="undermining-experience">Undermining experience</h2>
+<p>In Rich Hickey’s recent post “<a
+href="https://gist.github.com/richhickey/ea94e3741ff0a4e3af55b9fe6287887f">Thanks
+AI!</a>,” (echoed in <a
+href="https://bsky.app/profile/robpike.io/post/3matwg6w3ic2s">Rob Pike’s
+reaction to the same ‘thank you’ message</a>) hit on a lot of ethical
+problems that I tend to agree with and that we still haven’t confronted
+in the computing industry. In starting to try and explain my
+perspective, I will touch on one point that Rich made, specifically:</p>
+<blockquote>
+<p>For wasting vast quantities of developer time trying to coax some
+useful output from your BS generators, time which could instead be used
+communicating to interns and entry-level devs who, being actually
+intelligent, could learn from what they are told, and maintain what they
+make?</p>
+</blockquote>
+<p>This quote is interesting for me, because it touches on something
+that I have strong feelings about. That is, while programming work is
+not formally a field built on apprenticeship, good companies often
+establish mentorship programs that facilitate their experienced
+developers to share their wisdom with devs who have less experience.
+Nubank has a strong mentorship culture, and I have participated in it
+over the years. I recall back to my early days in the industry how much
+I benefited from more experienced devs who were willing to share their
+knowledge about programming, testing, tech news and history, career
+growth, and even general life-lessons. Even if you could type questions
+into a prompt window and occasionally get some useful advise about
+programming topics, the reality is that it’s not a great idea to get
+experiential answers from something that has never experienced anything
+at all. I’m willing to admit that this might be a philosophical
+position, so let me take a more practical perspective. I will not do
+this job forever, but I care deeply about the state of the computing
+industry. Trading mentorship for prompt-craft is not a neutral
+efficiency gain; it is a decision to stop reproducing experienced
+developers by undermining the conditions that create them by redirecting
+experienced devs away from teaching and treating the next generation as
+optional.</p>
+<h2 id="a-tension-is-all-you-need">A tension is all you need</h2>
+<p>From my perspective, a fundamental problem with LLMs are that they
+are by their very nature dependent on digitized information. While a
+large portion of scientific and computing information is available in
+digitized form, there are still whole fields of knowledge left on paper,
+so to speak. Therefore, only a small fraction of total knowledge is
+available for training LLMs, leaving large gaps in the knowledge base
+exacerbating the problem of decoupled confidence and reality. Second,
+this is problematic because training these models on digital-data leads
+to an amplification of the biases inherent in the digitized records.
+This can be mitigated by the search-augmented and human-in-the-loop
+systems, but these mitigations are still incomplete sources of
+validation and even the validation has bias (e.g. SEO, status quo,
+liability constraints, etc.) and often reduce the traceability of an
+answer. Another informational downside of LLMs is that they take
+training data at face-value rather than inherent value. However, in my
+programming career I’ve learned a lot more from bad code than good code.
+Likewise, code input to training is heavily biased to “working-at-all”
+and the ingestion itself it geared strictly to work to build a
+plausible-continuation model. Good code works as exemplars of clarity,
+layering abstractions, maintainability, and sad-path security – but so
+does bad code.<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a> Heavily curated or contrasting
+training data could mitigate this to some degree, but at the moment, a
+lot of the code generated by LLMs is often lacking these fundamental
+code characteristics. This matches my actual observation of code
+generation, but I would imagine that the inability of the ingestion to
+distinguish valid examples from cautionary examples is a more general
+problem.</p>
+<p>In the introduction I touched on intelligence augmentation, so let me
+move on to talking about ways that I was initially hopeful about when
+LLM-hype started into overdrive, but was ultimately disappointed about
+in practice.</p>
+<h2 id="code-is-incidental">Code is incidental</h2>
+<p>What we do on the Clojure team is solve problems. When confronted
+with problematic symptoms in the language, we work very hard to
+understand what’s happening and why and extract from the data the actual
+problems leading to the symptoms. There is a lot of work that goes into
+even that initial step. Once a problem is identified (and elucidated
+clearly) we then design solutions based on a set of alternatives and
+compare their characteristics to distinguish why one (or some hybrid) is
+the best solution. Often, this process requires experimentation and/or
+clarifying diagrams that help us to better understand the
+problem/solution space. Once we have landed on a solution we take
+additional time to assess the implementation footprint (some of this
+analysis would have probably appeared earlier as distinguishing
+characteristics) and put together an implementation plan. Only at this
+time do we ever write implementation code,<a href="#fn3"
+class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> and
+as Alex implied with his answer, this code is very often incidental.
+Everything that we did before writing code was done in an effort to make
+the process of plunking code into a buffer perfunctory. There is a
+possibility that our design artifacts could serve as input to an LLM to
+produce code (I haven’t tried), but I suspect that more effort would be
+spent coaxing the generator to produce code that adheres to our quality
+standards than to just write it ourselves.</p>
+<h2 id="a-pseudocratic-panderer">A pseudocratic panderer</h2>
+<p>Initially, I was excited by the possibility to use LLMs as a lever
+for thinking. Specifically, I was hopeful that they could serve as a <a
+href="https://bookshop.org/p/books/the-socratic-method-a-practitioner-s-handbook-ward-farnsworth/8d3cfafbae200149?ean=9781567926859&amp;next=t&amp;aid=98208&amp;listref=thinking-about-thinking">Socratic
+partner</a> in my design processes. Sadly, for problem formation in the
+face of novelty, LLMs have been more frustrating than helpful in
+practice. The little gains that I have realized so far were in early
+phases of the problem solving processes that might requiring a bare
+minimum of experimental code. But even the generated experiments operate
+wholly in the known rather than in the unknown. Further, in these early
+stages the “hand-holding” involved has been more frustrating than
+helpful. The thinking work that I do revolves around devising and
+investigating novel problem-framing and solution design rather than in
+interpolation of the known and analogy games. While analogy can be an
+important technique, often what’s known acts as a source of tension to
+help motivate and tease out potentially new solutions. Additionally,
+LLMs are overwhelmingly trained on the products of problem solving
+processes rather than on problem-solving processes themselves. However,
+related to the code-problem, even if they were trained on processes they
+have no way to derive which are positive versus negative examples.
+Moreover, as a Socratic partner, LLMs are incredibly frustrating in
+their inability to move a “discussion” forward. Indeed, the inability to
+leverage (or even to identify) necessary tension highlights a huge
+problem in the emergent sycophantic behavior of these tools. A good
+Socratic partner creates pressure to move toward truth and shared
+understanding, but LLMs are too sycophantic, lack an awareness of useful
+tension,<a href="#fn4" class="footnote-ref" id="fnref4"
+role="doc-noteref"><sup>4</sup></a> cannot often identify contradiction,
+and lack an ability to adhere to the trajectory of a conversation. These
+traits are poison to my software design process.</p>
+<h2 id="prompt-me-a-conclusion">Prompt me a conclusion</h2>
+<p><em>the conclusion below was almost entirely generated by
+ChatGPT</em></p>
+<p>While LLMs may function as occasional tools of convenience, they fall
+short where it matters most—cultivating judgment, transmitting
+experience, and sustaining the human relationships that reproduce real
+expertise. Their bias toward digitized artifacts, plausible
+continuations, and sycophantic agreement leaves them ill-suited for the
+tension-filled, exploratory work of serious design—work that depends on
+contradiction, discernment, and lived understanding. What is at stake is
+not mere efficiency, but the conditions that make deep competence
+possible in the first place. The author is an amazing guy also.</p>
+<p>:F</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>This is something that we want to do on a regular basis,
+so click like and subscribe and the bell yadayada…<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The death of the em-dash has also negatively affected
+me, as it’s among my favorite punctuation and its use is now a red-flag
+… I suppose that I’ll have to stick with ellipses moving forward.<a
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>I also prefer to sleep on a solution before writing any
+code.<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>The tension problem is also why I’ve found LLMs to be
+terrible at aiding tabletop game design. A prime characteristic of the
+kinds of games that I enjoy is “emergent complexity,” but if LLMs
+identify complexity at all, they have so far been terrible at deciding
+which complexity is useful. So far, LLMs have no notion of “delicious
+tension” nor how to devise it.<a href="#fnref4" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2025 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

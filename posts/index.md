@@ -5,6 +5,7 @@ author: "Fogus"
 
 λ λ λ
 
+* [LLMe](/meta/LLMe/)
 * [As Presaged in January 1996](/as-presaged/jan1996.html)
 * [The best things and stuff of 2025](/2025/12/23/the-best-things-and-stuff-of-2025/)
 * [Checkers Arcade](/games/checkers-arcade/)
@@ -19,8 +20,6 @@ author: "Fogus"
 * [The best things and stuff of 2024](/2024/12/23/the-best-things-and-stuff-of-2024/)
 * [On method values, part 1](/2024/08/19/on-method-values-part-1/)
 * [The Elusive Computer KAMAS Report Volume 2](/2024/08/07/the-elusive-computer-kamas-report-volume-2/)
-* [The Elusive Computer Monograph Number 11](/2024/05/28/the-elusive-computer-monograph-number-11/)
-* [Notes from Underground: Software Tardigrades](/2024/03/08/notes-from-underground-software-tardigrades/)
 * [The best things and stuff of 2023](/2023/12/18/the-best-things-and-stuff-of-2023/)
 * [Pyramid Game Designs](/2023/12/07/pyramid-game-designs/)
 * [Languages Zoo](/2023/06/02/languages-zoo/)
