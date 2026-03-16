@@ -18,6 +18,17 @@ xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
   <sy:updateFrequency>12</sy:updateFrequency>
   <generator>me.fogus/feed.clj</generator>
   <item>
+    <title>As Presaged in March 1993</title>
+    <link>https://blog.fogus.me/as-presaged/mar1993.html</link>
+    
+    <dc:creator><![CDATA[fogus]]></dc:creator>
+    <pubDate>Fri, 16 March 2026 13:27:49 +0000</pubDate>
+    <category><![CDATA[computing]]></category>
+    <category><![CDATA[as-presaged]]></category>
+    <guid isPermaLink="false">https://blog.fogus.me/as-presaged/mar1993.html</guid>
+    <description><![CDATA[Whereby I read the March 1993 issue of Byte and talk about it...]]></description>
+  </item>
+  <item>
     <title>LLMe</title>
     <link>https://blog.fogus.me/meta/LLMe/</link>
     
@@ -140,17 +151,6 @@ xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
     <category><![CDATA[meta]]></category>
     <guid isPermaLink="false">https://blog.fogus.me/meta/i-blog-in-text-and-html.html</guid>
     <description><![CDATA[The blog you're reading was rendered at some point in the past as HTML (maybe) but it was written in text with a dash of Markdown flavor (maybe).]]></description>
-  </item>
-
-  <item>
-    <title>'Black Sabbath' Turns 55</title>
-    <link>https://blog.fogus.me/music/bs55/</link>
-    <dc:creator><![CDATA[fogus]]></dc:creator>
-    <pubDate>Thu, 13 Feb 2025 16:49:58 +0000</pubDate>
-    <category><![CDATA[me]]></category>
-    <category><![CDATA[music]]></category>
-    <guid isPermaLink="false">https://blog.fogus.me/music/bs55.html</guid>
-    <description><![CDATA[The very first album that I can recall listening to, Black Sabbath’s self-titled debut that defined a genre, was released 55 years ago on February 13, 1970.]]></description>
   </item>
 </channel>
 </rss>
