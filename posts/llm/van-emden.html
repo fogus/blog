@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Fogus" />
+  <title>Mind the van Emden Gap</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
+  <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+  <link rel="alternate" type="application/rss+xml" title="Send More Paramedics RSS Feed" href="https://blog.fogus.me/feed/" />
+</head>
+<body>
+<div id="header">
+  [<a href="https://www.fogus.me/">fogus.me</a>
+  /<a href="https://blog.fogus.me/">send more paramedics</a>
+  /<a href="https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://www.github.com/fogus/">src</a>]
+</div>
+<header id="title-block-header">
+<h1 class="title">Mind the van Emden Gap</h1>
+<p class="author">Fogus</p>
+<p class="date">2026.04.21</p>
+</header>
+<p>I recently read an interesting paper written in 1982 by M.H. van
+Emden titled “Mental Ergonomics as Basis for New-Generation Computer
+Systems.” In the paper, van Emden described a “conversational partner”
+as a way to deal with the problem of software complexity at the time. He
+was also looking for a “congenial tool” for thought-workers that he
+called “Computer-Aided Thought” (CAT). He viewed his ideal
+conversational partner as a projection of his own reasoning that could
+react, critique, and extend his ideas as an interlocutor. He also saw
+the ideal CAT interlocutor as one that provided a source of productive
+friction by pushing back on his ideas to help stimulate more careful
+thinking. He didn’t expect that this conversational partner to have any
+true knowledge, but instead valued the reflexive nature of the tool in
+response to the valuable act of deliberately structuring his thoughts in
+such a way as to stimulate the tool. The process of structuring his
+thoughts in such a way to provoke the tool took a systematic form where
+each idea was broken into smaller sub-thoughts (so to speak), each
+precisely stated and each following from the last. Once he fed this into
+the CAT system, he hoped to observe how the system responded (or not) to
+his “argument” (for lack of a better term). When the system pushed-back
+he could revise the structure and contents of his argument to drive
+towards deeper understanding. He thought that these arguments should be
+written in a formal representation that enforced explicitness and
+logical support.<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> He preferred a kind of logical
+language over English<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a> because it was more formal and
+necessarily constrained in ways that English isn’t. He saw the fluidity
+and ambiguity of English as a circumvention of the very process of
+formalizing one’s thoughts, something that van Emden viewed as critical
+to intellectual growth, and thus the necessary driving force behind how
+CAT systems should have been built.</p>
+<p>But here we are in 2026, and a conversational language interface to
+so-called intelligent systems is the primary mode of interaction. While
+van Emden’s critiques of English interfaces were somewhat speculative<a
+href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a>, we can now look at how people
+actually interact with modern LLM systems today. First, the inherent
+ambiguity in English is preserved and propagated during LLM interactions
+and response paths are silently chosen based on opaque interpretations
+by the systems unless explicitly prompted to do otherwise. An
+unprepared<a href="#fn4" class="footnote-ref" id="fnref4"
+role="doc-noteref"><sup>4</sup></a> LLM is happy to generate plausible
+responses given any amount of ambiguity and rarely do they push back
+from clarification on their own. Second, hidden assumptions stay hidden,
+and the model just fills them in based on the opaque interactions of
+training weights in the system. In van Emden’s logic-based encoding,
+hidden premises are error conditions, requiring the user to tease them
+out and encode them explicitly. Third, even well-written prose can be
+problematic since it leads us to think that we’ve already thought.
+There’s a difference between rhetorical and logical and while the former
+can be complete, the latter can be shallow. As a result, we can easily
+trick ourselves into buying into an LLMs responses if they appear to
+cohere with our input. Fourth, LLMs still cannot show us its reasoning
+in a way that we can reliably verify. This might improve, but it’s
+unclear if market forces will drive the technology toward this goal.
+Fifth, LLMs do not naturally give useful error feedback<a href="#fn5"
+class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> and
+instead present all responses as equally plausible and with absolute
+confidence. It takes a lot of effort to coax an LLM into satisfying
+constraints rather than just producing likely continuations. This is
+antithetical to the “friction” that van Emden saw as necessary in CAT
+systems. Sixth, as context erodes, LLMs provide a shockingly fraught
+capability for “querying” the state of a discussion. The ideal for van
+Emden was that the argument at any moment should be queriable. And
+finally, how my words get turned into whatever the model actually does
+is completely hidden and only derivable with considerable effort (if at
+all) after the response has already been generated.</p>
+<p>If you read <a href="https://blog.fogus.me/meta/LLMe.html">my
+previous post on LLMs</a> then you could guess that I’m much more in the
+van Emden camp regarding the kind of system that I wish to use for my
+own intellectual pursuits. However, the most fruitful discussions that
+I’ve ever had have been with other humans, using ambiguous language to
+great effect. So perhaps there is something to be said for a familiar
+conversational interface. Perhaps, but I fear that we’re not quite there
+with the current wave of LLM technologies. Rather than actually helping
+us to think better, today’s systems actively work to terminate deep
+thought and provide a kind of “mirror trap” for their users. I’ll talk
+about that trap another day, but for now I’ll say that it doesn’t have
+to be this way. Sadly, there currently appears to be no motivation by
+the LLM companies to move toward intelligence augmentation (IA) rather
+than intelligence replacement. That said, perhaps we can find a way to
+use these tools for intellectual betterment. It’s something that I’ve
+been thinking a lot about, but they won’t do it on their own. Instead,
+to echo van Emden, we need more systematic ways of interacting with
+these beasts to elevate, rather then echo, our thinking.</p>
+<p>:F</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>van Emden has a fascinating discussion in the paper
+about programming language design, but I’ll defer discussion about that
+for later.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>I’m using “English” as a stand-in for any human
+language.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Bolstered by the findings of Terry Winograd, which was
+no small thing at the time.<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>I’m using “prepared” in the same sense as a “prepared
+piano.”<a href="#fnref4" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>I’m not talking about code contexts that can benefit
+from feedback from tooling, schemas, etc.<a href="#fnref5"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<div id="footer">
+  <a href="https://blog.fogus.me/">send more paramedics</a> 
+  &copy; 2002-2025 <a href="https://www.fogus.me/">Fogus</a>
+</div>
+</body>
+</html>

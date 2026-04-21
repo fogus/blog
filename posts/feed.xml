@@ -18,6 +18,19 @@ xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
   <sy:updateFrequency>12</sy:updateFrequency>
   <generator>me.fogus/feed.clj</generator>
   <item>
+    <title>Mind the van Emden Gap</title>
+    <link>https://blog.fogus.me/llm/van-emden.html</link>
+    
+    <dc:creator><![CDATA[fogus]]></dc:creator>
+    <pubDate>Tue, 21 April 2026 10:07:49 +0000</pubDate>
+    <category><![CDATA[computing]]></category>
+    <category><![CDATA[llm]]></category>
+    <category><![CDATA[ai]]></category>
+    <category><![CDATA[ia]]></category>
+    <guid isPermaLink="false">https://blog.fogus.me/llm/van-emden.html</guid>
+    <description><![CDATA[Whereby I read a paper about Intelligence Augmentation written in 1982 and talk about how it relates to today...]]></description>
+  </item>
+  <item>
     <title>As Presaged in March 1993</title>
     <link>https://blog.fogus.me/as-presaged/mar1993.html</link>
     
@@ -140,17 +153,6 @@ xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
     <category><![CDATA[non-fiction]]></category>
     <guid isPermaLink="false">https://blog.fogus.me/2025/03/26/corvine-research-pt1.html</guid>
     <description><![CDATA[As an attempt to branch out with my writing, I've taken to working on various fiction and non-fiction pieces...]]></description>
-  </item>
-  
-  <item>
-    <title>I Blog in Text, You Read in Text || HTML</title>
-    <link>https://blog.fogus.me/meta/i-blog-in-text-and-html/</link>
-    <dc:creator><![CDATA[fogus]]></dc:creator>
-    <pubDate>Fri, 14 Feb 2025 08:25:09 +0000</pubDate>
-    <category><![CDATA[me]]></category>
-    <category><![CDATA[meta]]></category>
-    <guid isPermaLink="false">https://blog.fogus.me/meta/i-blog-in-text-and-html.html</guid>
-    <description><![CDATA[The blog you're reading was rendered at some point in the past as HTML (maybe) but it was written in text with a dash of Markdown flavor (maybe).]]></description>
   </item>
 </channel>
 </rss>
