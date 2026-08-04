@@ -18,6 +18,18 @@ xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
   <sy:updateFrequency>12</sy:updateFrequency>
   <generator>me.fogus/feed.clj</generator>
   <item>
+    <title>Born Against, or why hobby programming communities are aggressively against LLM usage</title>
+    <link>https://blog.fogus.me/llm/born-against.html</link>
+    <dc:creator><![CDATA[fogus]]></dc:creator>
+    <pubDate>Tue, 4 August 2026 09:07:49 +0000</pubDate>
+    <category><![CDATA[computing]]></category>
+    <category><![CDATA[llm]]></category>
+    <category><![CDATA[ai]]></category>
+    <category><![CDATA[ia]]></category>
+    <guid isPermaLink="false">https://blog.fogus.me/llm/born-against.html</guid>
+    <description><![CDATA[Whereby I discuss why we're seeing an increasingly aggressive rejection of LLMS by niche hobby communities...]]></description>
+  </item>
+  <item>
     <title>Mind the van Emden Gap</title>
     <link>https://blog.fogus.me/llm/van-emden.html</link>
     
@@ -143,16 +155,6 @@ xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
     <category><![CDATA[clojure]]></category>
     <guid isPermaLink="false">https://blog.fogus.me/2025/04/23/apropos-me.html</guid>
     <description><![CDATA[I was fortunate to appear on the April 22, 2025 episode of the Apropos podcast...]]></description>
-  </item>
-  <item>
-    <title>A Guest Post at Wormwoodania</title>
-    <link>https://blog.fogus.me/2025/03/26/corvine-research-pt1/</link>
-    <dc:creator><![CDATA[fogus]]></dc:creator>
-    <pubDate>Wed, 26 Mar 2025 07:51:09 +0000</pubDate>
-    <category><![CDATA[me]]></category>
-    <category><![CDATA[non-fiction]]></category>
-    <guid isPermaLink="false">https://blog.fogus.me/2025/03/26/corvine-research-pt1.html</guid>
-    <description><![CDATA[As an attempt to branch out with my writing, I've taken to working on various fiction and non-fiction pieces...]]></description>
   </item>
 </channel>
 </rss>

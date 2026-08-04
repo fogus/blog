@@ -5,6 +5,7 @@ author: "Fogus"
 
 λ λ λ
 
+* [Born Against, or why hobby programming communities are aggressively against LLM usage](/llm/born-against/)
 * [Mind the van Emden Gap](/llm/van-emden/)
 * [As Presaged in March 1993](/as-presaged/mar1993.html)
 * [LLMe](/meta/LLMe/)
@@ -20,7 +21,6 @@ author: "Fogus"
 * [I Blog in Text, You Read in Text || HTML](/meta/i-blog-in-text-and-html/)
 * [The best things and stuff of 2024](/2024/12/23/the-best-things-and-stuff-of-2024/)
 * [On method values, part 1](/2024/08/19/on-method-values-part-1/)
-* [The Elusive Computer KAMAS Report Volume 2](/2024/08/07/the-elusive-computer-kamas-report-volume-2/)
 * [The best things and stuff of 2023](/2023/12/18/the-best-things-and-stuff-of-2023/)
 * [Pyramid Game Designs](/2023/12/07/pyramid-game-designs/)
 * [Languages Zoo](/2023/06/02/languages-zoo/)
