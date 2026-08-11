@@ -4,7 +4,8 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>perlis-languages</title>
+  <meta name="author" content="Fogus" />
+  <title>Perlis Languages</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -24,18 +25,24 @@
   </style>
   <link rel="stylesheet" href="https://blog.fogus.me/styles/reset.css" />
   <link rel="stylesheet" href="https://blog.fogus.me/styles/index.css" />
+  <link rel="alternate" type="application/rss+xml" title="Send More Paramedics RSS Feed" href="https://blog.fogus.me/feed/" />
 </head>
 <body>
 <div id="header">
   [<a href="https://www.fogus.me/">fogus.me</a>
   /<a href="https://blog.fogus.me/">send more paramedics</a>
-  /<a href="https://https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
+  /<a href="https://discord.gg/NmdZB6NEyZ">read-eval-print-λove</a>
   /<a href="https://www.github.com/fogus/">src</a>]
 </div>
+<header id="title-block-header">
+<h1 class="title">Perlis Languages</h1>
+<p class="author">Fogus</p>
+<p class="date">2011.08.14</p>
+</header>
 <p><em>this is another entry in a series on <a
 href="http://blog.fogus.me/tag/enrichment">programmer
 enrichment</a></em></p>
-<p><img src="http://blog.fogus.me/wp-content/uploads/2011/08/alan_perlis-243x300.jpg" alt="" title="alan_perlis" width="243" height="300" style="display: block; margin-left: auto; margin-right: auto" /></p>
+<p><img src="images/alan_perlis-243x300.jpg" alt="" title="alan_perlis" width="243" height="300" style="display: block; margin-left: auto; margin-right: auto" /></p>
 <blockquote>
 <p>A language that doesn’t affect the way you think about programming is
 not worth knowing. – Alan Perlis</p>
@@ -44,27 +51,31 @@ not worth knowing. – Alan Perlis</p>
 href="http://lambda-the-ultimate.org/node/3464">LtU thread</a> and the
 great post <a
 href="http://jasonrudolph.com/blog/2011/08/09/programming-achievements-how-to-level-up-as-a-developer/">Programming
-Achievements: How to Level Up as a Developer</a> by Jason
-Rudolph[^my-list]. most code samples from <a
+Achievements: How to Level Up as a Developer</a> by Jason Rudolph<a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a>. most code samples from <a
 href="http://rosettacode.org/wiki/Main_Page">Rosetta Code</a>.</em></p>
 <p>The philosopher Friedrich Nietzsche believed that all interactions
 and interpretations of the external world occurred through the lens of
 individual perspective. Therefore, truth to Nietzsche was subject to
 interpretation. Programmers are especially prone to subjective views on
 their industry best-practices and valuations, often colored by their
-chosen[^chosen] programming languages.[^not-just] However, Nietzsche
-believed that in order to achieve a high-level of thinking, one should
-grant all perspectives equal opportunity and let them stand, or fall, on
-their own merits. You’ve probably experienced this approach yourself in
-college if a professor demanded the classic assignment whereby students
-write an essay taking the side of an argument that they themselves
-denounce. This type of exercise is potentially very powerful in that it
-often works to crystalize one’s own beliefs and occasionally helps to
-shake those beliefs to the core.</p>
+chosen<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a> programming languages.<a href="#fn3"
+class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>
+However, Nietzsche believed that in order to achieve a high-level of
+thinking, one should grant all perspectives equal opportunity and let
+them stand, or fall, on their own merits. You’ve probably experienced
+this approach yourself in college if a professor demanded the classic
+assignment whereby students write an essay taking the side of an
+argument that they themselves denounce. This type of exercise is
+potentially very powerful in that it often works to crystalize one’s own
+beliefs and occasionally helps to shake those beliefs to the core.</p>
 <p>A Perlis Language is a programming language that I believe will shake
 one’s views on software development to the core.</p>
-<p>Below I will enumerate[^npo] some of my Perlis Languages and give an
-all-too-brief overview and just a sip of code for each.</p>
+<p>Below I will enumerate<a href="#fn4" class="footnote-ref" id="fnref4"
+role="doc-noteref"><sup>4</sup></a> some of my Perlis Languages and give
+an all-too-brief overview and just a sip of code for each.</p>
 <h2 id="joy">Joy</h2>
 <p><a
 href="http://www.kevinalbrecht.com/code/joy-mirror/joy.html">Joy</a> is
@@ -121,10 +132,11 @@ href="http://en.wikipedia.org/wiki/Design_by_contract">Design by
 Contract</a>. In a nutshell, DbC (or contracts programming) is an
 approach that allows one to specify the expectations on method results
 based on their required input parameters and also to define class-level
-invariants.[^inv] This may seem fairly simplistic, but it’s in this
-simplicity that forms the basis for an extremely powerful design
-paradigm. In fact, contract support libraries and extensions have been
-created for other languages: <a
+invariants.<a href="#fn5" class="footnote-ref" id="fnref5"
+role="doc-noteref"><sup>5</sup></a> This may seem fairly simplistic, but
+it’s in this simplicity that forms the basis for an extremely powerful
+design paradigm. In fact, contract support libraries and extensions have
+been created for other languages: <a
 href="http://blog.brianguthrie.com/2007/03/20/lets-make-a-deal-handshake-a-contract-system-for-ruby/">Ruby</a>,
 <a href="http://fogus.me/fun/trammel">Clojure</a>, <a
 href="http://en.wikipedia.org/wiki/GNU_Nana">C++</a>, <a
@@ -217,10 +229,256 @@ in this game</a>. Take this entry with a grain of salt. So instead…</p>
 <h2 id="kernel">Kernel</h2>
 <p><a href="http://web.cs.wpi.edu/~jshutt/kernel.html">Kernel</a> is
 also a Lisp, but it differs in that it completely eliminates the line
-separating compile-time and runtime via [fexprs</p>
+separating compile-time and runtime via <a
+href="http://fexpr.blogspot.com/2011/04/fexpr.html">fexprs</a>. In
+short, fexprs are functions that do not evaluate their arguments until
+explicitly called on to do so. Kernel achieves this seemingly impossible
+behavior by treating environments as first class objects that serve as
+the evaluation context. This handling of environments also helps to make
+Kernel evaluation hygienic since the evaluation context of any symbol or
+combination is fully controlled. Needless to say this is voodoo of the
+highest order, but the rules of the language are simple and consistent
+and it’ll blow your mind to see how its underpinnings start at a deeper
+and more abstract position than even <a
+href="http://github.com/fogus/lithp">McCarthy’s original</a>.</p>
+<pre><code>;; The implementation of apply in Kernel
+;; This is typically a Lisp primitive
+
+($define! apply
+   ($lambda (appv args)
+      (eval (cons (unwrap appv) args)
+            (make-environment))))</code></pre>
+<h4 id="more-information-3">More information</h4>
+<p><em>via <a href="http://axisofeval.blogspot.com/">Manuel Simoni</a>
+and <a href="http://patricklogan.blogspot.com/">Patrick
+Logan</a></em></p>
+<ul>
+<li><a
+href="http://kazimirmajorinc.blogspot.com/2010/10/on-pitmans-special-forms-in-lisp.html">Fexprs
+in newLISP</a> by Kazimir Majorinc</li>
+<li><a
+href="http://lambda-the-ultimate.org/node/4093#comment-62065">Thomas
+Lord on Fexprs</a></li>
+<li><a
+href="http://citeseer.ist.psu.edu/viewdoc/summary?doi=10.1.1.50.4332">Expansion-passing
+Style: A General Macro Mechanism</a> by R. Kent Dybvig, Daniel P.
+Friedman, and Christopher T. Haynes</li>
+</ul>
+<p><em>possible substitutes: <a
+href="http://www.newlisp.org/">newLISP</a></em></p>
+<h2 id="mozartoz">Mozart/Oz</h2>
+<p><a href="http://www.mozart-oz.org/">Oz</a> is truly a “my language
+has more paradigms than yours” kind of language.<a href="#fn6"
+class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> Oz
+(like many hyper-multi-paradigm languages) is unfortunately
+<img src="images/vanroy.jpeg" alt="" title="vanroy" width="125" height="156" style="float:right;" />
+relegated to the “educational language” category, but regardless its
+influence pervades a lot of the thinking in distributed and dataflow
+computation (<a href="http://akka.io/">Akka</a> for instance is deeply
+influenced by Oz). As an added bonus, the canonical book on Oz, <em><a
+href="http://www.amazon.com/Concepts-Techniques-Models-Computer-Programming/dp/0262220695/ref=sr_1_1?s=books&amp;ie=UTF8&amp;tag=fogus-20&amp;qid=1313152820&amp;sr=1-1">Concepts,
+Techniques, and Models of Computer Programming</a></em> is in my top ten
+must read list for developers. It’s apt that a mind-bending language
+should couple with a likewise mind-bending book.</p>
+<pre><code>%% Towers of Hanoi in Oz
+
+declare
+  proc {TowersOfHanoi N From To Via}
+     if N &gt; 0 then
+        {TowersOfHanoi N-1 From Via To}
+        {System.showInfo &quot;Move from &quot;#From#&quot; to &quot;#To}
+        {TowersOfHanoi N-1 Via To From}
+     end
+  end
+in
+  {TowersOfHanoi 4 left middle right}</code></pre>
+<h4 id="more-information-4">More information</h4>
+<ul>
+<li><a
+href="http://www.mozart-oz.org/documentation/tutorial/index.html">Oz
+tutorial</a></li>
+</ul>
+<p><em>possible substitutes: <a
+href="http://www.erlang.org/">Erlang</a>, <a
+href="http://cs.union.edu/~striegnk/learn-prolog-now/lpnpage.php?pageid=online">Prolog</a>,
+<a href="http://www.mercury.csse.unimelb.edu.au/index.html">Mercury</a>,
+<a href="http://www.ps.uni-saarland.de/alice/">Alice</a></em></p>
+<h2 id="rca-cosmac-1802-assembly">RCA COSMAC 1802 Assembly</h2>
+<p>RCA’s 8-bit <a
+href="http://en.wikipedia.org/wiki/RCA_1802">Cosmac</a> processor was
+shot into space as a main component<a href="#fn7" class="footnote-ref"
+id="fnref7" role="doc-noteref"><sup>7</sup></a> of the <a
+href="http://en.wikipedia.org/wiki/Galileo_spacecraft">Galileo
+spacecraft</a>, but it’s novelty lies in its bizarro architecture. For
+example, while the processor did not support a <code>CALL</code>
+instruction, it did support subroutines through the fact that any of its
+16 16-bit registers could serve as the program-counter. Likewise the
+1802 did not have a stack, but clever register usage was often the cure
+for this “deficiency”. In addition it had a very simple I/O port that
+hackers used to maximum effect. While not the fastest CPU ever made (nor
+even in its time), the stark simplicity of the processor and its
+assembly code will make for a mind-bending experience. Coupled with a
+visual emulator (see link below), it’s fun to see the consequences of
+each instruction.</p>
+<pre><code>... stack push
+GHI R3
+STXD
+GLO R3
+STXD
+
+... stack pop
+IRX
+LDXA
+PLO R3
+LDX
+PHI R3</code></pre>
+<h4 id="more-information-5">More information</h4>
+<ul>
+<li><a href="http://www.ittybittycomputers.com/IttyBitty/ShortCor.htm">A
+Short Course on (1802) Programming</a></li>
+<li>The <a href="http://www.cosmacelf.com/">COSMAC ELF</a></li>
+<li>A <a href="http://www.tinyelf.com/">Tiny ELF emulator</a></li>
+<li>The <a href="http://www.emma02.hobby-site.com/">Emma COSMAC
+emulator</a></li>
+</ul>
+<p><em>possible substitutes: <a
+href="http://www.amazon.com/Computer-Programming-Volumes-1-4A-Boxed/dp/0321751043/ref=sr_1_1?ie=UTF8&amp;qid=1313197258&amp;sr=8-1&amp;tag=fogus-20">MIX</a>,
+<a
+href="http://www.arl.wustl.edu/~lockwood/class/cs306/books/artofasm/toc.html">The
+Art of Assembly Language Programming</a></em></p>
+<h2 id="frink">Frink</h2>
+<p><a href="http://futureboy.us/frinkdocs/">Frink</a> is a programming
+language that is generally known for its ability to handle and convert
+between a bevy of units of measure consistently throughout calculations.
+For anyone who has created a complex system (or even a simple one for
+that matter) that needed to juggle varying units of measure, the
+complexity of the problem that Frink handles seamlessly is
+staggering.</p>
+<pre><code>// Levenshtein distance is a built-in
+println[editDistance[&quot;kitten&quot;,&quot;sitting&quot;]]
+
+// Convert feet to meters
+38 feet -&gt; meters</code></pre>
+<h4 id="more-information-6">More information</h4>
+<ul>
+<li><a href="http://futureboy.us/frinkdocs/faq.html">Frink FAQ</a></li>
+<li>A <a href="http://futureboy.us/frinkdocs/FrinkApplet.html">Frink
+Applet</a></li>
+<li><a href="http://futureboy.us/frinkdocs/LL4.html">Frink
+presentation</a></li>
+</ul>
+<p><em>possible substitutions: none</em></p>
+<h2 id="apl">APL</h2>
+<p>I will be honest. I have never used APL and as a result find it
+impenetrable. However, my inclusion in this list is entirely predicated
+on the strength of the amazing book <em><a
+href="http://www.amazon.com/Programming-Language-Kenneth-Iverson/dp/0471430145?tag=fogus-20">A
+Programming Language</a></em> by Kenneth Iverson.
+<img src="images/apl.jpeg" alt="" title="vanroy" width="150" height="156" style="float:left;" />
+That is, the best programming language books infuse a strong sense of
+design<a href="#fn8" class="footnote-ref" id="fnref8"
+role="doc-noteref"><sup>8</sup></a> into the narrative. The strength of
+this approach is that not only are you learning a programming language,
+but you’re also learning how to think in that language, and the very
+<em>why</em> of the language itself. Iverson’s book elucidates the
+motivating forces behind the design of APL (the need for a universal
+notation for computation to name a primary) and systematically builds
+the rationale for APL and the realizing language incrementally. This
+book is not for the squeamish, and you will likely not fully understand
+APL by simply reading it (although I may be projecting here), but it’s
+worth the effort.</p>
+<pre><code>⍝ John Conway&#39;s &quot;Game of Life&quot; in APL
+life←{                                  
+    ↑1 ⍵∨.^3 4=+/,¯1 0 1∘.⊖¯1 0 1∘.⌽⊂⍵
+}</code></pre>
+<h4 id="more-information-7">More information</h4>
+<p><em>possible substitutes: <a href="http://www.jsoftware.com/">J</a>,
+<a
+href="http://www.kuro5hin.org/story/2002/11/14/22741/791">K</a></em></p>
+<h2 id="haskell">Haskell</h2>
+<p>Haskell is my mind-bending language of choice at the moment, but if
+you’re not prepared to be humbled you may not find it as agreeable. That
+is, before learning Haskell you will think that you know a lot
+about:</p>
+<ol type="1">
+<li>Static typing</li>
+<li>Laziness</li>
+<li>Purity</li>
+</ol>
+<p>But Haskell will laugh at your knowledge and show you otherwise. It’s
+that simple – and to learn more about these topics when you think you’ve
+learned all there is to know is a slap in the face – but the good kind –
+the kind that wakes you from your dogmatic slumber.</p>
+<pre><code>-- Sierpinski triangle in Haskell
+
+sierpinski 0 = [&quot;*&quot;]
+sierpinski n = map ((space ++) . (++ space)) down ++
+               map (unwords . replicate 2) down
+    where down = sierpinski (n - 1)
+          space = replicate (2 ^ (n - 1)) &#39; &#39;
+
+main = mapM_ putStrLn $ sierpinski 4</code></pre>
+<h4 id="more-information-8">More information</h4>
+<ul>
+<li><a href="http://www.haskell.org/haskellwiki/Haskell">Haskell
+Wiki</a></li>
+<li><a
+href="http://blog.fogus.me/2011/06/03/10-haskell-one-liners-to-impress-your-friends/">10
+Haskell one-liners to Impress Your Friends</a></li>
+<li><a
+href="http://homepages.inf.ed.ac.uk/wadler/topics/type-classes.html">Wadler
+on type classes</a></li>
+</ul>
+<p><em>possible substitutions: <a
+href="http://okmij.org/ftp/ML/index.html">ML</a>, <a
+href="http://caml.inria.fr/ocaml/index.en.html">OCaml</a>, <a
+href="http://wiki.portal.chalmers.se/agda/pmwiki.php">Agda</a>, <a
+href="http://www.scala-lang.org/">Scala</a></em></p>
+<p>I hope that this list<a href="#fn9" class="footnote-ref" id="fnref9"
+role="doc-noteref"><sup>9</sup></a> will motivate you to explore one or
+more (or all) of the languages herein. I think you’ll find the effort
+worthwhile should you approach the task with an open mind.</p>
+<p>What are your Perlis Languages?</p>
+<p>:F</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>My modifications to Jason’s original list can be viewed
+at <a href="https://gist.github.com/1138647"
+class="uri">https://gist.github.com/1138647</a>.<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Or those that chose them in most cases.<a href="#fnref2"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Programming language favoritism is just one of many
+prejudices that infect programmer thinking, but I choose to focus on it
+for the puposes of this post.<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>In no particular order.<a href="#fnref4"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>I realize there is more to DbC than that, but this post
+is already overlong.<a href="#fnref5" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>I sometimes poke good-natured fun at Scala about this,
+but sheesh they don’t even have a builtin logic engine. ;-)<a
+href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Although it seems to have been chosen by default since
+there were very few (if any) radiation-resistant microprocessors at the
+time.<a href="#fnref7" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>I have a draft of a post about books of this type… one
+day I’ll complete it.<a href="#fnref8" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>There are others that I could have (should have?)
+mentioned. Others like: <a href="http://squeak.org/">Squeak</a>, Scheme,
+Common Lisp, Prolog, and even more still… but I felt that others might
+like to talk about these and any others I’ve missed instead.<a
+href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 <div id="footer">
   <a href="https://blog.fogus.me/">send more paramedics</a> 
-  &copy; 2002-2024 <a href="https://www.fogus.me/">Fogus</a>
+  &copy; 2002-2025 <a href="https://www.fogus.me/">Fogus</a>
 </div>
 </body>
 </html>

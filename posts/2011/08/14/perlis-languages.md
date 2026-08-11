@@ -1,6 +1,12 @@
+---
+title: "Perlis Languages"
+author: "Fogus"
+date: "2011.08.14"
+---
+
 *this is another entry in a series on [programmer enrichment](http://blog.fogus.me/tag/enrichment)*
 
-<img src="http://blog.fogus.me/wp-content/uploads/2011/08/alan_perlis-243x300.jpg" alt="" title="alan_perlis" width="243" height="300" style="display: block; margin-left: auto; margin-right: auto" />
+<img src="images/alan_perlis-243x300.jpg" alt="" title="alan_perlis" width="243" height="300" style="display: block; margin-left: auto; margin-right: auto" />
 
 > A language that doesn’t affect the way you think about programming is not worth knowing.
 > -- Alan Perlis
@@ -107,4 +113,155 @@ Clojure is a fantastic language, but [let's just say that I have some skin in th
 
 ## Kernel
 
-[Kernel](http://web.cs.wpi.edu/~jshutt/kernel.html) is also a Lisp, but it differs in that it completely eliminates the line separating compile-time and runtime via [fexprs
+[Kernel](http://web.cs.wpi.edu/~jshutt/kernel.html) is also a Lisp, but it differs in that it completely eliminates the line separating compile-time and runtime via [fexprs](http://fexpr.blogspot.com/2011/04/fexpr.html).  In short, fexprs are functions that do not evaluate their arguments until explicitly called on to do so.  Kernel achieves this seemingly impossible behavior by treating environments as first class objects that serve as the evaluation context.  This handling of environments also helps to make Kernel evaluation hygienic since the evaluation context of any symbol or combination is fully controlled.  Needless to say this is voodoo of the highest order, but the rules of the language are simple and consistent and it'll blow your mind to see how its underpinnings start at a deeper and more abstract position than even [McCarthy's original](http://github.com/fogus/lithp).
+
+    ;; The implementation of apply in Kernel
+    ;; This is typically a Lisp primitive
+    
+    ($define! apply
+       ($lambda (appv args)
+          (eval (cons (unwrap appv) args)
+                (make-environment))))
+
+#### More information
+*via [Manuel Simoni](http://axisofeval.blogspot.com/) and [Patrick Logan](http://patricklogan.blogspot.com/)*
+
+* [Fexprs in newLISP](http://kazimirmajorinc.blogspot.com/2010/10/on-pitmans-special-forms-in-lisp.html) by Kazimir Majorinc
+* [Thomas Lord on Fexprs](http://lambda-the-ultimate.org/node/4093#comment-62065)
+* [Expansion-passing Style: A General Macro Mechanism](http://citeseer.ist.psu.edu/viewdoc/summary?doi=10.1.1.50.4332) by R. Kent Dybvig,  Daniel P. Friedman, and Christopher T. Haynes
+
+*possible substitutes: [newLISP](http://www.newlisp.org/)*
+
+## Mozart/Oz
+
+[Oz](http://www.mozart-oz.org/) is truly a "my language has more paradigms than yours" kind of language.[^scaladigms]  Oz (like many hyper-multi-paradigm languages) is unfortunately <img src="images/vanroy.jpeg" alt="" title="vanroy" width="125" height="156" style="float:right;" /> relegated to the "educational language" category, but regardless its influence pervades a lot of the thinking in distributed and dataflow computation ([Akka](http://akka.io/) for instance is deeply influenced by Oz).  As an added bonus, the canonical book on Oz, *[Concepts, Techniques, and Models of Computer Programming](http://www.amazon.com/Concepts-Techniques-Models-Computer-Programming/dp/0262220695/ref=sr_1_1?s=books&ie=UTF8&tag=fogus-20&qid=1313152820&sr=1-1)* is in my top ten must read list for developers.  It's apt that a mind-bending language should couple with a likewise mind-bending book.
+
+    %% Towers of Hanoi in Oz
+    
+    declare
+      proc {TowersOfHanoi N From To Via}
+         if N > 0 then
+            {TowersOfHanoi N-1 From Via To}
+            {System.showInfo "Move from "#From#" to "#To}
+            {TowersOfHanoi N-1 Via To From}
+         end
+      end
+    in
+      {TowersOfHanoi 4 left middle right}
+
+#### More information
+
+* [Oz tutorial](http://www.mozart-oz.org/documentation/tutorial/index.html)
+
+*possible substitutes: [Erlang](http://www.erlang.org/), [Prolog](http://cs.union.edu/~striegnk/learn-prolog-now/lpnpage.php?pageid=online), [Mercury](http://www.mercury.csse.unimelb.edu.au/index.html), [Alice](http://www.ps.uni-saarland.de/alice/)*
+
+## RCA COSMAC 1802 Assembly
+
+RCA's 8-bit [Cosmac](http://en.wikipedia.org/wiki/RCA_1802) processor was shot into space as a main component[^cosmuck] of the [Galileo spacecraft](http://en.wikipedia.org/wiki/Galileo_spacecraft), but it's novelty lies in its bizarro architecture.  For example, while the processor did not support a `CALL` instruction, it did support subroutines through the fact that any of its 16 16-bit registers could serve as the program-counter.  Likewise the 1802 did not have a stack, but clever register usage was often the cure for this "deficiency".  In addition it had a very simple I/O port that hackers used to maximum effect.  While not the fastest CPU ever made (nor even in its time), the stark simplicity of the processor and its assembly code will make for a mind-bending experience.  Coupled with a visual emulator (see link below), it's fun to see the consequences of each instruction.
+
+    ... stack push
+    GHI R3
+    STXD
+    GLO R3
+    STXD
+    
+    ... stack pop
+    IRX
+    LDXA
+    PLO R3
+    LDX
+    PHI R3
+
+#### More information
+
+* [A Short Course on (1802) Programming](http://www.ittybittycomputers.com/IttyBitty/ShortCor.htm)
+* The [COSMAC ELF](http://www.cosmacelf.com/)
+* A [Tiny ELF emulator](http://www.tinyelf.com/)
+* The [Emma COSMAC emulator](http://www.emma02.hobby-site.com/)
+
+*possible substitutes: [MIX](http://www.amazon.com/Computer-Programming-Volumes-1-4A-Boxed/dp/0321751043/ref=sr_1_1?ie=UTF8&qid=1313197258&sr=8-1&tag=fogus-20), [The Art of Assembly Language Programming](http://www.arl.wustl.edu/~lockwood/class/cs306/books/artofasm/toc.html)*
+
+## Frink
+
+[Frink](http://futureboy.us/frinkdocs/) is a programming language that is generally known for its ability to handle and convert between a bevy of units of measure consistently throughout calculations.  For anyone who has created a complex system (or even a simple one for that matter) that needed to juggle varying units of measure, the complexity of the problem that Frink handles seamlessly is staggering.
+
+    // Levenshtein distance is a built-in
+    println[editDistance["kitten","sitting"]]
+    
+    // Convert feet to meters
+    38 feet -> meters
+
+#### More information
+
+* [Frink FAQ](http://futureboy.us/frinkdocs/faq.html)
+* A [Frink Applet](http://futureboy.us/frinkdocs/FrinkApplet.html)
+* [Frink presentation](http://futureboy.us/frinkdocs/LL4.html)
+
+*possible substitutions: none*
+
+## APL
+
+I will be honest.  I have never used APL and as a result find it impenetrable.  However, my inclusion in this list is entirely predicated on the strength of the amazing book *[A Programming Language](http://www.amazon.com/Programming-Language-Kenneth-Iverson/dp/0471430145?tag=fogus-20)* by Kenneth Iverson.  <img src="images/apl.jpeg" alt="" title="vanroy" width="150" height="156" style="float:left;" />  That is, the best programming language books infuse a strong sense of design[^des-book] into the narrative.  The strength of this approach is that not only are you learning a programming language, but you're also learning how to think in that language, and the very *why* of the language itself.  Iverson's book elucidates the motivating forces behind the design of APL (the need for a universal notation for computation to name a primary) and systematically builds the rationale for APL and the realizing language incrementally.  This book is not for the squeamish, and you will likely not fully understand APL by simply reading it (although I may be projecting here), but it's worth the effort.
+
+    ⍝ John Conway's "Game of Life" in APL
+    life←{                                  
+        ↑1 ⍵∨.^3 4=+/,¯1 0 1∘.⊖¯1 0 1∘.⌽⊂⍵
+    }
+
+[^des-book]: I have a draft of a post about books of this type... one day I'll complete it.
+
+#### More information
+
+*possible substitutes: [J](http://www.jsoftware.com/), [K](http://www.kuro5hin.org/story/2002/11/14/22741/791)*
+
+## Haskell
+
+Haskell is my mind-bending language of choice at the moment, but if you're not prepared to be humbled you may not find it as agreeable.  That is, before learning Haskell you will think that you know a lot about:
+
+1. Static typing
+2. Laziness
+3. Purity
+
+But Haskell will laugh at your knowledge and show you otherwise.  It's that simple -- and to learn more about these topics when you think you've learned all there is to know is a slap in the face -- but the good kind -- the kind that wakes you from your dogmatic slumber.
+
+    -- Sierpinski triangle in Haskell
+    
+    sierpinski 0 = ["*"]
+    sierpinski n = map ((space ++) . (++ space)) down ++
+                   map (unwords . replicate 2) down
+        where down = sierpinski (n - 1)
+              space = replicate (2 ^ (n - 1)) ' '
+    
+    main = mapM_ putStrLn $ sierpinski 4
+
+#### More information
+
+* [Haskell Wiki](http://www.haskell.org/haskellwiki/Haskell)
+* [10 Haskell one-liners to Impress Your Friends](http://blog.fogus.me/2011/06/03/10-haskell-one-liners-to-impress-your-friends/)
+* [Wadler on type classes](http://homepages.inf.ed.ac.uk/wadler/topics/type-classes.html)
+
+
+*possible substitutions: [ML](http://okmij.org/ftp/ML/index.html), [OCaml](http://caml.inria.fr/ocaml/index.en.html), [Agda](http://wiki.portal.chalmers.se/agda/pmwiki.php), [Scala](http://www.scala-lang.org/)*
+
+I hope that this list[^others] will motivate you to explore one or more (or all) of the languages herein.  I think you'll find the effort worthwhile should you approach the task with an open mind.
+
+What are your Perlis Languages?
+
+:F
+
+
+[^my-list]: My modifications to Jason's original list can be viewed at <https://gist.github.com/1138647>.
+
+[^not-just]: Programming language favoritism is just one of many prejudices that infect programmer thinking, but I choose to focus on it for the puposes of this post.
+
+[^npo]: In no particular order.
+
+[^scaladigms]: I sometimes poke good-natured fun at Scala about this, but sheesh they don't even have a builtin logic engine.  ;-)
+
+[^cosmuck]: Although it seems to have been chosen by default since there were very few (if any) radiation-resistant microprocessors at the time.
+
+[^inv]: I realize there is more to DbC than that, but this post is already overlong.
+
+[^chosen]: Or those that chose them in most cases.
+
+[^others]: There are others that I could have (should have?) mentioned.  Others like: [Squeak](http://squeak.org/), Scheme, Common Lisp, Prolog, and even more still... but I felt that others might like to talk about these and any others I've missed instead.
