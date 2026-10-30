@@ -18,6 +18,18 @@ xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
   <sy:updateFrequency>12</sy:updateFrequency>
   <generator>me.fogus/feed.clj</generator>
   <item>
+    <title>Old Ideas</title>
+    <link>https://blog.fogus.me/thoughts/old-ideas.html</link>
+    <dc:creator><![CDATA[fogus]]></dc:creator>
+    <pubDate>Fri, 30 October 2026 11:07:49 +0000</pubDate>
+    <category><![CDATA[computing]]></category>
+    <category><![CDATA[llm]]></category>
+    <category><![CDATA[ai]]></category>
+    <category><![CDATA[systems]]></category>
+    <guid isPermaLink="false">https://blog.fogus.me/thoughts/old-ideas.html</guid>
+    <description><![CDATA[Whereby I discuss the value of old ideas...]]></description>
+  </item>
+  <item>
     <title>Born Against, or why hobby programming communities are aggressively against LLM usage</title>
     <link>https://blog.fogus.me/llm/born-against.html</link>
     <dc:creator><![CDATA[fogus]]></dc:creator>

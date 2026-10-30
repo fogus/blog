@@ -5,6 +5,7 @@ author: "Fogus"
 
 λ λ λ
 
+* [Old Ideas](/thoughts/old-ideas/)
 * [Born Against, or why hobby programming communities are aggressively against LLM usage](/llm/born-against/)
 * [Mind the van Emden Gap](/llm/van-emden/)
 * [As Presaged in March 1993](/as-presaged/mar1993.html)
